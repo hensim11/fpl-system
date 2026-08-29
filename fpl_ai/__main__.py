@@ -1,4 +1,4 @@
-"""Compatibility entry point for running the FPL ingestion CLI."""
+"""Allow ``python -m fpl_ai`` to run the CLI."""
 
 from fpl_ai.cli import main
 
