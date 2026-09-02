@@ -14,11 +14,15 @@ Status: implemented; verification details are recorded in `PROJECT_STATE.md`.
 
 ## Milestone 2 — Reproducible historical data foundation
 
-- Decide the target season range and permitted historical sources.
-- Add season-aware configuration for rules and source metadata.
-- Define explicit schemas and data-quality reports.
-- Add idempotent snapshot/catalog handling and a stable `latest` lookup.
-- Ingest player match history and gameweek-level facts without adding modelling.
+Status: in progress. The 2024/25 vertical slice is implemented and live-verified; expansion to the other agreed seasons remains.
+
+- [x] Set the eventual target range to 2021/22–2025/26 and pin the permitted historical sources.
+- [x] Add a machine-readable 2024/25 source catalogue and season audit expectations.
+- [x] Define explicit nullable schemas, information classes, and a data-quality report.
+- [x] Add immutable raw provenance, idempotent version handling, atomic manifests/catalogue, and a stable latest-successful lookup.
+- [x] Ingest 2024/25 player-fixture outcomes and strict pre-deadline snapshots without modelling.
+- [ ] Expand the proven pipeline and season-specific schema mappings to 2021/22–2023/24 and 2025/26.
+- [ ] Re-run cross-season identity and availability audits over the full supported range.
 
 Exit criterion: a documented, reproducible dataset suitable for exploratory analysis across agreed seasons.
 

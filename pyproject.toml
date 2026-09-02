@@ -18,6 +18,9 @@ fpl-ingest = "fpl_ai.cli:main"
 [tool.setuptools.packages.find]
 include = ["fpl_ai*"]
 
+[tool.setuptools.package-data]
+fpl_ai = ["historical_sources.json"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
