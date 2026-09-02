@@ -9,7 +9,6 @@ from decimal import Decimal, InvalidOperation
 from typing import Any
 
 from fpl_ai.errors import FPLValidationError
-from fpl_ai.historical_schema import VAASTAV_SOURCE_COLUMNS
 
 # FPL introduced Assistant Manager chip elements in 2024/25. They remain
 # identifiable source observations (position AM), while the manager-only stat
@@ -17,21 +16,67 @@ from fpl_ai.historical_schema import VAASTAV_SOURCE_COLUMNS
 POSITIONS = {1: "GK", 2: "DEF", 3: "MID", 4: "FWD", 5: "AM"}
 
 
-def read_source_csv(value: bytes, filename: str) -> list[dict[str, str]]:
+def read_source_csv(
+    value: bytes,
+    filename: str,
+    source_schema: dict[str, object],
+    *,
+    include_schema_audit: bool = False,
+) -> list[dict[str, str]] | tuple[list[dict[str, str]], dict[str, Any]]:
+    """Read one Vaastav CSV against an explicit season-specific contract."""
+
+    schema = source_schema
+    files = schema["files"]
+    if not isinstance(files, dict) or filename not in files:
+        raise FPLValidationError(
+            f"Vaastav source schema {schema['schema_id']!r} has no contract for {filename}"
+        )
+    file_schema = files[filename]
+    if not isinstance(file_schema, dict):
+        raise FPLValidationError(f"invalid Vaastav source contract for {filename}")
     try:
         text = value.decode("utf-8-sig")
     except UnicodeDecodeError as exc:
         raise FPLValidationError(f"{filename} is not valid UTF-8") from exc
     reader = csv.DictReader(io.StringIO(text, newline=""))
     actual = reader.fieldnames or []
-    expected = VAASTAV_SOURCE_COLUMNS[filename]
-    additions = sorted(set(actual) - set(expected))
-    removals = sorted(set(expected) - set(actual))
-    if additions or removals or actual != expected:
+    known = file_schema["known_column_order"]
+    required = file_schema["required_columns"]
+    if not isinstance(known, list) or not isinstance(required, list):
+        raise FPLValidationError(f"invalid Vaastav source contract for {filename}")
+    duplicate_columns = sorted(
+        {column for column in actual if actual.count(column) > 1}
+    )
+    additions = sorted(set(actual) - set(known))
+    missing_required = sorted(set(required) - set(actual))
+    missing_optional = sorted((set(known) - set(required)) - set(actual))
+    expected_present_order = [column for column in known if column in actual]
+    actual_known_order = [column for column in actual if column in known]
+    audit = {
+        "schema_id": schema["schema_id"],
+        "schema_version": schema["schema_version"],
+        "filename": filename,
+        "unexpected_columns_policy": schema["unexpected_columns_policy"],
+        "unexpected_additions": additions,
+        "missing_required_columns": missing_required,
+        "missing_optional_columns": missing_optional,
+        "duplicate_columns": duplicate_columns,
+        "known_column_order_matches": actual_known_order == expected_present_order,
+    }
+    if missing_required or duplicate_columns:
         raise FPLValidationError(
-            f"unexpected schema for {filename}; additions={additions}, removals={removals}"
+            f"Vaastav schema {schema['schema_id']} rejected {filename}; "
+            f"missing required columns={missing_required}, duplicate columns={duplicate_columns}"
         )
-    return list(reader)
+    rows = list(reader)
+    if include_schema_audit:
+        return rows, audit
+    if additions and schema["unexpected_columns_policy"] == "quality_failure":
+        raise FPLValidationError(
+            f"Vaastav schema {schema['schema_id']} detected unexpected columns in "
+            f"{filename}: {additions} (policy: quality_failure)"
+        )
+    return rows
 
 
 def transform_players(
@@ -184,12 +229,12 @@ def transform_facts(
             "saves", "yellow_cards", "red_cards", "bonus", "bps",
         ):
             row[field] = required_int(source[field], f"fact {key} {field}")
-        row["starts"] = optional_int(source["starts"], f"fact {key} starts")
+        row["starts"] = optional_int(source.get("starts"), f"fact {key} starts")
         for field in (
             "influence", "creativity", "threat", "ict_index", "expected_goals",
             "expected_assists", "expected_goal_involvements", "expected_goals_conceded",
         ):
-            row[field] = optional_decimal(source[field], f"fact {key} {field}")
+            row[field] = optional_decimal(source.get(field), f"fact {key} {field}")
         rows.append(row)
         quarantined.append(
             {
@@ -197,16 +242,16 @@ def transform_facts(
                 "element": element,
                 "gameweek": gameweek,
                 "fixture": fixture_id,
-                "selected": optional_int(source["selected"], f"fact {key} selected"),
-                "value": optional_int(source["value"], f"fact {key} value"),
+                "selected": optional_int(source.get("selected"), f"fact {key} selected"),
+                "value": optional_int(source.get("value"), f"fact {key} value"),
                 "transfers_balance": optional_int(
-                    source["transfers_balance"], f"fact {key} transfers_balance"
+                    source.get("transfers_balance"), f"fact {key} transfers_balance"
                 ),
-                "transfers_in": optional_int(source["transfers_in"], f"fact {key} transfers_in"),
+                "transfers_in": optional_int(source.get("transfers_in"), f"fact {key} transfers_in"),
                 "transfers_out": optional_int(
-                    source["transfers_out"], f"fact {key} transfers_out"
+                    source.get("transfers_out"), f"fact {key} transfers_out"
                 ),
-                "modified": optional_bool(source["modified"], f"fact {key} modified"),
+                "modified": optional_bool(source.get("modified"), f"fact {key} modified"),
             }
         )
     return rows, quarantined

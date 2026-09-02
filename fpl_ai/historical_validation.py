@@ -6,6 +6,7 @@ from collections import Counter, defaultdict
 from typing import Any
 
 from fpl_ai.errors import FPLValidationError
+from fpl_ai.historical_io import canonical_json_bytes, sha256_bytes
 from fpl_ai.historical_schema import (
     FIXTURE_CONTEXT_AVAILABILITY_POLICY,
     POST_EVENT_FIXTURE_CONTEXT_FIELDS,
@@ -22,6 +23,8 @@ def build_quality_report(
     expected_counts: dict[str, int],
     source_row_counts: dict[str, int],
     total_points_reconciliation: dict[str, Any],
+    source_schema_audits: dict[str, dict[str, Any]],
+    vaastav_source_schema: dict[str, object],
 ) -> dict[str, Any]:
     failures: list[str] = []
     checks: list[dict[str, Any]] = []
@@ -249,14 +252,63 @@ def build_quality_report(
             "policy": FIXTURE_CONTEXT_AVAILABILITY_POLICY,
         },
     )
+    source_schema_failures = {
+        filename: {
+            "unexpected_additions": audit["unexpected_additions"],
+            "missing_required_columns": audit["missing_required_columns"],
+            "duplicate_columns": audit["duplicate_columns"],
+            "known_column_order_matches": audit["known_column_order_matches"],
+        }
+        for filename, audit in source_schema_audits.items()
+        if audit["unexpected_additions"]
+        or audit["missing_required_columns"]
+        or audit["duplicate_columns"]
+        or not audit["known_column_order_matches"]
+    }
+    check(
+        "vaastav.season_source_schema",
+        not source_schema_failures,
+        {
+            "policy": "unexpected additions/order drift fail quality; missing optional columns are reported and remain null",
+            "failures": source_schema_failures,
+            "files": source_schema_audits,
+        },
+    )
+    forbidden_source_fields = set(
+        vaastav_source_schema["forbidden_trusted_output_fields"]
+    )
+    generated_columns = {
+        column.name for columns in TABLE_SCHEMAS.values() for column in columns
+    }
+    forbidden_output_fields = sorted(forbidden_source_fields & generated_columns)
+    check(
+        "vaastav.forbidden_fields_excluded",
+        not forbidden_output_fields,
+        {
+            "schema_id": vaastav_source_schema["schema_id"],
+            "forbidden_fields_present": forbidden_output_fields,
+        },
+    )
     check(
         "total_points.cross_source_reconciliation",
-        total_points_reconciliation["mismatching_records"] == 0,
+        total_points_reconciliation["passed"],
         {
-            "compared_records": total_points_reconciliation["compared_records"],
-            "matching_records": total_points_reconciliation["matching_records"],
-            "mismatching_records": total_points_reconciliation["mismatching_records"],
+            "status": total_points_reconciliation["status"],
+            "eligible_row_count": total_points_reconciliation["eligible_row_count"],
+            "compared_row_count": total_points_reconciliation["compared_row_count"],
+            "unmatched_row_count": total_points_reconciliation["unmatched_row_count"],
+            "coverage_ratio": total_points_reconciliation["coverage_ratio"],
+            "minimum_coverage_ratio": total_points_reconciliation[
+                "minimum_coverage_ratio"
+            ],
+            "coverage_passed": total_points_reconciliation["coverage_passed"],
+            "mismatching_row_count": total_points_reconciliation[
+                "mismatching_row_count"
+            ],
             "mismatches": total_points_reconciliation["mismatches"][:20],
+            "reasons_for_exclusion_or_unavailability": total_points_reconciliation[
+                "reasons_for_exclusion_or_unavailability"
+            ],
         },
     )
 
@@ -306,7 +358,7 @@ def build_quality_report(
     }
 
     return {
-        "schema_version": 2,
+        "schema_version": 3,
         "season": season,
         "passed": not failures,
         "failures": failures,
@@ -324,10 +376,7 @@ def build_quality_report(
         "canonical_schemas": schemas_as_dict(),
         "fixture_context_availability_policy": FIXTURE_CONTEXT_AVAILABILITY_POLICY,
         "total_points_reconciliation": total_points_reconciliation,
-        "source_schema_changes": {
-            "unexpected_additions": {},
-            "unexpected_removals": {},
-        },
+        "source_schema_changes": source_schema_audits,
         "leakage_contract": {
             "realised_outcomes": "player_fixture_facts statistics and fixture scores; unavailable as same-gameweek model inputs",
             "pre_deadline_state": "player_deadline_snapshots selected strictly before the shared gameweek deadline",
@@ -346,13 +395,30 @@ def build_quality_report(
 def reconcile_total_points(
     facts: list[dict[str, Any]],
     comparison_snapshots: dict[int, tuple[dict[str, Any], str, str]],
+    policy: dict[str, Any],
+    provenance: dict[str, Any],
+    *,
+    artifact_created_at_utc: str,
+    source_identity: dict[str, Any],
+    source_identity_sha256: str,
+    build_identity: dict[str, Any],
+    build_identity_sha256: str,
 ) -> dict[str, Any]:
-    """Compare Vaastav fixture-point sums with settled fplcache event_points."""
+    """Compare canonical fixture-point sums with configured settled event points.
+
+    Coverage is ``compared_row_count / eligible_row_count``. An eligible row is
+    one unique ``(season, gameweek, element)`` total derived from canonical
+    player-fixture facts. A row is compared only when the configured independent
+    snapshot contains an integer ``event_points`` value and marks the event both
+    finished and data-checked.
+    """
 
     canonical: dict[tuple[int, int], int] = defaultdict(int)
     for row in facts:
         canonical[(row["gameweek"], row["element"])] += row["total_points"]
 
+    mode = policy["mode"]
+    minimum_coverage_ratio = policy["minimum_coverage_ratio"]
     compared = 0
     matching = 0
     mismatches: list[dict[str, Any]] = []
@@ -360,12 +426,12 @@ def reconcile_total_points(
     by_gameweek: dict[str, dict[str, int]] = {}
     for (gameweek, element), canonical_points in sorted(canonical.items()):
         counters = by_gameweek.setdefault(
-            str(gameweek), {"expected": 0, "compared": 0, "matching": 0, "mismatching": 0, "unavailable": 0}
+            str(gameweek), {"eligible": 0, "compared": 0, "matching": 0, "mismatching": 0, "unmatched": 0}
         )
-        counters["expected"] += 1
+        counters["eligible"] += 1
         comparison = comparison_snapshots.get(gameweek)
         if comparison is None:
-            counters["unavailable"] += 1
+            counters["unmatched"] += 1
             unavailable.append(
                 {"gameweek": gameweek, "element": element, "reason": "no settled comparison snapshot"}
             )
@@ -385,7 +451,7 @@ def reconcile_total_points(
             or event.get("finished") is not True
             or event.get("data_checked") is not True
         ):
-            counters["unavailable"] += 1
+            counters["unmatched"] += 1
             unavailable.append(
                 {
                     "gameweek": gameweek,
@@ -408,7 +474,7 @@ def reconcile_total_points(
             source_element.get("event_points") if source_element is not None else None
         )
         if not isinstance(comparison_points, int) or isinstance(comparison_points, bool):
-            counters["unavailable"] += 1
+            counters["unmatched"] += 1
             unavailable.append(
                 {
                     "gameweek": gameweek,
@@ -437,31 +503,77 @@ def reconcile_total_points(
                 }
             )
 
-    return {
-        "policy_version": 1,
-        "canonical_source": {
-            "provider_key": "vaastav",
-            "artifact": "data/2024-25/gws/merged_gw.csv",
-            "field": "total_points",
-            "grain": "player fixture",
-            "gameweek_comparison": "sum by season, gameweek and element",
-            "reason": "the Vaastav source is the pinned fixture-grain outcome record",
-        },
-        "comparison_source": {
-            "provider_key": "fplcache",
-            "field": "elements[].event_points",
-            "timing": "a later snapshot where the compared event is finished and data_checked",
-        },
-        "expected_records": len(canonical),
+    eligible = len(canonical)
+    unmatched = eligible - compared
+    coverage_ratio = compared / eligible if eligible else None
+    coverage_passed = (
+        coverage_ratio is not None and coverage_ratio >= minimum_coverage_ratio
+    )
+    mismatch_passed = not mismatches
+    unavailable_reasons = Counter(item["reason"] for item in unavailable)
+    if mode == "optional" and (eligible == 0 or compared == 0):
+        status = "skipped_optional"
+        passed = True
+        coverage_passed = None
+    elif eligible == 0 or compared == 0:
+        status = "failed_unavailable"
+        passed = False
+    elif not mismatch_passed:
+        status = "failed_mismatch"
+        passed = False
+    elif not coverage_passed:
+        status = "failed_coverage"
+        passed = False
+    elif unmatched:
+        status = "passed_partial"
+        passed = True
+    else:
+        status = "passed"
+        passed = True
+
+    result = {
+        "artifact_schema_version": 1,
+        "artifact_created_at_utc": artifact_created_at_utc,
+        "season": provenance["season"],
+        "status": status,
+        "policy": policy,
+        "policy_version": policy["policy_version"],
+        "configured_mode": mode,
+        "minimum_coverage_ratio": minimum_coverage_ratio,
+        "coverage_definition": (
+            "compared_row_count / eligible_row_count; eligible rows are unique "
+            "canonical (season, gameweek, element) totals, and compared rows have "
+            "settled integer comparison event_points"
+        ),
+        "eligible_row_count": eligible,
+        "compared_row_count": compared,
+        "unmatched_row_count": unmatched,
+        "coverage_ratio": coverage_ratio,
+        "coverage_passed": coverage_passed,
+        "matching_row_count": matching,
+        "mismatching_row_count": len(mismatches),
+        "mismatch_check_passed": mismatch_passed,
+        # Compatibility aliases retained for readers of the first hardened slice.
+        "expected_records": eligible,
         "compared_records": compared,
         "matching_records": matching,
         "mismatching_records": len(mismatches),
         "unavailable_records": len(unavailable),
         "mismatches": mismatches,
         "unavailable": unavailable,
+        "reasons_for_exclusion_or_unavailability": {
+            reason: count for reason, count in sorted(unavailable_reasons.items())
+        },
         "by_gameweek": by_gameweek,
-        "passed": not mismatches,
+        "provenance": provenance,
+        "source_identity": source_identity,
+        "source_identity_sha256": source_identity_sha256,
+        "build_identity": build_identity,
+        "build_identity_sha256": build_identity_sha256,
+        "passed": passed,
     }
+    result["artifact_sha256"] = sha256_bytes(canonical_json_bytes(result))
+    return result
 
 
 def raise_for_quality_failures(report: dict[str, Any]) -> None:

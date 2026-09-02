@@ -96,8 +96,11 @@ def main(argv: Sequence[str] | None = None) -> int:
                 f"Historical FPL season {result.season} {action} successfully "
                 f"({result.version})"
             )
+            print(f"  generated CSV tables: {result.generated_table_count}")
             for table, count in result.row_counts.items():
                 print(f"  {table}: {count}")
+            print(f"  processed artifacts: {result.generated_artifact_count}")
+            print(f"  source inventory: {result.source_inventory_status}")
             print(
                 f"  accepted pre-deadline snapshots: {result.snapshot_gameweeks} gameweeks"
             )

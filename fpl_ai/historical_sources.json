@@ -2,6 +2,31 @@
   "schema_version": 3,
   "seasons": {
     "2024-25": {
+      "vaastav_source_schema": {
+        "schema_id": "vaastav-2024-25-v1",
+        "schema_version": 1
+      },
+      "reconciliation": {
+        "total_points": {
+          "policy_version": 2,
+          "mode": "required",
+          "minimum_coverage_ratio": 1.0,
+          "canonical_source": {
+            "provider_key": "vaastav",
+            "source_path": "data/2024-25/gws/merged_gw.csv",
+            "field": "total_points",
+            "grain": "player_fixture",
+            "gameweek_aggregation": "sum_by_season_gameweek_element"
+          },
+          "comparison_source": {
+            "provider_key": "fplcache",
+            "field": "elements[].event_points",
+            "settlement_strategy": "next_accepted_deadline_snapshot_plus_final_settlement",
+            "require_event_finished": true,
+            "require_data_checked": true
+          }
+        }
+      },
       "expected_gameweeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38],
       "expected_counts": {
         "fixtures": 380,

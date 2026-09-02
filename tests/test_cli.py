@@ -30,13 +30,20 @@ class HistoricalCliTests(unittest.TestCase):
             row_counts={},
             snapshot_gameweeks=0,
             missing_snapshot_gameweeks=(),
+            generated_table_count=7,
+            generated_artifact_count=12,
+            source_inventory_status="frozen_per_build",
         )
-        with redirect_stdout(io.StringIO()):
+        output = io.StringIO()
+        with redirect_stdout(output):
             result = main(
                 ["historical", "--season", "2024-25", "--output-dir", "history", "--timeout", "12"]
             )
 
         self.assertEqual(result, 0)
+        self.assertIn("generated CSV tables: 7", output.getvalue())
+        self.assertIn("processed artifacts: 12", output.getvalue())
+        self.assertIn("source inventory: frozen_per_build", output.getvalue())
         run.assert_called_once_with("2024-25", Path("history"), timeout=12.0)
 
     def test_conflicting_parent_and_historical_values_are_rejected(self) -> None:

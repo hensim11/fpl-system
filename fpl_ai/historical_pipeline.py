@@ -26,7 +26,9 @@ from fpl_ai.historical_io import (
 )
 from fpl_ai.historical_schema import (
     FIXTURE_CONTEXT_AVAILABILITY_POLICY,
+    TRANSFORMATION_CONTRACT_VERSION,
     column_names,
+    get_vaastav_source_schema,
     schema_document,
 )
 from fpl_ai.historical_transform import (
@@ -57,6 +59,9 @@ class HistoricalPipelineResult:
     row_counts: dict[str, int]
     snapshot_gameweeks: int
     missing_snapshot_gameweeks: tuple[int, ...]
+    generated_table_count: int
+    generated_artifact_count: int
+    source_inventory_status: str = "unknown"
     reused: bool = False
 
 
@@ -89,16 +94,23 @@ def run_historical_pipeline(
             f"historical season {season!r} is not configured; supported: {supported}"
         )
     config = source_catalogue["seasons"][season]
-    _validate_source_config(config)
+    _validate_source_config(season, config)
     schema_version = source_catalogue.get("schema_version", 1)
+    source_schema_config = config["vaastav_source_schema"]
+    vaastav_source_schema = get_vaastav_source_schema(
+        source_schema_config["schema_id"],
+        season,
+        source_schema_config["schema_version"],
+    )
+    build_identity = create_build_identity(season, config, schema_version)
+    build_identity_sha256 = sha256_bytes(canonical_json_bytes(build_identity))
     vaastav_revision = config["sources"]["vaastav"]["resolved_commit_sha"]
     cache_revision = config["sources"]["fplcache"]["resolved_commit_sha"]
-    version = f"v{schema_version}-{vaastav_revision[:12]}-{cache_revision[:12]}"
-    source_identity = _source_identity(season, config)
-    source_identity_sha256 = sha256_bytes(canonical_json_bytes(source_identity))
+    source_version = f"v{schema_version}-{vaastav_revision[:12]}-{cache_revision[:12]}"
+    version = f"{source_version}-build-{build_identity_sha256[:12]}"
 
     root = Path(output_dir) / "historical"
-    raw_dir = root / "raw" / season / version
+    raw_dir = root / "raw" / season / source_version
     processed_dir = root / "processed" / season / version
     catalogue_path = root / "catalogue.json"
     retrieved_at = now or datetime.now(timezone.utc)
@@ -113,7 +125,9 @@ def run_historical_pipeline(
         processed_dir,
         catalogue_path,
         retrieved_at,
-        source_identity_sha256,
+        config,
+        build_identity,
+        build_identity_sha256,
     )
     if existing is not None:
         return existing
@@ -158,9 +172,20 @@ def run_historical_pipeline(
     )
     source_store.write_manifest()
 
-    source_rows = {
-        name: read_source_csv(value, name) for name, value in vaastav_files.items()
-    }
+    source_identity = _source_identity(season, config, source_store.records)
+    source_identity_sha256 = sha256_bytes(canonical_json_bytes(source_identity))
+
+    source_rows: dict[str, list[dict[str, str]]] = {}
+    source_schema_audits: dict[str, dict[str, Any]] = {}
+    for name, value in vaastav_files.items():
+        rows, audit = read_source_csv(
+            value,
+            name,
+            vaastav_source_schema,
+            include_schema_audit=True,
+        )
+        source_rows[name] = rows
+        source_schema_audits[name] = audit
     players = transform_players(season, source_rows["players_raw.csv"])
     teams = transform_teams(season, source_rows["teams.csv"])
     fixtures = transform_fixtures(season, source_rows["fixtures.csv"])
@@ -185,7 +210,25 @@ def run_historical_pipeline(
                 next_path,
                 next_record["sha256"],
             )
-    points_reconciliation = reconcile_total_points(facts, comparison_snapshots)
+    reconciliation_policy = config["reconciliation"]["total_points"]
+    reconciliation_provenance = create_reconciliation_provenance(
+        season,
+        config,
+        vaastav_source_schema,
+        comparison_snapshots,
+        source_identity_sha256,
+    )
+    points_reconciliation = reconcile_total_points(
+        facts,
+        comparison_snapshots,
+        reconciliation_policy,
+        reconciliation_provenance,
+        artifact_created_at_utc=utc_string(retrieved_at),
+        source_identity=source_identity,
+        source_identity_sha256=source_identity_sha256,
+        build_identity=build_identity,
+        build_identity_sha256=build_identity_sha256,
+    )
 
     gameweeks: list[dict[str, Any]] = []
     deadline_snapshots: list[dict[str, Any]] = []
@@ -262,13 +305,24 @@ def run_historical_pipeline(
         config["expected_counts"],
         source_row_counts,
         points_reconciliation,
+        source_schema_audits,
+        vaastav_source_schema,
     )
     quality_report["dataset_version"] = version
+    quality_report["source_version"] = source_version
     quality_report["source_identity"] = source_identity
     quality_report["source_identity_sha256"] = source_identity_sha256
+    quality_report["build_identity"] = build_identity
+    quality_report["build_identity_sha256"] = build_identity_sha256
     if not quality_report["passed"]:
         _write_failed_quality_report(
-            root, season, version, retrieved_at, source_identity_sha256, quality_report
+            root,
+            season,
+            version,
+            retrieved_at,
+            source_identity_sha256,
+            build_identity_sha256,
+            quality_report,
         )
         raise_for_quality_failures(quality_report)
 
@@ -279,8 +333,21 @@ def run_historical_pipeline(
         staging = Path(temporary_name)
         for table, rows in tables.items():
             atomic_write_csv(staging / f"{table}.csv", rows, column_names(table))
-        atomic_write_json(staging / "schemas.json", schema_document())
+        atomic_write_json(staging / "schemas.json", schema_document(vaastav_source_schema))
         atomic_write_json(staging / "data_quality_report.json", quality_report)
+        atomic_write_json(
+            staging / "total_points_reconciliation.json", points_reconciliation
+        )
+        frozen_inventory = {
+            "inventory_schema_version": 1,
+            "season": season,
+            "source_version": source_version,
+            "source_identity": source_identity,
+            "source_identity_sha256": source_identity_sha256,
+            "files": source_store.records,
+        }
+        frozen_inventory_path = staging / "source_inventory.json"
+        atomic_write_json(frozen_inventory_path, frozen_inventory)
 
         processed_files: list[dict[str, Any]] = []
         for path in sorted(staging.iterdir()):
@@ -297,13 +364,24 @@ def run_historical_pipeline(
             "schema_version": schema_version,
             "season": season,
             "version": version,
+            "source_version": source_version,
             "status": "success",
             "processed_at_utc": utc_string(retrieved_at),
             "source_identity": source_identity,
             "source_identity_sha256": source_identity_sha256,
+            "build_identity": build_identity,
+            "build_identity_sha256": build_identity_sha256,
             "source_manifest": {
                 "path": str(raw_manifest_path.relative_to(root)),
                 "sha256": sha256_file(raw_manifest_path),
+                "role": "mutable raw-cache inventory; not authoritative for this processed build",
+            },
+            "frozen_source_inventory": {
+                "path": frozen_inventory_path.name,
+                "sha256": sha256_file(frozen_inventory_path),
+                "source_identity": source_identity,
+                "source_identity_sha256": source_identity_sha256,
+                "status": "frozen_per_build",
             },
             "source_files": source_store.records,
             "processed_files": processed_files,
@@ -320,6 +398,18 @@ def run_historical_pipeline(
             "leakage_boundaries": quality_report["leakage_contract"],
             "fixture_context_availability_policy": FIXTURE_CONTEXT_AVAILABILITY_POLICY,
             "total_points_reconciliation": points_reconciliation,
+            "artifact_inventory": {
+                "table_files": sorted(f"{table}.csv" for table in tables),
+                "metadata_files": [
+                    "schemas.json",
+                    "data_quality_report.json",
+                    "total_points_reconciliation.json",
+                    "source_inventory.json",
+                    "manifest.json",
+                ],
+                "generated_table_count": len(tables),
+                "generated_artifact_count": len(tables) + 5,
+            },
         }
         atomic_write_json(staging / "manifest.json", manifest)
         if processed_dir.exists():
@@ -411,14 +501,15 @@ class _SourceStore:
         return value, record
 
     def write_manifest(self) -> None:
-        atomic_write_json(
-            self.manifest_path,
-            {
-                "schema_version": 2,
-                "requested_season": self.season,
-                "files": self.records,
-            },
-        )
+        value = {
+            "schema_version": 2,
+            "requested_season": self.season,
+            "files": self.records,
+        }
+        encoded = canonical_json_bytes(value)
+        if self.manifest_path.exists() and self.manifest_path.read_bytes() == encoded:
+            return
+        atomic_write_json(self.manifest_path, value)
 
 
 def _obtain_vaastav_files(
@@ -565,10 +656,50 @@ def _valid_snapshot(
     return snapshot_deadline == deadline
 
 
-def _validate_source_config(config: dict[str, Any]) -> None:
+def _validate_source_config(season: str, config: dict[str, Any]) -> None:
     try:
+        schema_config = config["vaastav_source_schema"]
+        get_vaastav_source_schema(
+            schema_config["schema_id"], season, schema_config["schema_version"]
+        )
+        reconciliation = config["reconciliation"]["total_points"]
+        mode = reconciliation["mode"]
+        threshold = reconciliation["minimum_coverage_ratio"]
+        if mode not in {"required", "optional"}:
+            raise FPLValidationError(
+                "historical total_points reconciliation mode must be 'required' or 'optional'"
+            )
+        if (
+            not isinstance(threshold, (int, float))
+            or isinstance(threshold, bool)
+            or not 0 <= threshold <= 1
+        ):
+            raise FPLValidationError(
+                "historical total_points minimum_coverage_ratio must be between 0 and 1 inclusive"
+            )
         vaastav = config["sources"]["vaastav"]
         cache = config["sources"]["fplcache"]
+        canonical = reconciliation["canonical_source"]
+        comparison = reconciliation["comparison_source"]
+        if canonical["provider_key"] != "vaastav" or canonical["source_path"] not in vaastav["files"]:
+            raise FPLValidationError(
+                "historical total_points canonical source must name a configured Vaastav file"
+            )
+        if canonical["field"] != "total_points":
+            raise FPLValidationError(
+                "historical total_points canonical field must be 'total_points'"
+            )
+        if comparison["provider_key"] != "fplcache" or comparison["field"] != "elements[].event_points":
+            raise FPLValidationError(
+                "historical total_points comparison source must be fplcache elements[].event_points"
+            )
+        if (
+            comparison["require_event_finished"] is not True
+            or comparison["require_data_checked"] is not True
+        ):
+            raise FPLValidationError(
+                "historical total_points comparison must require finished and data_checked events"
+            )
         for source in (vaastav, cache):
             configured_ref = source["configured_ref"]
             resolved = source["resolved_commit_sha"]
@@ -596,6 +727,89 @@ def _validate_source_config(config: dict[str, Any]) -> None:
             )
     except KeyError as exc:
         raise FPLValidationError(f"historical source catalogue missing field: {exc}") from exc
+
+
+def create_build_identity(
+    season: str, config: dict[str, Any], source_catalogue_schema_version: int
+) -> dict[str, Any]:
+    """Return deterministic build-affecting configuration, excluding run metadata."""
+
+    schema_config = config["vaastav_source_schema"]
+    source_schema = get_vaastav_source_schema(
+        schema_config["schema_id"], season, schema_config["schema_version"]
+    )
+    cache = config["sources"]["fplcache"]
+    canonical_contract = schema_document()
+    return {
+        "transformation_contract_version": TRANSFORMATION_CONTRACT_VERSION,
+        "source_catalogue_schema_version": source_catalogue_schema_version,
+        "season": season,
+        "season_contract": {
+            "expected_gameweeks": list(config["expected_gameweeks"]),
+            "expected_counts": dict(config["expected_counts"]),
+        },
+        "vaastav_source_schema": {
+            "schema_id": source_schema["schema_id"],
+            "schema_version": source_schema["schema_version"],
+            "contract_sha256": sha256_bytes(canonical_json_bytes(source_schema)),
+        },
+        "reconciliation": config["reconciliation"],
+        "snapshot_selection": {
+            "archive_path_pattern": cache["archive_path_pattern"],
+            "capture_timezone": cache["capture_timezone"],
+            "reference_snapshot_path": cache["reference_snapshot_path"],
+            "points_settlement_snapshot_path": cache[
+                "points_settlement_snapshot_path"
+            ],
+        },
+        "canonical_schema_contract_sha256": sha256_bytes(
+            canonical_json_bytes(canonical_contract)
+        ),
+        "fixture_context_policy_version": FIXTURE_CONTEXT_AVAILABILITY_POLICY[
+            "policy_version"
+        ],
+    }
+
+
+def create_reconciliation_provenance(
+    season: str,
+    config: dict[str, Any],
+    source_schema: dict[str, object],
+    comparison_snapshots: dict[int, tuple[dict[str, Any], str, str]],
+    source_identity_sha256: str,
+) -> dict[str, Any]:
+    policy = config["reconciliation"]["total_points"]
+    canonical_policy = policy["canonical_source"]
+    comparison_policy = policy["comparison_source"]
+    vaastav = config["sources"][canonical_policy["provider_key"]]
+    comparison = config["sources"][comparison_policy["provider_key"]]
+    return {
+        "season": season,
+        "canonical_source": {
+            "provider": vaastav["provider"],
+            "repository": vaastav["repository"],
+            "configured_ref": vaastav["configured_ref"],
+            "pinned_revision": vaastav["resolved_commit_sha"],
+            "source_paths": [canonical_policy["source_path"]],
+            "field": canonical_policy["field"],
+        },
+        "comparison_source": {
+            "provider": comparison["provider"],
+            "repository": comparison["repository"],
+            "configured_ref": comparison["configured_ref"],
+            "pinned_revision": comparison["resolved_commit_sha"],
+            "source_paths": sorted(
+                {source_path for _, source_path, _ in comparison_snapshots.values()}
+            ),
+            "field": comparison_policy["field"],
+        },
+        "source_identity_sha256": source_identity_sha256,
+        "vaastav_source_schema": {
+            "schema_id": source_schema["schema_id"],
+            "schema_version": source_schema["schema_version"],
+        },
+        "reconciliation_policy": policy,
+    }
 
 
 def _capture_from_path(source_path: str, config: dict[str, Any]) -> datetime:
@@ -639,7 +853,9 @@ def _validate_points_settlement_snapshot(
         )
 
 
-def _source_identity(season: str, config: dict[str, Any]) -> dict[str, Any]:
+def _source_identity(
+    season: str, config: dict[str, Any], records: list[dict[str, Any]]
+) -> dict[str, Any]:
     identities: dict[str, Any] = {}
     for key, source in sorted(config["sources"].items()):
         identity = {
@@ -658,7 +874,43 @@ def _source_identity(season: str, config: dict[str, Any]) -> dict[str, Any]:
                 "points_settlement_snapshot_path"
             ]
         identities[key] = identity
-    return {"requested_season": season, "sources": identities}
+    artifacts: list[dict[str, Any]] = []
+    for record in sorted(
+        records, key=lambda item: (item["provider_key"], item["source_path"])
+    ):
+        source = config["sources"].get(record["provider_key"])
+        if source is None:
+            raise FPLValidationError(
+                f"raw manifest has unknown provider key: {record['provider_key']}"
+            )
+        for field in (
+            "provider",
+            "repository",
+            "configured_ref",
+            "resolved_commit_sha",
+        ):
+            if record.get(field) != source[field]:
+                raise FPLValidationError(
+                    f"raw manifest {record['source_path']} has wrong {field}"
+                )
+        if record.get("requested_season") != season:
+            raise FPLValidationError(
+                f"raw manifest {record['source_path']} has wrong requested season"
+            )
+        artifacts.append(
+            {
+                "provider_key": record["provider_key"],
+                "source_path": record["source_path"],
+                "source_url": record["source_url"],
+                "sha256": record["sha256"],
+                "byte_size": record["byte_size"],
+            }
+        )
+    return {
+        "requested_season": season,
+        "sources": identities,
+        "immutable_artifacts": artifacts,
+    }
 
 
 def _write_failed_quality_report(
@@ -667,6 +919,7 @@ def _write_failed_quality_report(
     version: str,
     attempted_at: datetime,
     source_identity_sha256: str,
+    build_identity_sha256: str,
     quality_report: dict[str, Any],
 ) -> Path:
     attempt_id = attempted_at.strftime("%Y%m%dT%H%M%S.%fZ")
@@ -683,6 +936,7 @@ def _write_failed_quality_report(
             "attempted_at_utc": utc_string(attempted_at),
             "dataset_version": version,
             "source_identity_sha256": source_identity_sha256,
+            "build_identity_sha256": build_identity_sha256,
             "catalogue_updated": False,
         }
     )
@@ -697,7 +951,9 @@ def _existing_result(
     processed_dir: Path,
     catalogue_path: Path,
     now: datetime,
-    source_identity_sha256: str,
+    config: dict[str, Any],
+    build_identity: dict[str, Any],
+    build_identity_sha256: str,
 ) -> HistoricalPipelineResult | None:
     if not processed_dir.exists():
         return None
@@ -708,9 +964,13 @@ def _existing_result(
         raise FPLValidationError(f"existing processed manifest is invalid: {exc}") from exc
     if manifest.get("season") != season or manifest.get("version") != version:
         raise FPLValidationError(f"existing processed directory has the wrong identity: {processed_dir}")
-    if manifest.get("source_identity_sha256") != source_identity_sha256:
+    if manifest.get("build_identity_sha256") != build_identity_sha256:
         raise FPLValidationError(
-            f"existing processed directory has different source identity: {processed_dir}"
+            f"existing processed directory has different build identity: {processed_dir}"
+        )
+    if manifest.get("build_identity") != build_identity:
+        raise FPLValidationError(
+            f"existing processed manifest build contract does not match: {processed_dir}"
         )
     if catalogue_path.exists():
         try:
@@ -728,30 +988,171 @@ def _existing_result(
         path = processed_dir / record["path"]
         if not path.is_file() or sha256_file(path) != record["sha256"]:
             raise FPLValidationError(f"existing processed file failed checksum: {path}")
-    source_manifest = raw_dir / "source_manifest.json"
-    if not source_manifest.is_file():
-        raise FPLValidationError(f"existing version has no raw source manifest: {source_manifest}")
-    if sha256_file(source_manifest) != manifest.get("source_manifest", {}).get("sha256"):
+    raw_records, inventory_status = _load_build_source_inventory(
+        processed_dir, raw_dir, manifest
+    )
+    source_identity = _source_identity(season, config, raw_records)
+    source_identity_sha256 = sha256_bytes(canonical_json_bytes(source_identity))
+    if manifest.get("source_identity_sha256") != source_identity_sha256:
         raise FPLValidationError(
-            f"existing raw source manifest failed processed-manifest checksum: {source_manifest}"
+            f"existing processed directory has different source identity: {processed_dir}"
         )
-    try:
-        raw_manifest = json.loads(source_manifest.read_text(encoding="utf-8"))
-        raw_records = raw_manifest["files"]
-    except (OSError, json.JSONDecodeError, KeyError, TypeError) as exc:
-        raise FPLValidationError(f"existing raw source manifest is invalid: {exc}") from exc
-    for record in raw_records:
-        raw_path = raw_dir / record["raw_path"]
-        if (
-            not raw_path.is_file()
-            or raw_path.stat().st_size != record["byte_size"]
-            or sha256_file(raw_path) != record["sha256"]
-        ):
-            raise FPLValidationError(f"immutable raw file failed checksum: {raw_path}")
+    if manifest.get("source_identity") != source_identity:
+        raise FPLValidationError(
+            f"existing processed manifest source identity does not match: {processed_dir}"
+        )
     _update_latest_catalogue(
         catalogue_path, season, version, processed_dir, manifest_path, now, manifest
     )
-    return _result_from_manifest(season, raw_dir, processed_dir, manifest, True)
+    return _result_from_manifest(
+        season, raw_dir, processed_dir, manifest, True, inventory_status
+    )
+
+
+def _load_build_source_inventory(
+    processed_dir: Path,
+    raw_dir: Path,
+    manifest: dict[str, Any],
+) -> tuple[list[dict[str, Any]], str]:
+    frozen = manifest.get("frozen_source_inventory")
+    if frozen is not None:
+        if not isinstance(frozen, dict):
+            raise FPLValidationError("processed manifest frozen source inventory is malformed")
+        relative = Path(frozen.get("path", ""))
+        if not relative.parts or relative.is_absolute() or ".." in relative.parts:
+            raise FPLValidationError(
+                "processed manifest frozen source inventory path must be portable and relative"
+            )
+        inventory_path = processed_dir / relative
+        if not inventory_path.is_file() or sha256_file(inventory_path) != frozen.get(
+            "sha256"
+        ):
+            raise FPLValidationError(
+                f"frozen source inventory failed checksum: {inventory_path}"
+            )
+        try:
+            inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+            records = inventory["files"]
+        except (OSError, json.JSONDecodeError, KeyError, TypeError) as exc:
+            raise FPLValidationError(f"frozen source inventory is invalid: {exc}") from exc
+        if (
+            inventory.get("season") != manifest.get("season")
+            or inventory.get("source_version") != manifest.get("source_version")
+            or inventory.get("source_identity") != manifest.get("source_identity")
+            or inventory.get("source_identity_sha256")
+            != manifest.get("source_identity_sha256")
+            or frozen.get("source_identity") != manifest.get("source_identity")
+            or frozen.get("source_identity_sha256")
+            != manifest.get("source_identity_sha256")
+        ):
+            raise FPLValidationError(
+                f"frozen source inventory identity does not match build manifest: {inventory_path}"
+            )
+        if sha256_bytes(canonical_json_bytes(inventory["source_identity"])) != inventory[
+            "source_identity_sha256"
+        ]:
+            raise FPLValidationError(
+                f"frozen source inventory has an invalid source identity hash: {inventory_path}"
+            )
+        status = "frozen_per_build"
+    else:
+        source_manifest = raw_dir / "source_manifest.json"
+        if not source_manifest.is_file():
+            raise FPLValidationError(
+                f"legacy build has no shared raw source inventory: {source_manifest}"
+            )
+        if sha256_file(source_manifest) != manifest.get("source_manifest", {}).get(
+            "sha256"
+        ):
+            raise FPLValidationError(
+                "legacy build depends on a shared raw inventory whose checksum has changed: "
+                f"{source_manifest}"
+            )
+        try:
+            shared_inventory = json.loads(source_manifest.read_text(encoding="utf-8"))
+            records = shared_inventory["files"]
+        except (OSError, json.JSONDecodeError, KeyError, TypeError) as exc:
+            raise FPLValidationError(
+                f"legacy shared raw source inventory is invalid: {exc}"
+            ) from exc
+        status = "legacy_shared_raw_inventory"
+
+    if not isinstance(records, list):
+        raise FPLValidationError("source inventory files must be an array")
+    if manifest.get("source_files") != records:
+        raise FPLValidationError(
+            "source inventory file records do not match the processed manifest"
+        )
+    for record in records:
+        if not isinstance(record, dict) or not isinstance(record.get("raw_path"), str):
+            raise FPLValidationError("source inventory contains a malformed file record")
+        relative_raw_path = Path(record["raw_path"])
+        if relative_raw_path.is_absolute() or ".." in relative_raw_path.parts:
+            raise FPLValidationError("source inventory raw_path must be portable and relative")
+        raw_path = raw_dir / relative_raw_path
+        if (
+            not raw_path.is_file()
+            or raw_path.stat().st_size != record.get("byte_size")
+            or sha256_file(raw_path) != record.get("sha256")
+        ):
+            raise FPLValidationError(f"immutable raw file failed checksum: {raw_path}")
+    return records, status
+
+
+def load_historical_build(
+    season: str,
+    version: str,
+    output_dir: Path | str = Path("data"),
+) -> HistoricalPipelineResult:
+    """Resolve and checksum-verify a recorded historical build without rebuilding it."""
+
+    root = Path(output_dir) / "historical"
+    catalogue_path = root / "catalogue.json"
+    try:
+        catalogue = json.loads(catalogue_path.read_text(encoding="utf-8"))
+        season_entry = catalogue["seasons"][season]
+    except (OSError, json.JSONDecodeError, KeyError, TypeError) as exc:
+        raise FPLValidationError(f"historical catalogue lookup failed: {exc}") from exc
+    build_entry = season_entry.get("builds", {}).get(version)
+    if build_entry is None and season_entry.get("latest_successful_version") == version:
+        build_entry = season_entry
+    if not isinstance(build_entry, dict):
+        raise FPLValidationError(
+            f"historical build {version!r} is not recorded for season {season!r}"
+        )
+    processed_relative = Path(build_entry["processed_path"])
+    manifest_relative = Path(build_entry["manifest_path"])
+    if (
+        processed_relative.is_absolute()
+        or manifest_relative.is_absolute()
+        or ".." in processed_relative.parts
+        or ".." in manifest_relative.parts
+    ):
+        raise FPLValidationError("historical catalogue build paths must be portable and relative")
+    processed_dir = root / processed_relative
+    manifest_path = root / manifest_relative
+    if not manifest_path.is_file() or sha256_file(manifest_path) != build_entry.get(
+        "manifest_sha256"
+    ):
+        raise FPLValidationError(
+            f"historical build manifest failed catalogue checksum: {manifest_path}"
+        )
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise FPLValidationError(f"historical build manifest is invalid: {exc}") from exc
+    if manifest.get("season") != season or manifest.get("version") != version:
+        raise FPLValidationError("historical build manifest identity does not match lookup")
+    for record in manifest.get("processed_files", []):
+        path = processed_dir / record["path"]
+        if not path.is_file() or sha256_file(path) != record["sha256"]:
+            raise FPLValidationError(f"historical build file failed checksum: {path}")
+    source_version = manifest.get("source_version", version)
+    raw_dir = root / "raw" / season / source_version
+    _, inventory_status = _load_build_source_inventory(processed_dir, raw_dir, manifest)
+    return _result_from_manifest(
+        season, raw_dir, processed_dir, manifest, True, inventory_status
+    )
 
 
 def _update_latest_catalogue(
@@ -769,10 +1170,10 @@ def _update_latest_catalogue(
         except (OSError, json.JSONDecodeError) as exc:
             raise FPLValidationError(f"historical output catalogue is invalid: {exc}") from exc
     else:
-        catalogue = {"schema_version": 1, "seasons": {}}
+        catalogue = {"schema_version": 2, "seasons": {}}
     historical_root = path.parent
-    entry = {
-        "latest_successful_version": version,
+    build_entry = {
+        "version": version,
         "processed_path": str(processed_dir.relative_to(historical_root)),
         "manifest_path": str(manifest_path.relative_to(historical_root)),
         "manifest_sha256": sha256_file(manifest_path),
@@ -781,10 +1182,95 @@ def _update_latest_catalogue(
         "snapshot_coverage": manifest["snapshot_coverage"],
         "source_identity": manifest["source_identity"],
         "source_identity_sha256": manifest["source_identity_sha256"],
+        "build_identity": manifest["build_identity"],
+        "build_identity_sha256": manifest["build_identity_sha256"],
+        "source_inventory_status": (
+            "frozen_per_build"
+            if "frozen_source_inventory" in manifest
+            else "legacy_shared_raw_inventory"
+        ),
     }
+    if "frozen_source_inventory" in manifest:
+        build_entry["frozen_source_inventory"] = manifest[
+            "frozen_source_inventory"
+        ]
     seasons = catalogue.setdefault("seasons", {})
+    previous = seasons.get(season, {})
+    builds = dict(previous.get("builds", {})) if isinstance(previous, dict) else {}
+    if isinstance(previous, dict) and previous.get("latest_successful_version"):
+        previous_version = previous["latest_successful_version"]
+        if previous_version not in builds:
+            previous_build = {
+                key: value
+                for key, value in previous.items()
+                if key not in {"latest_successful_version", "builds"}
+            }
+            previous_build["version"] = previous_version
+            previous_build.setdefault(
+                "source_inventory_status", "legacy_shared_raw_inventory"
+            )
+            builds[previous_version] = previous_build
+    for candidate_manifest_path in sorted(
+        processed_dir.parent.glob("*/manifest.json")
+    ):
+        candidate_version = candidate_manifest_path.parent.name
+        if candidate_version in builds or candidate_version == version:
+            continue
+        try:
+            candidate_manifest = json.loads(
+                candidate_manifest_path.read_text(encoding="utf-8")
+            )
+        except (OSError, json.JSONDecodeError) as exc:
+            raise FPLValidationError(
+                f"legacy processed manifest is invalid: {candidate_manifest_path}: {exc}"
+            ) from exc
+        if (
+            candidate_manifest.get("season") != season
+            or candidate_manifest.get("version") != candidate_version
+        ):
+            raise FPLValidationError(
+                f"legacy processed manifest has wrong identity: {candidate_manifest_path}"
+            )
+        candidate_entry = {
+            "version": candidate_version,
+            "processed_path": str(
+                candidate_manifest_path.parent.relative_to(historical_root)
+            ),
+            "manifest_path": str(
+                candidate_manifest_path.relative_to(historical_root)
+            ),
+            "manifest_sha256": sha256_file(candidate_manifest_path),
+            "processed_at_utc": candidate_manifest.get("processed_at_utc"),
+            "row_counts": candidate_manifest.get("row_counts", {}),
+            "snapshot_coverage": candidate_manifest.get("snapshot_coverage", {}),
+            "source_identity": candidate_manifest.get("source_identity"),
+            "source_identity_sha256": candidate_manifest.get(
+                "source_identity_sha256"
+            ),
+            "build_identity": candidate_manifest.get("build_identity"),
+            "build_identity_sha256": candidate_manifest.get(
+                "build_identity_sha256"
+            ),
+            "source_inventory_status": (
+                "frozen_per_build"
+                if "frozen_source_inventory" in candidate_manifest
+                else "legacy_shared_raw_inventory"
+            ),
+        }
+        if "frozen_source_inventory" in candidate_manifest:
+            candidate_entry["frozen_source_inventory"] = candidate_manifest[
+                "frozen_source_inventory"
+            ]
+        builds[candidate_version] = candidate_entry
+    builds[version] = build_entry
+    entry = {
+        "latest_successful_version": version,
+        **{key: value for key, value in build_entry.items() if key != "version"},
+        "builds": {key: builds[key] for key in sorted(builds)},
+    }
     if seasons.get(season) == entry:
         return
+    catalogue["schema_version"] = 2
     catalogue["updated_at_utc"] = utc_string(updated_at)
     seasons[season] = entry
     atomic_write_json(path, catalogue)
@@ -796,8 +1282,15 @@ def _result_from_manifest(
     processed_dir: Path,
     manifest: dict[str, Any],
     reused: bool,
+    inventory_status: str | None = None,
 ) -> HistoricalPipelineResult:
     coverage = manifest["snapshot_coverage"]
+    artifact_inventory = manifest.get("artifact_inventory")
+    if not isinstance(artifact_inventory, dict):
+        artifact_inventory = {
+            "generated_table_count": len(manifest.get("row_counts", {})),
+            "generated_artifact_count": len(manifest.get("processed_files", [])) + 1,
+        }
     return HistoricalPipelineResult(
         season=season,
         version=manifest["version"],
@@ -806,5 +1299,17 @@ def _result_from_manifest(
         row_counts=manifest["row_counts"],
         snapshot_gameweeks=coverage["accepted_gameweeks"],
         missing_snapshot_gameweeks=tuple(coverage["missing_gameweeks"]),
+        generated_table_count=artifact_inventory["generated_table_count"],
+        generated_artifact_count=artifact_inventory[
+            "generated_artifact_count"
+        ],
+        source_inventory_status=(
+            inventory_status
+            or (
+                "frozen_per_build"
+                if "frozen_source_inventory" in manifest
+                else "legacy_shared_raw_inventory"
+            )
+        ),
         reused=reused,
     )

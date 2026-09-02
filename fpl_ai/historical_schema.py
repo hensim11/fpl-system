@@ -3,6 +3,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Callable
+
+from fpl_ai.errors import FPLValidationError
+
+
+TRANSFORMATION_CONTRACT_VERSION = "historical-transform-v5"
 
 
 @dataclass(frozen=True)
@@ -207,16 +213,22 @@ def schemas_as_dict() -> dict[str, list[dict[str, object]]]:
     }
 
 
-def schema_document() -> dict[str, object]:
-    return {
+def schema_document(
+    vaastav_source_schema: dict[str, object] | None = None,
+) -> dict[str, object]:
+    document: dict[str, object] = {
         "tables": schemas_as_dict(),
         "fixture_context_availability_policy": FIXTURE_CONTEXT_AVAILABILITY_POLICY,
+        "transformation_contract_version": TRANSFORMATION_CONTRACT_VERSION,
     }
+    if vaastav_source_schema is not None:
+        document["vaastav_source_schema"] = vaastav_source_schema
+    return document
 
 
 # Exact contracts observed at the pinned Vaastav revision. Additions are treated
 # as a source-schema change so they are reviewed rather than silently trusted.
-VAASTAV_SOURCE_COLUMNS = {
+VAASTAV_2024_25_SOURCE_COLUMNS = {
     "merged_gw.csv": [
         "name", "position", "team", "xP", "assists", "bonus", "bps",
         "clean_sheets", "creativity", "element", "expected_assists",
@@ -271,3 +283,420 @@ VAASTAV_SOURCE_COLUMNS = {
         "team_a_difficulty", "pulse_id",
     ],
 }
+
+
+_VAASTAV_2024_25_REQUIRED_COLUMNS = {
+    "merged_gw.csv": [
+        "position", "assists", "bonus", "bps", "clean_sheets", "creativity",
+        "element", "fixture", "goals_conceded", "goals_scored", "ict_index",
+        "influence", "kickoff_time", "minutes", "opponent_team", "own_goals",
+        "penalties_missed", "penalties_saved", "red_cards", "saves", "team_a_score",
+        "team_h_score", "threat", "total_points", "was_home", "yellow_cards", "GW",
+    ],
+    "players_raw.csv": [
+        "id", "code", "first_name", "second_name", "web_name", "element_type", "team",
+    ],
+    "teams.csv": ["id", "code", "name", "short_name"],
+    "fixtures.csv": [
+        "id", "code", "event", "finished", "kickoff_time", "team_a", "team_a_score",
+        "team_h", "team_h_score", "team_h_difficulty", "team_a_difficulty",
+    ],
+}
+
+_VAASTAV_2024_25_QUARANTINED_COLUMNS = {
+    "merged_gw.csv": [
+        "selected", "value", "transfers_balance", "transfers_in", "transfers_out", "modified",
+    ],
+    "players_raw.csv": [],
+    "teams.csv": [],
+    "fixtures.csv": [],
+}
+
+_VAASTAV_2024_25_FORBIDDEN_COLUMNS = {
+    "merged_gw.csv": ["xP"],
+    "players_raw.csv": [],
+    "teams.csv": [],
+    "fixtures.csv": [],
+}
+
+_VAASTAV_2024_25_OPTIONAL_COLUMNS = {
+    "merged_gw.csv": [
+        "starts", "expected_goals", "expected_assists",
+        "expected_goal_involvements", "expected_goals_conceded",
+    ],
+    "players_raw.csv": [],
+    "teams.csv": [],
+    "fixtures.csv": [],
+}
+
+_VAASTAV_2024_25_IGNORED_COLUMNS = {
+    "merged_gw.csv": [
+        "name", "team", "round", "mng_clean_sheets", "mng_draw",
+        "mng_goals_scored", "mng_loss", "mng_underdog_draw", "mng_underdog_win",
+        "mng_win",
+    ],
+    "players_raw.csv": [
+        "mng_clean_sheets", "mng_draw", "mng_goals_scored", "mng_loss",
+        "mng_underdog_draw", "mng_underdog_win", "mng_win",
+    ],
+    "teams.csv": [],
+    "fixtures.csv": [
+        "finished_provisional", "minutes", "provisional_start_time", "started", "stats",
+    ],
+}
+
+_VAASTAV_2024_25_MAPPINGS = {
+    "merged_gw.csv": {
+        "element": "player_fixture_facts.element",
+        "fixture": "player_fixture_facts.fixture",
+        "GW": "player_fixture_facts.gameweek",
+        "position": "player_fixture_facts.position_at_fixture",
+        "was_home": "player_fixture_facts.was_home",
+        "kickoff_time": "player_fixture_facts.kickoff_time_utc",
+        "opponent_team": "player_fixture_facts.opponent_team_id_at_fixture",
+        "total_points": "player_fixture_facts.total_points",
+        **{
+            field: f"player_fixture_facts.{field}"
+            for field in (
+                "minutes", "starts", "goals_scored", "assists", "clean_sheets",
+                "goals_conceded", "own_goals", "penalties_saved", "penalties_missed",
+                "saves", "yellow_cards", "red_cards", "bonus", "bps", "influence",
+                "creativity", "threat", "ict_index", "expected_goals",
+                "expected_assists", "expected_goal_involvements",
+                "expected_goals_conceded",
+            )
+        },
+    },
+    "players_raw.csv": {
+        "id": "players.element",
+        "code": "players.player_code",
+        "first_name": "players.first_name",
+        "second_name": "players.second_name",
+        "web_name": "players.web_name",
+        "element_type": "players.end_of_season_position_id",
+        "team": "players.end_of_season_team_id",
+    },
+    "teams.csv": {
+        "id": "teams.team_id",
+        "code": "teams.team_code",
+        "name": "teams.name",
+        "short_name": "teams.short_name",
+    },
+    "fixtures.csv": {
+        "id": "fixtures.fixture",
+        "event": "fixtures.gameweek",
+        "team_h": "fixtures.home_team_id",
+        "team_a": "fixtures.away_team_id",
+        "kickoff_time": "fixtures.kickoff_time_utc",
+        "code": "fixtures.fixture_code",
+        "finished": "fixtures.finished",
+        "team_h_score": "fixtures.home_score",
+        "team_a_score": "fixtures.away_score",
+        "team_h_difficulty": "fixtures.home_difficulty",
+        "team_a_difficulty": "fixtures.away_difficulty",
+    },
+}
+
+_VAASTAV_2024_25_QUARANTINE_MAPPINGS = {
+    "merged_gw.csv": {
+        field: f"quarantined_source_metadata.{field}"
+        for field in _VAASTAV_2024_25_QUARANTINED_COLUMNS["merged_gw.csv"]
+    },
+    "players_raw.csv": {},
+    "teams.csv": {},
+    "fixtures.csv": {},
+}
+
+_VAASTAV_2024_25_TYPE_EXPECTATIONS = {
+    "merged_gw.csv": {
+        "element": "integer", "fixture": "integer", "GW": "integer",
+        "was_home": "boolean", "total_points": "integer", "kickoff_time": "utc_timestamp",
+    },
+    "players_raw.csv": {"id": "integer", "code": "integer", "element_type": "integer"},
+    "teams.csv": {"id": "integer", "code": "integer"},
+    "fixtures.csv": {
+        "id": "integer", "event": "nullable_integer", "finished": "boolean",
+        "kickoff_time": "nullable_utc_timestamp", "team_h": "integer", "team_a": "integer",
+    },
+}
+
+
+def _vaastav_2024_25_files() -> dict[str, dict[str, object]]:
+    files: dict[str, dict[str, object]] = {}
+    for filename, columns in VAASTAV_2024_25_SOURCE_COLUMNS.items():
+        required = _VAASTAV_2024_25_REQUIRED_COLUMNS[filename]
+        optional = _VAASTAV_2024_25_OPTIONAL_COLUMNS[filename]
+        mappings = dict(_VAASTAV_2024_25_MAPPINGS[filename])
+        quarantined = list(_VAASTAV_2024_25_QUARANTINED_COLUMNS[filename])
+        forbidden = list(_VAASTAV_2024_25_FORBIDDEN_COLUMNS[filename])
+        explicitly_ignored = set(_VAASTAV_2024_25_IGNORED_COLUMNS[filename])
+        ignored = [
+            column
+            for column in columns
+            if column not in required
+            and column not in optional
+            and column not in quarantined
+            and column not in forbidden
+        ]
+        if not explicitly_ignored.issubset(ignored):
+            raise AssertionError(f"invalid ignored-column contract for {filename}")
+        files[filename] = {
+            "known_column_order": list(columns),
+            "required_columns": list(required),
+            "optional_columns": list(optional),
+            "ignored_columns": ignored,
+            "quarantined_columns": quarantined,
+            "forbidden_columns": forbidden,
+            "source_to_canonical_mappings": mappings,
+            "quarantined_source_to_canonical_mappings": dict(
+                _VAASTAV_2024_25_QUARANTINE_MAPPINGS[filename]
+            ),
+            "type_expectations": dict(_VAASTAV_2024_25_TYPE_EXPECTATIONS[filename]),
+        }
+    return files
+
+
+VAASTAV_SOURCE_SCHEMAS: dict[str, dict[str, object]] = {
+    "vaastav-2024-25-v1": {
+        "schema_id": "vaastav-2024-25-v1",
+        "schema_version": 1,
+        "applicable_seasons": ["2024-25"],
+        "unexpected_columns_policy": "quality_failure",
+        "files": _vaastav_2024_25_files(),
+        "expected_metric_fields_available": [
+            "expected_goals", "expected_assists", "expected_goal_involvements",
+            "expected_goals_conceded",
+        ],
+        "forbidden_trusted_output_fields": ["xP"],
+        "known_source_exceptions": [
+            "Assistant Manager pseudo-elements and mng_* columns exist in 2024/25.",
+            "xP timing is not trusted and is forbidden from every processed table.",
+        ],
+    }
+}
+
+
+def validate_vaastav_source_schema(
+    schema: object, season: str | None = None
+) -> dict[str, object]:
+    """Reject contradictory or incomplete Vaastav source contracts."""
+
+    if not isinstance(schema, dict):
+        raise FPLValidationError(
+            "malformed Vaastav source schema <unknown>; expected an object; "
+            "corrective action: define a complete schema object"
+        )
+    schema_id = schema.get("schema_id", "<unknown>")
+
+    def fail(message: str) -> None:
+        context = f" for season {season!r}" if season is not None else ""
+        raise FPLValidationError(
+            f"Vaastav source schema {schema_id!r}{context}: {message}; "
+            "corrective action: make field categories disjoint and mappings explicit"
+        )
+
+    if not isinstance(schema_id, str) or not schema_id.strip():
+        fail("schema_id must be a non-empty string")
+    if (
+        not isinstance(schema.get("schema_version"), int)
+        or isinstance(schema.get("schema_version"), bool)
+        or schema["schema_version"] < 1
+    ):
+        fail("schema_version must be an integer")
+    applicable = schema.get("applicable_seasons")
+    if (
+        not isinstance(applicable, list)
+        or not applicable
+        or any(not isinstance(value, str) or not value for value in applicable)
+        or len(applicable) != len(set(applicable))
+    ):
+        fail("applicable_seasons must be a non-empty list without duplicates")
+    files = schema.get("files")
+    if not isinstance(files, dict) or not files:
+        fail("files must be a non-empty object")
+    if schema.get("unexpected_columns_policy") != "quality_failure":
+        fail("unexpected_columns_policy must be 'quality_failure'")
+    for metadata_field in (
+        "expected_metric_fields_available",
+        "known_source_exceptions",
+        "forbidden_trusted_output_fields",
+    ):
+        values = schema.get(metadata_field)
+        if not isinstance(values, list) or any(
+            not isinstance(value, str) for value in values
+        ):
+            fail(f"{metadata_field} must be a string list")
+
+    categories = (
+        "required_columns",
+        "optional_columns",
+        "ignored_columns",
+        "quarantined_columns",
+        "forbidden_columns",
+    )
+    canonical_targets: dict[str, str] = {}
+    forbidden_across_files: list[str] = []
+    xp_declared = False
+    for filename, file_schema in files.items():
+        if not isinstance(filename, str) or not isinstance(file_schema, dict):
+            fail("each files entry must map a filename to an object")
+        known = file_schema.get("known_column_order")
+        if not isinstance(known, list) or any(not isinstance(value, str) for value in known):
+            fail(f"{filename} known_column_order must be a string list")
+        if len(known) != len(set(known)):
+            duplicate = next(value for value in known if known.count(value) > 1)
+            fail(f"{filename} field {duplicate!r} is duplicated in known_column_order")
+
+        declared_by_category: dict[str, list[str]] = {}
+        field_categories: dict[str, list[str]] = {}
+        for category in categories:
+            values = file_schema.get(category)
+            if not isinstance(values, list) or any(
+                not isinstance(value, str) for value in values
+            ):
+                fail(f"{filename} {category} must be a string list")
+            if len(values) != len(set(values)):
+                duplicate = next(value for value in values if values.count(value) > 1)
+                fail(f"{filename} field {duplicate!r} is duplicated in {category}")
+            declared_by_category[category] = values
+            for field in values:
+                field_categories.setdefault(field, []).append(category)
+        conflicts = {
+            field: declarations
+            for field, declarations in field_categories.items()
+            if len(declarations) > 1
+        }
+        if conflicts:
+            field, declarations = next(iter(conflicts.items()))
+            fail(
+                f"{filename} field {field!r} has conflicting declarations "
+                f"{declarations}"
+            )
+        declared = set(field_categories)
+        if declared != set(known):
+            fail(
+                f"{filename} supported-field policy mismatch; undeclared="
+                f"{sorted(set(known) - declared)}, unknown={sorted(declared - set(known))}"
+            )
+
+        forbidden = set(declared_by_category["forbidden_columns"])
+        forbidden_across_files.extend(declared_by_category["forbidden_columns"])
+        xp_declared = xp_declared or "xP" in known
+        trusted_mappings = file_schema.get("source_to_canonical_mappings")
+        quarantine_mappings = file_schema.get(
+            "quarantined_source_to_canonical_mappings"
+        )
+        if not isinstance(trusted_mappings, dict) or not isinstance(
+            quarantine_mappings, dict
+        ):
+            fail(f"{filename} mappings must be objects")
+        type_expectations = file_schema.get("type_expectations")
+        if not isinstance(type_expectations, dict) or any(
+            field not in declared or not isinstance(expectation, str)
+            for field, expectation in type_expectations.items()
+        ):
+            fail(f"{filename} type_expectations contains an unsupported field or type")
+
+        trusted_sources = set(declared_by_category["required_columns"]) | set(
+            declared_by_category["optional_columns"]
+        )
+        for source_field, target in trusted_mappings.items():
+            if source_field in forbidden:
+                fail(
+                    f"{filename} forbidden field {source_field!r} maps to trusted "
+                    f"canonical field {target!r}"
+                )
+            if source_field not in trusted_sources:
+                fail(
+                    f"{filename} mapping source {source_field!r} is not declared "
+                    "required or optional"
+                )
+            _validate_canonical_mapping_target(
+                filename, source_field, target, False, fail
+            )
+            owner = canonical_targets.setdefault(target, f"{filename}.{source_field}")
+            if owner != f"{filename}.{source_field}":
+                fail(
+                    f"canonical target {target!r} has conflicting mappings from "
+                    f"{owner!r} and {filename}.{source_field!r}"
+                )
+        quarantined_sources = set(declared_by_category["quarantined_columns"])
+        for source_field, target in quarantine_mappings.items():
+            if source_field not in quarantined_sources:
+                fail(
+                    f"{filename} quarantined mapping source {source_field!r} is not "
+                    "declared quarantined"
+                )
+            _validate_canonical_mapping_target(
+                filename, source_field, target, True, fail
+            )
+
+    top_forbidden = schema.get("forbidden_trusted_output_fields")
+    if not isinstance(top_forbidden, list) or any(
+        not isinstance(value, str) for value in top_forbidden
+    ):
+        fail("forbidden_trusted_output_fields must be a string list")
+    if len(top_forbidden) != len(set(top_forbidden)):
+        duplicate = next(
+            value for value in top_forbidden if top_forbidden.count(value) > 1
+        )
+        fail(f"field {duplicate!r} is duplicated in forbidden_trusted_output_fields")
+    if set(top_forbidden) != set(forbidden_across_files):
+        fail(
+            "forbidden_trusted_output_fields must exactly match file-level "
+            f"forbidden columns {sorted(set(forbidden_across_files))}"
+        )
+    if xp_declared and "xP" not in top_forbidden:
+        fail("xP must be forbidden and cannot map to any trusted expected-points field")
+    return schema
+
+
+def _validate_canonical_mapping_target(
+    filename: str,
+    source_field: object,
+    target: object,
+    quarantined: bool,
+    fail: Callable[[str], None],
+) -> None:
+    if not isinstance(source_field, str) or not isinstance(target, str) or "." not in target:
+        fail(f"{filename} mapping {source_field!r} -> {target!r} is malformed")
+    table, column = target.split(".", 1)
+    expected_table = "quarantined_source_metadata" if quarantined else None
+    if table not in TABLE_SCHEMAS or column not in column_names(table):
+        fail(f"{filename} mapping {source_field!r} has unknown target {target!r}")
+    if quarantined and table != expected_table:
+        fail(f"{filename} quarantined field {source_field!r} has trusted target {target!r}")
+    if not quarantined and table == "quarantined_source_metadata":
+        fail(f"{filename} trusted field {source_field!r} has quarantined target {target!r}")
+
+
+def get_vaastav_source_schema(
+    schema_id: str, season: str, configured_version: int | None = None
+) -> dict[str, object]:
+    """Resolve and validate a season-specific Vaastav source contract."""
+
+    schema = VAASTAV_SOURCE_SCHEMAS.get(schema_id)
+    if schema is None:
+        supported = ", ".join(sorted(VAASTAV_SOURCE_SCHEMAS))
+        raise FPLValidationError(
+            f"unknown Vaastav source schema {schema_id!r}; available schema IDs: {supported}; "
+            "corrective action: add a reviewed schema definition or select an existing ID"
+        )
+    validate_vaastav_source_schema(schema, season)
+    if schema["schema_id"] != schema_id:
+        raise FPLValidationError(
+            f"Vaastav source schema registry key {schema_id!r} conflicts with declared "
+            f"schema_id {schema['schema_id']!r}; corrective action: make the IDs identical"
+        )
+    if season not in schema["applicable_seasons"]:
+        seasons = ", ".join(schema["applicable_seasons"])
+        raise FPLValidationError(
+            f"Vaastav source schema {schema_id!r} does not support season {season!r}; "
+            f"applicable seasons: {seasons}"
+        )
+    if configured_version is not None and configured_version != schema["schema_version"]:
+        raise FPLValidationError(
+            f"Vaastav source schema {schema_id!r} version mismatch: configured "
+            f"{configured_version}, registry {schema['schema_version']}"
+        )
+    return schema

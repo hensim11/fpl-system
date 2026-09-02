@@ -128,4 +128,48 @@ Status: accepted.
 
 Each historical source records the requested season, repository, configured ref, resolved 40-character commit SHA, and configured artifact paths. Raw file records add URL, retrieval time, SHA-256, and size. The processed manifest and latest-successful catalogue retain the complete source identity plus its deterministic hash. Moving refs such as `main` and `master`, missing resolved commits, or URLs that do not contain the resolved commit are rejected.
 
-Consequence: a future developer can identify both what was requested and the immutable upstream content used. The dataset version continues to include the schema version and both resolved commit prefixes.
+Consequence: a future developer can identify both what was requested and the immutable upstream content used. The raw source version includes the catalogue schema version and both resolved commit prefixes; Decision 019 adds a separate build identity to processed versions.
+
+## 017 — Enforce season-configured points-reconciliation coverage
+
+Status: accepted for Milestone 2.
+
+Reconciliation coverage is `compared_row_count / eligible_row_count`. An eligible row is one unique `(season, gameweek, element)` total produced by summing canonical player-fixture facts; it becomes compared only when the independent snapshot supplies integer `event_points` and marks the event `finished` and `data_checked`. The season catalogue declares reconciliation `required` or `optional` and a minimum ratio in `[0, 1]`. For 2024/25 it is required at `1.0`.
+
+Consequence: a required check with no eligible/usable comparisons, coverage below its threshold, or any points mismatch fails quality and cannot update the latest catalogue. Only an explicitly optional season may record `skipped_optional`; missing comparisons are never counted as matches.
+
+## 018 — Select an explicit Vaastav source schema per season
+
+Status: accepted for Milestone 2.
+
+The source catalogue selects a registered Vaastav schema ID and version. Each definition declares applicable seasons, required and optional columns, mappings, type expectations, quarantined and ignored fields, expected-metric availability, known exceptions, leakage-forbidden fields, and its schema-drift policy. The first real definition is `vaastav-2024-25-v1`.
+
+Consequence: the canonical output contract stays stable while archive-specific changes remain explicit. Required-column loss and unknown/inapplicable schemas fail immediately; optional loss remains null and is reported; unexpected additions or column-order drift fail the quality report. Supporting 2023/24 requires adding configuration and a schema definition rather than editing the generic importer.
+
+## 019 — Separate exact source identity from transformation/build identity
+
+Status: accepted for Milestone 2.
+
+`source_identity_sha256` covers configured providers and revisions plus exact raw artifact paths, sizes, and hashes. `build_identity_sha256` separately covers the explicit transformation-contract version, canonical schema contract, season expectations, selected source schema, snapshot-selection settings, and reconciliation policy. Canonical JSON ordering makes it deterministic; retrieval/build times and absolute output paths are excluded.
+
+Processed directories append the build-hash prefix to the existing source version. Manifests, quality and reconciliation artifacts, and the latest catalogue record both complete identities and hashes.
+
+Consequence: equivalent configuration is stable, a semantic option change creates a distinct build, and two builds over identical raw sources cannot silently overwrite one another. The raw directory remains shared by immutable source version.
+
+## 020 — Freeze the source inventory inside every processed build
+
+Status: accepted for Milestone 2.
+
+Each new processed build owns an atomically written `source_inventory.json` containing the exact provider, repository, season, revision, path, URL, hash, and byte-size records used for that build, plus the complete source identity. The build manifest records the inventory's portable relative path, SHA-256, source identity, and source-identity hash. Immutable raw files remain shared and are not copied.
+
+Catalogue schema v2 keeps version-indexed build entries alongside the latest-successful entry. Builds predating this decision are labelled `legacy_shared_raw_inventory` and are readable only while the shared raw inventory still matches the checksum they originally recorded; they are never silently migrated or rewritten.
+
+Consequence: changing a shared raw-cache inventory cannot alter the provenance of a new frozen build. The on-disk provenance contract changed, so the explicit transformation contract advanced from `historical-transform-v4` to `historical-transform-v5`, producing a distinct build identity while preserving earlier builds.
+
+## 021 — Make forbidden source fields structurally unmappable
+
+Status: accepted for Milestone 2.
+
+Season-specific source schemas use disjoint required, optional, ignored, quarantined, and forbidden field categories. Validation runs before ingestion and rejects duplicates, category overlap, unsupported mapping sources, malformed targets, multiple sources targeting one canonical field, and any forbidden-to-trusted mapping. Trusted and quarantine mappings are separate contracts.
+
+Consequence: Vaastav `xP` is not merely ignored by the current transformer; the schema invariant prevents it from mapping to `expected_points_next_gameweek` or any other trusted canonical field. Unexpected upstream columns continue to follow the explicit quality-failure and reporting policy.
