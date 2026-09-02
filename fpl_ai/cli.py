@@ -20,19 +20,22 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--output-dir",
+        dest="current_output_dir",
         type=Path,
-        default=Path("data"),
+        default=None,
         help="data root for raw/ and processed/ snapshots (default: data)",
     )
     parser.add_argument(
         "--base-url",
-        default=DEFAULT_BASE_URL,
+        dest="current_base_url",
+        default=None,
         help=argparse.SUPPRESS,
     )
     parser.add_argument(
         "--timeout",
+        dest="current_timeout",
         type=float,
-        default=30.0,
+        default=None,
         help="HTTP timeout in seconds (default: 30)",
     )
     subparsers = parser.add_subparsers(dest="command")
@@ -47,27 +50,46 @@ def build_parser() -> argparse.ArgumentParser:
     )
     historical.add_argument(
         "--output-dir",
+        dest="historical_output_dir",
         type=Path,
-        default=Path("data"),
+        default=None,
         help="data root for historical raw/processed data (default: data)",
     )
     historical.add_argument(
         "--timeout",
+        dest="historical_timeout",
         type=float,
-        default=60.0,
+        default=None,
         help="per-request HTTP timeout in seconds (default: 60)",
     )
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    args = build_parser().parse_args(argv)
+    parser = build_parser()
+    args = parser.parse_args(argv)
     try:
         if args.command == "historical":
+            if args.current_base_url is not None:
+                parser.error("--base-url is only valid for current ingestion")
+            output_dir = _resolve_shared_option(
+                parser,
+                "--output-dir",
+                args.current_output_dir,
+                args.historical_output_dir,
+                Path("data"),
+            )
+            timeout = _resolve_shared_option(
+                parser,
+                "--timeout",
+                args.current_timeout,
+                args.historical_timeout,
+                60.0,
+            )
             result = run_historical_pipeline(
                 args.season,
-                args.output_dir,
-                timeout=args.timeout,
+                output_dir,
+                timeout=timeout,
             )
             action = "reused" if result.reused else "completed"
             print(
@@ -85,9 +107,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(f"  raw data:       {result.raw_dir.resolve()}")
             print(f"  processed data: {result.processed_dir.resolve()}")
             return 0
+        output_dir = args.current_output_dir or Path("data")
+        timeout = args.current_timeout if args.current_timeout is not None else 30.0
+        base_url = args.current_base_url or DEFAULT_BASE_URL
         result = run_pipeline(
-            args.output_dir,
-            client=FPLClient(base_url=args.base_url, timeout=args.timeout),
+            output_dir,
+            client=FPLClient(base_url=base_url, timeout=timeout),
         )
     except (FPLDataError, OSError, ValueError) as exc:
         print(f"Ingestion failed: {exc}", file=sys.stderr)
@@ -100,3 +125,26 @@ def main(argv: Sequence[str] | None = None) -> int:
     print(f"  raw data:       {result.raw_dir.resolve()}")
     print(f"  processed data: {result.processed_dir.resolve()}")
     return 0
+
+
+def _resolve_shared_option(
+    parser: argparse.ArgumentParser,
+    option: str,
+    parent_value: object | None,
+    historical_value: object | None,
+    default: object,
+) -> object:
+    if (
+        parent_value is not None
+        and historical_value is not None
+        and parent_value != historical_value
+    ):
+        parser.error(
+            f"conflicting {option} values before and after 'historical': "
+            f"{parent_value!s} != {historical_value!s}"
+        )
+    if historical_value is not None:
+        return historical_value
+    if parent_value is not None:
+        return parent_value
+    return default

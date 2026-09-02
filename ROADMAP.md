@@ -21,6 +21,7 @@ Status: in progress. The 2024/25 vertical slice is implemented and live-verified
 - [x] Define explicit nullable schemas, information classes, and a data-quality report.
 - [x] Add immutable raw provenance, idempotent version handling, atomic manifests/catalogue, and a stable latest-successful lookup.
 - [x] Ingest 2024/25 player-fixture outcomes and strict pre-deadline snapshots without modelling.
+- [x] Harden 2024/25 with deadline-time team/position identity, an explicit fixture availability allowlist, cross-source points reconciliation, complete source-pin identity, and unambiguous CLI arguments.
 - [ ] Expand the proven pipeline and season-specific schema mappings to 2021/22–2023/24 and 2025/26.
 - [ ] Re-run cross-season identity and availability audits over the full supported range.
 

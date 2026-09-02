@@ -89,7 +89,7 @@ Historical processing uses two immutable inputs:
 | [vaastav/Fantasy-Premier-League](https://github.com/vaastav/Fantasy-Premier-League) | `9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88` | Player-fixture outcomes, season identities, teams, and fixtures. |
 | [Randdalf/fplcache](https://github.com/Randdalf/fplcache) | `33dac28d18953bee5bc4bd56ddd8a5e32e169d68` | Compressed historical `bootstrap-static` captures. |
 
-`fpl_ai/historical_sources.json` records repositories, revisions, required paths, expected gameweeks, and season audit counts. No moving `master` or `main` URL is used. Every downloaded file is retained byte-for-byte under `data/historical/raw/` and recorded with provider, repository, pinned revision, source path and URL, retrieval time, SHA-256, and byte size.
+`fpl_ai/historical_sources.json` records repositories, configured refs, resolved immutable commit SHAs, required paths, expected gameweeks, and season audit counts. No moving `master` or `main` ref is accepted. Every downloaded file is retained byte-for-byte under `data/historical/raw/` and recorded with requested season, provider, repository, configured ref, resolved commit, source path and URL, retrieval time, SHA-256, and byte size. The processed manifest and latest-successful catalogue repeat the complete source identity and its deterministic SHA-256.
 
 ## Output datasets
 
@@ -128,25 +128,26 @@ data/historical/
 `schemas.json` is the machine-readable column, type, nullability, and information-class contract. The canonical tables are:
 
 - `gameweeks`: every scheduled gameweek, including a future fixture-empty gameweek; deadline, selected capture, hours before deadline, source path, and coverage flag.
-- `players`: season-qualified `element`, FPL `player_code`, names, and position. `element` is never treated as cross-season identity.
+- `players`: season-qualified `element`, FPL `player_code`, names, and explicitly named end-of-season team/position fields for identity auditing. `element` is never treated as cross-season identity.
 - `teams`: season-qualified FPL team identity and names.
-- `fixtures`: gameweek, teams, UTC kickoff, difficulty, scores, and completion.
-- `player_fixture_facts`: one row per `(season, element, fixture)`, with fixture-derived team/opponent/home-away context and realised outcomes. Zero-minute rows are preserved.
-- `player_deadline_snapshots`: one element per accepted gameweek capture, containing only pre-deadline price, ownership, transfers, availability/news, FPL `ep_next`, set-piece orders, and source provenance. Missing upstream values remain null.
+- `fixtures`: the season-end/post-event gameweek assignment, teams, UTC kickoff, difficulty, scores, and completion. It is not a deadline-time schedule snapshot.
+- `player_fixture_facts`: one row per `(season, element, fixture)`, with explicitly post-event `team_id_at_fixture`, `opponent_team_id_at_fixture`, `position_at_fixture`, home/away context, and realised outcomes. Zero-minute rows are preserved.
+- `player_deadline_snapshots`: one element per accepted gameweek capture, containing the team ID/code/name, position ID/labels, price, ownership, transfers, availability/news, FPL `ep_next`, set-piece orders, and provenance known at that capture. Snapshot identity is never filled from end-of-season metadata; unavailable source identity remains null.
 - `quarantined_source_metadata`: Vaastav ownership, value, and transfer fields whose independent capture time is not proven. These are audit-only.
 
 Vaastav `xP` is absent from every output table. The 2024/25 `mng_*` fields are also excluded. Assistant Manager position `AM` is retained to preserve the pinned 27,605-row/804-element contract, but those elements are club-manager slots: a real-manager change can change the person code within one element. The quality report audits this exception, and AM must not be treated as a normal cross-season football-player identity.
 
 ## Leakage boundary
 
-Historical schema fields are separated into four classes:
+Historical schema fields are separated into explicit information classes:
 
 - realised outcomes are post-match facts and cannot predict the same gameweek;
 - pre-deadline state comes only from an accepted archive snapshot;
-- fixture/context fields describe the scheduled match;
+- deadline context is restricted to season, target gameweek, and exact deadline;
+- final fixture identity, assignment, teams, opponent, home/away, kickoff, difficulty and status remain post-event fixture context;
 - unverified-timing fields stay quarantined.
 
-For each gameweek, the selector accepts only the latest snapshot where the target event is `is_next`, its deadline exactly matches the recorded deadline, and capture is strictly before that deadline. A post-deadline capture is never accepted. Missing snapshots are not interpolated or backfilled, and missing values are never converted to zero.
+For each gameweek, the selector accepts only the latest snapshot where the target event is `is_next`, its deadline exactly matches the recorded deadline, and capture is strictly before that deadline. A post-deadline capture is never accepted. Missing snapshots are not interpolated or backfilled, and missing values are never converted to zero. Because the pinned inputs do not preserve fixture-list snapshots at every deadline, no fixture ID, opponent, home/away flag, kickoff, difficulty, score, played minutes, started/finished flag, or rescheduling state is attached to `player_deadline_snapshots`.
 
 All fixtures in a double gameweek share one gameweek-deadline information cutoff. The first fixture's outcomes therefore cannot become information for the second fixture. This milestone creates no modelling features.
 
@@ -161,8 +162,11 @@ Current ingestion retains its required-field, unique-ID, and foreign-key validat
 - expected, fixture-bearing, missing, and snapshot-covered gameweeks;
 - null counts, duplicate counts, and source/processed row counts;
 - configured 2024/25 expectations: 380 fixtures, 27,605 facts, 804 fact elements, and 38 fixture-bearing gameweeks.
+- Vaastav fixture-level `total_points`, summed by player/Gameweek, against `fplcache` `event_points` from a later snapshot where that event is both `finished` and `data_checked`.
 
-A table-quality failure does not update `catalogue.json`; its report is retained under `data/historical/failed/`. Manifest and catalogue writes are atomic. A successful rerun verifies all raw and processed checksums and reuses the same version without network access or rewriting data. A same-path content collision fails instead of overwriting immutable raw data.
+Vaastav `merged_gw.csv` remains canonical for fixture-grain `total_points`; `fplcache` is the independent Gameweek-total check. A mismatch is a hard quality failure, records both values and identifiers, and prevents processed publication or catalogue update. Gameweek 38 uses the separately pinned `cache/2025/5/26/0206.json.xz` settlement snapshot.
+
+A table-quality failure does not update `catalogue.json`. It is retained under `data/historical/failed/<season>/` with a unique attempt timestamp, failure status, dataset version, source-identity hash, and `catalogue_updated: false`. Manifest and catalogue writes are atomic. A successful rerun verifies all raw and processed checksums and reuses the same version without network access or rewriting data. A same-path content collision fails instead of overwriting immutable raw data.
 
 ## Assumptions and limitations
 

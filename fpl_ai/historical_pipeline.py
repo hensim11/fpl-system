@@ -19,10 +19,16 @@ from fpl_ai.errors import FPLDownloadError, FPLValidationError
 from fpl_ai.historical_io import (
     atomic_write_csv,
     atomic_write_json,
+    canonical_json_bytes,
+    sha256_bytes,
     sha256_file,
     store_immutable,
 )
-from fpl_ai.historical_schema import column_names, schemas_as_dict
+from fpl_ai.historical_schema import (
+    FIXTURE_CONTEXT_AVAILABILITY_POLICY,
+    column_names,
+    schema_document,
+)
 from fpl_ai.historical_transform import (
     parse_utc,
     read_source_csv,
@@ -33,7 +39,11 @@ from fpl_ai.historical_transform import (
     transform_teams,
     utc_string,
 )
-from fpl_ai.historical_validation import build_quality_report, raise_for_quality_failures
+from fpl_ai.historical_validation import (
+    build_quality_report,
+    raise_for_quality_failures,
+    reconcile_total_points,
+)
 
 Fetcher = Callable[[str], bytes]
 
@@ -81,9 +91,11 @@ def run_historical_pipeline(
     config = source_catalogue["seasons"][season]
     _validate_source_config(config)
     schema_version = source_catalogue.get("schema_version", 1)
-    vaastav_revision = config["sources"]["vaastav"]["revision"]
-    cache_revision = config["sources"]["fplcache"]["revision"]
+    vaastav_revision = config["sources"]["vaastav"]["resolved_commit_sha"]
+    cache_revision = config["sources"]["fplcache"]["resolved_commit_sha"]
     version = f"v{schema_version}-{vaastav_revision[:12]}-{cache_revision[:12]}"
+    source_identity = _source_identity(season, config)
+    source_identity_sha256 = sha256_bytes(canonical_json_bytes(source_identity))
 
     root = Path(output_dir) / "historical"
     raw_dir = root / "raw" / season / version
@@ -95,19 +107,25 @@ def run_historical_pipeline(
     retrieved_at = retrieved_at.astimezone(timezone.utc)
 
     existing = _existing_result(
-        season, version, raw_dir, processed_dir, catalogue_path, retrieved_at
+        season,
+        version,
+        raw_dir,
+        processed_dir,
+        catalogue_path,
+        retrieved_at,
+        source_identity_sha256,
     )
     if existing is not None:
         return existing
 
     active_fetcher = fetcher or _url_fetcher(timeout)
-    source_store = _SourceStore(raw_dir, retrieved_at, active_fetcher)
+    source_store = _SourceStore(raw_dir, season, retrieved_at, active_fetcher)
     vaastav_files = _obtain_vaastav_files(config["sources"]["vaastav"], source_store)
     cache_config = config["sources"]["fplcache"]
     tree_bytes, _ = source_store.obtain(
         "fplcache",
         cache_config,
-        f"git/trees/{cache_config['revision']}?recursive=1",
+        f"git/trees/{cache_config['resolved_commit_sha']}?recursive=1",
         cache_config["tree_url"],
         local_path="github-tree.json",
     )
@@ -121,6 +139,23 @@ def run_historical_pipeline(
     selected = _select_snapshots(
         config["expected_gameweeks"], deadlines, archive_entries, cache_config, source_store
     )
+    settlement_path = cache_config["points_settlement_snapshot_path"]
+    settlement_bytes, settlement_record = source_store.obtain(
+        "fplcache",
+        cache_config,
+        settlement_path,
+        _raw_url(cache_config, settlement_path),
+    )
+    settlement_payload = _decode_snapshot(settlement_bytes, settlement_path)
+    settlement_capture = _capture_from_path(settlement_path, cache_config)
+    final_gameweek = max(config["expected_gameweeks"])
+    _validate_points_settlement_snapshot(
+        settlement_payload,
+        final_gameweek,
+        deadlines[final_gameweek],
+        settlement_capture,
+        settlement_path,
+    )
     source_store.write_manifest()
 
     source_rows = {
@@ -132,6 +167,25 @@ def run_historical_pipeline(
     facts, quarantined = transform_facts(
         season, source_rows["merged_gw.csv"], players, fixtures
     )
+
+    comparison_snapshots: dict[int, tuple[dict[str, Any], str, str]] = {}
+    for gameweek in config["expected_gameweeks"]:
+        if gameweek == final_gameweek:
+            comparison_snapshots[gameweek] = (
+                settlement_payload,
+                settlement_path,
+                settlement_record["sha256"],
+            )
+            continue
+        next_snapshot = selected.get(gameweek + 1)
+        if next_snapshot is not None:
+            _, next_path, next_payload, next_record = next_snapshot
+            comparison_snapshots[gameweek] = (
+                next_payload,
+                next_path,
+                next_record["sha256"],
+            )
+    points_reconciliation = reconcile_total_points(facts, comparison_snapshots)
 
     gameweeks: list[dict[str, Any]] = []
     deadline_snapshots: list[dict[str, Any]] = []
@@ -199,6 +253,7 @@ def run_historical_pipeline(
         "vaastav.fixtures.csv": len(source_rows["fixtures.csv"]),
         "fplcache.accepted_snapshots": len(selected),
         "fplcache.accepted_snapshot_elements": len(deadline_snapshots),
+        "fplcache.points_settlement_snapshots": 1,
     }
     quality_report = build_quality_report(
         season,
@@ -206,10 +261,15 @@ def run_historical_pipeline(
         config["expected_gameweeks"],
         config["expected_counts"],
         source_row_counts,
+        points_reconciliation,
     )
+    quality_report["dataset_version"] = version
+    quality_report["source_identity"] = source_identity
+    quality_report["source_identity_sha256"] = source_identity_sha256
     if not quality_report["passed"]:
-        failure_dir = root / "failed" / season
-        atomic_write_json(failure_dir / f"{version}-data_quality_report.json", quality_report)
+        _write_failed_quality_report(
+            root, season, version, retrieved_at, source_identity_sha256, quality_report
+        )
         raise_for_quality_failures(quality_report)
 
     processed_dir.parent.mkdir(parents=True, exist_ok=True)
@@ -219,7 +279,7 @@ def run_historical_pipeline(
         staging = Path(temporary_name)
         for table, rows in tables.items():
             atomic_write_csv(staging / f"{table}.csv", rows, column_names(table))
-        atomic_write_json(staging / "schemas.json", schemas_as_dict())
+        atomic_write_json(staging / "schemas.json", schema_document())
         atomic_write_json(staging / "data_quality_report.json", quality_report)
 
         processed_files: list[dict[str, Any]] = []
@@ -239,10 +299,8 @@ def run_historical_pipeline(
             "version": version,
             "status": "success",
             "processed_at_utc": utc_string(retrieved_at),
-            "source_revisions": {
-                "vaastav": vaastav_revision,
-                "fplcache": cache_revision,
-            },
+            "source_identity": source_identity,
+            "source_identity_sha256": source_identity_sha256,
             "source_manifest": {
                 "path": str(raw_manifest_path.relative_to(root)),
                 "sha256": sha256_file(raw_manifest_path),
@@ -260,6 +318,8 @@ def run_historical_pipeline(
                 ],
             },
             "leakage_boundaries": quality_report["leakage_contract"],
+            "fixture_context_availability_policy": FIXTURE_CONTEXT_AVAILABILITY_POLICY,
+            "total_points_reconciliation": points_reconciliation,
         }
         atomic_write_json(staging / "manifest.json", manifest)
         if processed_dir.exists():
@@ -280,8 +340,15 @@ def run_historical_pipeline(
 
 
 class _SourceStore:
-    def __init__(self, root: Path, retrieved_at: datetime, fetcher: Fetcher) -> None:
+    def __init__(
+        self,
+        root: Path,
+        season: str,
+        retrieved_at: datetime,
+        fetcher: Fetcher,
+    ) -> None:
         self.root = root
+        self.season = season
         self.retrieved_at = retrieved_at
         self.fetcher = fetcher
         self.manifest_path = root / "source_manifest.json"
@@ -325,10 +392,12 @@ class _SourceStore:
             value = self.fetcher(url)
             digest, size, _ = store_immutable(destination, value)
         record = {
+            "requested_season": self.season,
             "provider_key": source_name,
             "provider": config["provider"],
             "repository": config["repository"],
-            "pinned_revision": config["revision"],
+            "configured_ref": config["configured_ref"],
+            "resolved_commit_sha": config["resolved_commit_sha"],
             "source_path": source_path,
             "source_url": url,
             "retrieved_at_utc": utc_string(self.retrieved_at),
@@ -345,7 +414,8 @@ class _SourceStore:
         atomic_write_json(
             self.manifest_path,
             {
-                "schema_version": 1,
+                "schema_version": 2,
+                "requested_season": self.season,
                 "files": self.records,
             },
         )
@@ -437,14 +507,9 @@ def _archive_entries(
         source_path = item.get("path")
         if not isinstance(source_path, str):
             continue
-        match = pattern.fullmatch(source_path)
-        if match is None:
+        if pattern.fullmatch(source_path) is None:
             continue
-        year, month, day, hour, minute = (int(value) for value in match.groups())
-        try:
-            capture = datetime(year, month, day, hour, minute, tzinfo=timezone.utc)
-        except ValueError as exc:
-            raise FPLValidationError(f"invalid capture timestamp in path {source_path}") from exc
+        capture = _capture_from_path(source_path, config)
         entries.append((capture, source_path))
     if not entries:
         raise FPLValidationError("fplcache tree contains no recognized snapshot paths")
@@ -505,15 +570,124 @@ def _validate_source_config(config: dict[str, Any]) -> None:
         vaastav = config["sources"]["vaastav"]
         cache = config["sources"]["fplcache"]
         for source in (vaastav, cache):
-            revision = source["revision"]
-            if not isinstance(revision, str) or re.fullmatch(r"[0-9a-f]{40}", revision) is None:
-                raise FPLValidationError("historical source revision must be a 40-character commit SHA")
+            configured_ref = source["configured_ref"]
+            resolved = source["resolved_commit_sha"]
+            if not isinstance(configured_ref, str) or not configured_ref.strip():
+                raise FPLValidationError("historical source configured_ref must be non-empty")
+            if configured_ref.lower() in {"main", "master", "head"}:
+                raise FPLValidationError("historical source configured_ref must not be a moving branch")
+            if not isinstance(resolved, str) or re.fullmatch(r"[0-9a-f]{40}", resolved) is None:
+                raise FPLValidationError(
+                    "historical source resolved_commit_sha must be a 40-character commit SHA"
+                )
+            if resolved not in source["raw_base_url"]:
+                raise FPLValidationError(
+                    "historical source raw_base_url must contain resolved_commit_sha"
+                )
         if "master" in vaastav["raw_base_url"] or "/main/" in vaastav["raw_base_url"]:
             raise FPLValidationError("historical Vaastav URL is not revision-pinned")
         if "master" in cache["raw_base_url"] or "/main/" in cache["raw_base_url"]:
             raise FPLValidationError("historical fplcache URL is not revision-pinned")
+        if not isinstance(cache["points_settlement_snapshot_path"], str):
+            raise FPLValidationError("historical fplcache settlement path is required")
+        if cache["resolved_commit_sha"] not in cache["tree_url"]:
+            raise FPLValidationError(
+                "historical fplcache tree_url must contain resolved_commit_sha"
+            )
     except KeyError as exc:
         raise FPLValidationError(f"historical source catalogue missing field: {exc}") from exc
+
+
+def _capture_from_path(source_path: str, config: dict[str, Any]) -> datetime:
+    match = re.fullmatch(config["archive_path_pattern"], source_path)
+    if match is None:
+        raise FPLValidationError(f"unrecognized fplcache snapshot path: {source_path}")
+    year, month, day, hour, minute = (int(value) for value in match.groups())
+    try:
+        return datetime(year, month, day, hour, minute, tzinfo=timezone.utc)
+    except ValueError as exc:
+        raise FPLValidationError(f"invalid capture timestamp in path {source_path}") from exc
+
+
+def _validate_points_settlement_snapshot(
+    payload: dict[str, Any],
+    gameweek: int,
+    deadline: datetime,
+    capture: datetime,
+    source_path: str,
+) -> None:
+    if capture <= deadline:
+        raise FPLValidationError(
+            f"points settlement snapshot is not after GW{gameweek} deadline: {source_path}"
+        )
+    events = payload.get("events")
+    event = next(
+        (
+            value
+            for value in events or []
+            if isinstance(value, dict) and value.get("id") == gameweek
+        ),
+        None,
+    )
+    if (
+        event is None
+        or event.get("finished") is not True
+        or event.get("data_checked") is not True
+    ):
+        raise FPLValidationError(
+            f"points settlement snapshot does not mark GW{gameweek} finished and data_checked: {source_path}"
+        )
+
+
+def _source_identity(season: str, config: dict[str, Any]) -> dict[str, Any]:
+    identities: dict[str, Any] = {}
+    for key, source in sorted(config["sources"].items()):
+        identity = {
+            "provider": source["provider"],
+            "repository": source["repository"],
+            "requested_season": season,
+            "configured_ref": source["configured_ref"],
+            "resolved_commit_sha": source["resolved_commit_sha"],
+        }
+        if "files" in source:
+            identity["configured_artifacts"] = list(source["files"])
+        else:
+            identity["tree_url"] = source["tree_url"]
+            identity["reference_snapshot_path"] = source["reference_snapshot_path"]
+            identity["points_settlement_snapshot_path"] = source[
+                "points_settlement_snapshot_path"
+            ]
+        identities[key] = identity
+    return {"requested_season": season, "sources": identities}
+
+
+def _write_failed_quality_report(
+    historical_root: Path,
+    season: str,
+    version: str,
+    attempted_at: datetime,
+    source_identity_sha256: str,
+    quality_report: dict[str, Any],
+) -> Path:
+    attempt_id = attempted_at.strftime("%Y%m%dT%H%M%S.%fZ")
+    path = (
+        historical_root
+        / "failed"
+        / season
+        / f"{version}--{attempt_id}--quality-failed.json"
+    )
+    value = dict(quality_report)
+    value.update(
+        {
+            "run_status": "failed_quality_validation",
+            "attempted_at_utc": utc_string(attempted_at),
+            "dataset_version": version,
+            "source_identity_sha256": source_identity_sha256,
+            "catalogue_updated": False,
+        }
+    )
+    atomic_write_json(path, value)
+    return path
 
 
 def _existing_result(
@@ -523,6 +697,7 @@ def _existing_result(
     processed_dir: Path,
     catalogue_path: Path,
     now: datetime,
+    source_identity_sha256: str,
 ) -> HistoricalPipelineResult | None:
     if not processed_dir.exists():
         return None
@@ -533,6 +708,10 @@ def _existing_result(
         raise FPLValidationError(f"existing processed manifest is invalid: {exc}") from exc
     if manifest.get("season") != season or manifest.get("version") != version:
         raise FPLValidationError(f"existing processed directory has the wrong identity: {processed_dir}")
+    if manifest.get("source_identity_sha256") != source_identity_sha256:
+        raise FPLValidationError(
+            f"existing processed directory has different source identity: {processed_dir}"
+        )
     if catalogue_path.exists():
         try:
             existing_catalogue = json.loads(catalogue_path.read_text(encoding="utf-8"))
@@ -600,6 +779,8 @@ def _update_latest_catalogue(
         "processed_at_utc": manifest["processed_at_utc"],
         "row_counts": manifest["row_counts"],
         "snapshot_coverage": manifest["snapshot_coverage"],
+        "source_identity": manifest["source_identity"],
+        "source_identity_sha256": manifest["source_identity_sha256"],
     }
     seasons = catalogue.setdefault("seasons", {})
     if seasons.get(season) == entry:

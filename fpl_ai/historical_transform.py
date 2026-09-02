@@ -57,8 +57,8 @@ def transform_players(
                 "first_name": source["first_name"],
                 "second_name": source["second_name"],
                 "web_name": source["web_name"],
-                "position_id": position_id,
-                "position": POSITIONS[position_id],
+                "end_of_season_position_id": position_id,
+                "end_of_season_position": POSITIONS[position_id],
                 "end_of_season_team_id": optional_int(source["team"], f"element {element} team"),
             }
         )
@@ -164,21 +164,19 @@ def transform_facts(
         if fixture["kickoff_time_utc"] != kickoff:
             raise FPLValidationError(f"fact {key} kickoff conflicts with fixture")
         position = source["position"]
-        if position != player["position"]:
-            raise FPLValidationError(
-                f"fact {key} position {position!r} conflicts with player {player['position']!r}"
-            )
+        if position not in POSITIONS.values():
+            raise FPLValidationError(f"fact {key} has unknown position {position!r}")
         row: dict[str, Any] = {
             "season": season,
             "element": element,
             "player_code": player["player_code"],
             "gameweek": gameweek,
             "fixture": fixture_id,
-            "team_id": team_id,
-            "opponent_team_id": opponent_id,
+            "team_id_at_fixture": team_id,
+            "opponent_team_id_at_fixture": opponent_id,
             "was_home": was_home,
             "kickoff_time_utc": kickoff,
-            "position": position,
+            "position_at_fixture": position,
         }
         for field in (
             "minutes", "total_points", "goals_scored", "assists", "clean_sheets",
@@ -226,6 +224,22 @@ def transform_snapshot_elements(
     elements = payload.get("elements")
     if not isinstance(elements, list):
         raise FPLValidationError(f"snapshot {source_path} elements must be an array")
+    teams = payload.get("teams")
+    positions = payload.get("element_types")
+    if teams is not None and not isinstance(teams, list):
+        raise FPLValidationError(f"snapshot {source_path} teams must be an array")
+    if positions is not None and not isinstance(positions, list):
+        raise FPLValidationError(f"snapshot {source_path} element_types must be an array")
+    team_by_id = {
+        team.get("id"): team
+        for team in teams or []
+        if isinstance(team, dict) and isinstance(team.get("id"), int)
+    }
+    position_by_id = {
+        position.get("id"): position
+        for position in positions or []
+        if isinstance(position, dict) and isinstance(position.get("id"), int)
+    }
     rows: list[dict[str, Any]] = []
     seen: set[int] = set()
     for index, element in enumerate(elements):
@@ -238,12 +252,37 @@ def transform_snapshot_elements(
         if element_id in seen:
             raise FPLValidationError(f"snapshot {source_path} has duplicate element {element_id}")
         seen.add(element_id)
+        team_id = json_optional_int(
+            element.get("team"), f"snapshot element {element_id} team"
+        )
+        position_id = json_optional_int(
+            element.get("element_type"), f"snapshot element {element_id} element_type"
+        )
+        team = team_by_id.get(team_id)
+        position = position_by_id.get(position_id)
         rows.append(
             {
                 "season": season,
                 "gameweek": gameweek,
                 "element": element_id,
                 "player_code": json_int(element["code"], f"snapshot element {element_id} code"),
+                "deadline_team_id": team_id,
+                "deadline_team_code": (
+                    json_optional_int(team.get("code"), f"snapshot team {team_id} code")
+                    if team is not None
+                    else None
+                ),
+                "deadline_team_name": team.get("name") if team is not None else None,
+                "deadline_team_short_name": (
+                    team.get("short_name") if team is not None else None
+                ),
+                "deadline_position_id": position_id,
+                "deadline_position": (
+                    position.get("singular_name_short") if position is not None else None
+                ),
+                "deadline_position_name": (
+                    position.get("singular_name") if position is not None else None
+                ),
                 "price": json_optional_int(element.get("now_cost"), f"snapshot element {element_id} now_cost"),
                 "selected_by_percent": json_optional_decimal(
                     element.get("selected_by_percent"), f"snapshot element {element_id} ownership"

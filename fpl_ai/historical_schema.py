@@ -16,7 +16,7 @@ class Column:
 GAMEWEEK_COLUMNS = [
     Column("season", "string", False, "identity"),
     Column("gameweek", "integer", False, "identity"),
-    Column("deadline_time_utc", "utc_timestamp", False, "fixture_context"),
+    Column("deadline_time_utc", "utc_timestamp", False, "deadline_context"),
     Column("selected_snapshot_capture_time_utc", "utc_timestamp", True, "pre_deadline_state"),
     Column("hours_before_deadline", "decimal_string", True, "provenance"),
     Column("snapshot_source_path", "string", True, "provenance"),
@@ -30,8 +30,8 @@ PLAYER_COLUMNS = [
     Column("first_name", "string", False, "identity"),
     Column("second_name", "string", False, "identity"),
     Column("web_name", "string", False, "identity"),
-    Column("position_id", "integer", False, "identity"),
-    Column("position", "string", False, "identity"),
+    Column("end_of_season_position_id", "integer", False, "identity_audit_only"),
+    Column("end_of_season_position", "string", False, "identity_audit_only"),
     Column("end_of_season_team_id", "integer", True, "identity_audit_only"),
 ]
 
@@ -45,14 +45,14 @@ TEAM_COLUMNS = [
 
 FIXTURE_COLUMNS = [
     Column("season", "string", False, "identity"),
-    Column("fixture", "integer", False, "identity"),
-    Column("fixture_code", "integer", True, "fixture_context"),
-    Column("gameweek", "integer", True, "fixture_context"),
-    Column("home_team_id", "integer", False, "fixture_context"),
-    Column("away_team_id", "integer", False, "fixture_context"),
-    Column("kickoff_time_utc", "utc_timestamp", True, "fixture_context"),
-    Column("home_difficulty", "integer", True, "fixture_context"),
-    Column("away_difficulty", "integer", True, "fixture_context"),
+    Column("fixture", "integer", False, "post_event_fixture_context"),
+    Column("fixture_code", "integer", True, "post_event_fixture_context"),
+    Column("gameweek", "integer", True, "post_event_fixture_context"),
+    Column("home_team_id", "integer", False, "post_event_fixture_context"),
+    Column("away_team_id", "integer", False, "post_event_fixture_context"),
+    Column("kickoff_time_utc", "utc_timestamp", True, "post_event_fixture_context"),
+    Column("home_difficulty", "integer", True, "post_event_fixture_context"),
+    Column("away_difficulty", "integer", True, "post_event_fixture_context"),
     Column("home_score", "integer", True, "realised_outcome"),
     Column("away_score", "integer", True, "realised_outcome"),
     Column("finished", "boolean", False, "realised_outcome"),
@@ -62,13 +62,13 @@ FACT_COLUMNS = [
     Column("season", "string", False, "identity"),
     Column("element", "integer", False, "identity"),
     Column("player_code", "integer", False, "cross_season_identity"),
-    Column("gameweek", "integer", False, "fixture_context"),
-    Column("fixture", "integer", False, "identity"),
-    Column("team_id", "integer", False, "fixture_context"),
-    Column("opponent_team_id", "integer", False, "fixture_context"),
-    Column("was_home", "boolean", False, "fixture_context"),
-    Column("kickoff_time_utc", "utc_timestamp", False, "fixture_context"),
-    Column("position", "string", False, "fixture_context"),
+    Column("gameweek", "integer", False, "post_event_fixture_context"),
+    Column("fixture", "integer", False, "post_event_fixture_context"),
+    Column("team_id_at_fixture", "integer", False, "post_event_fixture_context"),
+    Column("opponent_team_id_at_fixture", "integer", False, "post_event_fixture_context"),
+    Column("was_home", "boolean", False, "post_event_fixture_context"),
+    Column("kickoff_time_utc", "utc_timestamp", False, "post_event_fixture_context"),
+    Column("position_at_fixture", "string", False, "post_event_fixture_context"),
     Column("minutes", "integer", False, "realised_outcome"),
     Column("total_points", "integer", False, "realised_outcome"),
     Column("starts", "integer", True, "realised_outcome"),
@@ -99,6 +99,13 @@ SNAPSHOT_COLUMNS = [
     Column("gameweek", "integer", False, "identity"),
     Column("element", "integer", False, "identity"),
     Column("player_code", "integer", False, "cross_season_identity"),
+    Column("deadline_team_id", "integer", True, "pre_deadline_state"),
+    Column("deadline_team_code", "integer", True, "pre_deadline_state"),
+    Column("deadline_team_name", "string", True, "pre_deadline_state"),
+    Column("deadline_team_short_name", "string", True, "pre_deadline_state"),
+    Column("deadline_position_id", "integer", True, "pre_deadline_state"),
+    Column("deadline_position", "string", True, "pre_deadline_state"),
+    Column("deadline_position_name", "string", True, "pre_deadline_state"),
     Column("price", "integer", True, "pre_deadline_state"),
     Column("selected_by_percent", "decimal_string", True, "pre_deadline_state"),
     Column("transfers_in_event", "integer", True, "pre_deadline_state"),
@@ -141,6 +148,45 @@ TABLE_SCHEMAS = {
     "quarantined_source_metadata": QUARANTINE_COLUMNS,
 }
 
+# The pinned Vaastav fixture file is a season-end representation. It proves
+# outcome context, but not what the schedule/difficulty looked like at an
+# earlier deadline. Only these fields may appear in a decision-time record.
+DEADLINE_FIXTURE_CONTEXT_ALLOWLIST = (
+    "season",
+    "gameweek",
+    "deadline_time_utc",
+)
+
+POST_EVENT_FIXTURE_CONTEXT_FIELDS = (
+    "fixture",
+    "fixture_code",
+    "home_team_id",
+    "away_team_id",
+    "team_id_at_fixture",
+    "opponent_team_id_at_fixture",
+    "was_home",
+    "kickoff_time_utc",
+    "home_difficulty",
+    "away_difficulty",
+    "home_score",
+    "away_score",
+    "finished",
+    "minutes",
+)
+
+FIXTURE_CONTEXT_AVAILABILITY_POLICY = {
+    "policy_version": 1,
+    "decision_time_table": "player_deadline_snapshots",
+    "deadline_safe_allowlist": list(DEADLINE_FIXTURE_CONTEXT_ALLOWLIST),
+    "post_event_only_fields": list(POST_EVENT_FIXTURE_CONTEXT_FIELDS),
+    "rule": (
+        "The pinned source does not preserve fixture snapshots at every deadline. "
+        "Final fixture identity, assignment, kickoff, difficulty, status and result "
+        "remain only in fixtures/player_fixture_facts and are never attached to "
+        "player_deadline_snapshots."
+    ),
+}
+
 
 def column_names(table: str) -> list[str]:
     return [column.name for column in TABLE_SCHEMAS[table]]
@@ -158,6 +204,13 @@ def schemas_as_dict() -> dict[str, list[dict[str, object]]]:
             for column in columns
         ]
         for table, columns in TABLE_SCHEMAS.items()
+    }
+
+
+def schema_document() -> dict[str, object]:
+    return {
+        "tables": schemas_as_dict(),
+        "fixture_context_availability_policy": FIXTURE_CONTEXT_AVAILABILITY_POLICY,
     }
 
 
