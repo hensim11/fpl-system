@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import csv
 import io
+import re
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from typing import Any
 
 from fpl_ai.errors import FPLValidationError
+from fpl_ai.historical_schema import validate_vaastav_source_schema
 
 # FPL introduced Assistant Manager chip elements in 2024/25. They remain
 # identifiable source observations (position AM), while the manager-only stat
@@ -22,10 +24,10 @@ def read_source_csv(
     source_schema: dict[str, object],
     *,
     include_schema_audit: bool = False,
-) -> list[dict[str, str]] | tuple[list[dict[str, str]], dict[str, Any]]:
-    """Read one Vaastav CSV against an explicit season-specific contract."""
+) -> list[dict[str, Any]] | tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Validate and normalize one Vaastav CSV through its selected adapter."""
 
-    schema = source_schema
+    schema = validate_vaastav_source_schema(source_schema)
     files = schema["files"]
     if not isinstance(files, dict) or filename not in files:
         raise FPLValidationError(
@@ -42,14 +44,23 @@ def read_source_csv(
     actual = reader.fieldnames or []
     known = file_schema["known_column_order"]
     required = file_schema["required_columns"]
-    if not isinstance(known, list) or not isinstance(required, list):
+    optional = file_schema["optional_columns"]
+    ignored = file_schema["ignored_columns"]
+    quarantined = file_schema["quarantined_columns"]
+    forbidden = file_schema["forbidden_columns"]
+    if not all(
+        isinstance(value, list)
+        for value in (known, required, optional, ignored, quarantined, forbidden)
+    ):
         raise FPLValidationError(f"invalid Vaastav source contract for {filename}")
     duplicate_columns = sorted(
         {column for column in actual if actual.count(column) > 1}
     )
     additions = sorted(set(actual) - set(known))
     missing_required = sorted(set(required) - set(actual))
-    missing_optional = sorted((set(known) - set(required)) - set(actual))
+    required_present = sorted(set(required) & set(actual))
+    optional_present = sorted(set(optional) & set(actual))
+    missing_optional = sorted(set(optional) - set(actual))
     expected_present_order = [column for column in known if column in actual]
     actual_known_order = [column for column in actual if column in known]
     audit = {
@@ -58,17 +69,40 @@ def read_source_csv(
         "filename": filename,
         "unexpected_columns_policy": schema["unexpected_columns_policy"],
         "unexpected_additions": additions,
+        "unexpected_columns": additions,
+        "required_columns_present": required_present,
         "missing_required_columns": missing_required,
+        "required_columns_missing": missing_required,
+        "optional_columns_present": optional_present,
         "missing_optional_columns": missing_optional,
+        "optional_columns_absent": missing_optional,
+        "ignored_columns_present": sorted(set(ignored) & set(actual)),
+        "quarantined_columns_present": sorted(set(quarantined) & set(actual)),
+        "forbidden_columns_encountered": sorted(set(forbidden) & set(actual)),
+        "type_validated_columns": sorted(
+            set(file_schema["type_expectations"]) & set(actual)
+        ),
         "duplicate_columns": duplicate_columns,
         "known_column_order_matches": actual_known_order == expected_present_order,
+        "source_row_count": 0,
     }
     if missing_required or duplicate_columns:
         raise FPLValidationError(
             f"Vaastav schema {schema['schema_id']} rejected {filename}; "
             f"missing required columns={missing_required}, duplicate columns={duplicate_columns}"
         )
-    rows = list(reader)
+    raw_rows = list(reader)
+    audit["source_row_count"] = len(raw_rows)
+    rows = [
+        _normalize_source_row(
+            raw,
+            row_number,
+            filename,
+            schema,
+            file_schema,
+        )
+        for row_number, raw in enumerate(raw_rows, 2)
+    ]
     if include_schema_audit:
         return rows, audit
     if additions and schema["unexpected_columns_policy"] == "quality_failure":
@@ -79,44 +113,186 @@ def read_source_csv(
     return rows
 
 
+def _normalize_source_row(
+    raw: dict[str, str],
+    row_number: int,
+    filename: str,
+    source_schema: dict[str, object],
+    file_schema: dict[str, object],
+) -> dict[str, Any]:
+    adapter_id = source_schema.get("adapter_id")
+    if adapter_id != "declarative-normalization-v1":
+        raise FPLValidationError(
+            f"Vaastav source schema {source_schema.get('schema_id')!r} has unsupported "
+            f"adapter_id {adapter_id!r}"
+        )
+    expectations = file_schema["type_expectations"]
+    if not isinstance(expectations, dict):
+        raise FPLValidationError(f"invalid type expectations for {filename}")
+    parsed: dict[str, Any] = {}
+    for field, expectation in expectations.items():
+        if field not in raw:
+            continue
+        parsed[field] = _parse_source_value(
+            raw[field],
+            expectation,
+            source_schema,
+            filename,
+            row_number,
+            field,
+        )
+
+    trusted: dict[str, Any] = {}
+    trusted_mappings = file_schema["source_to_canonical_mappings"]
+    quarantine_mappings = file_schema["quarantined_source_to_canonical_mappings"]
+    if not isinstance(trusted_mappings, dict) or not isinstance(
+        quarantine_mappings, dict
+    ):
+        raise FPLValidationError(f"invalid source mappings for {filename}")
+    for source_field, target in trusted_mappings.items():
+        trusted[target.split(".", 1)[1]] = parsed.get(source_field)
+    separated_quarantine: dict[str, Any] = {}
+    for source_field, target in quarantine_mappings.items():
+        separated_quarantine[target.split(".", 1)[1]] = parsed.get(source_field)
+    return {
+        "trusted": trusted,
+        "quarantined": separated_quarantine,
+        "source_row_number": row_number,
+    }
+
+
+def _parse_source_value(
+    value: str | None,
+    expectation: object,
+    source_schema: dict[str, object],
+    filename: str,
+    row_number: int,
+    column: str,
+) -> Any:
+    if not isinstance(expectation, dict):
+        raise FPLValidationError(f"invalid type expectation for {filename}.{column}")
+    data_type = expectation.get("type")
+    nullable = expectation.get("nullable") is True
+    missing = value is None or value.strip() in ("", "None", "null")
+    if missing:
+        if nullable:
+            return None
+        _source_type_failure(
+            source_schema, filename, row_number, column, value, expectation
+        )
+    try:
+        if data_type == "integer":
+            if value is None or not re.fullmatch(r"[+-]?\d+", value.strip()):
+                raise ValueError
+            parsed: Any = int(value)
+        elif data_type == "decimal":
+            if value is None:
+                raise InvalidOperation
+            parsed_decimal = Decimal(value)
+            if not parsed_decimal.is_finite():
+                raise InvalidOperation
+            parsed = value
+        elif data_type == "boolean":
+            if value == "True":
+                parsed = True
+            elif value == "False":
+                parsed = False
+            else:
+                raise ValueError
+        elif data_type == "string":
+            if value is None:
+                raise ValueError
+            parsed = value
+        elif data_type == "utc_timestamp":
+            if value is None:
+                raise ValueError
+            raw_timestamp = datetime.fromisoformat(value.replace("Z", "+00:00"))
+            if (
+                raw_timestamp.tzinfo is None
+                or raw_timestamp.utcoffset() is None
+                or raw_timestamp.utcoffset().total_seconds() != 0
+            ):
+                raise ValueError
+            parsed = utc_string(raw_timestamp)
+        else:
+            raise ValueError
+    except (InvalidOperation, ValueError):
+        _source_type_failure(
+            source_schema, filename, row_number, column, value, expectation
+        )
+    allowed_values = expectation.get("allowed_values")
+    if allowed_values is not None and parsed not in allowed_values:
+        _source_type_failure(
+            source_schema, filename, row_number, column, value, expectation
+        )
+    return parsed
+
+
+def _source_type_failure(
+    source_schema: dict[str, object],
+    filename: str,
+    row_number: int,
+    column: str,
+    value: str | None,
+    expectation: object,
+) -> None:
+    seasons = source_schema.get("applicable_seasons")
+    season = seasons[0] if isinstance(seasons, list) and len(seasons) == 1 else seasons
+    raise FPLValidationError(
+        "historical source type validation failed: "
+        f"season={season!r}, schema_id={source_schema.get('schema_id')!r}, "
+        f"source_artifact={filename!r}, row={row_number}, column={column!r}, "
+        f"rejected_value={value!r}, expected={expectation!r}"
+    )
+
+
+def _trusted_values(source: dict[str, Any], filename: str) -> dict[str, Any]:
+    trusted = source.get("trusted")
+    if not isinstance(trusted, dict):
+        raise FPLValidationError(
+            f"{filename} transformation requires a normalized source row"
+        )
+    return trusted
+
+
 def transform_players(
-    season: str, source_rows: list[dict[str, str]]
+    season: str, source_rows: list[dict[str, Any]]
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     seen: set[int] = set()
-    for index, source in enumerate(source_rows, 2):
-        element = required_int(source["id"], f"players_raw.csv row {index} id")
+    for normalized in source_rows:
+        source = _trusted_values(normalized, "players_raw.csv")
+        element = source["element"]
         if element in seen:
             raise FPLValidationError(f"duplicate player element: {element}")
         seen.add(element)
-        position_id = required_int(
-            source["element_type"], f"players_raw.csv row {index} element_type"
-        )
+        position_id = source["end_of_season_position_id"]
         if position_id not in POSITIONS:
             raise FPLValidationError(f"unknown position id {position_id} for element {element}")
         rows.append(
             {
                 "season": season,
                 "element": element,
-                "player_code": required_int(source["code"], f"element {element} code"),
+                "player_code": source["player_code"],
                 "first_name": source["first_name"],
                 "second_name": source["second_name"],
                 "web_name": source["web_name"],
                 "end_of_season_position_id": position_id,
                 "end_of_season_position": POSITIONS[position_id],
-                "end_of_season_team_id": optional_int(source["team"], f"element {element} team"),
+                "end_of_season_team_id": source["end_of_season_team_id"],
             }
         )
     return rows
 
 
 def transform_teams(
-    season: str, source_rows: list[dict[str, str]]
+    season: str, source_rows: list[dict[str, Any]]
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     seen: set[int] = set()
-    for index, source in enumerate(source_rows, 2):
-        team_id = required_int(source["id"], f"teams.csv row {index} id")
+    for normalized in source_rows:
+        source = _trusted_values(normalized, "teams.csv")
+        team_id = source["team_id"]
         if team_id in seen:
             raise FPLValidationError(f"duplicate team id: {team_id}")
         seen.add(team_id)
@@ -124,7 +300,7 @@ def transform_teams(
             {
                 "season": season,
                 "team_id": team_id,
-                "team_code": required_int(source["code"], f"team {team_id} code"),
+                "team_code": source["team_code"],
                 "name": source["name"],
                 "short_name": source["short_name"],
             }
@@ -133,34 +309,31 @@ def transform_teams(
 
 
 def transform_fixtures(
-    season: str, source_rows: list[dict[str, str]]
+    season: str, source_rows: list[dict[str, Any]]
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     seen: set[int] = set()
-    for index, source in enumerate(source_rows, 2):
-        fixture = required_int(source["id"], f"fixtures.csv row {index} id")
+    for normalized in source_rows:
+        source = _trusted_values(normalized, "fixtures.csv")
+        fixture = source["fixture"]
         if fixture in seen:
             raise FPLValidationError(f"duplicate fixture id: {fixture}")
         seen.add(fixture)
-        kickoff = optional_utc(source["kickoff_time"], f"fixture {fixture} kickoff_time")
+        kickoff = source["kickoff_time_utc"]
         rows.append(
             {
                 "season": season,
                 "fixture": fixture,
-                "fixture_code": optional_int(source["code"], f"fixture {fixture} code"),
-                "gameweek": optional_int(source["event"], f"fixture {fixture} event"),
-                "home_team_id": required_int(source["team_h"], f"fixture {fixture} team_h"),
-                "away_team_id": required_int(source["team_a"], f"fixture {fixture} team_a"),
+                "fixture_code": source["fixture_code"],
+                "gameweek": source["gameweek"],
+                "home_team_id": source["home_team_id"],
+                "away_team_id": source["away_team_id"],
                 "kickoff_time_utc": kickoff,
-                "home_difficulty": optional_int(
-                    source["team_h_difficulty"], f"fixture {fixture} team_h_difficulty"
-                ),
-                "away_difficulty": optional_int(
-                    source["team_a_difficulty"], f"fixture {fixture} team_a_difficulty"
-                ),
-                "home_score": optional_int(source["team_h_score"], f"fixture {fixture} home score"),
-                "away_score": optional_int(source["team_a_score"], f"fixture {fixture} away score"),
-                "finished": required_bool(source["finished"], f"fixture {fixture} finished"),
+                "home_difficulty": source["home_difficulty"],
+                "away_difficulty": source["away_difficulty"],
+                "home_score": source["home_score"],
+                "away_score": source["away_score"],
+                "finished": source["finished"],
             }
         )
     return rows
@@ -168,7 +341,7 @@ def transform_fixtures(
 
 def transform_facts(
     season: str,
-    source_rows: list[dict[str, str]],
+    source_rows: list[dict[str, Any]],
     players: list[dict[str, Any]],
     fixtures: list[dict[str, Any]],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
@@ -177,9 +350,15 @@ def transform_facts(
     rows: list[dict[str, Any]] = []
     quarantined: list[dict[str, Any]] = []
     seen: set[tuple[int, int]] = set()
-    for index, source in enumerate(source_rows, 2):
-        element = required_int(source["element"], f"merged_gw.csv row {index} element")
-        fixture_id = required_int(source["fixture"], f"merged_gw.csv row {index} fixture")
+    for normalized in source_rows:
+        source = _trusted_values(normalized, "merged_gw.csv")
+        quarantine_source = normalized.get("quarantined")
+        if not isinstance(quarantine_source, dict):
+            raise FPLValidationError(
+                "merged_gw.csv transformation requires separated quarantine values"
+            )
+        element = source["element"]
+        fixture_id = source["fixture"]
         key = (element, fixture_id)
         if key in seen:
             raise FPLValidationError(
@@ -192,23 +371,23 @@ def transform_facts(
             raise FPLValidationError(f"fact references unknown fixture {fixture_id}")
         player = player_by_element[element]
         fixture = fixture_by_id[fixture_id]
-        was_home = required_bool(source["was_home"], f"fact {key} was_home")
+        was_home = source["was_home"]
         team_id = fixture["home_team_id"] if was_home else fixture["away_team_id"]
         opponent_id = fixture["away_team_id"] if was_home else fixture["home_team_id"]
-        source_opponent = required_int(source["opponent_team"], f"fact {key} opponent_team")
+        source_opponent = source["opponent_team_id_at_fixture"]
         if source_opponent != opponent_id:
             raise FPLValidationError(
                 f"fact {key} opponent {source_opponent} conflicts with fixture-derived {opponent_id}"
             )
-        gameweek = required_int(source["GW"], f"fact {key} GW")
+        gameweek = source["gameweek"]
         if fixture["gameweek"] != gameweek:
             raise FPLValidationError(
                 f"fact {key} gameweek {gameweek} conflicts with fixture {fixture['gameweek']}"
             )
-        kickoff = required_utc(source["kickoff_time"], f"fact {key} kickoff_time")
+        kickoff = source["kickoff_time_utc"]
         if fixture["kickoff_time_utc"] != kickoff:
             raise FPLValidationError(f"fact {key} kickoff conflicts with fixture")
-        position = source["position"]
+        position = source["position_at_fixture"]
         if position not in POSITIONS.values():
             raise FPLValidationError(f"fact {key} has unknown position {position!r}")
         row: dict[str, Any] = {
@@ -228,13 +407,13 @@ def transform_facts(
             "goals_conceded", "own_goals", "penalties_saved", "penalties_missed",
             "saves", "yellow_cards", "red_cards", "bonus", "bps",
         ):
-            row[field] = required_int(source[field], f"fact {key} {field}")
-        row["starts"] = optional_int(source.get("starts"), f"fact {key} starts")
+            row[field] = source[field]
+        row["starts"] = source.get("starts")
         for field in (
             "influence", "creativity", "threat", "ict_index", "expected_goals",
             "expected_assists", "expected_goal_involvements", "expected_goals_conceded",
         ):
-            row[field] = optional_decimal(source.get(field), f"fact {key} {field}")
+            row[field] = source.get(field)
         rows.append(row)
         quarantined.append(
             {
@@ -242,16 +421,12 @@ def transform_facts(
                 "element": element,
                 "gameweek": gameweek,
                 "fixture": fixture_id,
-                "selected": optional_int(source.get("selected"), f"fact {key} selected"),
-                "value": optional_int(source.get("value"), f"fact {key} value"),
-                "transfers_balance": optional_int(
-                    source.get("transfers_balance"), f"fact {key} transfers_balance"
-                ),
-                "transfers_in": optional_int(source.get("transfers_in"), f"fact {key} transfers_in"),
-                "transfers_out": optional_int(
-                    source.get("transfers_out"), f"fact {key} transfers_out"
-                ),
-                "modified": optional_bool(source.get("modified"), f"fact {key} modified"),
+                "selected": quarantine_source.get("selected"),
+                "value": quarantine_source.get("value"),
+                "transfers_balance": quarantine_source.get("transfers_balance"),
+                "transfers_in": quarantine_source.get("transfers_in"),
+                "transfers_out": quarantine_source.get("transfers_out"),
+                "modified": quarantine_source.get("modified"),
             }
         )
     return rows, quarantined

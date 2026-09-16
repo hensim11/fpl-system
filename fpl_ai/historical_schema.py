@@ -8,7 +8,8 @@ from typing import Callable
 from fpl_ai.errors import FPLValidationError
 
 
-TRANSFORMATION_CONTRACT_VERSION = "historical-transform-v5"
+TRANSFORMATION_CONTRACT_VERSION = "historical-transform-v6"
+SUPPORTED_SOURCE_ADAPTERS = {"declarative-normalization-v1"}
 
 
 @dataclass(frozen=True)
@@ -407,16 +408,80 @@ _VAASTAV_2024_25_QUARANTINE_MAPPINGS = {
     "fixtures.csv": {},
 }
 
+def _type(
+    data_type: str,
+    *,
+    nullable: bool = False,
+    allowed_values: list[str] | None = None,
+) -> dict[str, object]:
+    expectation: dict[str, object] = {"type": data_type, "nullable": nullable}
+    if allowed_values is not None:
+        expectation["allowed_values"] = allowed_values
+    return expectation
+
+
 _VAASTAV_2024_25_TYPE_EXPECTATIONS = {
     "merged_gw.csv": {
-        "element": "integer", "fixture": "integer", "GW": "integer",
-        "was_home": "boolean", "total_points": "integer", "kickoff_time": "utc_timestamp",
+        "position": _type("string", allowed_values=["GK", "DEF", "MID", "FWD", "AM"]),
+        **{
+            field: _type("integer")
+            for field in (
+                "assists", "bonus", "bps", "clean_sheets", "element", "fixture",
+                "goals_conceded", "goals_scored", "minutes", "opponent_team",
+                "own_goals", "penalties_missed", "penalties_saved", "red_cards",
+                "saves", "team_a_score", "team_h_score", "total_points",
+                "yellow_cards", "GW",
+            )
+        },
+        **{
+            field: _type("decimal")
+            for field in ("creativity", "ict_index", "influence", "threat")
+        },
+        "kickoff_time": _type("utc_timestamp"),
+        "was_home": _type("boolean"),
+        "starts": _type("integer", nullable=True),
+        **{
+            field: _type("decimal", nullable=True)
+            for field in (
+                "expected_goals", "expected_assists", "expected_goal_involvements",
+                "expected_goals_conceded",
+            )
+        },
+        **{
+            field: _type("integer", nullable=True)
+            for field in (
+                "selected", "value", "transfers_balance", "transfers_in", "transfers_out",
+            )
+        },
+        "modified": _type("boolean", nullable=True),
     },
-    "players_raw.csv": {"id": "integer", "code": "integer", "element_type": "integer"},
-    "teams.csv": {"id": "integer", "code": "integer"},
+    "players_raw.csv": {
+        "id": _type("integer"),
+        "code": _type("integer"),
+        "first_name": _type("string"),
+        "second_name": _type("string"),
+        "web_name": _type("string"),
+        "element_type": _type("integer"),
+        "team": _type("integer"),
+    },
+    "teams.csv": {
+        "id": _type("integer"),
+        "code": _type("integer"),
+        "name": _type("string"),
+        "short_name": _type("string"),
+    },
     "fixtures.csv": {
-        "id": "integer", "event": "nullable_integer", "finished": "boolean",
-        "kickoff_time": "nullable_utc_timestamp", "team_h": "integer", "team_a": "integer",
+        "id": _type("integer"),
+        "code": _type("integer"),
+        "event": _type("integer", nullable=True),
+        "finished": _type("boolean"),
+        "kickoff_time": _type("utc_timestamp", nullable=True),
+        "team_h": _type("integer"),
+        "team_a": _type("integer"),
+        "team_h_score": _type("integer", nullable=True),
+        "team_a_score": _type("integer", nullable=True),
+        "team_h_difficulty": _type("integer"),
+        "team_a_difficulty": _type("integer"),
     },
 }
 
@@ -460,6 +525,7 @@ VAASTAV_SOURCE_SCHEMAS: dict[str, dict[str, object]] = {
     "vaastav-2024-25-v1": {
         "schema_id": "vaastav-2024-25-v1",
         "schema_version": 1,
+        "adapter_id": "declarative-normalization-v1",
         "applicable_seasons": ["2024-25"],
         "unexpected_columns_policy": "quality_failure",
         "files": _vaastav_2024_25_files(),
@@ -503,6 +569,12 @@ def validate_vaastav_source_schema(
         or schema["schema_version"] < 1
     ):
         fail("schema_version must be an integer")
+    adapter_id = schema.get("adapter_id")
+    if adapter_id not in SUPPORTED_SOURCE_ADAPTERS:
+        fail(
+            f"unsupported adapter_id {adapter_id!r}; supported adapters are "
+            f"{sorted(SUPPORTED_SOURCE_ADAPTERS)}"
+        )
     applicable = schema.get("applicable_seasons")
     if (
         not isinstance(applicable, list)
@@ -535,6 +607,7 @@ def validate_vaastav_source_schema(
         "forbidden_columns",
     )
     canonical_targets: dict[str, str] = {}
+    quarantine_targets: dict[str, str] = {}
     forbidden_across_files: list[str] = []
     xp_declared = False
     for filename, file_schema in files.items():
@@ -591,11 +664,12 @@ def validate_vaastav_source_schema(
         ):
             fail(f"{filename} mappings must be objects")
         type_expectations = file_schema.get("type_expectations")
-        if not isinstance(type_expectations, dict) or any(
-            field not in declared or not isinstance(expectation, str)
-            for field, expectation in type_expectations.items()
-        ):
-            fail(f"{filename} type_expectations contains an unsupported field or type")
+        if not isinstance(type_expectations, dict):
+            fail(f"{filename} type_expectations must be an object")
+        for field, expectation in type_expectations.items():
+            if field not in declared:
+                fail(f"{filename} type expectation names unsupported field {field!r}")
+            _validate_type_expectation(filename, field, expectation, fail)
 
         trusted_sources = set(declared_by_category["required_columns"]) | set(
             declared_by_category["optional_columns"]
@@ -622,6 +696,11 @@ def validate_vaastav_source_schema(
                 )
         quarantined_sources = set(declared_by_category["quarantined_columns"])
         for source_field, target in quarantine_mappings.items():
+            if source_field in forbidden:
+                fail(
+                    f"{filename} forbidden field {source_field!r} maps to quarantine "
+                    f"field {target!r}"
+                )
             if source_field not in quarantined_sources:
                 fail(
                     f"{filename} quarantined mapping source {source_field!r} is not "
@@ -629,6 +708,21 @@ def validate_vaastav_source_schema(
                 )
             _validate_canonical_mapping_target(
                 filename, source_field, target, True, fail
+            )
+            owner = quarantine_targets.setdefault(
+                target, f"{filename}.{source_field}"
+            )
+            if owner != f"{filename}.{source_field}":
+                fail(
+                    f"quarantine target {target!r} has conflicting mappings from "
+                    f"{owner!r} and {filename}.{source_field!r}"
+                )
+        mapped_sources = set(trusted_mappings) | set(quarantine_mappings)
+        missing_type_expectations = sorted(mapped_sources - set(type_expectations))
+        if missing_type_expectations:
+            fail(
+                f"{filename} mapped fields lack type expectations: "
+                f"{missing_type_expectations}"
             )
 
     top_forbidden = schema.get("forbidden_trusted_output_fields")
@@ -649,6 +743,39 @@ def validate_vaastav_source_schema(
     if xp_declared and "xP" not in top_forbidden:
         fail("xP must be forbidden and cannot map to any trusted expected-points field")
     return schema
+
+
+def _validate_type_expectation(
+    filename: str,
+    field: str,
+    expectation: object,
+    fail: Callable[[str], None],
+) -> None:
+    if not isinstance(expectation, dict):
+        fail(f"{filename} field {field!r} type expectation must be an object")
+    allowed_keys = {"type", "nullable", "allowed_values"}
+    unexpected = sorted(set(expectation) - allowed_keys)
+    if unexpected:
+        fail(
+            f"{filename} field {field!r} type expectation has unknown keys "
+            f"{unexpected}"
+        )
+    data_type = expectation.get("type")
+    if data_type not in {"integer", "decimal", "boolean", "string", "utc_timestamp"}:
+        fail(f"{filename} field {field!r} has unsupported type {data_type!r}")
+    if not isinstance(expectation.get("nullable"), bool):
+        fail(f"{filename} field {field!r} nullable must be boolean")
+    allowed_values = expectation.get("allowed_values")
+    if allowed_values is not None:
+        if data_type != "string":
+            fail(f"{filename} field {field!r} allowed_values requires string type")
+        if (
+            not isinstance(allowed_values, list)
+            or not allowed_values
+            or any(not isinstance(value, str) for value in allowed_values)
+            or len(allowed_values) != len(set(allowed_values))
+        ):
+            fail(f"{filename} field {field!r} allowed_values must be unique strings")
 
 
 def _validate_canonical_mapping_target(
