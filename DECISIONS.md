@@ -173,3 +173,13 @@ Status: accepted for Milestone 2.
 Season-specific source schemas use disjoint required, optional, ignored, quarantined, and forbidden field categories. Validation runs before ingestion and rejects duplicates, category overlap, unsupported mapping sources, malformed targets, multiple sources targeting one canonical field, and any forbidden-to-trusted mapping. Trusted and quarantine mappings are separate contracts.
 
 Consequence: Vaastav `xP` is not merely ignored by the current transformer; the schema invariant prevents it from mapping to `expected_points_next_gameweek` or any other trusted canonical field. Unexpected upstream columns continue to follow the explicit quality-failure and reporting policy.
+
+## 022 — Make consumed provenance and season mappings executable
+
+Status: accepted for the 2024/25 Milestone 2 slice.
+
+A successful build now registers raw records at their material use sites and compares that actual set with its resolved dependency set. Only canonicalised consumed records enter `source_inventory.json` and source identity. Exact duplicate registrations merge sorted consumption roles; conflicts and missing registrations fail. Rejected selection candidates and unrelated cache entries remain separate discovery/cache audit records. Source identity contract v2 intentionally omits configured-but-unused artifacts.
+
+The selected season schema executes through `declarative-normalization-v1`: source values are validated for declared integer, finite decimal, explicit boolean, string/enumeration, nullability, and UTC timestamp contracts, then trusted and quarantined mappings populate separate namespaces. Generic canonical transforms accept only normalized rows. Optional-column reporting follows the declared category rather than treating every non-required field as optional, and quarantine targets must be unique.
+
+Consequence: source identity truthfully describes contribution rather than cache contents, mapping configuration changes behavior, and schema types are enforceable. These semantic changes advance the transformation contract from `historical-transform-v5` to `historical-transform-v6` and create new provenance/build identities. The seven canonical CSVs remain byte-identical to the verified v5 baseline, which stays readable and unmodified.

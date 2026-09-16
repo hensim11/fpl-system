@@ -65,6 +65,99 @@ class HistoricalPipelineResult:
     reused: bool = False
 
 
+class ConsumedSourceTracker:
+    """Canonicalize material raw dependencies and verify complete registration."""
+
+    _PROVENANCE_FIELDS = (
+        "requested_season",
+        "provider_key",
+        "provider",
+        "repository",
+        "configured_ref",
+        "resolved_commit_sha",
+        "source_path",
+        "source_url",
+        "retrieved_at_utc",
+        "sha256",
+        "byte_size",
+        "raw_path",
+    )
+
+    def __init__(self) -> None:
+        self._records: dict[tuple[str, str], dict[str, Any]] = {}
+        self._roles: dict[tuple[str, str], set[str]] = {}
+
+    @staticmethod
+    def _key(record: dict[str, Any]) -> tuple[str, str]:
+        missing = [
+            field
+            for field in ConsumedSourceTracker._PROVENANCE_FIELDS
+            if field not in record
+        ]
+        if missing:
+            raise FPLValidationError(
+                f"consumed source record lacks provenance fields: {missing}"
+            )
+        return record["provider_key"], record["source_path"]
+
+    def register(self, record: dict[str, Any], role: str) -> None:
+        if not isinstance(role, str) or not role:
+            raise FPLValidationError("consumed source role must be non-empty")
+        key = self._key(record)
+        candidate = {
+            field: value
+            for field, value in record.items()
+            if field != "consumption_roles"
+        }
+        existing = self._records.get(key)
+        if existing is not None and existing != candidate:
+            differing = sorted(
+                field
+                for field in set(existing) | set(candidate)
+                if existing.get(field) != candidate.get(field)
+            )
+            raise FPLValidationError(
+                "conflicting consumed source registrations for "
+                f"provider={key[0]!r}, source_path={key[1]!r}; fields={differing}"
+            )
+        self._records[key] = candidate
+        self._roles.setdefault(key, set()).add(role)
+
+    def finalize(self, expected_records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        expected: dict[tuple[str, str], dict[str, Any]] = {}
+        for record in expected_records:
+            key = self._key(record)
+            candidate = {
+                field: value
+                for field, value in record.items()
+                if field != "consumption_roles"
+            }
+            previous = expected.setdefault(key, candidate)
+            if previous != candidate:
+                raise FPLValidationError(
+                    "conflicting resolved source dependencies for "
+                    f"provider={key[0]!r}, source_path={key[1]!r}"
+                )
+        missing = sorted(set(expected) - set(self._records))
+        unexpected = sorted(set(self._records) - set(expected))
+        if missing or unexpected:
+            raise FPLValidationError(
+                "actual consumed sources do not match resolved dependency set; "
+                f"missing_consumption={missing}, unexpected_consumption={unexpected}"
+            )
+        return self.records()
+
+    def records(self) -> list[dict[str, Any]]:
+        """Return the currently registered records in identity-stable order."""
+
+        records: list[dict[str, Any]] = []
+        for key in sorted(self._records):
+            record = dict(self._records[key])
+            record["consumption_roles"] = sorted(self._roles[key])
+            records.append(record)
+        return records
+
+
 def load_source_catalogue(path: Path | None = None) -> dict[str, Any]:
     catalogue_path = path or Path(__file__).with_name("historical_sources.json")
     try:
@@ -134,25 +227,30 @@ def run_historical_pipeline(
 
     active_fetcher = fetcher or _url_fetcher(timeout)
     source_store = _SourceStore(raw_dir, season, retrieved_at, active_fetcher)
+    consumed_sources = ConsumedSourceTracker()
     vaastav_files = _obtain_vaastav_files(config["sources"]["vaastav"], source_store)
     cache_config = config["sources"]["fplcache"]
-    tree_bytes, _ = source_store.obtain(
+    tree_bytes, tree_record = source_store.obtain(
         "fplcache",
         cache_config,
         f"git/trees/{cache_config['resolved_commit_sha']}?recursive=1",
         cache_config["tree_url"],
         local_path="github-tree.json",
     )
+    consumed_sources.register(tree_record, "snapshot_archive_discovery")
     reference_path = cache_config["reference_snapshot_path"]
-    reference_bytes, _ = source_store.obtain(
+    reference_bytes, reference_record = source_store.obtain(
         "fplcache", cache_config, reference_path, _raw_url(cache_config, reference_path)
     )
+    consumed_sources.register(reference_record, "gameweek_deadline_reference")
     reference_payload = _decode_snapshot(reference_bytes, reference_path)
     deadlines = _extract_deadlines(reference_payload, config["expected_gameweeks"], reference_path)
     archive_entries = _archive_entries(tree_bytes, cache_config)
     selected = _select_snapshots(
         config["expected_gameweeks"], deadlines, archive_entries, cache_config, source_store
     )
+    for _, _, _, record in selected.values():
+        consumed_sources.register(record, "accepted_predeadline_snapshot")
     settlement_path = cache_config["points_settlement_snapshot_path"]
     settlement_bytes, settlement_record = source_store.obtain(
         "fplcache",
@@ -161,6 +259,7 @@ def run_historical_pipeline(
         _raw_url(cache_config, settlement_path),
     )
     settlement_payload = _decode_snapshot(settlement_bytes, settlement_path)
+    consumed_sources.register(settlement_record, "final_points_settlement")
     settlement_capture = _capture_from_path(settlement_path, cache_config)
     final_gameweek = max(config["expected_gameweeks"])
     _validate_points_settlement_snapshot(
@@ -170,20 +269,48 @@ def run_historical_pipeline(
         settlement_capture,
         settlement_path,
     )
-    source_store.write_manifest()
-
-    source_identity = _source_identity(season, config, source_store.records)
-    source_identity_sha256 = sha256_bytes(canonical_json_bytes(source_identity))
-
-    source_rows: dict[str, list[dict[str, str]]] = {}
+    source_rows: dict[str, list[dict[str, Any]]] = {}
     source_schema_audits: dict[str, dict[str, Any]] = {}
-    for name, value in vaastav_files.items():
-        rows, audit = read_source_csv(
-            value,
-            name,
-            vaastav_source_schema,
-            include_schema_audit=True,
-        )
+    for name, (value, record) in vaastav_files.items():
+        consumed_sources.register(record, f"vaastav_transform:{name}")
+        try:
+            rows, audit = read_source_csv(
+                value,
+                name,
+                vaastav_source_schema,
+                include_schema_audit=True,
+            )
+        except FPLValidationError as exc:
+            source_store.write_manifest()
+            failed_records = consumed_sources.records()
+            failed_identity = _source_identity(season, config, failed_records)
+            failed_identity_sha256 = sha256_bytes(
+                canonical_json_bytes(failed_identity)
+            )
+            _write_failed_quality_report(
+                root,
+                season,
+                version,
+                retrieved_at,
+                failed_identity_sha256,
+                build_identity_sha256,
+                {
+                    "schema_version": 3,
+                    "season": season,
+                    "passed": False,
+                    "failures": ["vaastav.source_validation"],
+                    "source_validation": {
+                        "passed": False,
+                        "schema_id": vaastav_source_schema["schema_id"],
+                        "source_artifact": name,
+                        "errors": [str(exc)],
+                    },
+                    "source_schema_changes": source_schema_audits,
+                    "source_identity": failed_identity,
+                    "build_identity": build_identity,
+                },
+            )
+            raise
         source_rows[name] = rows
         source_schema_audits[name] = audit
     players = transform_players(season, source_rows["players_raw.csv"])
@@ -201,6 +328,9 @@ def run_historical_pipeline(
                 settlement_path,
                 settlement_record["sha256"],
             )
+            consumed_sources.register(
+                settlement_record, "total_points_reconciliation"
+            )
             continue
         next_snapshot = selected.get(gameweek + 1)
         if next_snapshot is not None:
@@ -210,6 +340,20 @@ def run_historical_pipeline(
                 next_path,
                 next_record["sha256"],
             )
+            consumed_sources.register(
+                next_record, "total_points_reconciliation"
+            )
+    resolved_dependencies = [
+        *(record for _, record in vaastav_files.values()),
+        tree_record,
+        reference_record,
+        *(record for _, _, _, record in selected.values()),
+        settlement_record,
+    ]
+    consumed_records = consumed_sources.finalize(resolved_dependencies)
+    source_store.write_manifest()
+    source_identity = _source_identity(season, config, consumed_records)
+    source_identity_sha256 = sha256_bytes(canonical_json_bytes(source_identity))
     reconciliation_policy = config["reconciliation"]["total_points"]
     reconciliation_provenance = create_reconciliation_provenance(
         season,
@@ -339,12 +483,13 @@ def run_historical_pipeline(
             staging / "total_points_reconciliation.json", points_reconciliation
         )
         frozen_inventory = {
-            "inventory_schema_version": 1,
+            "inventory_schema_version": 2,
+            "inventory_scope": "materially_consumed_records_only",
             "season": season,
             "source_version": source_version,
             "source_identity": source_identity,
             "source_identity_sha256": source_identity_sha256,
-            "files": source_store.records,
+            "files": consumed_records,
         }
         frozen_inventory_path = staging / "source_inventory.json"
         atomic_write_json(frozen_inventory_path, frozen_inventory)
@@ -383,7 +528,10 @@ def run_historical_pipeline(
                 "source_identity_sha256": source_identity_sha256,
                 "status": "frozen_per_build",
             },
-            "source_files": source_store.records,
+            "source_files": consumed_records,
+            "source_discovery_audit": _source_discovery_audit(
+                source_store.records, consumed_records
+            ),
             "processed_files": processed_files,
             "row_counts": {table: len(rows) for table, rows in tables.items()},
             "snapshot_coverage": {
@@ -514,13 +662,13 @@ class _SourceStore:
 
 def _obtain_vaastav_files(
     config: dict[str, Any], store: _SourceStore
-) -> dict[str, bytes]:
-    values: dict[str, bytes] = {}
+) -> dict[str, tuple[bytes, dict[str, Any]]]:
+    values: dict[str, tuple[bytes, dict[str, Any]]] = {}
     for source_path in config["files"]:
-        value, _ = store.obtain(
+        value, record = store.obtain(
             "vaastav", config, source_path, _raw_url(config, source_path)
         )
-        values[Path(source_path).name] = value
+        values[Path(source_path).name] = (value, record)
     return values
 
 
@@ -857,7 +1005,10 @@ def _source_identity(
     season: str, config: dict[str, Any], records: list[dict[str, Any]]
 ) -> dict[str, Any]:
     identities: dict[str, Any] = {}
+    consumed_provider_keys = {record.get("provider_key") for record in records}
     for key, source in sorted(config["sources"].items()):
+        if key not in consumed_provider_keys:
+            continue
         identity = {
             "provider": source["provider"],
             "repository": source["repository"],
@@ -865,14 +1016,6 @@ def _source_identity(
             "configured_ref": source["configured_ref"],
             "resolved_commit_sha": source["resolved_commit_sha"],
         }
-        if "files" in source:
-            identity["configured_artifacts"] = list(source["files"])
-        else:
-            identity["tree_url"] = source["tree_url"]
-            identity["reference_snapshot_path"] = source["reference_snapshot_path"]
-            identity["points_settlement_snapshot_path"] = source[
-                "points_settlement_snapshot_path"
-            ]
         identities[key] = identity
     artifacts: list[dict[str, Any]] = []
     for record in sorted(
@@ -904,12 +1047,46 @@ def _source_identity(
                 "source_url": record["source_url"],
                 "sha256": record["sha256"],
                 "byte_size": record["byte_size"],
+                "consumption_roles": sorted(record.get("consumption_roles", [])),
             }
         )
     return {
+        "identity_contract_version": 2,
         "requested_season": season,
         "sources": identities,
         "immutable_artifacts": artifacts,
+    }
+
+
+def _source_discovery_audit(
+    cached_records: list[dict[str, Any]], consumed_records: list[dict[str, Any]]
+) -> dict[str, Any]:
+    consumed_keys = {
+        (record["provider_key"], record["source_path"])
+        for record in consumed_records
+    }
+    excluded = sorted(
+        (
+            {
+                "provider_key": record["provider_key"],
+                "source_path": record["source_path"],
+                "classification": "cached_or_inspected_non_contributing",
+            }
+            for record in cached_records
+            if (record["provider_key"], record["source_path"])
+            not in consumed_keys
+        ),
+        key=lambda record: (record["provider_key"], record["source_path"]),
+    )
+    return {
+        "consumed_record_count": len(consumed_records),
+        "non_contributing_record_count": len(excluded),
+        "non_contributing_records": excluded,
+        "rule": (
+            "Rejected snapshot candidates and unrelated cache entries may remain in "
+            "the mutable raw-cache manifest, but do not enter the frozen consumed "
+            "inventory or source identity."
+        ),
     }
 
 
@@ -1070,11 +1247,37 @@ def _load_build_source_inventory(
             )
         try:
             shared_inventory = json.loads(source_manifest.read_text(encoding="utf-8"))
-            records = shared_inventory["files"]
+            shared_records = shared_inventory["files"]
         except (OSError, json.JSONDecodeError, KeyError, TypeError) as exc:
             raise FPLValidationError(
                 f"legacy shared raw source inventory is invalid: {exc}"
             ) from exc
+        records = manifest.get("source_files")
+        if not isinstance(shared_records, list) or not isinstance(records, list):
+            raise FPLValidationError("legacy source inventory files must be arrays")
+        shared_by_key = {
+            (record.get("provider_key"), record.get("source_path")): record
+            for record in shared_records
+            if isinstance(record, dict)
+        }
+        for record in records:
+            if not isinstance(record, dict):
+                raise FPLValidationError(
+                    "legacy processed manifest contains malformed source record"
+                )
+            shared_record = shared_by_key.get(
+                (record.get("provider_key"), record.get("source_path"))
+            )
+            comparable = {
+                key: value
+                for key, value in record.items()
+                if key != "consumption_roles"
+            }
+            if shared_record != comparable:
+                raise FPLValidationError(
+                    "legacy processed source record does not match shared raw inventory: "
+                    f"{record.get('source_path')}"
+                )
         status = "legacy_shared_raw_inventory"
 
     if not isinstance(records, list):

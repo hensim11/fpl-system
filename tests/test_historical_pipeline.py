@@ -16,6 +16,7 @@ from fpl_ai.historical_io import (
     sha256_file,
 )
 from fpl_ai.historical_pipeline import (
+    ConsumedSourceTracker,
     create_build_identity,
     create_reconciliation_provenance,
     load_historical_build,
@@ -31,6 +32,7 @@ from fpl_ai.historical_schema import (
 from fpl_ai.historical_transform import (
     parse_utc,
     read_source_csv,
+    transform_teams,
     transform_snapshot_elements,
 )
 from fpl_ai.historical_validation import reconcile_total_points
@@ -38,6 +40,23 @@ from fpl_ai.historical_validation import reconcile_total_points
 
 VAASTAV_REVISION = "a" * 40
 CACHE_REVISION = "b" * 40
+
+
+def source_record(source_path: str, digest: str, size: int) -> dict[str, object]:
+    return {
+        "requested_season": "2024-25",
+        "provider_key": "provider",
+        "provider": "Synthetic provider",
+        "repository": "https://example.test/provider",
+        "configured_ref": VAASTAV_REVISION,
+        "resolved_commit_sha": VAASTAV_REVISION,
+        "source_path": source_path,
+        "source_url": f"https://example.test/provider/{VAASTAV_REVISION}/{source_path}",
+        "retrieved_at_utc": "2025-06-01T00:00:00Z",
+        "sha256": digest,
+        "byte_size": size,
+        "raw_path": f"provider/{source_path}",
+    }
 
 
 def csv_bytes(filename: str, rows: list[dict[str, object]]) -> bytes:
@@ -51,6 +70,10 @@ def csv_bytes(filename: str, rows: list[dict[str, object]]) -> bytes:
         full.update(row)
         writer.writerow(full)
     return stream.getvalue().encode()
+
+
+def raw_csv_rows(value: bytes) -> list[dict[str, str]]:
+    return list(csv.DictReader(io.StringIO(value.decode("utf-8-sig"), newline="")))
 
 
 def snapshot_bytes(
@@ -614,11 +637,7 @@ class HistoricalPipelineTests(unittest.TestCase):
             root = Path(temporary)
             values, config = synthetic_sources()
             merged_url = next(url for url in values if url.endswith("merged_gw.csv"))
-            rows = read_source_csv(
-                values[merged_url],
-                "merged_gw.csv",
-                get_vaastav_source_schema("vaastav-2024-25-v1", "2024-25", 1),
-            )
+            rows = raw_csv_rows(values[merged_url])
             rows.append(dict(rows[0]))
             values[merged_url] = csv_bytes("merged_gw.csv", rows)
             config_path = root / "sources.json"
@@ -874,15 +893,19 @@ class HistoricalPipelineTests(unittest.TestCase):
 
     def test_real_2024_25_source_schema_accepts_known_shape(self) -> None:
         schema = get_vaastav_source_schema("vaastav-2024-25-v1", "2024-25", 1)
+        values, _ = synthetic_sources()
         for filename in VAASTAV_2024_25_SOURCE_COLUMNS:
             with self.subTest(filename=filename):
+                value = next(
+                    value for url, value in values.items() if url.endswith(filename)
+                )
                 rows, audit = read_source_csv(
-                    csv_bytes(filename, [{}]),
+                    value,
                     filename,
                     schema,
                     include_schema_audit=True,
                 )
-                self.assertEqual(len(rows), 1)
+                self.assertGreater(len(rows), 0)
                 self.assertEqual(audit["unexpected_additions"], [])
                 self.assertEqual(audit["missing_required_columns"], [])
                 self.assertTrue(audit["known_column_order_matches"])
@@ -911,7 +934,7 @@ class HistoricalPipelineTests(unittest.TestCase):
             values, config = synthetic_sources()
             merged_url = next(url for url in values if url.endswith("merged_gw.csv"))
             schema = get_vaastav_source_schema("vaastav-2024-25-v1", "2024-25", 1)
-            rows = read_source_csv(values[merged_url], "merged_gw.csv", schema)
+            rows = raw_csv_rows(values[merged_url])
             columns = [
                 column
                 for column in VAASTAV_2024_25_SOURCE_COLUMNS["merged_gw.csv"]
@@ -999,8 +1022,25 @@ class HistoricalPipelineTests(unittest.TestCase):
         ):
             validate_vaastav_source_schema(schema, "2024-25")
 
-    def test_forbidden_required_or_optional_overlap_is_rejected(self) -> None:
-        for category in ("required_columns", "optional_columns"):
+        quarantine_schema = deepcopy(
+            get_vaastav_source_schema("vaastav-2024-25-v1", "2024-25", 1)
+        )
+        quarantine_schema["files"]["merged_gw.csv"][
+            "quarantined_source_to_canonical_mappings"
+        ]["xP"] = "quarantined_source_metadata.selected"
+        with self.assertRaisesRegex(
+            FPLValidationError,
+            "forbidden field 'xP'.*quarantine.*selected",
+        ):
+            validate_vaastav_source_schema(quarantine_schema, "2024-25")
+
+    def test_forbidden_category_overlap_is_rejected(self) -> None:
+        for category in (
+            "required_columns",
+            "optional_columns",
+            "ignored_columns",
+            "quarantined_columns",
+        ):
             with self.subTest(category=category):
                 schema = deepcopy(
                     get_vaastav_source_schema(
@@ -1037,6 +1077,282 @@ class HistoricalPipelineTests(unittest.TestCase):
             FPLValidationError, "canonical target.*conflicting mappings"
         ):
             validate_vaastav_source_schema(conflicting_target, "2024-25")
+
+    def test_consumed_source_tracker_is_order_independent_and_complete(self) -> None:
+        first = source_record("b.csv", "b" * 64, 2)
+        second = source_record("a.csv", "a" * 64, 1)
+        left = ConsumedSourceTracker()
+        left.register(first, "transform")
+        left.register(second, "reconciliation")
+        left.register(first, "validation")
+        right = ConsumedSourceTracker()
+        right.register(second, "reconciliation")
+        right.register(first, "validation")
+        right.register(first, "transform")
+
+        expected = [first, second]
+        self.assertEqual(left.finalize(expected), right.finalize(reversed(expected)))
+        self.assertEqual(
+            left.finalize(expected)[1]["consumption_roles"],
+            ["transform", "validation"],
+        )
+
+        incomplete = ConsumedSourceTracker()
+        incomplete.register(first, "transform")
+        with self.assertRaisesRegex(FPLValidationError, "missing_consumption"):
+            incomplete.finalize(expected)
+
+    def test_consumed_source_tracker_rejects_conflicting_registration(self) -> None:
+        record = source_record("same.csv", "a" * 64, 1)
+        tracker = ConsumedSourceTracker()
+        with self.assertRaisesRegex(FPLValidationError, "lacks provenance fields"):
+            tracker.register(
+                {"provider_key": "provider", "source_path": "incomplete.csv"},
+                "transform",
+            )
+        tracker.register(record, "transform")
+        with self.assertRaisesRegex(
+            FPLValidationError, "conflicting consumed source registrations.*sha256"
+        ):
+            tracker.register({**record, "sha256": "b" * 64}, "validation")
+
+    def test_inventory_includes_material_sources_and_excludes_rejected_candidates(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            result, _, _ = self.run_synthetic(Path(temporary))
+            manifest = json.loads((result.processed_dir / "manifest.json").read_text())
+            inventory = json.loads(
+                (result.processed_dir / manifest["frozen_source_inventory"]["path"]).read_text()
+            )
+            by_path = {record["source_path"]: record for record in inventory["files"]}
+
+            self.assertIn("cache/2024/8/16/1600.json.xz", by_path)
+            self.assertIn("cache/2024/8/23/1700.json.xz", by_path)
+            self.assertIn("cache/2024/8/31/0200.json.xz", by_path)
+            self.assertIn(
+                "total_points_reconciliation",
+                by_path["cache/2024/8/23/1700.json.xz"]["consumption_roles"],
+            )
+            self.assertNotIn("cache/2024/8/16/1700.json.xz", by_path)
+            self.assertNotIn("cache/2024/8/30/1700.json.xz", by_path)
+            excluded = {
+                record["source_path"]
+                for record in manifest["source_discovery_audit"][
+                    "non_contributing_records"
+                ]
+            }
+            self.assertIn("cache/2024/8/16/1700.json.xz", excluded)
+            self.assertIn("cache/2024/8/30/1700.json.xz", excluded)
+
+    def test_configured_but_unconsumed_source_is_not_attributed(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            values, config = synthetic_sources()
+            config["seasons"]["2024-25"]["sources"]["planned"] = {
+                "provider": "Planned only",
+                "repository": "https://example.test/planned",
+                "configured_ref": "c" * 40,
+                "resolved_commit_sha": "c" * 40,
+                "raw_base_url": f"https://example.test/planned/{'c' * 40}",
+            }
+            config_path = root / "sources.json"
+            config_path.write_text(json.dumps(config), encoding="utf-8")
+            result = run_historical_pipeline(
+                "2024-25",
+                root / "data",
+                fetcher=lambda url: values[url],
+                source_catalogue_path=config_path,
+                now=datetime(2025, 6, 1, tzinfo=timezone.utc),
+            )
+            manifest = json.loads((result.processed_dir / "manifest.json").read_text())
+            self.assertNotIn("planned", manifest["source_identity"]["sources"])
+
+    def test_declared_mapping_drives_normalized_transformation(self) -> None:
+        schema = deepcopy(
+            get_vaastav_source_schema("vaastav-2024-25-v1", "2024-25", 1)
+        )
+        file_schema = schema["files"]["teams.csv"]
+        file_schema["known_column_order"] = [
+            "source_team_identifier" if column == "id" else column
+            for column in file_schema["known_column_order"]
+        ]
+        file_schema["required_columns"] = [
+            "source_team_identifier" if column == "id" else column
+            for column in file_schema["required_columns"]
+        ]
+        file_schema["type_expectations"]["source_team_identifier"] = (
+            file_schema["type_expectations"].pop("id")
+        )
+        file_schema["source_to_canonical_mappings"]["source_team_identifier"] = (
+            file_schema["source_to_canonical_mappings"].pop("id")
+        )
+        validate_vaastav_source_schema(schema, "2024-25")
+        stream = io.StringIO(newline="")
+        writer = csv.DictWriter(stream, fieldnames=file_schema["known_column_order"])
+        writer.writeheader()
+        writer.writerow(
+            {
+                column: {
+                    "source_team_identifier": 7,
+                    "code": 70,
+                    "name": "Mapped",
+                    "short_name": "MAP",
+                }.get(column, "")
+                for column in file_schema["known_column_order"]
+            }
+        )
+
+        normalized = read_source_csv(stream.getvalue().encode(), "teams.csv", schema)
+        transformed = transform_teams("2024-25", normalized)
+        self.assertEqual(transformed[0]["team_id"], 7)
+        self.assertEqual(transformed[0]["name"], "Mapped")
+        with self.assertRaisesRegex(FPLValidationError, "normalized source row"):
+            transform_teams(
+                "2024-25",
+                [{"id": "7", "code": "70", "name": "Raw", "short_name": "RAW"}],
+            )
+
+    def test_normalization_separates_quarantine_and_forbidden_fields(self) -> None:
+        values, _ = synthetic_sources()
+        merged = next(value for url, value in values.items() if url.endswith("merged_gw.csv"))
+        rows = read_source_csv(
+            merged,
+            "merged_gw.csv",
+            get_vaastav_source_schema("vaastav-2024-25-v1", "2024-25", 1),
+        )
+        self.assertNotIn("xP", rows[0]["trusted"])
+        self.assertNotIn("selected", rows[0]["trusted"])
+        self.assertEqual(rows[0]["quarantined"]["selected"], 100)
+
+    def test_unknown_adapter_is_rejected(self) -> None:
+        schema = deepcopy(
+            get_vaastav_source_schema("vaastav-2024-25-v1", "2024-25", 1)
+        )
+        schema["adapter_id"] = "missing-adapter"
+        with self.assertRaisesRegex(FPLValidationError, "unsupported adapter_id"):
+            validate_vaastav_source_schema(schema, "2024-25")
+
+    def test_source_types_and_formats_are_enforced(self) -> None:
+        schema = get_vaastav_source_schema("vaastav-2024-25-v1", "2024-25", 1)
+        base = fact_row(101, 501, "2024-08-17T14:00:00Z", True, 2, "FWD", 90)
+        cases = (
+            ("total_points", "bad", "integer"),
+            ("total_points", "1.5", "integer"),
+            ("expected_goals", "not-decimal", "decimal"),
+            ("was_home", "yes", "boolean"),
+            ("kickoff_time", "not-a-time", "utc_timestamp"),
+            ("kickoff_time", "2024-08-17T14:00:00", "utc_timestamp"),
+            ("total_points", "", "nullable.*False"),
+        )
+        for column, value, expected in cases:
+            with self.subTest(column=column, value=value):
+                row = {**base, column: value}
+                with self.assertRaisesRegex(
+                    FPLValidationError,
+                    rf"season='2024-25'.*schema_id='vaastav-2024-25-v1'.*"
+                    rf"source_artifact='merged_gw.csv'.*row=2.*column='{column}'.*"
+                    rf"rejected_value=.*expected=.*{expected}",
+                ):
+                    read_source_csv(csv_bytes("merged_gw.csv", [row]), "merged_gw.csv", schema)
+
+        zero = read_source_csv(
+            csv_bytes("merged_gw.csv", [{**base, "total_points": 0}]),
+            "merged_gw.csv",
+            schema,
+        )[0]["trusted"]["total_points"]
+        self.assertEqual(zero, 0)
+        self.assertIsNotNone(zero)
+
+    def test_pipeline_preserves_source_type_failure_diagnostic(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            values, config = synthetic_sources()
+            merged_url = next(url for url in values if url.endswith("merged_gw.csv"))
+            rows = raw_csv_rows(values[merged_url])
+            rows[0]["total_points"] = "1.5"
+            values[merged_url] = csv_bytes("merged_gw.csv", rows)
+            config_path = root / "sources.json"
+            config_path.write_text(json.dumps(config), encoding="utf-8")
+
+            with self.assertRaisesRegex(FPLValidationError, "column='total_points'"):
+                run_historical_pipeline(
+                    "2024-25",
+                    root / "data",
+                    fetcher=lambda url: values[url],
+                    source_catalogue_path=config_path,
+                    now=datetime(2025, 6, 1, tzinfo=timezone.utc),
+                )
+            failed_path = next(
+                (root / "data" / "historical" / "failed" / "2024-25").glob("*.json")
+            )
+            failed = json.loads(failed_path.read_text())
+            self.assertEqual(failed["run_status"], "failed_quality_validation")
+            self.assertEqual(failed["failures"], ["vaastav.source_validation"])
+            self.assertIn("row=2", failed["source_validation"]["errors"][0])
+            self.assertFalse((root / "data" / "historical" / "catalogue.json").exists())
+
+    def test_optional_column_reporting_is_exact_and_present_values_are_typed(self) -> None:
+        schema = get_vaastav_source_schema("vaastav-2024-25-v1", "2024-25", 1)
+        values, _ = synthetic_sources()
+        merged = next(value for url, value in values.items() if url.endswith("merged_gw.csv"))
+        raw_rows = raw_csv_rows(merged)
+        columns = [
+            column
+            for column in VAASTAV_2024_25_SOURCE_COLUMNS["merged_gw.csv"]
+            if column != "expected_goals"
+        ]
+        stream = io.StringIO(newline="")
+        writer = csv.DictWriter(stream, fieldnames=columns, extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(raw_rows)
+        normalized, audit = read_source_csv(
+            stream.getvalue().encode(),
+            "merged_gw.csv",
+            schema,
+            include_schema_audit=True,
+        )
+        self.assertEqual(audit["required_columns_missing"], [])
+        self.assertEqual(audit["optional_columns_absent"], ["expected_goals"])
+        self.assertNotIn("expected_goals", audit["missing_required_columns"])
+        self.assertIn("starts", audit["optional_columns_present"])
+        self.assertIn("name", audit["ignored_columns_present"])
+        self.assertIn("selected", audit["quarantined_columns_present"])
+        self.assertEqual(audit["forbidden_columns_encountered"], ["xP"])
+        self.assertIsNone(normalized[0]["trusted"]["expected_goals"])
+
+        invalid_optional = {**fact_row(101, 501, "2024-08-17T14:00:00Z", True, 2, "FWD", 90)}
+        invalid_optional["expected_goals"] = "bad"
+        with self.assertRaisesRegex(FPLValidationError, "column='expected_goals'"):
+            read_source_csv(
+                csv_bytes("merged_gw.csv", [invalid_optional]),
+                "merged_gw.csv",
+                schema,
+            )
+
+    def test_quarantine_targets_must_be_unique(self) -> None:
+        schema = deepcopy(
+            get_vaastav_source_schema("vaastav-2024-25-v1", "2024-25", 1)
+        )
+        mappings = schema["files"]["merged_gw.csv"][
+            "quarantined_source_to_canonical_mappings"
+        ]
+        mappings["value"] = mappings["selected"]
+        with self.assertRaisesRegex(
+            FPLValidationError,
+            "quarantine target.*conflicting mappings.*selected.*value",
+        ):
+            validate_vaastav_source_schema(schema, "2024-25")
+
+    def test_trusted_and_quarantine_namespaces_cannot_collide(self) -> None:
+        schema = deepcopy(
+            get_vaastav_source_schema("vaastav-2024-25-v1", "2024-25", 1)
+        )
+        schema["files"]["merged_gw.csv"]["source_to_canonical_mappings"][
+            "total_points"
+        ] = "quarantined_source_metadata.selected"
+        with self.assertRaisesRegex(
+            FPLValidationError, "trusted field 'total_points' has quarantined target"
+        ):
+            validate_vaastav_source_schema(schema, "2024-25")
 
     def test_schema_rejects_duplicate_declarations_and_malformed_definition(self) -> None:
         duplicate = deepcopy(
@@ -1138,6 +1454,27 @@ class HistoricalPipelineTests(unittest.TestCase):
             )
             atomic_write_json(shared_path, shared)
 
+            unchanged = run_historical_pipeline(
+                "2024-25",
+                root / "data",
+                source_catalogue_path=config_path,
+                fetcher=lambda url: self.fail(f"existing raw data should satisfy {url}"),
+                now=datetime(2025, 6, 2, tzinfo=timezone.utc),
+            )
+            unchanged_manifest = json.loads(
+                (unchanged.processed_dir / "manifest.json").read_text()
+            )
+            self.assertTrue(unchanged.reused)
+            self.assertEqual(unchanged.version, build_a.version)
+            self.assertEqual(
+                unchanged_manifest["source_identity_sha256"],
+                manifest_a["source_identity_sha256"],
+            )
+            self.assertEqual(
+                unchanged_manifest["build_identity_sha256"],
+                manifest_a["build_identity_sha256"],
+            )
+
             config = json.loads(config_path.read_text())
             config["seasons"]["2024-25"]["reconciliation"]["total_points"][
                 "minimum_coverage_ratio"
@@ -1174,12 +1511,31 @@ class HistoricalPipelineTests(unittest.TestCase):
             self.assertNotEqual(build_a.version, build_b.version)
             self.assertEqual(inventory_a_path.read_bytes(), inventory_a_bytes)
             self.assertEqual(sha256_file(inventory_a_path), inventory_a_hash)
-            self.assertNotEqual(
+            self.assertEqual(
                 manifest_a["source_identity_sha256"],
                 manifest_b["source_identity_sha256"],
             )
-            self.assertTrue(
+            table_files = manifest_a["artifact_inventory"]["table_files"]
+            self.assertEqual(
+                {
+                    name: sha256_file(build_a.processed_dir / name)
+                    for name in table_files
+                },
+                {
+                    name: sha256_file(build_b.processed_dir / name)
+                    for name in table_files
+                },
+            )
+            self.assertFalse(
                 any(item["source_path"] == "audit/later.txt" for item in inventory_b["files"])
+            )
+            self.assertTrue(
+                any(
+                    item["source_path"] == "audit/later.txt"
+                    for item in manifest_b["source_discovery_audit"][
+                        "non_contributing_records"
+                    ]
+                )
             )
             self.assertEqual(resolved_a_once.source_inventory_status, "frozen_per_build")
             self.assertEqual(resolved_a_twice.processed_dir, build_a.processed_dir)
