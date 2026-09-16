@@ -598,6 +598,26 @@ def _vaastav_2023_24_schema() -> dict[str, object]:
 VAASTAV_SOURCE_SCHEMAS["vaastav-2023-24-v1"] = _vaastav_2023_24_schema()
 
 
+def _vaastav_2022_23_schema() -> dict[str, object]:
+    """The four inspected 2022/23 headers exactly match the 2023/24 shape."""
+
+    schema = deepcopy(VAASTAV_SOURCE_SCHEMAS["vaastav-2023-24-v1"])
+    schema.update(
+        schema_id="vaastav-2022-23-v1",
+        applicable_seasons=["2022-23"],
+        known_source_exceptions=[
+            "No Assistant Manager elements or mng_* columns occur in 2022/23.",
+            "The merged source has no modified column; quarantine modified remains null.",
+            "GW7 has a deadline and snapshots but no fixtures or player-fixture facts.",
+            "xP timing is not trusted and is forbidden from every processed table.",
+        ],
+    )
+    return schema
+
+
+VAASTAV_SOURCE_SCHEMAS["vaastav-2022-23-v1"] = _vaastav_2022_23_schema()
+
+
 def validate_vaastav_source_schema(
     schema: object, season: str | None = None
 ) -> dict[str, object]:

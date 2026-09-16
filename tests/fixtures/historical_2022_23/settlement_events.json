@@ -1,0 +1,138 @@
+[
+  {
+    "path": "cache/2023/5/28/1231.json.xz",
+    "payload": {
+      "events": [
+        {
+          "average_entry_score": 0,
+          "chip_plays": [],
+          "cup_leagues_created": true,
+          "data_checked": false,
+          "deadline_time": "2023-05-28T14:00:00Z",
+          "deadline_time_epoch": 1685282400,
+          "deadline_time_game_offset": 0,
+          "finished": false,
+          "h2h_ko_matches_created": true,
+          "highest_score": null,
+          "highest_scoring_entry": null,
+          "id": 38,
+          "is_current": false,
+          "is_next": true,
+          "is_previous": false,
+          "most_captained": null,
+          "most_selected": null,
+          "most_transferred_in": null,
+          "most_vice_captained": null,
+          "name": "Gameweek 38",
+          "top_element": null,
+          "top_element_info": null,
+          "transfers_made": 0
+        }
+      ]
+    }
+  },
+  {
+    "path": "cache/2023/5/29/0139.json.xz",
+    "payload": {
+      "events": [
+        {
+          "average_entry_score": 40,
+          "chip_plays": [
+            {
+              "chip_name": "bboost",
+              "num_played": 358387
+            },
+            {
+              "chip_name": "freehit",
+              "num_played": 110647
+            },
+            {
+              "chip_name": "wildcard",
+              "num_played": 141501
+            },
+            {
+              "chip_name": "3xc",
+              "num_played": 172659
+            }
+          ],
+          "cup_leagues_created": true,
+          "data_checked": false,
+          "deadline_time": "2023-05-28T14:00:00Z",
+          "deadline_time_epoch": 1685282400,
+          "deadline_time_game_offset": 0,
+          "finished": false,
+          "h2h_ko_matches_created": true,
+          "highest_score": 121,
+          "highest_scoring_entry": 11438980,
+          "id": 38,
+          "is_current": true,
+          "is_next": false,
+          "is_previous": false,
+          "most_captained": 318,
+          "most_selected": 318,
+          "most_transferred_in": 169,
+          "most_vice_captained": 318,
+          "name": "Gameweek 38",
+          "top_element": 427,
+          "top_element_info": {
+            "id": 427,
+            "points": 16
+          },
+          "transfers_made": 8204230
+        }
+      ]
+    }
+  },
+  {
+    "path": "cache/2023/5/29/0623.json.xz",
+    "payload": {
+      "events": [
+        {
+          "average_entry_score": 40,
+          "chip_plays": [
+            {
+              "chip_name": "bboost",
+              "num_played": 358387
+            },
+            {
+              "chip_name": "freehit",
+              "num_played": 110647
+            },
+            {
+              "chip_name": "wildcard",
+              "num_played": 141501
+            },
+            {
+              "chip_name": "3xc",
+              "num_played": 172659
+            }
+          ],
+          "cup_leagues_created": true,
+          "data_checked": true,
+          "deadline_time": "2023-05-28T14:00:00Z",
+          "deadline_time_epoch": 1685282400,
+          "deadline_time_game_offset": 0,
+          "finished": true,
+          "h2h_ko_matches_created": true,
+          "highest_score": 121,
+          "highest_scoring_entry": 11438980,
+          "id": 38,
+          "is_current": true,
+          "is_next": false,
+          "is_previous": false,
+          "most_captained": 318,
+          "most_selected": 318,
+          "most_transferred_in": 169,
+          "most_vice_captained": 318,
+          "name": "Gameweek 38",
+          "top_element": 427,
+          "top_element_info": {
+            "id": 427,
+            "points": 16
+          },
+          "transfers_made": 8204230
+        }
+      ]
+    }
+  }
+]

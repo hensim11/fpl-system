@@ -14,7 +14,7 @@ Status: implemented; verification details are recorded in `PROJECT_STATE.md`.
 
 ## Milestone 2 — Reproducible historical data foundation
 
-Status: in progress. The 2023/24 and 2024/25 seasons are implemented and live-verified; expansion to the other agreed seasons remains.
+Status: in progress. The 2022/23, 2023/24 and 2024/25 seasons are implemented and live-verified; expansion to the other agreed seasons remains.
 
 - [x] Set the eventual target range to 2021/22–2025/26 and pin the permitted historical sources.
 - [x] Add a machine-readable 2024/25 source catalogue and season audit expectations.
@@ -25,7 +25,8 @@ Status: in progress. The 2023/24 and 2024/25 seasons are implemented and live-ve
 - [x] Close the 2024/25 architecture slice with enforced reconciliation coverage, validated season-specific Vaastav schemas, separate source/build identities, frozen per-build source inventories, and build-safe processed versioning.
 - [x] Make 2024/25 schema mappings/types executable and scope frozen provenance to materially consumed records, with byte-identical canonical outputs.
 - [x] Verify 2023/24 through its own observed schema/catalogue entry, 38/38 deadline coverage, complete points reconciliation, deterministic rebuilds, and byte-identical 2024/25 regression checks.
-- [ ] Expand the proven pipeline and season-specific schema mappings to 2022/23 next, then 2021/22 and 2025/26.
+- [x] Verify 2022/23 end-to-end, preserving fixture-empty GW7 and observed person-code changes; require complete points reconciliation and cross-season schema/rebuild checks.
+- [ ] Expand the proven pipeline to 2021/22 next, explicitly auditing older metric availability, then 2025/26.
 - [ ] Re-run cross-season identity and availability audits over the full supported range.
 
 Exit criterion: a documented, reproducible dataset suitable for exploratory analysis across agreed seasons.

@@ -25,6 +25,7 @@ def build_quality_report(
     total_points_reconciliation: dict[str, Any],
     source_schema_audits: dict[str, dict[str, Any]],
     vaastav_source_schema: dict[str, object],
+    snapshot_player_code_exceptions: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     failures: list[str] = []
     checks: list[dict[str, Any]] = []
@@ -141,12 +142,37 @@ def build_quality_report(
     position_by_element = {
         row["element"]: row["end_of_season_position"] for row in players
     }
+    code_exceptions = snapshot_player_code_exceptions or []
+    exception_fields = (
+        "gameweek", "element", "snapshot_player_code", "final_player_code",
+        "snapshot_source_path",
+    )
+    expected_code_changes = {
+        tuple(exception[field] for field in exception_fields)
+        for exception in code_exceptions
+    }
+    observed_code_changes = {
+        (row["gameweek"], row["element"], row["player_code"],
+         player_code_by_element.get(row["element"]), row["source_path"])
+        for row in snapshots
+        if row["player_code"] != player_code_by_element.get(row["element"])
+    }
+    if code_exceptions:
+        check(
+            "snapshots.documented_player_code_changes",
+            expected_code_changes <= observed_code_changes,
+            {"expected": code_exceptions,
+             "missing": sorted(expected_code_changes - observed_code_changes)},
+        )
     snapshot_code_errors = [
         {"gameweek": row["gameweek"], "element": row["element"]}
         for row in snapshots
         if row["element"] in player_code_by_element
         and position_by_element[row["element"]] != "AM"
         and row["player_code"] != player_code_by_element[row["element"]]
+        and (row["gameweek"], row["element"], row["player_code"],
+             player_code_by_element[row["element"]], row["source_path"])
+        not in expected_code_changes
     ]
     check(
         "snapshots.player_code_consistency",
