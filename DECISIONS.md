@@ -183,3 +183,31 @@ A successful build now registers raw records at their material use sites and com
 The selected season schema executes through `declarative-normalization-v1`: source values are validated for declared integer, finite decimal, explicit boolean, string/enumeration, nullability, and UTC timestamp contracts, then trusted and quarantined mappings populate separate namespaces. Generic canonical transforms accept only normalized rows. Optional-column reporting follows the declared category rather than treating every non-required field as optional, and quarantine targets must be unique.
 
 Consequence: source identity truthfully describes contribution rather than cache contents, mapping configuration changes behavior, and schema types are enforceable. These semantic changes advance the transformation contract from `historical-transform-v5` to `historical-transform-v6` and create new provenance/build identities. The seven canonical CSVs remain byte-identical to the verified v5 baseline, which stays readable and unmodified.
+
+## 023 — Verify 2023/24 through configuration and an observed source-schema delta
+
+Status: accepted; full season verified 2026-09-16.
+
+The existing Vaastav `9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88` and fplcache
+`33dac28d18953bee5bc4bd56ddd8a5e32e169d68` revisions also contain complete
+2023/24 inputs. Inspection of all four CSV headers and execution against every
+source row established that retained fields have the same mappings and types.
+The separate `vaastav-2023-24-v1` contract declares the observed absent columns
+and permits only GK/DEF/MID/FWD fixture positions. It removes the unavailable
+`modified` quarantine mapping, preserving null in the unchanged canonical column.
+Deep copying the shared contract preserves the 2024/25 definition and identity;
+checked-in real header samples and a baseline build-hash test guard that boundary.
+
+The reference capture is `cache/2024/5/19/1233.json.xz`. The first inspected May 20
+capture, `0121.json.xz`, still reports GW38 unfinished and unchecked. Pin
+`cache/2024/5/20/0625.json.xz`, which reports both flags true, for final settlement.
+The rejected capture remains raw audit evidence but contributes neither to frozen
+provenance nor deterministic source identity. Reconciliation remains required at
+`1.0`: all 28,742 player/Gameweek totals match with zero unexplained differences.
+
+Consequence: 2023/24 proves cross-season operation without changing generic
+pipeline logic, canonical contracts, or transformation version. Both seasons
+rebuild deterministically, and 2024/25 CSVs remain byte-identical. Archive snapshots
+remain periodic observations rather than exact-deadline captures; unavailable
+values remain null. Full acceptance evidence is in
+[the verification record](docs/M2_2023_24_VERIFICATION.md).

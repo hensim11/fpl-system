@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from copy import deepcopy
 from dataclasses import dataclass
 from typing import Callable
 
@@ -540,6 +541,61 @@ VAASTAV_SOURCE_SCHEMAS: dict[str, dict[str, object]] = {
         ],
     }
 }
+
+
+# Observed header differences at immutable Vaastav revision 9779cdbc0c07.
+# All retained fields have the same source meaning and types as 2024/25.
+_VAASTAV_2023_24_ABSENT_COLUMNS = {
+    "merged_gw.csv": {
+        "mng_clean_sheets", "mng_draw", "mng_goals_scored", "mng_loss",
+        "mng_underdog_draw", "mng_underdog_win", "mng_win", "modified",
+    },
+    "players_raw.csv": {
+        "birth_date", "can_select", "can_transact", "has_temporary_code",
+        "mng_clean_sheets", "mng_draw", "mng_goals_scored", "mng_loss",
+        "mng_underdog_draw", "mng_underdog_win", "mng_win", "opta_code",
+        "region", "removed", "team_join_date",
+    },
+    "teams.csv": set(),
+    "fixtures.csv": set(),
+}
+
+
+def _vaastav_2023_24_schema() -> dict[str, object]:
+    """Declare the inspected older shape without mutating the regression baseline."""
+
+    schema = deepcopy(VAASTAV_SOURCE_SCHEMAS["vaastav-2024-25-v1"])
+    schema.update(
+        schema_id="vaastav-2023-24-v1",
+        applicable_seasons=["2023-24"],
+        known_source_exceptions=[
+            "No Assistant Manager elements or mng_* columns occur in 2023/24.",
+            "The merged source has no modified column; quarantine modified remains null.",
+            "xP timing is not trusted and is forbidden from every processed table.",
+        ],
+    )
+    for filename, absent in _VAASTAV_2023_24_ABSENT_COLUMNS.items():
+        file_schema = schema["files"][filename]
+        for key in (
+            "known_column_order", "required_columns", "optional_columns",
+            "ignored_columns", "quarantined_columns", "forbidden_columns",
+        ):
+            file_schema[key] = [field for field in file_schema[key] if field not in absent]
+        for key in (
+            "source_to_canonical_mappings", "quarantined_source_to_canonical_mappings",
+            "type_expectations",
+        ):
+            file_schema[key] = {
+                field: value for field, value in file_schema[key].items()
+                if field not in absent
+            }
+    schema["files"]["merged_gw.csv"]["type_expectations"]["position"]["allowed_values"] = [
+        "GK", "DEF", "MID", "FWD",
+    ]
+    return schema
+
+
+VAASTAV_SOURCE_SCHEMAS["vaastav-2023-24-v1"] = _vaastav_2023_24_schema()
 
 
 def validate_vaastav_source_schema(

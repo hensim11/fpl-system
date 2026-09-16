@@ -61,6 +61,67 @@
           "points_settlement_snapshot_path": "cache/2025/5/26/0206.json.xz"
         }
       }
+    },
+    "2023-24": {
+      "vaastav_source_schema": {
+        "schema_id": "vaastav-2023-24-v1",
+        "schema_version": 1
+      },
+      "reconciliation": {
+        "total_points": {
+          "policy_version": 2,
+          "mode": "required",
+          "minimum_coverage_ratio": 1.0,
+          "canonical_source": {
+            "provider_key": "vaastav",
+            "source_path": "data/2023-24/gws/merged_gw.csv",
+            "field": "total_points",
+            "grain": "player_fixture",
+            "gameweek_aggregation": "sum_by_season_gameweek_element"
+          },
+          "comparison_source": {
+            "provider_key": "fplcache",
+            "field": "elements[].event_points",
+            "settlement_strategy": "next_accepted_deadline_snapshot_plus_final_settlement",
+            "require_event_finished": true,
+            "require_data_checked": true
+          }
+        }
+      },
+      "expected_gameweeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38],
+      "expected_counts": {
+        "fixtures": 380,
+        "player_fixture_facts": 29725,
+        "distinct_fact_elements": 865,
+        "fixture_gameweeks": 38
+      },
+      "sources": {
+        "vaastav": {
+          "provider": "Vaastav historical FPL dataset",
+          "repository": "https://github.com/vaastav/Fantasy-Premier-League",
+          "configured_ref": "9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88",
+          "resolved_commit_sha": "9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88",
+          "raw_base_url": "https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88",
+          "files": [
+            "data/2023-24/gws/merged_gw.csv",
+            "data/2023-24/players_raw.csv",
+            "data/2023-24/teams.csv",
+            "data/2023-24/fixtures.csv"
+          ]
+        },
+        "fplcache": {
+          "provider": "Randdalf fplcache",
+          "repository": "https://github.com/Randdalf/fplcache",
+          "configured_ref": "33dac28d18953bee5bc4bd56ddd8a5e32e169d68",
+          "resolved_commit_sha": "33dac28d18953bee5bc4bd56ddd8a5e32e169d68",
+          "tree_url": "https://api.github.com/repos/Randdalf/fplcache/git/trees/33dac28d18953bee5bc4bd56ddd8a5e32e169d68?recursive=1",
+          "raw_base_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68",
+          "archive_path_pattern": "^cache/(\\d{4})/(\\d{1,2})/(\\d{1,2})/(\\d{2})(\\d{2})\\.json\\.xz$",
+          "capture_timezone": "UTC",
+          "reference_snapshot_path": "cache/2024/5/19/1233.json.xz",
+          "points_settlement_snapshot_path": "cache/2024/5/20/0625.json.xz"
+        }
+      }
     }
   }
 }

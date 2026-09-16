@@ -46,7 +46,7 @@ def build_parser() -> argparse.ArgumentParser:
     historical.add_argument(
         "--season",
         required=True,
-        help="configured season in YYYY-YY form (currently: 2024-25)",
+        help="configured season in YYYY-YY form (currently: 2023-24, 2024-25)",
     )
     historical.add_argument(
         "--output-dir",
