@@ -211,3 +211,55 @@ rebuild deterministically, and 2024/25 CSVs remain byte-identical. Archive snaps
 remain periodic observations rather than exact-deadline captures; unavailable
 values remain null. Full acceptance evidence is in
 [the verification record](docs/M2_2023_24_VERIFICATION.md).
+
+## 024 — Preserve observed 2022/23 code changes with exact audited exceptions
+
+Status: accepted; full season verified 2026-09-16.
+
+The existing immutable provider revisions contain complete 2022/23 inputs. All
+four Vaastav headers exactly match the inspected 2023/24 shape, so a season-scoped
+`vaastav-2022-23-v1` schema deep-copies the shared definition. Starts and expected
+metrics exist; `modified` and manager columns do not. Canonical schemas are unchanged.
+
+The season has 38 deadlines but only 37 fixture-bearing gameweeks: GW7 has no
+fixtures. Preserve its accepted snapshot and deadline rows without fabricating
+zero-point fixture facts. Reconciliation eligibility continues to be derived from
+actual fixture facts, so GW7 adds no eligible rows. All 24,957 eligible totals match.
+The final reference is `cache/2023/5/28/1231.json.xz`; May 29 `0139.json.xz` is
+unfinished/unchecked, while `0623.json.xz` is settled and is the configured comparison.
+
+The initial full quality run caught two non-manager person-code differences:
+
+| Element | Person | GW1 observed code | GW2 and final code |
+| --- | --- | ---: | ---: |
+| 546 | Luke Harris | 536122 | 515024 |
+| 558 | Hugo Bueno | 530332 | 490721 |
+
+The accepted GW1 capture (`cache/2022/8/5/1249.json.xz`) and GW2 capture
+(`cache/2022/8/13/0627.json.xz`) agree on names, team and position, but not code.
+Their raw excerpts are retained in tests. Preserve the original deadline code;
+using the final code in GW1 would silently substitute later information.
+
+The optional season catalogue `snapshot_player_code_exceptions` policy is exact
+by gameweek, element, observed code, final code and source path, with a required
+explanation. Configuration rejects malformed or duplicate entries. Quality checks
+require every declared transition to be observed; stale exceptions and every
+undeclared mismatch fail. No broad player or season exemption was added. The policy
+is audit-only and does not rewrite identity, team, position or any snapshot value.
+
+Its version (`snapshot_player_code_exception_policy_version: 1`) and complete
+configuration enter the season build identity only when configured. This extends
+the validation contract without changing the default v6 transformation semantics
+or either newer season's build identity. All seven newer CSVs remain byte-identical
+on fresh rebuilds. Future changes to this exception policy must advance its version.
+
+An additional cross-season diagnostic compared fixture sums with final cumulative
+player totals. Every 2022/23 and 2023/24 total matches. For 2024/25 Ferguson, the
+pinned final aggregate is 28 while fixture and settled event sums are 27. Between
+February 25 and March 8 archive captures, cumulative points rise from 21 to 23
+while GW27 event points are 1. This establishes an upstream cumulative/event
+inconsistency; the inputs inspected do not explain its cause or assign the extra
+point to a fixture. Retain the existing fixture-grain source policy and report the
+aggregate discrepancy separately. Do not invent an allocation or alter the passing
+settled-event reconciliation. Detailed evidence and limitations are in
+[the verification record](docs/M2_2022_23_VERIFICATION.md).

@@ -451,6 +451,7 @@ def run_historical_pipeline(
         points_reconciliation,
         source_schema_audits,
         vaastav_source_schema,
+        snapshot_player_code_exceptions=config.get("snapshot_player_code_exceptions"),
     )
     quality_report["dataset_version"] = version
     quality_report["source_version"] = source_version
@@ -888,6 +889,9 @@ def create_build_identity(
     )
     cache = config["sources"]["fplcache"]
     canonical_contract = schema_document()
+    identity_exceptions = config.get("snapshot_player_code_exceptions")
+    if "snapshot_player_code_exceptions" in config:
+        validate_snapshot_player_code_exceptions(identity_exceptions, config["expected_gameweeks"])
     return {
         "transformation_contract_version": TRANSFORMATION_CONTRACT_VERSION,
         "source_catalogue_schema_version": source_catalogue_schema_version,
@@ -895,6 +899,9 @@ def create_build_identity(
         "season_contract": {
             "expected_gameweeks": list(config["expected_gameweeks"]),
             "expected_counts": dict(config["expected_counts"]),
+            **({"snapshot_player_code_exception_policy_version": 1,
+                "snapshot_player_code_exceptions": identity_exceptions}
+               if identity_exceptions is not None else {}),
         },
         "vaastav_source_schema": {
             "schema_id": source_schema["schema_id"],
@@ -917,6 +924,30 @@ def create_build_identity(
             "policy_version"
         ],
     }
+
+
+def validate_snapshot_player_code_exceptions(value: Any, gameweeks: list[int]) -> None:
+    """Require exact, documented code transitions rather than broad ID exemptions."""
+
+    if not isinstance(value, list):
+        raise FPLValidationError("snapshot player-code exceptions must be a list")
+    keys = set()
+    for item in value:
+        integer_fields = ("gameweek", "element", "snapshot_player_code", "final_player_code")
+        text_fields = ("snapshot_source_path", "reason")
+        if (
+            not isinstance(item, dict)
+            or set(item) != set(integer_fields + text_fields)
+            or any(type(item[k]) is not int or item[k] <= 0 for k in integer_fields)
+            or any(not isinstance(item[k], str) or not item[k].strip() for k in text_fields)
+            or item["gameweek"] not in gameweeks
+            or item["snapshot_player_code"] == item["final_player_code"]
+        ):
+            raise FPLValidationError("invalid exact snapshot player-code exception")
+        key = (item["gameweek"], item["element"])
+        if key in keys:
+            raise FPLValidationError("duplicate snapshot player-code exception")
+        keys.add(key)
 
 
 def create_reconciliation_provenance(

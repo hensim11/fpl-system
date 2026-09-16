@@ -6,22 +6,22 @@ Last updated: 2026-09-16
 
 Milestone 2 — Reproducible historical data foundation.
 
-Status: in progress. Milestone 1 remains complete; the 2024/25 vertical slice and its Milestone 2 closure hardening are implemented and verified. The first cross-season expansion, 2023/24, is now implemented and fully verified.
+Status: in progress. Milestone 1 remains complete; the 2024/25 vertical slice and its Milestone 2 closure hardening are implemented and verified. The 2023/24 and 2022/23 expansions are now implemented and fully verified.
 
 ## What currently works
 
 - The zero-runtime-dependency Milestone 1 CLI still retrieves current FPL bootstrap and fixture data into timestamped raw JSON and processed CSV snapshots.
-- `python -m fpl_ai historical --season 2024-25 --output-dir data` processes configured commit-pinned 2024/25 sources; `--season 2023-24` processes the separately validated older season.
+- `python -m fpl_ai historical --season 2024-25 --output-dir data` processes configured commit-pinned 2024/25 sources; `--season 2023-24` and `--season 2022-23` process the separately validated older seasons.
 - Immutable historical raw files carry requested season, repository, configured ref, resolved commit SHA, source path/URL, retrieval time, SHA-256, and byte-size provenance. The hashed source identity includes only materially consumed records, with deterministic consumption roles; rejected discovery candidates and unrelated cache entries are audit-only.
 - A separate deterministic build identity covers the explicit transformation contract version, canonical schemas, season checks, selected source schema, snapshot-selection contract, and reconciliation configuration. Build time and local paths are excluded; different builds over the same source use different directories.
 - Seven leakage-classified CSV tables and five metadata artifacts are generated deterministically (12 processed artifacts total), including standalone points-reconciliation and frozen source-inventory artifacts.
 - Every new processed build owns an atomic `source_inventory.json` with its exact source identity and canonicalised consumed-file inventory. Actual consumption must equal the resolved dependency set; exact duplicates merge safely and conflicts fail. Catalogue schema v2 retains all discovered build versions; pre-v5 builds remain explicitly readable as `legacy_shared_raw_inventory` without rewriting their metadata.
 - `data/historical/catalogue.json` provides an atomic latest-successful lookup without a filesystem symlink.
 - Snapshot selection requires `is_next`, an exact deadline match, and capture strictly before the deadline. Missing values remain null; every fixture in a double gameweek shares the deadline cutoff.
-- Each player deadline row takes team ID/code/names and position ID/labels from that accepted snapshot. It never falls back to end-of-season identity; 31 live elements correctly show more than one team across deadline snapshots.
+- Each player deadline row takes team ID/code/names and position ID/labels from that accepted snapshot. It never falls back to end-of-season identity; 29, 23 and 31 elements show more than one deadline team in 2022/23, 2023/24 and 2024/25 respectively.
 - Deadline-safe fixture context is allowlisted to season, target gameweek, and deadline. Final fixture identity, assignment, teams/opponent, home/away, kickoff, difficulty, status, minutes, and results remain only in post-event tables.
-- Vaastav fixture-level `total_points` is canonical. Player/Gameweek sums are reconciled against settled `fplcache` `event_points`; 2024/25 requires 100% eligible-row coverage, and no usable comparison, sub-threshold coverage, or any mismatch is a hard quality failure.
-- Vaastav input shape is selected through the season's `vaastav-2024-25-v1` or `vaastav-2023-24-v1` schema. Its declarative mappings execute at one typed normalisation boundary, after which generic transforms consume only canonical names. Integer, decimal, boolean, string/enumeration, nullability, and UTC timestamp contracts are enforced. Optional-column reporting is category-accurate, quarantine targets are unique, and `xP` remains structurally forbidden.
+- Vaastav fixture-level `total_points` is canonical. Player/Gameweek sums are reconciled against settled `fplcache` `event_points`; all three seasons require 100% eligible-row coverage, and no usable comparison, sub-threshold coverage, or any mismatch is a hard quality failure.
+- Vaastav input shape is selected through the season's `vaastav-2024-25-v1`, `vaastav-2023-24-v1` or `vaastav-2022-23-v1` schema. Its declarative mappings execute at one typed normalisation boundary, after which generic transforms consume only canonical names. Integer, decimal, boolean, string/enumeration, nullability, and UTC timestamp contracts are enforced. Optional-column reporting is category-accurate, quarantine targets are unique, and `xP` remains structurally forbidden.
 - Current and historical CLI option destinations are independent. Conflicting duplicate values before and after `historical` produce an argparse error instead of silent overwriting.
 - Prediction models, feature engineering, optimisation, and FPL decision rules have intentionally not been started.
 
@@ -76,6 +76,33 @@ The local python.org installation has an empty default CA store. Both download p
 - No generic ingestion, validation, reconciliation, canonical schema, or compatibility changes were necessary.
 - Detailed source observations, artifact checksums, and limitations: [verification record](docs/M2_2023_24_VERIFICATION.md).
 
+### Verified historical 2022/23 and cross-season audit (2026-09-16)
+
+- Command: `.venv/bin/python -m fpl_ai historical --season 2022-23 --output-dir data`.
+- Build: `v3-9779cdbc0c07-33dac28d1895-build-9227d246d371`.
+- Source identity: `12c000cd16399629ccfb762581e479906651834ca1f377234b98e5f26fb0c3c3`.
+- Build identity: `9227d246d3718724d8118898b6548077c8963837bdf49e9bc6bf64b30a7762a0`.
+- Same immutable provider revisions; observed schema `vaastav-2022-23-v1`.
+- Counts: 38 gameweeks, 778 players, 20 teams, 380 fixtures, 26,505 facts,
+  26,198 deadline rows and 26,505 quarantine rows.
+- All 44 quality checks pass. All 24,957 eligible player/Gameweek totals match,
+  with coverage `1.0`, zero missing comparisons and zero mismatches.
+- 38/38 accepted snapshots, captured 5 minutes–6 hours 9 minutes before deadline.
+  GW7 retains its September 10 deadline and 06:33 UTC capture but no fixture facts.
+- All deadline team/position identity and prices populated; 29 elements change
+  deadline team. Two GW1 person-code changes are exact, source-path-scoped audited
+  exceptions; original snapshot codes remain intact. See Decision 024.
+- All 778 player season sums also match Vaastav final aggregates. Every club has
+  38 fixtures, with each directed home/away pairing exactly once.
+- All three seasons freshly rebuild offline with identical source/build identities
+  and seven byte-identical CSVs. Published canonical schemas match across seasons;
+  reuse preserves hashes and modification times. Both newer builds stay unchanged.
+- 68 network-free tests pass; compilation, CLI help and whitespace checks pass.
+  No dedicated lint/type-check tool is configured.
+- Reproducible command: `PYTHONPATH=. .venv/bin/python scripts/verify_historical_seasons.py --report /tmp/historical-audit.json`.
+- Full evidence: [2022/23 verification](docs/M2_2022_23_VERIFICATION.md) and
+  [machine-readable cross-season audit](docs/M2_CROSS_SEASON_AUDIT.json).
+
 ## Architecture
 
 Milestone 1 remains unchanged:
@@ -111,15 +138,26 @@ atomic catalogue latest-successful entry
 
 ## Known limitations
 
-- Historical support covers 2023/24 and 2024/25. The three other agreed seasons are not configured or verified.
+- Luke Harris (546) and Hugo Bueno (558) have documented 2022/23 GW1 person-code
+  changes. Downstream identity linking must account for these; earlier observations
+  are not rewritten with later codes.
+- An additional 2024/25 final-aggregate diagnostic finds Ferguson's fixture sum
+  is 27 versus cumulative 28. Settled event points match every canonical Gameweek;
+  the archive itself exhibits this cumulative inconsistency. No arbitrary point
+  adjustment was made. Details and precise captures are in the 2022/23 verification.
+
+- Historical support covers 2022/23, 2023/24 and 2024/25. The remaining agreed seasons, 2021/22 and 2025/26, are not configured or verified.
 - Current ingestion responses are not atomic with each other and have no retry/backoff, retention policy, or schedule.
 - CSV is portable and inspectable but requires downstream readers to apply the published schema.
 - The source APIs and datasets are not guaranteed versioned developer contracts. Raw preservation makes corrections and revision changes auditable.
 - Assistant Manager elements are club-manager slots rather than stable person identities and must not be treated as cross-season football-player IDs.
 - The pinned inputs do not contain per-deadline fixture-list snapshots. Consequently fixture schedule/difficulty fields are intentionally post-event context and unavailable in the deadline table.
-- Points can be reconciled only when a later snapshot marks the event `finished` and `data_checked` and provides integer `event_points`. Required reconciliation cannot publish as unavailable; optional skipping exists only as an explicit future-season policy and is not used for either verified season.
+- Points can be reconciled only when a later snapshot marks the event `finished` and `data_checked` and provides integer `event_points`. Required reconciliation cannot publish as unavailable; optional skipping exists only as an explicit future-season policy and is not used for any verified season.
 - The existing `notebooks/exploration.ipynb` remains an empty placeholder.
 
 ## Recommended next step
 
-Add 2022/23 through the same evidence-first catalogue/schema workflow, including its fixture-empty GW7 and an explicit audit of archive and settlement coverage. Keep feature engineering and modelling deferred.
+Add 2021/22 through the same pinned-source workflow, explicitly auditing older
+metric availability and snapshot/settlement coverage; then complete 2025/26 and
+the full-range identity/availability audit. Keep feature engineering and modelling
+deferred until the agreed historical foundation is complete.
