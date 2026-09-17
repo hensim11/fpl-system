@@ -378,6 +378,180 @@
           "points_settlement_snapshot_path": "cache/2022/5/23/0632.json.xz"
         }
       }
+    },
+    "2025-26": {
+      "vaastav_source_schema": {
+        "schema_id": "vaastav-2025-26-v1",
+        "schema_version": 1
+      },
+      "reconciliation": {
+        "total_points": {
+          "policy_version": 2,
+          "mode": "required",
+          "minimum_coverage_ratio": 1.0,
+          "canonical_source": {
+            "provider_key": "vaastav",
+            "source_path": "data/2025-26/gws/merged_gw.csv",
+            "field": "total_points",
+            "grain": "player_fixture",
+            "gameweek_aggregation": "sum_by_season_gameweek_element"
+          },
+          "comparison_source": {
+            "provider_key": "fplcache",
+            "field": "elements[].event_points",
+            "settlement_strategy": "next_accepted_deadline_snapshot_plus_final_settlement",
+            "require_event_finished": true,
+            "require_data_checked": true
+          }
+        }
+      },
+      "expected_gameweeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38
+      ],
+      "expected_counts": {
+        "fixtures": 380,
+        "player_fixture_facts": 29747,
+        "distinct_fact_elements": 841,
+        "fixture_gameweeks": 38,
+        "players": 841,
+        "teams": 20,
+        "gameweeks_with_valid_snapshot": 38
+      },
+      "sources": {
+        "vaastav": {
+          "provider": "Vaastav historical FPL dataset",
+          "repository": "https://github.com/vaastav/Fantasy-Premier-League",
+          "configured_ref": "9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88",
+          "resolved_commit_sha": "9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88",
+          "raw_base_url": "https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88",
+          "files": [
+            "data/2025-26/gws/merged_gw.csv",
+            "data/2025-26/players_raw.csv",
+            "data/2025-26/teams.csv",
+            "data/2025-26/fixtures.csv"
+          ]
+        },
+        "fplcache": {
+          "provider": "Randdalf fplcache",
+          "repository": "https://github.com/Randdalf/fplcache",
+          "configured_ref": "33dac28d18953bee5bc4bd56ddd8a5e32e169d68",
+          "resolved_commit_sha": "33dac28d18953bee5bc4bd56ddd8a5e32e169d68",
+          "tree_url": "https://api.github.com/repos/Randdalf/fplcache/git/trees/33dac28d18953bee5bc4bd56ddd8a5e32e169d68?recursive=1",
+          "raw_base_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68",
+          "archive_path_pattern": "^cache/(\\d{4})/(\\d{1,2})/(\\d{1,2})/(\\d{2})(\\d{2})\\.json\\.xz$",
+          "capture_timezone": "UTC",
+          "reference_snapshot_path": "cache/2026/5/24/0839.json.xz",
+          "points_settlement_snapshot_path": "cache/2026/5/25/1023.json.xz"
+        }
+      },
+      "exact_duplicate_rows": {
+        "policy_version": 1,
+        "season": "2025-26",
+        "source_path": "data/2025-26/gws/merged_gw.csv",
+        "resolved_commit_sha": "9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88",
+        "source_sha256": "0d09f1f1cb1b5520ec8e2f25238aa652efe2a263d8ca7cb2b6538b27bf86727d",
+        "source_row_count": 29757,
+        "duplicates": [
+          {
+            "element": 100,
+            "fixture": 1,
+            "gameweek": 1,
+            "occurrences": 2
+          },
+          {
+            "element": 100,
+            "fixture": 12,
+            "gameweek": 2,
+            "occurrences": 2
+          },
+          {
+            "element": 100,
+            "fixture": 29,
+            "gameweek": 3,
+            "occurrences": 2
+          },
+          {
+            "element": 100,
+            "fixture": 32,
+            "gameweek": 4,
+            "occurrences": 2
+          },
+          {
+            "element": 100,
+            "fixture": 42,
+            "gameweek": 5,
+            "occurrences": 2
+          },
+          {
+            "element": 100,
+            "fixture": 56,
+            "gameweek": 6,
+            "occurrences": 2
+          },
+          {
+            "element": 100,
+            "fixture": 63,
+            "gameweek": 7,
+            "occurrences": 2
+          },
+          {
+            "element": 100,
+            "fixture": 73,
+            "gameweek": 8,
+            "occurrences": 2
+          },
+          {
+            "element": 100,
+            "fixture": 83,
+            "gameweek": 9,
+            "occurrences": 2
+          },
+          {
+            "element": 391,
+            "fixture": 1,
+            "gameweek": 1,
+            "occurrences": 2
+          }
+        ],
+        "reason": "Ten exactly repeated rows from overlapping renamed player directories: Ben Doak / Ben Gannon-Doak (391, GW1), Eli Junior Kroupi / Junior Kroupi (100, GW1-9). Pinned per-player histories overlap; every raw merged field is identical. Retain the first observation once per fixture, without changing values."
+      }
     }
   }
 }

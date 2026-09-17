@@ -16,6 +16,7 @@ from urllib.request import Request, urlopen
 
 from fpl_ai.client import _verified_ssl_context
 from fpl_ai.errors import FPLDownloadError, FPLValidationError
+from fpl_ai.historical_duplicates import validate_duplicate_policy
 from fpl_ai.historical_io import (
     atomic_write_csv,
     atomic_write_json,
@@ -301,6 +302,9 @@ def run_historical_pipeline(
                 name,
                 vaastav_source_schema,
                 include_schema_audit=True,
+                exact_duplicate_policy=(
+                    config.get("exact_duplicate_rows") if name == "merged_gw.csv" else None
+                ),
             )
         except FPLValidationError as exc:
             source_store.write_manifest()
@@ -998,6 +1002,11 @@ def create_build_identity(
     comparison_policy = config["reconciliation"]["total_points"]["comparison_source"]
     if comparison_policy.get("settlement_strategy") == STRATEGY:
         validate_policy(comparison_policy.get("selection_policy"))
+    if "exact_duplicate_rows" in config:
+        policy = config["exact_duplicate_rows"]
+        validate_duplicate_policy(policy, season)
+        if policy["resolved_commit_sha"] != config["sources"]["vaastav"]["resolved_commit_sha"]:
+            raise FPLValidationError("exact duplicate row revision differs from configured source")
     canonical_contract = schema_document()
     kickoff_policy = config.get("fixture_kickoff_reconciliation")
     if "fixture_kickoff_reconciliation" in config:
@@ -1012,6 +1021,8 @@ def create_build_identity(
         "season_contract": {
             "expected_gameweeks": list(config["expected_gameweeks"]),
             "expected_counts": dict(config["expected_counts"]),
+            **({"exact_duplicate_rows": config["exact_duplicate_rows"]}
+               if "exact_duplicate_rows" in config else {}),
             **({"fixture_kickoff_reconciliation_policy_version": 1,
                 "fixture_kickoff_reconciliation": kickoff_policy}
                if kickoff_policy is not None else {}),

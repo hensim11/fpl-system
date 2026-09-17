@@ -14,7 +14,7 @@ Status: implemented; verification details are recorded in `PROJECT_STATE.md`.
 
 ## Milestone 2 — Reproducible historical data foundation
 
-Status: in progress. The 2021/22, 2022/23, 2023/24 and 2024/25 seasons are implemented and live-verified; expansion to the other agreed seasons remains.
+Status: **complete**. All five seasons, 2021/22–2025/26, are published and verified, including the full-range identity, availability, temporal-integrity and offline reproducibility audit. Evidence: `docs/M2_2025_26_VERIFICATION.md`.
 
 - [x] Set the eventual target range to 2021/22–2025/26 and pin the permitted historical sources.
 - [x] Add a machine-readable 2024/25 source catalogue and season audit expectations.
@@ -30,12 +30,14 @@ Status: in progress. The 2021/22, 2022/23, 2023/24 and 2024/25 seasons are imple
 - [x] Implement independently selected, pinned settled-event comparisons for 2021/22: 23,230/23,230 exact matches, including GW3/GW17; preserve accepted-season identities.
 - [x] Make the default audit verify published seasons and route unpublished attempts through explicit investigation mode.
 - [x] Complete 2021/22 publication with 43/43 passing checks, 38/38 snapshots and complete settlement reconciliation, using one authorized, pinned GW18 superseded-deadline exception (state as of 12:33; 3h27 freshness limitation).
-- [ ] Add and verify 2025/26 through the proven pipeline.
-- [ ] Re-run cross-season identity and availability audits over the full supported range.
+- [x] Add and verify 2025/26 through the proven pipeline, with exact duplicate-source evidence and complete settled points coverage.
+- [x] Re-run cross-season identity and availability audits over all five seasons; preserve all earlier outputs and identities.
 
-Exit criterion: a documented, reproducible dataset suitable for exploratory analysis across agreed seasons.
+Exit criterion: **satisfied** — a documented, reproducible dataset suitable for exploratory analysis across all five agreed seasons.
 
 ## Milestone 3 — Feature and evaluation design
+
+Status: next; not implemented. Start with substantial feature and evaluation design using the five-season availability/identity audit.
 
 - Define prediction targets and guard against future-data leakage.
 - Create time-aware train/validation/test splits.
