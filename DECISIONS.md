@@ -375,3 +375,58 @@ successful manifest, frozen inventory and catalogue publish normally; operationa
 status derives from that publication. All three prior seasons' identities and CSVs
 remain unchanged. Decisions 025/026's GW18 blocking status is superseded by this
 specific authorization, not by finding a new source or relaxing coverage.
+
+## 029 — Collapse only exact, hash-bound duplicate source observations
+
+Status: accepted; 2025/26 published and verified.
+
+At the existing Vaastav pin, 2025/26 `merged_gw.csv` contains 29,757 rows but only
+29,747 distinct player-fixture keys. Ten keys occur twice: Ben Doak/Gannon-Doak
+(391, GW1) and Eli Junior Kroupi/Junior Kroupi (100, GW1–9). Every merged field is
+identical in each pair. Pinned old/new player directories contain identical
+intersecting histories, consistent with duplicate aggregation after renaming.
+The initial normal build rejected these duplicates before publication.
+
+Optional version-1 `exact_duplicate_rows` season configuration identifies the
+immutable revision, source path, entire file SHA-256, original row count and exact
+key/Gameweek/occurrence inventory, with an evidence reason. The typed ingestion
+boundary retains the first record only after verifying every raw CSV field is equal,
+including fields that normalization would subsequently ignore or forbid. Source
+row numbers and each removal are retained in the quality schema audit. Changes to
+hash, count, key or field values, undeclared duplicates and stale policies fail;
+without a policy, existing duplicate-key rejection is unchanged.
+
+The complete policy enters the season build identity only when configured. Raw
+bytes remain untouched, and the frozen inventory identifies the original file.
+This is a source-row multiplicity correction, not a points adjustment or identity
+rewrite; it neither changes snapshot selection nor chooses settlement by agreement.
+All 29,338 independent settled player/Gameweek totals match after normalization.
+All four prior season contracts, outputs and identities remain unchanged.
+
+Evidence: [source inspection](docs/M2_2025_26_SOURCE_AUDIT.json) and
+[acceptance record](docs/M2_2025_26_VERIFICATION.md).
+
+## 030 — Preserve the common canonical schema and audit raw-only availability
+
+Status: accepted for five-season Milestone 2 closure.
+
+2025/26 adds four defensive outcome statistics, final-player metadata and a team
+link, while removing Assistant Manager metrics. The observed season schema declares
+all columns, types the four new defensive statistics and retains their raw bytes;
+it deliberately excludes them from the seven common canonical tables. This avoids
+changing all previously accepted schemas/build identities solely for fields that
+are unavailable across the full training range. These outcomes are not forbidden
+or of unknown fixture timing; their exclusion is an explicit scope choice.
+
+The separate read-only audit describes canonical information classes/nonempty
+counts, source field categories, and raw bootstrap field presence, JSON types and
+Gameweeks. This exposes partial-season fields such as `scout_risks`, `known_name`,
+`price_change_percent` and `scout_news_link` without importing final values into
+earlier state. Archived cumulative defensive statistics remain distinct from
+fixture-grain realised statistics. No new raw field automatically becomes trusted
+canonical input or an engineered feature.
+
+Consequence: the full-range foundation is reproducible and transparent about
+availability, while any later feature/raw-field expansion requires its own explicit
+versioned design. Existing temporal boundaries, Vaastav `xP` prohibition and
+quarantine remain unchanged. See [the availability guide](docs/M2_FIVE_SEASON_AVAILABILITY.md).

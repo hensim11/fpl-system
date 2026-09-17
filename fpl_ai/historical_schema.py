@@ -678,6 +678,93 @@ def _vaastav_2021_22_schema() -> dict[str, object]:
 VAASTAV_SOURCE_SCHEMAS["vaastav-2021-22-v1"] = _vaastav_2021_22_schema()
 
 
+# Exact observed headers at Vaastav 9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88.
+VAASTAV_2025_26_SOURCE_COLUMNS = {
+    "merged_gw.csv": [
+        "name", "position", "team", "xP", "assists", "bonus", "bps", "clean_sheets",
+        "creativity", "element", "expected_assists", "expected_goal_involvements",
+        "expected_goals", "expected_goals_conceded", "fixture", "goals_conceded", "goals_scored",
+        "ict_index", "influence", "kickoff_time", "minutes", "modified", "opponent_team",
+        "own_goals", "penalties_missed", "penalties_saved", "red_cards", "round", "saves",
+        "selected", "starts", "team_a_score", "team_h_score", "threat", "total_points",
+        "transfers_balance", "transfers_in", "transfers_out", "value", "was_home",
+        "yellow_cards", "clearances_blocks_interceptions", "defensive_contribution",
+        "recoveries", "tackles", "GW",
+    ],
+    "players_raw.csv": [
+        "assists", "birth_date", "bonus", "bps", "can_select", "can_transact",
+        "chance_of_playing_next_round", "chance_of_playing_this_round", "clean_sheets",
+        "clean_sheets_per_90", "clearances_blocks_interceptions", "code",
+        "corners_and_indirect_freekicks_order", "corners_and_indirect_freekicks_text",
+        "cost_change_event", "cost_change_event_fall", "cost_change_start",
+        "cost_change_start_fall", "creativity", "creativity_rank", "creativity_rank_type",
+        "defensive_contribution", "defensive_contribution_per_90", "direct_freekicks_order",
+        "direct_freekicks_text", "dreamteam_count", "element_type", "ep_next", "ep_this",
+        "event_points", "expected_assists", "expected_assists_per_90",
+        "expected_goal_involvements", "expected_goal_involvements_per_90", "expected_goals",
+        "expected_goals_conceded", "expected_goals_conceded_per_90", "expected_goals_per_90",
+        "first_name", "form", "form_rank", "form_rank_type", "goals_conceded",
+        "goals_conceded_per_90", "goals_scored", "has_temporary_code", "ict_index",
+        "ict_index_rank", "ict_index_rank_type", "id", "in_dreamteam", "influence",
+        "influence_rank", "influence_rank_type", "known_name", "minutes", "news", "news_added",
+        "now_cost", "now_cost_rank", "now_cost_rank_type", "opta_code", "own_goals",
+        "penalties_missed", "penalties_order", "penalties_saved", "penalties_text", "photo",
+        "points_per_game", "points_per_game_rank", "points_per_game_rank_type",
+        "price_change_percent", "recoveries", "red_cards", "region", "removed", "saves",
+        "saves_per_90", "scout_news_link", "scout_risks", "second_name", "selected_by_percent",
+        "selected_rank", "selected_rank_type", "special", "squad_number", "starts",
+        "starts_per_90", "status", "tackles", "team", "team_code", "team_join_date", "threat",
+        "threat_rank", "threat_rank_type", "total_points", "transfers_in", "transfers_in_event",
+        "transfers_out", "transfers_out_event", "value_form", "value_season", "web_name",
+        "yellow_cards",
+    ],
+    "teams.csv": [
+        "code", "draw", "form", "id", "loss", "name", "played", "points", "position",
+        "short_name", "strength", "team_division", "unavailable", "win", "link_url",
+        "strength_overall_home", "strength_overall_away", "strength_attack_home",
+        "strength_attack_away", "strength_defence_home", "strength_defence_away", "pulse_id",
+    ],
+    "fixtures.csv": [
+        "code", "event", "finished", "finished_provisional", "id", "kickoff_time", "minutes",
+        "provisional_start_time", "started", "team_a", "team_a_score", "team_h", "team_h_score",
+        "stats", "team_h_difficulty", "team_a_difficulty", "pulse_id",
+    ],
+}
+
+
+def _vaastav_2025_26_schema() -> dict[str, object]:
+    """Keep the published canonical contract while declaring the new raw shape."""
+    schema = deepcopy(VAASTAV_SOURCE_SCHEMAS["vaastav-2024-25-v1"])
+    schema.update(
+        schema_id="vaastav-2025-26-v1",
+        applicable_seasons=["2025-26"],
+        known_source_exceptions=[
+            "No Assistant Manager elements or mng_* fields occur in 2025/26.",
+            "Defensive statistics are typed raw outcomes, intentionally excluded from the shared canonical tables.",
+            "New final-player metadata and team link_url remain raw-only; no final state enters deadline rows.",
+            "xP timing is not trusted and is forbidden from every processed table.",
+        ],
+    )
+    for filename, columns in VAASTAV_2025_26_SOURCE_COLUMNS.items():
+        contract = schema["files"][filename]
+        contract["known_column_order"] = list(columns)
+        for key in ("required_columns", "optional_columns", "quarantined_columns", "forbidden_columns"):
+            contract[key] = [field for field in contract[key] if field in columns]
+        classified = {field for key in ("required_columns", "optional_columns", "quarantined_columns", "forbidden_columns")
+                      for field in contract[key]}
+        contract["ignored_columns"] = [field for field in columns if field not in classified]
+        for key in ("source_to_canonical_mappings", "quarantined_source_to_canonical_mappings", "type_expectations"):
+            contract[key] = {field: value for field, value in contract[key].items() if field in columns}
+        for field in ("clearances_blocks_interceptions", "defensive_contribution", "recoveries", "tackles"):
+            if field in columns:
+                contract["type_expectations"][field] = _type("integer", nullable=True)
+    schema["files"]["merged_gw.csv"]["type_expectations"]["position"]["allowed_values"] = ["GK", "DEF", "MID", "FWD"]
+    return schema
+
+
+VAASTAV_SOURCE_SCHEMAS["vaastav-2025-26-v1"] = _vaastav_2025_26_schema()
+
+
 def validate_vaastav_source_schema(
     schema: object, season: str | None = None
 ) -> dict[str, object]:

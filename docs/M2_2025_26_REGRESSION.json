@@ -1,0 +1,61 @@
+{
+  "baseline_processed_bytes_and_mtimes_unchanged": true,
+  "baseline_processed_file_count": 112,
+  "existing_audit_season_entries_unchanged": true,
+  "existing_catalogue_season_entries_unchanged": true,
+  "existing_source_configurations_unchanged": true,
+  "seasons": {
+    "2021-22": {
+      "build_identity_sha256": "5644015b364e43177485c5d5c3f520efe64b7a17d4113b84b56c400bab2c57d8",
+      "csv_sha256": {
+        "fixtures.csv": "019a435c07f25f15acdc57ce404397f10b44e0e3467454a92acb9bfc98e5bde6",
+        "gameweeks.csv": "daa2e9a9b39a03a63cbd8d9f56002a23c73ab3fe60846fd2c96e368c3612e3d1",
+        "player_deadline_snapshots.csv": "c3c01dcd8aeccdfb6276875cd63144904683e6fb8eb200a71e80c027d132c17b",
+        "player_fixture_facts.csv": "8310163bc8c3abfc5033af1ee1a77812e0268a3f9d2802911dfa7c52a72b9876",
+        "players.csv": "1b358661dfb235b35a27258964d4a4c3bafcdc4f343ec31c7215ea0f051ca122",
+        "quarantined_source_metadata.csv": "a4f7be8b33e2b736cf375e9617060ce4bd22067faac35070690a083a05b652ed",
+        "teams.csv": "f46e390afddb375624503cac6ef295b508183e297346b918c22f2c396e60ba4e"
+      },
+      "source_identity_sha256": "c4045c8739a4dfd0d3d47115f23d8a0c6ee211b510e8572ab6315f699542f863"
+    },
+    "2022-23": {
+      "build_identity_sha256": "9227d246d3718724d8118898b6548077c8963837bdf49e9bc6bf64b30a7762a0",
+      "csv_sha256": {
+        "fixtures.csv": "c81bb9f945653a6386b95543f48e2c065ee6efbb9d203fd6c7f1ac496a0fb271",
+        "gameweeks.csv": "00a4ae6a8f6dd0b605b49c64ffbcb3162bac0506456f4c9957aac93b9ec93f43",
+        "player_deadline_snapshots.csv": "67a7f5d00e7b5ac8f64e7ad4a8aded1e8c0ad3e3ade715e316e51e6aa3c34d79",
+        "player_fixture_facts.csv": "5713293c4b75c3681c2b74e949a941127ad7a1dcf1c43d4da517d95f5e2b72b6",
+        "players.csv": "babd0338884a07788fb99236cf02f3e162f4aae191e6828bd7fc1a23a1b9c52e",
+        "quarantined_source_metadata.csv": "5673455b5768f5adc4ddb6ac75d2138d8c00d60f02d5bb507fae8dbc50f66f90",
+        "teams.csv": "e6d9b1d47004ea82c008ed13ccfd8755cda306100c743d15be6746241bca50d1"
+      },
+      "source_identity_sha256": "12c000cd16399629ccfb762581e479906651834ca1f377234b98e5f26fb0c3c3"
+    },
+    "2023-24": {
+      "build_identity_sha256": "7886af1a34dd6293e9ea8bfb8c4b94eedd3bcee2c75f7f93d4a98eef390e35e8",
+      "csv_sha256": {
+        "fixtures.csv": "107a1d3b92639f7eb5f55f3fb5e747cbdbcc1c25417cbc9c46000bedf51f0def",
+        "gameweeks.csv": "e412079827c4efb65e8451df7e8453e6460eeb64a68986c6df96527e97a2ef1e",
+        "player_deadline_snapshots.csv": "147e275e5740afec57afcbd9b5bc6abc0606664dbfa8ffc6403912d1fa7a72d0",
+        "player_fixture_facts.csv": "0df65458dff40414bb847785a16e34b76c8630060901fc8f04981bb207047b7f",
+        "players.csv": "04e01295bab2517443ead2e42f4bbf7ef5519c9fd8b5c12812ac0df14cde3f2f",
+        "quarantined_source_metadata.csv": "67451659ca16e65515a106a5b699f66f846a8d53dd925b1cd532466295860c4e",
+        "teams.csv": "42730f6ac029bcb7dd093782b849702425bc8e86aa8bc3f720353a2fda1d8a36"
+      },
+      "source_identity_sha256": "adfc64c1be2725e4ccc68b3366e615f1b007a8f7583698b0f58e9f2335e2cb9a"
+    },
+    "2024-25": {
+      "build_identity_sha256": "1fbdcc84c93d92367c3f6f2a0b39d039dc04403980bb100491410523c62f9d86",
+      "csv_sha256": {
+        "fixtures.csv": "f16b12e35243062373ab0c70b8aab0eca2d71097e9b0d91193b96a8bac35f070",
+        "gameweeks.csv": "5239b2ad9505d81989cb2beee6bc45bbd6a268521405d846b3f98993e1ac791c",
+        "player_deadline_snapshots.csv": "bec32e2e82ac3ac2fdf6628a0a6657ed948d2f996807feeb7f25c167bca93b74",
+        "player_fixture_facts.csv": "677d15f5f1c3b092e086db1414f57ad9ebeb0134d5795d996be6dc0d7d7e9159",
+        "players.csv": "0a0b8b31ae36adba55b89ac6fa822593821e70e1bc46350ca902c10687d0740d",
+        "quarantined_source_metadata.csv": "7b7400ec405ecb3a7733af2c44cb81974d3383658fda694a63335dfd8cda11b0",
+        "teams.csv": "aa44bb9410908c2af8cabddf7678fbcf1bfd5804472141fcd7dcc404f02e53f4"
+      },
+      "source_identity_sha256": "d94912c4423cd0f7ffb8b1fbaf4ff4493450f772af7d1258f9cfe5bea5a89f69"
+    }
+  }
+}

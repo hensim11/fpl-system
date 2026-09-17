@@ -15,6 +15,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from fpl_ai.errors import FPLValidationError
+from fpl_ai.historical_audit import audit_season, audit_cross_season_identity
 from fpl_ai.historical_io import sha256_file
 from fpl_ai.historical_pipeline import (
     _SourceStore, _url_fetcher, load_historical_build, load_source_catalogue, run_historical_pipeline,
@@ -40,6 +41,7 @@ def no_network(url):
 
 def verify(output_dir, seasons=None):
     report = {'canonical_schemas_compatible': True, 'seasons': {}}
+    extended, players_by_season = {}, {}
     catalogue = load_source_catalogue()
     statuses = season_statuses(output_dir, catalogue['seasons'])
     chosen = seasons if seasons is not None else [s for s, status in statuses.items() if status == 'published']
@@ -109,6 +111,8 @@ def verify(output_dir, seasons=None):
         for row in snapshots:
             teams_by_element[row['element']].add(row['deadline_team_id'])
         inventory = json.loads((existing.processed_dir / 'source_inventory.json').read_text())
+        extended[season] = audit_season(season, tables, existing.raw_dir, inventory, config, quality)
+        players_by_season[season] = tables['players']
         raw_records = json.loads((existing.raw_dir / 'source_manifest.json').read_text())['files']
         sources = {r['source_url']: (existing.raw_dir / r['raw_path']).read_bytes() for r in raw_records}
         with tempfile.TemporaryDirectory() as directory:
@@ -164,6 +168,8 @@ def verify(output_dir, seasons=None):
             report['seasons'][season]['snapshot_deadline_exceptions'] = [evidence]
             report['seasons'][season]['settlement_selection'] = points['settlement_selection']
         print(f'{season}: full offline rebuild, checksums, temporal and football sanity checks passed', flush=True)
+    report['evidence_audit'] = {'schema_version': 1, 'seasons': extended,
+                                'identity': audit_cross_season_identity(players_by_season)}
     return report
 
 

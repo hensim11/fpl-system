@@ -10,6 +10,7 @@ from decimal import Decimal, InvalidOperation
 from typing import Any
 
 from fpl_ai.errors import FPLValidationError
+from fpl_ai.historical_duplicates import filter_exact_duplicates
 from fpl_ai.historical_schema import validate_vaastav_source_schema
 
 # FPL introduced Assistant Manager chip elements in 2024/25. They remain
@@ -24,6 +25,7 @@ def read_source_csv(
     source_schema: dict[str, object],
     *,
     include_schema_audit: bool = False,
+    exact_duplicate_policy: dict | None = None,
 ) -> list[dict[str, Any]] | tuple[list[dict[str, Any]], dict[str, Any]]:
     """Validate and normalize one Vaastav CSV through its selected adapter."""
 
@@ -93,6 +95,13 @@ def read_source_csv(
         )
     raw_rows = list(reader)
     audit["source_row_count"] = len(raw_rows)
+    indexed_rows = list(enumerate(raw_rows, 2))
+    if exact_duplicate_policy is not None:
+        if filename != "merged_gw.csv" or len(schema["applicable_seasons"]) != 1:
+            raise FPLValidationError("exact duplicate policy requires season-specific merged source")
+        indexed_rows, audit["exact_duplicate_rows"] = filter_exact_duplicates(
+            value, raw_rows, exact_duplicate_policy, schema["applicable_seasons"][0]
+        )
     rows = [
         _normalize_source_row(
             raw,
@@ -101,7 +110,7 @@ def read_source_csv(
             schema,
             file_schema,
         )
-        for row_number, raw in enumerate(raw_rows, 2)
+        for row_number, raw in indexed_rows
     ]
     if include_schema_audit:
         return rows, audit
