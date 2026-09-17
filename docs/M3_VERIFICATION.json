@@ -1,0 +1,2719 @@
+{
+  "artifact_hashes": {
+    "evaluation.json": "ea8e2b8c7782627c0055fcddacddaac31c1b5f406be1ca6bb75f88303c24fa64",
+    "features.csv": "a5457d0961267744a42e4d954d1f45f393ae0698238a7c827aced02cfd42803b",
+    "labels.csv": "8ef3ef7840a394399067c1965d63b90133731fc66d47eba9f0a68704744e78dd",
+    "predictions.csv": "61b050cbce15d86b9abe54f89ec4cc492eae4f8ad75eb033e3ec0d8fc5064d24",
+    "row_audit.csv": "2d53986b1dbd41e70d5aeb13c256beb522a95d1773e9a64dbf4011ee3ce2c66f",
+    "schema.json": "3800660c4fa4d780663d2b563d9aaec04bc89ef54b52cb0a8c20b7825404dd28"
+  },
+  "checks": {
+    "all_targets_match_settlement": true,
+    "fresh_rebuild_byte_identical": true,
+    "historical_catalogue_unchanged": true,
+    "historical_processed_files_preserved": 124,
+    "no_forbidden_or_fixture_columns": true,
+    "reuse_preserves_hashes_and_mtimes": true,
+    "settlement_verified_empty_player_zeros": 4553,
+    "settlement_verified_targets": 137038,
+    "snapshot_population_and_anomalies_preserved": true
+  },
+  "evaluation": {
+    "test": {
+      "overall": {
+        "fpl_ep_next": {
+          "labelled_rows": 29645,
+          "mae": 1.0691752403440715,
+          "mean_gameweek_spearman": 0.6891831283696802,
+          "missing_predictions": 0,
+          "population_rows": 29645,
+          "predicted_rows": 29645,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.1234106196889297
+        },
+        "historical_mean": {
+          "labelled_rows": 29645,
+          "mae": 1.5368402730665192,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 29645,
+          "predicted_rows": 29645,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.3748955003018772
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 29645,
+          "mae": 1.1044121103584255,
+          "mean_gameweek_spearman": 0.6325891935598883,
+          "missing_predictions": 0,
+          "population_rows": 29645,
+          "predicted_rows": 29645,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.088003583761653
+        },
+        "position_mean": {
+          "labelled_rows": 29645,
+          "mae": 1.532171998563446,
+          "mean_gameweek_spearman": 0.08047289300462214,
+          "missing_predictions": 0,
+          "population_rows": 29645,
+          "predicted_rows": 29645,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.372534566267211
+        },
+        "recent_points": {
+          "labelled_rows": 29645,
+          "mae": 1.0729371552706555,
+          "mean_gameweek_spearman": 0.7070769950206136,
+          "missing_predictions": 0,
+          "population_rows": 29645,
+          "predicted_rows": 29645,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.207674276322493
+        }
+      },
+      "position:1": {
+        "fpl_ep_next": {
+          "labelled_rows": 3416,
+          "mae": 0.7591627634660422,
+          "mean_gameweek_spearman": 0.6804221506670586,
+          "missing_predictions": 0,
+          "population_rows": 3416,
+          "predicted_rows": 3416,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 1.6079273391135722
+        },
+        "historical_mean": {
+          "labelled_rows": 3416,
+          "mae": 1.4387082887939195,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 3416,
+          "predicted_rows": 3416,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 1.9585931514692043
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 3416,
+          "mae": 0.6957060643477669,
+          "mean_gameweek_spearman": 0.7532712387542669,
+          "missing_predictions": 0,
+          "population_rows": 3416,
+          "predicted_rows": 3416,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 35,
+          "ranking_undefined_gameweeks": 3,
+          "rmse": 1.575370026425046
+        },
+        "position_mean": {
+          "labelled_rows": 3416,
+          "mae": 1.2613254787530426,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 3416,
+          "predicted_rows": 3416,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 1.917045996484838
+        },
+        "recent_points": {
+          "labelled_rows": 3416,
+          "mae": 0.636018686485709,
+          "mean_gameweek_spearman": 0.8374208108770402,
+          "missing_predictions": 0,
+          "population_rows": 3416,
+          "predicted_rows": 3416,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 1,
+          "rmse": 1.6327554652635285
+        }
+      },
+      "position:2": {
+        "fpl_ep_next": {
+          "labelled_rows": 9707,
+          "mae": 1.2424435974039354,
+          "mean_gameweek_spearman": 0.6174900623382447,
+          "missing_predictions": 0,
+          "population_rows": 9707,
+          "predicted_rows": 9707,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.3417442973513136
+        },
+        "historical_mean": {
+          "labelled_rows": 9707,
+          "mae": 1.6274359163709053,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 9707,
+          "predicted_rows": 9707,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.5163814552346864
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 9707,
+          "mae": 1.2683465027440226,
+          "mean_gameweek_spearman": 0.6155891284686954,
+          "missing_predictions": 0,
+          "population_rows": 9707,
+          "predicted_rows": 9707,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 35,
+          "ranking_undefined_gameweeks": 3,
+          "rmse": 2.2863652189690002
+        },
+        "position_mean": {
+          "labelled_rows": 9707,
+          "mae": 1.5877972421919968,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 9707,
+          "predicted_rows": 9707,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.519167920705375
+        },
+        "recent_points": {
+          "labelled_rows": 9707,
+          "mae": 1.2507904022765768,
+          "mean_gameweek_spearman": 0.6461272303074055,
+          "missing_predictions": 0,
+          "population_rows": 9707,
+          "predicted_rows": 9707,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 1,
+          "rmse": 2.435194498944055
+        }
+      },
+      "position:3": {
+        "fpl_ep_next": {
+          "labelled_rows": 13255,
+          "mae": 1.009053187476424,
+          "mean_gameweek_spearman": 0.7234876681407078,
+          "missing_predictions": 0,
+          "population_rows": 13255,
+          "predicted_rows": 13255,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.0436422836391728
+        },
+        "historical_mean": {
+          "labelled_rows": 13255,
+          "mae": 1.4965098634965002,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 13255,
+          "predicted_rows": 13255,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.3225847051002093
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 13255,
+          "mae": 1.0762596802267763,
+          "mean_gameweek_spearman": 0.6883982568406909,
+          "missing_predictions": 0,
+          "population_rows": 13255,
+          "predicted_rows": 13255,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 35,
+          "ranking_undefined_gameweeks": 3,
+          "rmse": 2.0212060140075265
+        },
+        "position_mean": {
+          "labelled_rows": 13255,
+          "mae": 1.5453597201452902,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 13255,
+          "predicted_rows": 13255,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.324538769732053
+        },
+        "recent_points": {
+          "labelled_rows": 13255,
+          "mae": 1.0361442245884582,
+          "mean_gameweek_spearman": 0.7402541618817122,
+          "missing_predictions": 0,
+          "population_rows": 13255,
+          "predicted_rows": 13255,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 1,
+          "rmse": 2.1254090290382757
+        }
+      },
+      "position:4": {
+        "fpl_ep_next": {
+          "labelled_rows": 3267,
+          "mae": 1.1224364860728497,
+          "mean_gameweek_spearman": 0.7510444844386776,
+          "missing_predictions": 0,
+          "population_rows": 3267,
+          "predicted_rows": 3267,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.2298047862440016
+        },
+        "historical_mean": {
+          "labelled_rows": 3267,
+          "mae": 1.533897673608338,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 3267,
+          "predicted_rows": 3267,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.5430690359491765
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 3267,
+          "mae": 1.158893030982981,
+          "mean_gameweek_spearman": 0.7266489409562519,
+          "missing_predictions": 0,
+          "population_rows": 3267,
+          "predicted_rows": 3267,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 35,
+          "ranking_undefined_gameweeks": 3,
+          "rmse": 2.204285432869977
+        },
+        "position_mean": {
+          "labelled_rows": 3267,
+          "mae": 1.5965901871776658,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 3267,
+          "predicted_rows": 3267,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.5407335194398555
+        },
+        "recent_points": {
+          "labelled_rows": 3267,
+          "mae": 1.1506176930347884,
+          "mean_gameweek_spearman": 0.7707722256670159,
+          "missing_predictions": 0,
+          "population_rows": 3267,
+          "predicted_rows": 3267,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 1,
+          "rmse": 2.3430889986787897
+        }
+      },
+      "season:2025-26": {
+        "fpl_ep_next": {
+          "labelled_rows": 29645,
+          "mae": 1.0691752403440715,
+          "mean_gameweek_spearman": 0.6891831283696802,
+          "missing_predictions": 0,
+          "population_rows": 29645,
+          "predicted_rows": 29645,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.1234106196889297
+        },
+        "historical_mean": {
+          "labelled_rows": 29645,
+          "mae": 1.5368402730665192,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 29645,
+          "predicted_rows": 29645,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.3748955003018772
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 29645,
+          "mae": 1.1044121103584255,
+          "mean_gameweek_spearman": 0.6325891935598883,
+          "missing_predictions": 0,
+          "population_rows": 29645,
+          "predicted_rows": 29645,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.088003583761653
+        },
+        "position_mean": {
+          "labelled_rows": 29645,
+          "mae": 1.532171998563446,
+          "mean_gameweek_spearman": 0.08047289300462214,
+          "missing_predictions": 0,
+          "population_rows": 29645,
+          "predicted_rows": 29645,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.372534566267211
+        },
+        "recent_points": {
+          "labelled_rows": 29645,
+          "mae": 1.0729371552706555,
+          "mean_gameweek_spearman": 0.7070769950206136,
+          "missing_predictions": 0,
+          "population_rows": 29645,
+          "predicted_rows": 29645,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.207674276322493
+        }
+      }
+    },
+    "train": {
+      "overall": {
+        "fpl_ep_next": {
+          "labelled_rows": 80234,
+          "mae": 1.1499407959516894,
+          "mean_gameweek_spearman": 0.6212359862917631,
+          "missing_predictions": 3,
+          "population_rows": 80858,
+          "predicted_rows": 80231,
+          "prediction_coverage": 0.9999626093675997,
+          "ranking_defined_gameweeks": 113,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.2437568197170674
+        },
+        "historical_mean": {
+          "labelled_rows": 80234,
+          "mae": 1.5890956045347102,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 80858,
+          "predicted_rows": 80234,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 113,
+          "rmse": 2.466667043950485
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 80234,
+          "mae": 1.1783636105310624,
+          "mean_gameweek_spearman": 0.5798911039009543,
+          "missing_predictions": 0,
+          "population_rows": 80858,
+          "predicted_rows": 80234,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 112,
+          "ranking_undefined_gameweeks": 1,
+          "rmse": 2.2170492208199795
+        },
+        "position_mean": {
+          "labelled_rows": 80234,
+          "mae": 1.5836871412355213,
+          "mean_gameweek_spearman": 0.09672341615186206,
+          "missing_predictions": 0,
+          "population_rows": 80858,
+          "predicted_rows": 80234,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 112,
+          "ranking_undefined_gameweeks": 1,
+          "rmse": 2.463667858903713
+        },
+        "recent_points": {
+          "labelled_rows": 80234,
+          "mae": 1.1581965236504261,
+          "mean_gameweek_spearman": 0.6401186049658193,
+          "missing_predictions": 0,
+          "population_rows": 80858,
+          "predicted_rows": 80234,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 112,
+          "ranking_undefined_gameweeks": 1,
+          "rmse": 2.357367369834964
+        }
+      },
+      "position:1": {
+        "fpl_ep_next": {
+          "labelled_rows": 8944,
+          "mae": 0.9495639534883721,
+          "mean_gameweek_spearman": 0.6382416299835162,
+          "missing_predictions": 0,
+          "population_rows": 9006,
+          "predicted_rows": 8944,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 113,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 1.8422118254044804
+        },
+        "historical_mean": {
+          "labelled_rows": 8944,
+          "mae": 1.5849866163291453,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 9006,
+          "predicted_rows": 8944,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 113,
+          "rmse": 2.185288486043188
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 8944,
+          "mae": 0.845286035893645,
+          "mean_gameweek_spearman": 0.7064936681748103,
+          "missing_predictions": 0,
+          "population_rows": 9006,
+          "predicted_rows": 8944,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 104,
+          "ranking_undefined_gameweeks": 9,
+          "rmse": 1.8071260635266349
+        },
+        "position_mean": {
+          "labelled_rows": 8944,
+          "mae": 1.419326375834219,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 9006,
+          "predicted_rows": 8944,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 113,
+          "rmse": 2.1564954578874276
+        },
+        "recent_points": {
+          "labelled_rows": 8944,
+          "mae": 0.792736189184791,
+          "mean_gameweek_spearman": 0.7883926156143963,
+          "missing_predictions": 0,
+          "population_rows": 9006,
+          "predicted_rows": 8944,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 110,
+          "ranking_undefined_gameweeks": 3,
+          "rmse": 1.8899609154422266
+        }
+      },
+      "position:2": {
+        "fpl_ep_next": {
+          "labelled_rows": 26958,
+          "mae": 1.2252031012353006,
+          "mean_gameweek_spearman": 0.5370064202917587,
+          "missing_predictions": 1,
+          "population_rows": 27181,
+          "predicted_rows": 26957,
+          "prediction_coverage": 0.9999629052600342,
+          "ranking_defined_gameweeks": 113,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.2885381756678296
+        },
+        "historical_mean": {
+          "labelled_rows": 26958,
+          "mae": 1.6066738957258357,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 27181,
+          "predicted_rows": 26958,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 113,
+          "rmse": 2.415537653544251
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 26958,
+          "mae": 1.262592852479742,
+          "mean_gameweek_spearman": 0.5240527150889693,
+          "missing_predictions": 0,
+          "population_rows": 27181,
+          "predicted_rows": 26958,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 104,
+          "ranking_undefined_gameweeks": 9,
+          "rmse": 2.2547386234612627
+        },
+        "position_mean": {
+          "labelled_rows": 26958,
+          "mae": 1.5799913725538604,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 27181,
+          "predicted_rows": 26958,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 113,
+          "rmse": 2.412939670402045
+        },
+        "recent_points": {
+          "labelled_rows": 26958,
+          "mae": 1.2425237649676062,
+          "mean_gameweek_spearman": 0.5453443558239818,
+          "missing_predictions": 0,
+          "population_rows": 27181,
+          "predicted_rows": 26958,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 110,
+          "ranking_undefined_gameweeks": 3,
+          "rmse": 2.410860260880146
+        }
+      },
+      "position:3": {
+        "fpl_ep_next": {
+          "labelled_rows": 34156,
+          "mae": 1.1306924315619968,
+          "mean_gameweek_spearman": 0.664455092393837,
+          "missing_predictions": 1,
+          "population_rows": 34426,
+          "predicted_rows": 34155,
+          "prediction_coverage": 0.9999707225670453,
+          "ranking_defined_gameweeks": 113,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.240946325398869
+        },
+        "historical_mean": {
+          "labelled_rows": 34156,
+          "mae": 1.5570730884600719,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 34426,
+          "predicted_rows": 34156,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 113,
+          "rmse": 2.4989438390972234
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 34156,
+          "mae": 1.164908093245589,
+          "mean_gameweek_spearman": 0.6417657792844539,
+          "missing_predictions": 0,
+          "population_rows": 34426,
+          "predicted_rows": 34156,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 104,
+          "ranking_undefined_gameweeks": 9,
+          "rmse": 2.2114038548575565
+        },
+        "position_mean": {
+          "labelled_rows": 34156,
+          "mae": 1.5949414782222502,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 34426,
+          "predicted_rows": 34156,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 113,
+          "rmse": 2.500094859433567
+        },
+        "recent_points": {
+          "labelled_rows": 34156,
+          "mae": 1.1567031740430562,
+          "mean_gameweek_spearman": 0.679199262444151,
+          "missing_predictions": 0,
+          "population_rows": 34426,
+          "predicted_rows": 34156,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 110,
+          "ranking_undefined_gameweeks": 3,
+          "rmse": 2.3537091824522487
+        }
+      },
+      "position:4": {
+        "fpl_ep_next": {
+          "labelled_rows": 10176,
+          "mae": 1.1912923832923832,
+          "mean_gameweek_spearman": 0.6576026371182456,
+          "missing_predictions": 1,
+          "population_rows": 10245,
+          "predicted_rows": 10175,
+          "prediction_coverage": 0.9999017295597484,
+          "ranking_defined_gameweeks": 113,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.4456578379737137
+        },
+        "historical_mean": {
+          "labelled_rows": 10176,
+          "mae": 1.6536235404255866,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 10245,
+          "predicted_rows": 10176,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 113,
+          "rmse": 2.7126124439785584
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 10176,
+          "mae": 1.2931415754983557,
+          "mean_gameweek_spearman": 0.6334135220208638,
+          "missing_predictions": 0,
+          "population_rows": 10245,
+          "predicted_rows": 10176,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 104,
+          "ranking_undefined_gameweeks": 9,
+          "rmse": 2.4500241860886334
+        },
+        "position_mean": {
+          "labelled_rows": 10176,
+          "mae": 1.7001641541827257,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 10245,
+          "predicted_rows": 10176,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 113,
+          "rmse": 2.7139404626611308
+        },
+        "recent_points": {
+          "labelled_rows": 10176,
+          "mae": 1.2610257600125954,
+          "mean_gameweek_spearman": 0.6765405395436969,
+          "missing_predictions": 0,
+          "population_rows": 10245,
+          "predicted_rows": 10176,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 110,
+          "ranking_undefined_gameweeks": 3,
+          "rmse": 2.5853802086022992
+        }
+      },
+      "season:2021-22": {
+        "fpl_ep_next": {
+          "labelled_rows": 25150,
+          "mae": 1.2675705765407554,
+          "mean_gameweek_spearman": 0.5874148676420313,
+          "missing_predictions": 0,
+          "population_rows": 25150,
+          "predicted_rows": 25150,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.3827721630308076
+        },
+        "historical_mean": {
+          "labelled_rows": 25150,
+          "mae": 1.6817655392776278,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 25150,
+          "predicted_rows": 25150,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.5961037287980857
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 25150,
+          "mae": 1.2865039694154965,
+          "mean_gameweek_spearman": 0.5558047995950589,
+          "missing_predictions": 0,
+          "population_rows": 25150,
+          "predicted_rows": 25150,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 1,
+          "rmse": 2.3693215903128886
+        },
+        "position_mean": {
+          "labelled_rows": 25150,
+          "mae": 1.676131417396533,
+          "mean_gameweek_spearman": 0.09201340623586536,
+          "missing_predictions": 0,
+          "population_rows": 25150,
+          "predicted_rows": 25150,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 1,
+          "rmse": 2.5943065178643914
+        },
+        "recent_points": {
+          "labelled_rows": 25150,
+          "mae": 1.2656692585452434,
+          "mean_gameweek_spearman": 0.6094831899349649,
+          "missing_predictions": 0,
+          "population_rows": 25150,
+          "predicted_rows": 25150,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 1,
+          "rmse": 2.5349553623529832
+        }
+      },
+      "season:2022-23": {
+        "fpl_ep_next": {
+          "labelled_rows": 25574,
+          "mae": 1.1654922968640025,
+          "mean_gameweek_spearman": 0.6392061960456532,
+          "missing_predictions": 0,
+          "population_rows": 26198,
+          "predicted_rows": 25574,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.2520420770609624
+        },
+        "historical_mean": {
+          "labelled_rows": 25574,
+          "mae": 1.5933874341291485,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 26198,
+          "predicted_rows": 25574,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 37,
+          "rmse": 2.4670811966677624
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 25574,
+          "mae": 1.1956900018644177,
+          "mean_gameweek_spearman": 0.5969992176747273,
+          "missing_predictions": 0,
+          "population_rows": 26198,
+          "predicted_rows": 25574,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.2007738790664177
+        },
+        "position_mean": {
+          "labelled_rows": 25574,
+          "mae": 1.5883379922668341,
+          "mean_gameweek_spearman": 0.10888721703854871,
+          "missing_predictions": 0,
+          "population_rows": 26198,
+          "predicted_rows": 25574,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.4644808412827417
+        },
+        "recent_points": {
+          "labelled_rows": 25574,
+          "mae": 1.186172437876969,
+          "mean_gameweek_spearman": 0.6542036451318958,
+          "missing_predictions": 0,
+          "population_rows": 26198,
+          "predicted_rows": 25574,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.3495154935893736
+        }
+      },
+      "season:2023-24": {
+        "fpl_ep_next": {
+          "labelled_rows": 29510,
+          "mae": 1.036201579286271,
+          "mean_gameweek_spearman": 0.6375597954442861,
+          "missing_predictions": 3,
+          "population_rows": 29510,
+          "predicted_rows": 29507,
+          "prediction_coverage": 0.9998983395459167,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.1104432999145146
+        },
+        "historical_mean": {
+          "labelled_rows": 29510,
+          "mae": 1.5063979390371656,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 29510,
+          "predicted_rows": 29510,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.3503588600877725
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 29510,
+          "mae": 1.0711851910833246,
+          "mean_gameweek_spearman": 0.5866856578401262,
+          "missing_predictions": 0,
+          "population_rows": 29510,
+          "predicted_rows": 29510,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.0934239916400506
+        },
+        "position_mean": {
+          "labelled_rows": 29510,
+          "mae": 1.5008706583577092,
+          "mean_gameweek_spearman": 0.08946577757513763,
+          "missing_predictions": 0,
+          "population_rows": 29510,
+          "predicted_rows": 29510,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.345857250490305
+        },
+        "recent_points": {
+          "labelled_rows": 29510,
+          "mae": 1.0423579837305936,
+          "mean_gameweek_spearman": 0.6562334436499452,
+          "missing_predictions": 0,
+          "population_rows": 29510,
+          "predicted_rows": 29510,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.2019891981520927
+        }
+      }
+    },
+    "validation": {
+      "overall": {
+        "fpl_ep_next": {
+          "labelled_rows": 27159,
+          "mae": 1.107087889833941,
+          "mean_gameweek_spearman": 0.6470105690608247,
+          "missing_predictions": 0,
+          "population_rows": 27159,
+          "predicted_rows": 27159,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.1212930925617615
+        },
+        "historical_mean": {
+          "labelled_rows": 27159,
+          "mae": 1.4767975534480016,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 27159,
+          "predicted_rows": 27159,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.3450924029597013
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 27159,
+          "mae": 1.1034732234040583,
+          "mean_gameweek_spearman": 0.604557477309402,
+          "missing_predictions": 0,
+          "population_rows": 27159,
+          "predicted_rows": 27159,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.0747054504610407
+        },
+        "position_mean": {
+          "labelled_rows": 27159,
+          "mae": 1.4718867790809553,
+          "mean_gameweek_spearman": 0.10107074677441165,
+          "missing_predictions": 0,
+          "population_rows": 27159,
+          "predicted_rows": 27159,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.34049693654835
+        },
+        "recent_points": {
+          "labelled_rows": 27159,
+          "mae": 1.0888112334491677,
+          "mean_gameweek_spearman": 0.6750033419974242,
+          "missing_predictions": 0,
+          "population_rows": 27159,
+          "predicted_rows": 27159,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.202915294791462
+        }
+      },
+      "position:1": {
+        "fpl_ep_next": {
+          "labelled_rows": 2855,
+          "mae": 0.9704028021015761,
+          "mean_gameweek_spearman": 0.6396983580784109,
+          "missing_predictions": 0,
+          "population_rows": 2855,
+          "predicted_rows": 2855,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 1.8467133677690815
+        },
+        "historical_mean": {
+          "labelled_rows": 2855,
+          "mae": 1.4918699101101258,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 2855,
+          "predicted_rows": 2855,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.0896210098185155
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 2855,
+          "mae": 0.8535876372457513,
+          "mean_gameweek_spearman": 0.6994985202211836,
+          "missing_predictions": 0,
+          "population_rows": 2855,
+          "predicted_rows": 2855,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 35,
+          "ranking_undefined_gameweeks": 3,
+          "rmse": 1.7509483289267789
+        },
+        "position_mean": {
+          "labelled_rows": 2855,
+          "mae": 1.3337995670276859,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 2855,
+          "predicted_rows": 2855,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.070183384355036
+        },
+        "recent_points": {
+          "labelled_rows": 2855,
+          "mae": 0.8035512397565915,
+          "mean_gameweek_spearman": 0.7702481890538802,
+          "missing_predictions": 0,
+          "population_rows": 2855,
+          "predicted_rows": 2855,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 1,
+          "rmse": 1.8595635316372847
+        }
+      },
+      "position:2": {
+        "fpl_ep_next": {
+          "labelled_rows": 9099,
+          "mae": 1.1050884712605782,
+          "mean_gameweek_spearman": 0.5541849091722262,
+          "missing_predictions": 0,
+          "population_rows": 9099,
+          "predicted_rows": 9099,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.034281424038511
+        },
+        "historical_mean": {
+          "labelled_rows": 9099,
+          "mae": 1.4407007719258185,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 9099,
+          "predicted_rows": 9099,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.1636235682389326
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 9099,
+          "mae": 1.0842919354286777,
+          "mean_gameweek_spearman": 0.5690146405968621,
+          "missing_predictions": 0,
+          "population_rows": 9099,
+          "predicted_rows": 9099,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 35,
+          "ranking_undefined_gameweeks": 3,
+          "rmse": 1.9684660600781518
+        },
+        "position_mean": {
+          "labelled_rows": 9099,
+          "mae": 1.3958750893765532,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 9099,
+          "predicted_rows": 9099,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.1594045651409566
+        },
+        "recent_points": {
+          "labelled_rows": 9099,
+          "mae": 1.0846971245669252,
+          "mean_gameweek_spearman": 0.5982849774444059,
+          "missing_predictions": 0,
+          "population_rows": 9099,
+          "predicted_rows": 9099,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 1,
+          "rmse": 2.091089458224696
+        }
+      },
+      "position:3": {
+        "fpl_ep_next": {
+          "labelled_rows": 12203,
+          "mae": 1.114209620585102,
+          "mean_gameweek_spearman": 0.6862428651590055,
+          "missing_predictions": 0,
+          "population_rows": 12203,
+          "predicted_rows": 12203,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.165457252752102
+        },
+        "historical_mean": {
+          "labelled_rows": 12203,
+          "mae": 1.4573339782333103,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 12203,
+          "predicted_rows": 12203,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.4182179415627085
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 12203,
+          "mae": 1.11899936150443,
+          "mean_gameweek_spearman": 0.6679578853480094,
+          "missing_predictions": 0,
+          "population_rows": 12203,
+          "predicted_rows": 12203,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 35,
+          "ranking_undefined_gameweeks": 3,
+          "rmse": 2.1256550400929997
+        },
+        "position_mean": {
+          "labelled_rows": 12203,
+          "mae": 1.500882912657512,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 12203,
+          "predicted_rows": 12203,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.416543655631579
+        },
+        "recent_points": {
+          "labelled_rows": 12203,
+          "mae": 1.1159568604203018,
+          "mean_gameweek_spearman": 0.7128467073625836,
+          "missing_predictions": 0,
+          "population_rows": 12203,
+          "predicted_rows": 12203,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 1,
+          "rmse": 2.2650963670046798
+        }
+      },
+      "position:4": {
+        "fpl_ep_next": {
+          "labelled_rows": 3002,
+          "mae": 1.21419053964024,
+          "mean_gameweek_spearman": 0.7169353416037842,
+          "missing_predictions": 0,
+          "population_rows": 3002,
+          "predicted_rows": 3002,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.4212472765946593
+        },
+        "historical_mean": {
+          "labelled_rows": 3002,
+          "mae": 1.6509904399053157,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 3002,
+          "predicted_rows": 3002,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.7642251545207808
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 3002,
+          "mae": 1.336147582008695,
+          "mean_gameweek_spearman": 0.6866202485778478,
+          "missing_predictions": 0,
+          "population_rows": 3002,
+          "predicted_rows": 3002,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 35,
+          "ranking_undefined_gameweeks": 3,
+          "rmse": 2.4319429952220775
+        },
+        "position_mean": {
+          "labelled_rows": 3002,
+          "mae": 1.7157340598929856,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 3002,
+          "predicted_rows": 3002,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.7588441521584395
+        },
+        "recent_points": {
+          "labelled_rows": 3002,
+          "mae": 1.2622267806787089,
+          "mean_gameweek_spearman": 0.7508850679295969,
+          "missing_predictions": 0,
+          "population_rows": 3002,
+          "predicted_rows": 3002,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 37,
+          "ranking_undefined_gameweeks": 1,
+          "rmse": 2.5505804307113666
+        }
+      },
+      "season:2024-25": {
+        "fpl_ep_next": {
+          "labelled_rows": 27159,
+          "mae": 1.107087889833941,
+          "mean_gameweek_spearman": 0.6470105690608247,
+          "missing_predictions": 0,
+          "population_rows": 27159,
+          "predicted_rows": 27159,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.1212930925617615
+        },
+        "historical_mean": {
+          "labelled_rows": 27159,
+          "mae": 1.4767975534480016,
+          "mean_gameweek_spearman": null,
+          "missing_predictions": 0,
+          "population_rows": 27159,
+          "predicted_rows": 27159,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 0,
+          "ranking_undefined_gameweeks": 38,
+          "rmse": 2.3450924029597013
+        },
+        "player_scoring_rate": {
+          "labelled_rows": 27159,
+          "mae": 1.1034732234040583,
+          "mean_gameweek_spearman": 0.604557477309402,
+          "missing_predictions": 0,
+          "population_rows": 27159,
+          "predicted_rows": 27159,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.0747054504610407
+        },
+        "position_mean": {
+          "labelled_rows": 27159,
+          "mae": 1.4718867790809553,
+          "mean_gameweek_spearman": 0.10107074677441165,
+          "missing_predictions": 0,
+          "population_rows": 27159,
+          "predicted_rows": 27159,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.34049693654835
+        },
+        "recent_points": {
+          "labelled_rows": 27159,
+          "mae": 1.0888112334491677,
+          "mean_gameweek_spearman": 0.6750033419974242,
+          "missing_predictions": 0,
+          "population_rows": 27159,
+          "predicted_rows": 27159,
+          "prediction_coverage": 1.0,
+          "ranking_defined_gameweeks": 38,
+          "ranking_undefined_gameweeks": 0,
+          "rmse": 2.202915294791462
+        }
+      }
+    }
+  },
+  "historical_builds": {
+    "2021-22": {
+      "build_identity_sha256": "5644015b364e43177485c5d5c3f520efe64b7a17d4113b84b56c400bab2c57d8",
+      "source_identity_sha256": "c4045c8739a4dfd0d3d47115f23d8a0c6ee211b510e8572ab6315f699542f863",
+      "version": "v3-9779cdbc0c07-33dac28d1895-build-5644015b364e"
+    },
+    "2022-23": {
+      "build_identity_sha256": "9227d246d3718724d8118898b6548077c8963837bdf49e9bc6bf64b30a7762a0",
+      "source_identity_sha256": "12c000cd16399629ccfb762581e479906651834ca1f377234b98e5f26fb0c3c3",
+      "version": "v3-9779cdbc0c07-33dac28d1895-build-9227d246d371"
+    },
+    "2023-24": {
+      "build_identity_sha256": "7886af1a34dd6293e9ea8bfb8c4b94eedd3bcee2c75f7f93d4a98eef390e35e8",
+      "source_identity_sha256": "adfc64c1be2725e4ccc68b3366e615f1b007a8f7583698b0f58e9f2335e2cb9a",
+      "version": "v3-9779cdbc0c07-33dac28d1895-build-7886af1a34dd"
+    },
+    "2024-25": {
+      "build_identity_sha256": "1fbdcc84c93d92367c3f6f2a0b39d039dc04403980bb100491410523c62f9d86",
+      "source_identity_sha256": "d94912c4423cd0f7ffb8b1fbaf4ff4493450f772af7d1258f9cfe5bea5a89f69",
+      "version": "v3-9779cdbc0c07-33dac28d1895-build-1fbdcc84c93d"
+    },
+    "2025-26": {
+      "build_identity_sha256": "0fa66b6416438b1149992ed4b8cae7d0cf8914bb47e48a08302f91d891c581e0",
+      "source_identity_sha256": "1bcdf1b685588c462bfd6b04a7c546a15d7ed295d85d33efedb9370b5a8a26ea",
+      "version": "v3-9779cdbc0c07-33dac28d1895-build-0fa66b641643"
+    }
+  },
+  "identity_sha256": "57c2e4a54faca1328dc77e19471564cedd41eb6b73238b476ff00ab21f194f7a",
+  "manual_source_traces": [
+    {
+      "audit": {
+        "capture_time_utc": "2021-12-18T12:33:00Z",
+        "deadline_time_utc": "2021-12-18T16:00:00Z",
+        "element": "233",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "118748",
+        "payload_deadline_utc": "2021-12-18T13:30:00Z",
+        "season": "2021-22",
+        "snapshot_age_minutes": "207.0",
+        "snapshot_sha256": "9c8fbad59eecb978494d98425e0dadcfa16fbb3a3954f99b4263c65277e2eed1",
+        "snapshot_source_path": "cache/2021/12/18/1233.json.xz",
+        "superseded_deadline_exception": "True",
+        "target_gameweek": "18"
+      },
+      "features": {
+        "chance_of_playing_next_round": "",
+        "chance_of_playing_next_round_missing": "1",
+        "deadline_position_id": "3",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "11",
+        "deadline_team_id_missing": "0",
+        "element": "233",
+        "points_count_3": "3",
+        "points_count_5": "5",
+        "points_mean_3": "7.333333333333333",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "8.6",
+        "points_mean_5_missing": "0",
+        "previous_points": "8",
+        "previous_points_missing": "0",
+        "price": "131",
+        "price_missing": "0",
+        "season": "2021-22",
+        "season_points_count": "17",
+        "season_points_mean": "9.882352941176471",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "73.7",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "18",
+        "transfers_in_event": "25769",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "11640",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2021-22",
+        18,
+        233
+      ],
+      "name": "Salah",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 15,
+          "points": 6,
+          "settlement": {
+            "capture_time_utc": "2021-12-07T06:26:00Z",
+            "sha256": "eb7ace3be50215456421d9fdd009bd7fa51b8c4863d2c7959127ba5cc7e08a5c",
+            "source_path": "cache/2021/12/7/0626.json.xz"
+          }
+        },
+        {
+          "gameweek": 16,
+          "points": 8,
+          "settlement": {
+            "capture_time_utc": "2021-12-13T06:26:00Z",
+            "sha256": "627bd8bd968b6e4479ac61881094378d5c0dcb193c812216237e1d21aef7a14b",
+            "source_path": "cache/2021/12/13/0626.json.xz"
+          }
+        },
+        {
+          "gameweek": 17,
+          "points": 8,
+          "settlement": {
+            "capture_time_utc": "2021-12-17T06:26:00Z",
+            "sha256": "333489ab92010ab17c63dddd4d542476e4c225a5d264369dc5597e38decc8411",
+            "source_path": "cache/2021/12/17/0626.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2021/12/18/1233.json.xz",
+      "target": "2",
+      "target_fixture_points": [
+        2
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2022-01-01T06:26:00Z",
+        "deadline_time_utc": "2022-01-01T11:00:00Z",
+        "element": "89",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "226956",
+        "payload_deadline_utc": "2022-01-01T11:00:00Z",
+        "season": "2021-22",
+        "snapshot_age_minutes": "274.0",
+        "snapshot_sha256": "0e4c01668b930b457b00e0c054c70b765c4e69804f2fb0ea1410c3d830ba0743",
+        "snapshot_source_path": "cache/2022/1/1/0626.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "21"
+      },
+      "features": {
+        "chance_of_playing_next_round": "100",
+        "chance_of_playing_next_round_missing": "0",
+        "deadline_position_id": "2",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "3",
+        "deadline_team_id_missing": "0",
+        "element": "89",
+        "points_count_3": "3",
+        "points_count_5": "5",
+        "points_mean_3": "0.6666666666666666",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "0.8",
+        "points_mean_5_missing": "0",
+        "previous_points": "2",
+        "previous_points_missing": "0",
+        "price": "43",
+        "price_missing": "0",
+        "season": "2021-22",
+        "season_points_count": "20",
+        "season_points_mean": "0.5",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "0.1",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "21",
+        "transfers_in_event": "734",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "223",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2021-22",
+        21,
+        89
+      ],
+      "name": "Roerslev",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 18,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2021-12-20T06:27:00Z",
+            "sha256": "4091bf141e010ae5232327ed65d7f1f4482dd9efd01ed8227e4c541e19918a26",
+            "source_path": "cache/2021/12/20/0627.json.xz"
+          }
+        },
+        {
+          "gameweek": 19,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2021-12-28T06:26:00Z",
+            "sha256": "1256d0ec0c78cda7366d0851cd8a41b03a729525a907c9130582ab90c3468385",
+            "source_path": "cache/2021/12/28/0626.json.xz"
+          }
+        },
+        {
+          "gameweek": 20,
+          "points": 2,
+          "settlement": {
+            "capture_time_utc": "2021-12-31T06:26:00Z",
+            "sha256": "8d44f6886900a9d49ce842de294d6e45e641a0954ba60e845161d1cff240af57",
+            "source_path": "cache/2021/12/31/0626.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2022/1/1/0626.json.xz",
+      "target": "14",
+      "target_fixture_points": [
+        14,
+        0
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2021-08-21T06:25:00Z",
+        "deadline_time_utc": "2021-08-21T10:00:00Z",
+        "element": "340",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "93100",
+        "payload_deadline_utc": "2021-08-21T10:00:00Z",
+        "season": "2021-22",
+        "snapshot_age_minutes": "215.0",
+        "snapshot_sha256": "cc6bd6fefa5891116c2917b114e70ed4d8eb9cbb83893a84fc784f203ec5be2b",
+        "snapshot_source_path": "cache/2021/8/21/0625.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "2"
+      },
+      "features": {
+        "chance_of_playing_next_round": "",
+        "chance_of_playing_next_round_missing": "1",
+        "deadline_position_id": "2",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "9",
+        "deadline_team_id_missing": "0",
+        "element": "340",
+        "points_count_3": "1",
+        "points_count_5": "1",
+        "points_mean_3": "1",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "1",
+        "points_mean_5_missing": "0",
+        "previous_points": "1",
+        "previous_points_missing": "0",
+        "price": "50",
+        "price_missing": "0",
+        "season": "2021-22",
+        "season_points_count": "1",
+        "season_points_mean": "1",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "1.5",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "2",
+        "transfers_in_event": "7217",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "10910",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2021-22",
+        2,
+        340
+      ],
+      "name": "Vestergaard",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 1,
+          "points": 1,
+          "settlement": {
+            "capture_time_utc": "2021-08-16T01:03:00Z",
+            "sha256": "e42a2610ad73206f0d3bdcc9eb648617785aef0214d19040e7871ac1ff3d01a7",
+            "source_path": "cache/2021/8/16/0103.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2021/8/21/0625.json.xz",
+      "target": "0",
+      "target_fixture_points": [
+        0
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2022-08-05T12:49:00Z",
+        "deadline_time_utc": "2022-08-05T17:30:00Z",
+        "element": "546",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "536122",
+        "payload_deadline_utc": "2022-08-05T17:30:00Z",
+        "season": "2022-23",
+        "snapshot_age_minutes": "281.0",
+        "snapshot_sha256": "725f2c09a4aa8f928b83021924562843d515550eaa344121466af347739638b3",
+        "snapshot_source_path": "cache/2022/8/5/1249.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "1"
+      },
+      "features": {
+        "chance_of_playing_next_round": "",
+        "chance_of_playing_next_round_missing": "1",
+        "deadline_position_id": "3",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "9",
+        "deadline_team_id_missing": "0",
+        "element": "546",
+        "points_count_3": "0",
+        "points_count_5": "0",
+        "points_mean_3": "",
+        "points_mean_3_missing": "1",
+        "points_mean_5": "",
+        "points_mean_5_missing": "1",
+        "previous_points": "",
+        "previous_points_missing": "1",
+        "price": "45",
+        "price_missing": "0",
+        "season": "2022-23",
+        "season_points_count": "0",
+        "season_points_mean": "",
+        "season_points_mean_missing": "1",
+        "selected_by_percent": "0.0",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "1",
+        "transfers_in_event": "0",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "0",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2022-23",
+        1,
+        546
+      ],
+      "name": "Harris",
+      "prior_three_calendar_gameweeks": [],
+      "source_snapshot": "cache/2022/8/5/1249.json.xz",
+      "target": "0",
+      "target_fixture_points": [
+        0
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2022-08-13T06:27:00Z",
+        "deadline_time_utc": "2022-08-13T10:00:00Z",
+        "element": "558",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "490721",
+        "payload_deadline_utc": "2022-08-13T10:00:00Z",
+        "season": "2022-23",
+        "snapshot_age_minutes": "213.0",
+        "snapshot_sha256": "e8461c38441c18224e175e9ce149111d31cb2001814ea90c8fd4d7a6659d40fe",
+        "snapshot_source_path": "cache/2022/8/13/0627.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "2"
+      },
+      "features": {
+        "chance_of_playing_next_round": "",
+        "chance_of_playing_next_round_missing": "1",
+        "deadline_position_id": "2",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "20",
+        "deadline_team_id_missing": "0",
+        "element": "558",
+        "points_count_3": "1",
+        "points_count_5": "1",
+        "points_mean_3": "0",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "0",
+        "points_mean_5_missing": "0",
+        "previous_points": "0",
+        "previous_points_missing": "0",
+        "price": "40",
+        "price_missing": "0",
+        "season": "2022-23",
+        "season_points_count": "1",
+        "season_points_mean": "0",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "0.7",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "2",
+        "transfers_in_event": "7217",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "4177",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2022-23",
+        2,
+        558
+      ],
+      "name": "Bueno",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 1,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2022-08-13T06:27:00Z",
+            "sha256": "e8461c38441c18224e175e9ce149111d31cb2001814ea90c8fd4d7a6659d40fe",
+            "source_path": "cache/2022/8/13/0627.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2022/8/13/0627.json.xz",
+      "target": "0",
+      "target_fixture_points": [
+        0
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2022-09-10T06:33:00Z",
+        "deadline_time_utc": "2022-09-10T10:00:00Z",
+        "element": "283",
+        "label_status": "fixture_empty_gameweek",
+        "observed_player_code": "118748",
+        "payload_deadline_utc": "2022-09-10T10:00:00Z",
+        "season": "2022-23",
+        "snapshot_age_minutes": "207.0",
+        "snapshot_sha256": "a0b2301ee874c6964f9c733b027a1914acf7abd318608e90502795dee8fc8b9c",
+        "snapshot_source_path": "cache/2022/9/10/0633.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "7"
+      },
+      "features": {
+        "chance_of_playing_next_round": "",
+        "chance_of_playing_next_round_missing": "1",
+        "deadline_position_id": "3",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "12",
+        "deadline_team_id_missing": "0",
+        "element": "283",
+        "points_count_3": "3",
+        "points_count_5": "5",
+        "points_mean_3": "5.333333333333333",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "5.2",
+        "points_mean_5_missing": "0",
+        "previous_points": "3",
+        "previous_points_missing": "0",
+        "price": "129",
+        "price_missing": "0",
+        "season": "2022-23",
+        "season_points_count": "6",
+        "season_points_mean": "6.333333333333333",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "47.0",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "7",
+        "transfers_in_event": "57592",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "522947",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2022-23",
+        7,
+        283
+      ],
+      "name": "Salah",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 4,
+          "points": 3,
+          "settlement": {
+            "capture_time_utc": "2022-08-30T12:52:00Z",
+            "sha256": "402111f1c79f1ae61591232bbf6a12a1056406578cddd5f26043bc885bb413aa",
+            "source_path": "cache/2022/8/30/1252.json.xz"
+          }
+        },
+        {
+          "gameweek": 5,
+          "points": 10,
+          "settlement": {
+            "capture_time_utc": "2022-09-03T06:28:00Z",
+            "sha256": "9239d966ea8a023cab6b07e8758f5e860335fe61a53217b7e14385429f8d15ec",
+            "source_path": "cache/2022/9/3/0628.json.xz"
+          }
+        },
+        {
+          "gameweek": 6,
+          "points": 3,
+          "settlement": {
+            "capture_time_utc": "2022-09-10T06:33:00Z",
+            "sha256": "a0b2301ee874c6964f9c733b027a1914acf7abd318608e90502795dee8fc8b9c",
+            "source_path": "cache/2022/9/10/0633.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2022/9/10/0633.json.xz",
+      "target": "",
+      "target_fixture_points": []
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2023-01-02T12:37:00Z",
+        "deadline_time_utc": "2023-01-02T16:00:00Z",
+        "element": "150",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "440323",
+        "payload_deadline_utc": "2023-01-02T16:00:00Z",
+        "season": "2022-23",
+        "snapshot_age_minutes": "203.0",
+        "snapshot_sha256": "98dbda343fdae191875d66dd95938e150e878749b10ce70bed9e78c758ee42b3",
+        "snapshot_source_path": "cache/2023/1/2/1237.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "19"
+      },
+      "features": {
+        "chance_of_playing_next_round": "0",
+        "chance_of_playing_next_round_missing": "0",
+        "deadline_position_id": "4",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "6",
+        "deadline_team_id_missing": "0",
+        "element": "150",
+        "points_count_3": "3",
+        "points_count_5": "5",
+        "points_mean_3": "0.6666666666666666",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "0.8",
+        "points_mean_5_missing": "0",
+        "previous_points": "0",
+        "previous_points_missing": "0",
+        "price": "53",
+        "price_missing": "0",
+        "season": "2022-23",
+        "season_points_count": "17",
+        "season_points_mean": "1.2352941176470589",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "0.4",
+        "selected_by_percent_missing": "0",
+        "status": "i",
+        "status_missing": "0",
+        "target_gameweek": "19",
+        "transfers_in_event": "57",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "1690",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2022-23",
+        19,
+        150
+      ],
+      "name": "Broja",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 16,
+          "points": 2,
+          "settlement": {
+            "capture_time_utc": "2022-12-26T06:24:00Z",
+            "sha256": "2de75634e5e213f3c5b4b7a9c83ec393dabf6c5727937b80ddc2dbccfce76676",
+            "source_path": "cache/2022/12/26/0624.json.xz"
+          }
+        },
+        {
+          "gameweek": 17,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2022-12-30T12:34:00Z",
+            "sha256": "3361aa8617fc522b37b7e709e73e35717657f1b269f2c8d51a441da028c9750c",
+            "source_path": "cache/2022/12/30/1234.json.xz"
+          }
+        },
+        {
+          "gameweek": 18,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2023-01-02T12:37:00Z",
+            "sha256": "98dbda343fdae191875d66dd95938e150e878749b10ce70bed9e78c758ee42b3",
+            "source_path": "cache/2023/1/2/1237.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2023/1/2/1237.json.xz",
+      "target": "0",
+      "target_fixture_points": [
+        0,
+        0
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2022-08-13T06:27:00Z",
+        "deadline_time_utc": "2022-08-13T10:00:00Z",
+        "element": "112",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "179268",
+        "payload_deadline_utc": "2022-08-13T10:00:00Z",
+        "season": "2022-23",
+        "snapshot_age_minutes": "213.0",
+        "snapshot_sha256": "e8461c38441c18224e175e9ce149111d31cb2001814ea90c8fd4d7a6659d40fe",
+        "snapshot_source_path": "cache/2022/8/13/0627.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "2"
+      },
+      "features": {
+        "chance_of_playing_next_round": "",
+        "chance_of_playing_next_round_missing": "1",
+        "deadline_position_id": "2",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "6",
+        "deadline_team_id_missing": "0",
+        "element": "112",
+        "points_count_3": "1",
+        "points_count_5": "1",
+        "points_mean_3": "0",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "0",
+        "points_mean_5_missing": "0",
+        "previous_points": "0",
+        "previous_points_missing": "0",
+        "price": "50",
+        "price_missing": "0",
+        "season": "2022-23",
+        "season_points_count": "1",
+        "season_points_mean": "0",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "7.8",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "2",
+        "transfers_in_event": "47940",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "112735",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2022-23",
+        2,
+        112
+      ],
+      "name": "Cucurella",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 1,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2022-08-13T06:27:00Z",
+            "sha256": "e8461c38441c18224e175e9ce149111d31cb2001814ea90c8fd4d7a6659d40fe",
+            "source_path": "cache/2022/8/13/0627.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2022/8/13/0627.json.xz",
+      "target": "4",
+      "target_fixture_points": [
+        4
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2024-02-24T12:29:00Z",
+        "deadline_time_utc": "2024-02-24T13:30:00Z",
+        "element": "355",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "223094",
+        "payload_deadline_utc": "2024-02-24T13:30:00Z",
+        "season": "2023-24",
+        "snapshot_age_minutes": "61.0",
+        "snapshot_sha256": "0335f951cbf4f3d4efd6fe7867866690d5f1266c084e56d35e9e3f9c90939be8",
+        "snapshot_source_path": "cache/2024/2/24/1229.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "26"
+      },
+      "features": {
+        "chance_of_playing_next_round": "100",
+        "chance_of_playing_next_round_missing": "0",
+        "deadline_position_id": "4",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "13",
+        "deadline_team_id_missing": "0",
+        "element": "355",
+        "points_count_3": "3",
+        "points_count_5": "5",
+        "points_mean_3": "9.333333333333334",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "5.8",
+        "points_mean_5_missing": "0",
+        "previous_points": "10",
+        "previous_points_missing": "0",
+        "price": "144",
+        "price_missing": "0",
+        "season": "2023-24",
+        "season_points_count": "25",
+        "season_points_mean": "5.64",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "75.9",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "26",
+        "transfers_in_event": "162049",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "35798",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2023-24",
+        26,
+        355
+      ],
+      "name": "Haaland",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 23,
+          "points": 5,
+          "settlement": {
+            "capture_time_utc": "2024-02-10T06:20:00Z",
+            "sha256": "6e2c636d474660ac13be1245dc9c9da036ffc229b13af353796af53a1f49eaa9",
+            "source_path": "cache/2024/2/10/0620.json.xz"
+          }
+        },
+        {
+          "gameweek": 24,
+          "points": 13,
+          "settlement": {
+            "capture_time_utc": "2024-02-17T06:21:00Z",
+            "sha256": "68ac14b405d6de055ef217314a00ed91052c732d99301d06555fb8a0576fd8be",
+            "source_path": "cache/2024/2/17/0621.json.xz"
+          }
+        },
+        {
+          "gameweek": 25,
+          "points": 10,
+          "settlement": {
+            "capture_time_utc": "2024-02-24T12:29:00Z",
+            "sha256": "0335f951cbf4f3d4efd6fe7867866690d5f1266c084e56d35e9e3f9c90939be8",
+            "source_path": "cache/2024/2/24/1229.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2024/2/24/1229.json.xz",
+      "target": "5",
+      "target_fixture_points": [
+        5
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2023-09-30T06:21:00Z",
+        "deadline_time_utc": "2023-09-30T10:00:00Z",
+        "element": "169",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "493347",
+        "payload_deadline_utc": "2023-09-30T10:00:00Z",
+        "season": "2023-24",
+        "snapshot_age_minutes": "219.0",
+        "snapshot_sha256": "38eb4d437476bb70c2c6d689246e13e7c0e17ee4e5fbf4be5d37e5c4b9f16896",
+        "snapshot_source_path": "cache/2023/9/30/0621.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "7"
+      },
+      "features": {
+        "chance_of_playing_next_round": "",
+        "chance_of_playing_next_round_missing": "1",
+        "deadline_position_id": "1",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "6",
+        "deadline_team_id_missing": "0",
+        "element": "169",
+        "points_count_3": "3",
+        "points_count_5": "5",
+        "points_mean_3": "0",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "0",
+        "points_mean_5_missing": "0",
+        "previous_points": "0",
+        "previous_points_missing": "0",
+        "price": "40",
+        "price_missing": "0",
+        "season": "2023-24",
+        "season_points_count": "6",
+        "season_points_mean": "0",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "0.1",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "7",
+        "transfers_in_event": "142",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "530",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2023-24",
+        7,
+        169
+      ],
+      "name": "Franchi",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 4,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2023-09-16T06:20:00Z",
+            "sha256": "43b82e90908681fa0269c2184044223932100071b0fe0d1b04a226c496dbd3d9",
+            "source_path": "cache/2023/9/16/0620.json.xz"
+          }
+        },
+        {
+          "gameweek": 5,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2023-09-23T06:20:00Z",
+            "sha256": "e0f71b52dc7cc1057195f54087e0306117ee0cc85a21e13899c72fe2de832752",
+            "source_path": "cache/2023/9/23/0620.json.xz"
+          }
+        },
+        {
+          "gameweek": 6,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2023-09-30T06:21:00Z",
+            "sha256": "38eb4d437476bb70c2c6d689246e13e7c0e17ee4e5fbf4be5d37e5c4b9f16896",
+            "source_path": "cache/2023/9/30/0621.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2023/9/30/0621.json.xz",
+      "target": "0",
+      "target_fixture_points": [
+        0,
+        0
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2023-08-18T12:31:00Z",
+        "deadline_time_utc": "2023-08-18T17:15:00Z",
+        "element": "113",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "154561",
+        "payload_deadline_utc": "2023-08-18T17:15:00Z",
+        "season": "2023-24",
+        "snapshot_age_minutes": "284.0",
+        "snapshot_sha256": "cd94da6586686c77c7516e094f1ba5f165085260612d042477b42a2bf6a8c52a",
+        "snapshot_source_path": "cache/2023/8/18/1231.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "2"
+      },
+      "features": {
+        "chance_of_playing_next_round": "",
+        "chance_of_playing_next_round_missing": "1",
+        "deadline_position_id": "1",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "1",
+        "deadline_team_id_missing": "0",
+        "element": "113",
+        "points_count_3": "1",
+        "points_count_5": "1",
+        "points_mean_3": "0",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "0",
+        "points_mean_5_missing": "0",
+        "previous_points": "0",
+        "previous_points_missing": "0",
+        "price": "50",
+        "price_missing": "0",
+        "season": "2023-24",
+        "season_points_count": "1",
+        "season_points_mean": "0",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "4.4",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "2",
+        "transfers_in_event": "5660",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "84359",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2023-24",
+        2,
+        113
+      ],
+      "name": "Raya",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 1,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2023-08-18T12:31:00Z",
+            "sha256": "cd94da6586686c77c7516e094f1ba5f165085260612d042477b42a2bf6a8c52a",
+            "source_path": "cache/2023/8/18/1231.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2023/8/18/1231.json.xz",
+      "target": "0",
+      "target_fixture_points": [
+        0
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2025-02-14T12:43:00Z",
+        "deadline_time_utc": "2025-02-14T18:30:00Z",
+        "element": "328",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "118748",
+        "payload_deadline_utc": "2025-02-14T18:30:00Z",
+        "season": "2024-25",
+        "snapshot_age_minutes": "347.0",
+        "snapshot_sha256": "9b424eab523e3e88125f1d4e434a07eeb6b153b6011476078844460c2ba64f12",
+        "snapshot_source_path": "cache/2025/2/14/1243.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "25"
+      },
+      "features": {
+        "chance_of_playing_next_round": "",
+        "chance_of_playing_next_round_missing": "1",
+        "deadline_position_id": "3",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "12",
+        "deadline_team_id_missing": "0",
+        "element": "328",
+        "points_count_3": "3",
+        "points_count_5": "5",
+        "points_mean_3": "13.333333333333334",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "9.8",
+        "points_mean_5_missing": "0",
+        "previous_points": "29",
+        "previous_points_missing": "0",
+        "price": "137",
+        "price_missing": "0",
+        "season": "2024-25",
+        "season_points_count": "24",
+        "season_points_mean": "10.458333333333334",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "71.7",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "25",
+        "transfers_in_event": "58583",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "11286",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2024-25",
+        25,
+        328
+      ],
+      "name": "M.Salah",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 22,
+          "points": 3,
+          "settlement": {
+            "capture_time_utc": "2025-01-25T12:38:00Z",
+            "sha256": "8b27730a0f89aaa185496f2b4478b3463672b90ac957a52df3aede0c5dad6ecf",
+            "source_path": "cache/2025/1/25/1238.json.xz"
+          }
+        },
+        {
+          "gameweek": 23,
+          "points": 8,
+          "settlement": {
+            "capture_time_utc": "2025-02-01T06:28:00Z",
+            "sha256": "defec1e4132073efa69356ee67ccdf97fdb3b6e1ae2998561b9c0104024d4dd8",
+            "source_path": "cache/2025/2/1/0628.json.xz"
+          }
+        },
+        {
+          "gameweek": 24,
+          "points": 29,
+          "settlement": {
+            "capture_time_utc": "2025-02-14T12:43:00Z",
+            "sha256": "9b424eab523e3e88125f1d4e434a07eeb6b153b6011476078844460c2ba64f12",
+            "source_path": "cache/2025/2/14/1243.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2025/2/14/1243.json.xz",
+      "target": "20",
+      "target_fixture_points": [
+        8,
+        12
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2025-02-01T06:28:00Z",
+        "deadline_time_utc": "2025-02-01T11:00:00Z",
+        "element": "669",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "464353",
+        "payload_deadline_utc": "2025-02-01T11:00:00Z",
+        "season": "2024-25",
+        "snapshot_age_minutes": "272.0",
+        "snapshot_sha256": "defec1e4132073efa69356ee67ccdf97fdb3b6e1ae2998561b9c0104024d4dd8",
+        "snapshot_source_path": "cache/2025/2/1/0628.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "24"
+      },
+      "features": {
+        "chance_of_playing_next_round": "",
+        "chance_of_playing_next_round_missing": "1",
+        "deadline_position_id": "1",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "12",
+        "deadline_team_id_missing": "0",
+        "element": "669",
+        "points_count_3": "3",
+        "points_count_5": "5",
+        "points_mean_3": "0",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "0",
+        "points_mean_5_missing": "0",
+        "previous_points": "0",
+        "previous_points_missing": "0",
+        "price": "40",
+        "price_missing": "0",
+        "season": "2024-25",
+        "season_points_count": "15",
+        "season_points_mean": "0",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "0.0",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "24",
+        "transfers_in_event": "39",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "117",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2024-25",
+        24,
+        669
+      ],
+      "name": "Davies",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 21,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2025-01-18T06:27:00Z",
+            "sha256": "c9ce77d7e5c3d2869b06ce21a6f0f0fb0202491214039a7a1f4dff7107ad325c",
+            "source_path": "cache/2025/1/18/0627.json.xz"
+          }
+        },
+        {
+          "gameweek": 22,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2025-01-25T12:38:00Z",
+            "sha256": "8b27730a0f89aaa185496f2b4478b3463672b90ac957a52df3aede0c5dad6ecf",
+            "source_path": "cache/2025/1/25/1238.json.xz"
+          }
+        },
+        {
+          "gameweek": 23,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2025-02-01T06:28:00Z",
+            "sha256": "defec1e4132073efa69356ee67ccdf97fdb3b6e1ae2998561b9c0104024d4dd8",
+            "source_path": "cache/2025/2/1/0628.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2025/2/1/0628.json.xz",
+      "target": "0",
+      "target_fixture_points": [
+        0,
+        0
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2024-08-24T06:27:00Z",
+        "deadline_time_utc": "2024-08-24T10:00:00Z",
+        "element": "338",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "444765",
+        "payload_deadline_utc": "2024-08-24T10:00:00Z",
+        "season": "2024-25",
+        "snapshot_age_minutes": "213.0",
+        "snapshot_sha256": "c4ae1aa11edc4940b4b964469f3e7bbe70087595818781b52554a79b622dc721",
+        "snapshot_source_path": "cache/2024/8/24/0627.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "2"
+      },
+      "features": {
+        "chance_of_playing_next_round": "",
+        "chance_of_playing_next_round_missing": "1",
+        "deadline_position_id": "2",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "4",
+        "deadline_team_id_missing": "0",
+        "element": "338",
+        "points_count_3": "1",
+        "points_count_5": "1",
+        "points_mean_3": "0",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "0",
+        "points_mean_5_missing": "0",
+        "previous_points": "0",
+        "previous_points_missing": "0",
+        "price": "40",
+        "price_missing": "0",
+        "season": "2024-25",
+        "season_points_count": "1",
+        "season_points_mean": "0",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "0.5",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "2",
+        "transfers_in_event": "11175",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "5056",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2024-25",
+        2,
+        338
+      ],
+      "name": "Van den Berg",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 1,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2024-08-24T06:27:00Z",
+            "sha256": "c4ae1aa11edc4940b4b964469f3e7bbe70087595818781b52554a79b622dc721",
+            "source_path": "cache/2024/8/24/0627.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2024/8/24/0627.json.xz",
+      "target": "0",
+      "target_fixture_points": [
+        0
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2026-02-21T13:03:00Z",
+        "deadline_time_utc": "2026-02-21T13:30:00Z",
+        "element": "100",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "560262",
+        "payload_deadline_utc": "2026-02-21T13:30:00Z",
+        "season": "2025-26",
+        "snapshot_age_minutes": "27.0",
+        "snapshot_sha256": "ca5e759c6fd7e1118b649e8cfee3bd0b485a686f0b2a9db6306bd329e49952fe",
+        "snapshot_source_path": "cache/2026/2/21/1303.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "27"
+      },
+      "features": {
+        "chance_of_playing_next_round": "",
+        "chance_of_playing_next_round_missing": "1",
+        "deadline_position_id": "4",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "4",
+        "deadline_team_id_missing": "0",
+        "element": "100",
+        "points_count_3": "3",
+        "points_count_5": "5",
+        "points_mean_3": "3.3333333333333335",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "2.6",
+        "points_mean_5_missing": "0",
+        "previous_points": "1",
+        "previous_points_missing": "0",
+        "price": "47",
+        "price_missing": "0",
+        "season": "2025-26",
+        "season_points_count": "26",
+        "season_points_mean": "2.576923076923077",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "7.3",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "27",
+        "transfers_in_event": "76477",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "47282",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2025-26",
+        27,
+        100
+      ],
+      "name": "Kroupi.Jr",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 24,
+          "points": 7,
+          "settlement": {
+            "capture_time_utc": "2026-02-06T13:15:00Z",
+            "sha256": "baa605b8109f3525a3f8d042c61f7ca7512a3e6d42278f9300eb1f21132a6d41",
+            "source_path": "cache/2026/2/6/1315.json.xz"
+          }
+        },
+        {
+          "gameweek": 25,
+          "points": 2,
+          "settlement": {
+            "capture_time_utc": "2026-02-10T13:41:00Z",
+            "sha256": "c70b651cfdcf2166734fe1ac14a3a687e96bd540377fbedd6693eccca7ecbefa",
+            "source_path": "cache/2026/2/10/1341.json.xz"
+          }
+        },
+        {
+          "gameweek": 26,
+          "points": 1,
+          "settlement": {
+            "capture_time_utc": "2026-02-21T13:03:00Z",
+            "sha256": "ca5e759c6fd7e1118b649e8cfee3bd0b485a686f0b2a9db6306bd329e49952fe",
+            "source_path": "cache/2026/2/21/1303.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2026/2/21/1303.json.xz",
+      "target": "2",
+      "target_fixture_points": [
+        2
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2026-02-10T13:41:00Z",
+        "deadline_time_utc": "2026-02-10T18:00:00Z",
+        "element": "817",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "155511",
+        "payload_deadline_utc": "2026-02-10T18:00:00Z",
+        "season": "2025-26",
+        "snapshot_age_minutes": "259.0",
+        "snapshot_sha256": "c70b651cfdcf2166734fe1ac14a3a687e96bd540377fbedd6693eccca7ecbefa",
+        "snapshot_source_path": "cache/2026/2/10/1341.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "26"
+      },
+      "features": {
+        "chance_of_playing_next_round": "",
+        "chance_of_playing_next_round_missing": "1",
+        "deadline_position_id": "4",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "20",
+        "deadline_team_id_missing": "0",
+        "element": "817",
+        "points_count_3": "2",
+        "points_count_5": "2",
+        "points_mean_3": "2",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "2",
+        "points_mean_5_missing": "0",
+        "previous_points": "4",
+        "previous_points_missing": "0",
+        "price": "55",
+        "price_missing": "0",
+        "season": "2025-26",
+        "season_points_count": "2",
+        "season_points_mean": "2",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "0.1",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "26",
+        "transfers_in_event": "9647",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "488",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2025-26",
+        26,
+        817
+      ],
+      "name": "Armstrong",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 24,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2026-02-06T13:15:00Z",
+            "sha256": "baa605b8109f3525a3f8d042c61f7ca7512a3e6d42278f9300eb1f21132a6d41",
+            "source_path": "cache/2026/2/6/1315.json.xz"
+          }
+        },
+        {
+          "gameweek": 25,
+          "points": 4,
+          "settlement": {
+            "capture_time_utc": "2026-02-10T13:41:00Z",
+            "sha256": "c70b651cfdcf2166734fe1ac14a3a687e96bd540377fbedd6693eccca7ecbefa",
+            "source_path": "cache/2026/2/10/1341.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2026/2/10/1341.json.xz",
+      "target": "4",
+      "target_fixture_points": [
+        2,
+        2
+      ]
+    },
+    {
+      "audit": {
+        "capture_time_utc": "2025-08-22T12:51:00Z",
+        "deadline_time_utc": "2025-08-22T17:30:00Z",
+        "element": "391",
+        "label_status": "observed_fixture_sum",
+        "observed_player_code": "496208",
+        "payload_deadline_utc": "2025-08-22T17:30:00Z",
+        "season": "2025-26",
+        "snapshot_age_minutes": "279.0",
+        "snapshot_sha256": "4fc61f6f89d925af550887c05eeb84648d9860cf974ddee113306a89a1d36f51",
+        "snapshot_source_path": "cache/2025/8/22/1251.json.xz",
+        "superseded_deadline_exception": "False",
+        "target_gameweek": "2"
+      },
+      "features": {
+        "chance_of_playing_next_round": "",
+        "chance_of_playing_next_round_missing": "1",
+        "deadline_position_id": "3",
+        "deadline_position_id_missing": "0",
+        "deadline_team_id": "4",
+        "deadline_team_id_missing": "0",
+        "element": "391",
+        "points_count_3": "1",
+        "points_count_5": "1",
+        "points_mean_3": "0",
+        "points_mean_3_missing": "0",
+        "points_mean_5": "0",
+        "points_mean_5_missing": "0",
+        "previous_points": "0",
+        "previous_points_missing": "0",
+        "price": "50",
+        "price_missing": "0",
+        "season": "2025-26",
+        "season_points_count": "1",
+        "season_points_mean": "0",
+        "season_points_mean_missing": "0",
+        "selected_by_percent": "0.1",
+        "selected_by_percent_missing": "0",
+        "status": "a",
+        "status_missing": "0",
+        "target_gameweek": "2",
+        "transfers_in_event": "1880",
+        "transfers_in_event_missing": "0",
+        "transfers_out_event": "952",
+        "transfers_out_event_missing": "0"
+      },
+      "key": [
+        "2025-26",
+        2,
+        391
+      ],
+      "name": "Gannon-Doak",
+      "prior_three_calendar_gameweeks": [
+        {
+          "gameweek": 1,
+          "points": 0,
+          "settlement": {
+            "capture_time_utc": "2025-08-22T12:51:00Z",
+            "sha256": "4fc61f6f89d925af550887c05eeb84648d9860cf974ddee113306a89a1d36f51",
+            "source_path": "cache/2025/8/22/1251.json.xz"
+          }
+        }
+      ],
+      "source_snapshot": "cache/2025/8/22/1251.json.xz",
+      "target": "0",
+      "target_fixture_points": [
+        0
+      ]
+    }
+  ],
+  "summary": {
+    "by_position": {
+      "1": 15277,
+      "2": 45987,
+      "3": 59884,
+      "4": 16514
+    },
+    "by_season": {
+      "2021-22": 25150,
+      "2022-23": 26198,
+      "2023-24": 29510,
+      "2024-25": 27159,
+      "2025-26": 29645
+    },
+    "by_split": {
+      "test": 29645,
+      "train": 80858,
+      "validation": 27159
+    },
+    "exception_rows": 656,
+    "external_ep_next_missing": 3,
+    "feature_missingness": {
+      "chance_of_playing_next_round": 50791,
+      "chance_of_playing_next_round_missing": 0,
+      "deadline_position_id": 0,
+      "deadline_position_id_missing": 0,
+      "deadline_team_id": 0,
+      "deadline_team_id_missing": 0,
+      "points_count_3": 0,
+      "points_count_5": 0,
+      "points_mean_3": 3051,
+      "points_mean_3_missing": 0,
+      "points_mean_5": 3051,
+      "points_mean_5_missing": 0,
+      "previous_points": 3675,
+      "previous_points_missing": 0,
+      "price": 0,
+      "price_missing": 0,
+      "season_points_count": 0,
+      "season_points_mean": 3051,
+      "season_points_mean_missing": 0,
+      "selected_by_percent": 0,
+      "selected_by_percent_missing": 0,
+      "status": 0,
+      "status_missing": 0,
+      "transfers_in_event": 0,
+      "transfers_in_event_missing": 0,
+      "transfers_out_event": 0,
+      "transfers_out_event_missing": 0
+    },
+    "label_status": {
+      "empty_player_sum": 4553,
+      "fixture_empty_gameweek": 624,
+      "observed_fixture_sum": 132485
+    },
+    "labelled_rows": 137038,
+    "rows": 137662,
+    "target": {
+      "max": 30,
+      "mean": 1.1676615245406383,
+      "min": -5,
+      "negative": 575,
+      "zero": 85478
+    }
+  }
+}

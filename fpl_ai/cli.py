@@ -62,6 +62,10 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="per-request HTTP timeout in seconds (default: 60)",
     )
+    features = subparsers.add_parser('features', help='build offline deadline-safe features and evaluate baselines')
+    features.add_argument('--data-dir', type=Path, default=Path('data'))
+    features.add_argument('--artifact-dir', type=Path, default=None)
+    features.add_argument('--builds-from', type=Path, help='prior modelling manifest whose exact historical builds to reuse')
     return parser
 
 
@@ -69,6 +73,18 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
+        if args.command == 'features':
+            from fpl_ai.modelling import run_modelling
+            import json
+            if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
+                parser.error('features uses --data-dir and --artifact-dir, not ingestion options')
+            builds = None
+            if args.builds_from:
+                prior = json.loads(args.builds_from.read_text())
+                builds = {s: v['version'] for s, v in prior['identity']['sources'].items()}
+            path, reused = run_modelling(args.data_dir, args.artifact_dir, builds)
+            print(f"Modelling artifacts {'reused' if reused else 'completed'}: {path}")
+            return 0
         if args.command == "historical":
             if args.current_base_url is not None:
                 parser.error("--base-url is only valid for current ingestion")

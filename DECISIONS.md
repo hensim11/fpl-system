@@ -430,3 +430,139 @@ Consequence: the full-range foundation is reproducible and transparent about
 availability, while any later feature/raw-field expansion requires its own explicit
 versioned design. Existing temporal boundaries, Vaastav `xP` prohibition and
 quarantine remain unchanged. See [the availability guide](docs/M2_FIVE_SEASON_AVAILABILITY.md).
+
+## 031 — Predict snapshot-visible football players at one Gameweek horizon
+
+Status: implemented and verified for Milestone 3.
+
+Use `(season, target_gameweek, element)` and sum canonical fixture points across
+all target-GW fixtures, including doubles. Population comes only from accepted
+snapshot position IDs 1–4; AM is excluded. No final identity join or cross-season
+player linking is needed. Observed person codes remain audit metadata, preserving
+Harris/Bueno and the absent final Sillah observation without rewriting history.
+
+In a fixture-bearing GW, a snapshot player with no fixture rows has an explicit
+empty-sum label of zero: the accepted full-season fact coverage is the population
+assumption. This includes team blanks and registered non-playing players; labels
+carry an audit status. Entirely fixture-empty 2022/23 GW7 keeps 624 prediction rows
+but has null labels, excluded from fitting, metrics and history. No synthetic
+fixture facts or hindsight blank indicators enter features. Labels are unmultiplied
+player points, not squad/captain/chip returns.
+
+## 032 — Gate points history on observed settlement, not GW number alone
+
+Status: implemented and verified for Milestone 3.
+
+The as-of boundary is the accepted capture, stricter than its later deadline.
+State features copy only snapshot team/position IDs, price (tenths of £1m), ownership
+percent, event transfer counters, status and chance of playing next round.
+Chance remains null when unavailable; do not reinterpret null as fit or zero.
+
+Points history requires both an earlier GW and the accepted M2 settlement capture
+at or before the target capture. The adapter checksum-verifies raw settlement
+payloads, requires finished/data_checked, and checks observed event points against
+canonical fixture sums. Missing player evidence remains missing. A no-fact prior
+player sum is usable only with an explicit observed zero. Prior 3/5 windows are
+calendar GWs, use means over available observations and expose counts. Season
+means reset each season. Every nullable feature has a missingness indicator.
+
+V1 deliberately excludes lagged minutes/goals/assists/bonus: M2 reconciles points
+at a known historical capture but does not independently establish historical
+versions of those other final-source statistics. Starts/xG also lack common
+five-season coverage. This narrower contract avoids claiming all final-source
+statistics were available just because a fixture had finished. It can be extended
+with separately verified timestamped evidence. No final fixture context,
+quarantined metadata, Vaastav xP, final identity or AM values become features.
+
+GW18 2021/22 retains capture 12:33, payload deadline 13:30, final deadline 16:00,
+207-minute freshness gap, exception flag and exact source path/hash per row; the
+complete original exception policy remains in the modelling manifest.
+
+## 033 — Freeze chronological evaluation and separate the FPL benchmark
+
+Status: implemented and verified for Milestone 3.
+
+Train 2021/22–2023/24; validate 2024/25; final holdout 2025/26. Overall and position
+means consume only training labels settled by each prediction capture. Training
+reports therefore use expanding history, not in-sample fitted means. Training
+statistics are fixed for validation/test; no validation or holdout labels refit
+them. Player histories may update with earlier settled GWs within each evaluation
+season, as in prospective weekly forecasting. That is not fitting on future labels.
+
+Recent-points baseline uses mean of available prior three calendar GWs. Player
+scoring rate means points per observed settled GW, requiring at least three such
+GWs (not points per appearance or per 90). Both fall back to the training position
+mean, then training overall mean, then explicit zero at cold start. No tuning was
+performed against the holdout; these definitions preceded the first results.
+
+Archived ep_next is an external opaque FPL estimate for the upcoming is_next event
+at the accepted capture. It is consistently present except three 2023/24 rows.
+Keep its original values, including negatives; no imputation and no use as an
+engineered input or fallback. Historical provider methodology is not established
+or assumed stable. Benchmark coverage is reported separately.
+
+Report MAE, RMSE, and mean per-GW Spearman correlation, using average ranks for
+ties, omitting undefined constant/single-row groups with explicit counts. Ranking
+is calculated within season/GW (and position for position segments), never across
+unrelated GWs. Every segment reports population, labels, predictions and missing
+coverage. Validation/test remain separate; small score differences are not evidence
+of meaningful superiority. Registered non-playing players dominate many rows,
+and season scoring differences limit cross-season comparability.
+
+## 034 — Publish offline content-addressed modelling artifacts separately
+
+Status: implemented and verified for the initial Milestone 3 batch; identity/reuse
+boundaries superseded by Decision 035.
+
+Extend fpl_ai with a standard-library-only `features` CLI. It reads checksum-verified
+published M2 builds and writes only under a separate modelling artifact root.
+features.csv is a closed projection; labels, split, predictions and row audit are
+separate keyed tables. schema.json, evaluation.json and manifest.json record the
+complete versioned contract, exact source/build identities, settled capture
+sources/hashes, implementation hashes, feature schema, counts and artifact hashes.
+
+Identity excludes build timestamps and local absolute paths. Historical build
+metadata is retained semantically without ingesting its creation timestamp into
+the new identity. Implementation bytes also participate to prevent stale reuse
+when code changes without a manual version bump. Publication stages an entire
+artifact directory before renaming it; reuse verifies identity and every artifact
+checksum without rewriting. `--builds-from` pins the historical versions from an
+existing modelling manifest even if the M2 latest lookup changes. Generated data
+is ignored; compact contracts/tests and verification evidence are committed code.
+
+## 035 — Enforce target evidence and identify serialized modelling products
+
+Status: implemented in the focused Milestone 3 hardening batch.
+
+Every non-null target now requires the target element's integer event_points in
+that GW's accepted settlement payload to equal the canonical fixture sum. This
+includes empty-player zero sums. Missing elements, missing settlement, non-integer
+values (including booleans), or disagreements fail before publication. Globally
+fixture-empty GWs remain unlabelled. The prediction target, features, splits and
+baselines are unchanged; this enforces previously incomplete evidence requirements.
+
+Identity `serialized-products-v2` supersedes Decision 034's four-file implementation
+hash boundary. The pipeline regenerates and serializes all six data artifacts,
+then identifies their exact hashes plus the existing contracts and source/build
+provenance. The evaluation artifact is hashed before inserting its identity reference
+to avoid a circular hash; its final bytes are separately checksummed in the manifest.
+This covers feature/label/audit population, predictions, metrics, schema and their
+serialization, regardless of which helper/dependency produced them. Source-code-only
+changes that leave outputs and contracts unchanged intentionally retain identity.
+No incomplete implementation-hash list remains. Absolute paths and times remain
+excluded. Cost: reuse now performs feature generation, evaluation and temporary
+serialization before validating the existing build; it avoids published rewrites,
+not computation. Temporary products are removed even on failure.
+
+Publication and reuse share one declared artifact set: six named data artifacts
+plus manifest.json. Reuse rejects missing/extra directory entries, non-regular files,
+missing/extra manifest checksum entries, a manifest differing from regenerated
+identity/content, and any expected-file checksum mismatch. Existing published M3
+builds remain intact; this identity-boundary change publishes a distinct version.
+
+The verification script uses explicit VerificationError checks, not assertions,
+including fresh rebuild/reuse calls that must execute under python -O. It independently
+checks every label against raw settled event_points and counts all 4,553 supported
+empty-player zeros. Success flags are returned only after all checks pass. A failing
+fresh-build condition is tested in normal and optimized subprocesses. No historical
+foundation files, predictors, model or milestone scope are changed.

@@ -37,14 +37,14 @@ Exit criterion: **satisfied** — a documented, reproducible dataset suitable fo
 
 ## Milestone 3 — Feature and evaluation design
 
-Status: next; not implemented. Start with substantial feature and evaluation design using the five-season availability/identity audit.
+Status: **complete** against the current exit criterion. Five-season deterministic features and non-ML evaluation verified; see `docs/M3_VERIFICATION.md`. No trained model or recommendation claim.
 
-- Define prediction targets and guard against future-data leakage.
-- Create time-aware train/validation/test splits.
-- Build deterministic feature tables from versioned inputs.
-- Establish simple non-ML baselines and evaluation metrics.
+- [x] Define prediction targets and guard against future-data leakage.
+- [x] Create time-aware train/validation/test splits.
+- [x] Build deterministic feature tables from versioned inputs.
+- [x] Establish simple non-ML baselines and evaluation metrics.
 
-Exit criterion: an evaluation harness that can compare approaches honestly. No product recommendation claims yet.
+Exit criterion: **satisfied** — an evaluation harness that can compare approaches honestly. 132 tests pass; five-season fresh rebuild/reuse, temporal protections and source traces are verified. No product recommendation claims yet.
 
 ## Milestone 4 — First predictive experiments
 
