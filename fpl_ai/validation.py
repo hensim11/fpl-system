@@ -94,3 +94,39 @@ def _unique_integer_ids(rows: Iterable[Mapping[str, Any]], label: str) -> set[in
             raise FPLValidationError(f"duplicate {label} id: {row_id}")
         ids.add(row_id)
     return ids
+
+
+def validate_fixture_schedule(bootstrap: Mapping[str, Any], fixtures: Any) -> None:
+    """Stricter evidence boundary for forecasting/scoring than between-season ingestion.
+
+    A blank target requires a usable nonempty season schedule. Nullable event
+    assignments remain legal, but a response with no assigned fixtures cannot
+    establish a blank. No assumed season fixture count is imposed.
+    """
+    if fixtures is None or fixtures == []:
+        raise FPLValidationError('missing/empty fixture schedule evidence; cannot establish a blank GW')
+    if not isinstance(fixtures, list):
+        raise FPLValidationError('malformed fixture schedule evidence: fixtures must be an array')
+    _validate_rows(fixtures, FIXTURE_FIELDS | {'event'}, 'fixture schedule')
+    _unique_integer_ids(fixtures, 'fixture schedule')
+    teams = _required_list(bootstrap, 'teams')
+    events = _required_list(bootstrap, 'events')
+    _validate_rows(teams, {'id'}, 'schedule team')
+    _validate_rows(events, {'id'}, 'schedule event')
+    team_ids = _unique_integer_ids(teams, 'schedule team')
+    event_ids = _unique_integer_ids(events, 'schedule event')
+    if not team_ids or not event_ids or any(e <= 0 for e in event_ids):
+        raise FPLValidationError('incomplete fixture schedule evidence: missing usable teams/events')
+    assigned = False
+    for f in fixtures:
+        if (f['id'] <= 0 or type(f['finished']) is not bool or
+                any(type(f[k]) is not int or f[k] not in team_ids for k in ('team_h', 'team_a')) or
+                f['team_h'] == f['team_a']):
+            raise FPLValidationError('malformed fixture schedule evidence: invalid identity, teams or finished flag')
+        event = f['event']
+        if event is not None:
+            if type(event) is not int or event not in event_ids:
+                raise FPLValidationError('malformed fixture schedule evidence: unknown or invalid event assignment')
+            assigned = True
+    if not assigned:
+        raise FPLValidationError('incomplete fixture schedule evidence: no event-assigned fixtures; cannot establish a blank GW')

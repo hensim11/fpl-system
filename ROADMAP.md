@@ -62,9 +62,27 @@ Exit criterion: **satisfied for the agreed prediction problem** — held-out RMS
 full coverage and lower squared error in all 38 test GWs. This does not establish
 squad/transfer/captain utility or universal superiority. 145 tests pass.
 
-Recommended next modelling batch: targeted independently proven point-in-time
-feature expansion, position calibration investigation and prospective evaluation.
-Preserve M4's frozen results; do not retune against the now-reported 2025/26 holdout.
+### M4B — Playing-time foundation and prospective evaluation
+
+Status: **implemented and verified**; see `docs/M4B_VERIFICATION.md`.
+
+- [x] Audit raw playing-time/availability fields and reject unsupported fixture history.
+- [x] Version compact features with settlement evidence, nulls and freshness retained.
+- [x] Forecast total GW minutes using earlier-season train/development boundaries.
+- [x] Freeze one bounded minutes model and report three baselines and useful segments.
+- [x] Add clock-checked prospective capture/freeze and separate settled scoring CLI.
+- [x] Reproduce new artifacts and preserve all accepted M2/M3/M4 products.
+- [x] Require positive schedule evidence for blanks: reject empty/unusable current
+  schedules and reconcile historical player facts against independent `fixtures.csv`.
+  This validates labels only and adds no historical fixture predictor.
+- [ ] Operationally smoke-test and retain real 2026/27 forecasts and outcomes.
+- [ ] Produce expanding chronological OOS minutes artifacts before xPts v2 stacking.
+- [ ] Investigate the 2024/25 cumulative-minute discrepancy without guessed corrections.
+
+176 tests pass. No new untouched historical holdout is claimed. Historical fixture
+context remains unavailable; current fixture snapshots have their own prospective
+contract. Expected points is null in the new live freeze until an xPts adapter is
+built. Preserve M4's frozen results and do not retune against reported 2025/26.
 
 ## Later milestones
 

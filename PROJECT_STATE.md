@@ -301,12 +301,64 @@ record for normal/optimized runs, preservation and unchanged metric comparisons.
   [anomaly traces](docs/M4_SANITY_TRACES.json),
   [preservation](docs/M4_REGRESSION.json), Decisions 036–037.
 
+## Verified M4B batch (2026-09-17)
+
+- Separate `playing-time-v2`: 80,858 rows, 80,234 independently checked minutes
+  targets, 3,784 explicit empty-player zeros, 4,705 multi-fixture rows; all 624
+  fixture-empty GW7 rows and all 656 GW18 freshness exceptions preserved.
+- 11 values + 9 missingness flags: observed position/status/chance, previous and
+  recent evidenced minutes, appearance fraction, cumulative minutes/starts,
+  consecutive availability changes. GW1 stale cumulative totals excluded.
+- Train 2021/22–2022/23 (50,724 labels), development 2023/24 (29,510).
+  Latest fit label 2023-05-29 06:23; first development capture 2023-08-11 12:31 UTC.
+- One fixed histogram model plus three baselines. Selected model minutes MAE
+  12.659552 / RMSE 23.292082; availability-aware baseline 12.302370 / 25.346981.
+  Better RMSE does not imply better MAE or clean prospective confirmation.
+- Feature identity `4f2ef778e5df032ffa22457811c6ba5845d0f8dbc51ff83cb6292cbfa8f6003c`;
+  minutes freeze `e8b168652ce16cf238f84186977b329c55a3d754605066b7e50422b7a0bb3ddc`.
+- 2024/25 source-only audit finds element 123 GW27 cumulative delta 34 versus
+  canonical 17; excluded from minutes build, no guessed correction. No new
+  2025/26 model/feature selection or minutes evaluation.
+- Historical fixture context still unavailable. Prospective official fixture
+  snapshots retain timing/identity, but v1 minutes does not consume fixture inputs.
+- CLI capture/freeze/verify/settle/score implements pre-deadline immutable minutes
+  forecasts and separate verified settled scoring. Optional prior snapshot and
+  settled forecast pairs provide availability/minutes history. Expected points
+  remains null. Tested offline, not yet smoke-tested on live 2026/27 endpoints.
+- No stacked xPts inputs: development-only predictions are explicitly forbidden
+  as downstream training features. Chronological OOS integration remains next work.
+- 176 tests pass normally and under `python -O`. Fresh minutes builds and normal /
+  optimized reports match exactly. All five historical builds, M3 and frozen M4
+  replay pass; 179 pre-batch fingerprinted files retain bytes/mtimes.
+- No new dependency, scheduler, service, optimiser, commit or push.
+- [Full verification](docs/M4B_VERIFICATION.md), [source evidence](docs/M4B_SOURCE_AUDIT.json),
+  [machine checks](docs/M4B_VERIFICATION.json), [regression](docs/M4B_REGRESSION.json).
+
+## M4B fixture-evidence hardening
+
+- Prospective schedule/settlement contracts are v2: empty/missing payloads,
+  malformed rows, unknown event assignments and schedules with no assigned events
+  fail. A valid nonempty schedule may establish a blank target GW.
+- `playing-time-v2` derives fixture-bearing GWs from independent processed
+  `fixtures.csv`; every scheduled fixture requires football-player facts with a
+  matching GW. The verifier independently performs the same schedule-vs-fact audit.
+- Schedule use is exclusively post-event label/evidence validation, never a predictor.
+  Whole-GW or partial-double fact loss now fails instead of becoming a blank.
+- Six additional regressions; 176 tests normally and under `python -O`. All
+  feature/label/audit CSVs, saved minutes model bytes, forecasts and metrics remain
+  identical to the original M4B products. New identities bind the stronger contract
+  and the exact consumed schedule hash; old artifact directories remain untouched.
+- M2/M3/original M4 and prior M4B artifacts retain all 638 fingerprinted data files'
+  bytes/mtimes. Fresh/reuse verification remains exact, including optimized Python.
+- Genuine 2022/23 GW7 stays unlabelled; doubles, explicit player zeros, GW18 freshness,
+  the 2024/25 discrepancy and downstream-training prohibition remain unchanged.
+
 ## Recommended next step
 
-Targeted point-in-time feature expansion: prove recoverable playing-time/availability
-history and, only with independent deadline-time evidence, fixture context. Version
-new contracts explicitly and use chronological train/validation experiments. Preserve
-the accepted M4 result as a frozen reference; seek new prospective holdout observations
-for subsequent confirmation. The 2025/26 ML holdout has been reported and is not a
-fresh tuning or confirmation set. Investigate position calibration and useful-player
-segments without test-driven retuning. No optimiser or arbitrary complexity increase.
+Start retaining real 2026/27 pre-deadline forecasts and settled scoring evidence.
+Implement chronological expanding-window OOS minutes artifacts before any xPts v2
+stacking, including model-selection cutoffs. Resolve the 2024/25 minutes source
+discrepancy independently. Keep original M4 frozen and use earlier seasons for
+new development; the consumed 2025/26 holdout is not fresh confirmation. Historical
+fixture context and live schema compatibility remain explicitly bounded. Optimisers
+and recommendations still require further predictive and prospective evidence.

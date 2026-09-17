@@ -14,6 +14,12 @@ from fpl_ai.evaluation import BASELINES
 
 
 STAGE_ARTIFACTS = {
+    'playing-time-features': {'contract.json', 'evidence.json', 'sources.json', 'features.csv', 'labels.csv', 'row_audit.csv'},
+    'minutes-freeze': {'frozen.json', 'development.json', 'predictions.csv', 'model.pickle'},
+    'prospective-snapshot': {'bootstrap.json', 'fixtures.json'},
+    'prospective-predictions': {'features.csv', 'predictions.csv'},
+    'prospective-settlement': {'bootstrap.json', 'fixtures.json', 'live.json'},
+    'prospective-score': {'outcomes.csv', 'scores.json'},
         'validation-freeze': {'upstream.json','frozen.json','validation.json','diagnostics.json',
                               'interpretation.json','comparisons.json','predictions.csv',
                               'ridge_10.pickle','ridge_100.pickle','hist_15.pickle','hist_31.pickle'},
@@ -128,7 +134,7 @@ def verify_bundle(folder, kind=None):
     return manifest
 
 
-def publish(root, metadata, writer):
+def publish(root, metadata, writer, *, publication_guard=None):
     root = Path(root)
     root.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix='.building-', dir=root))
@@ -141,6 +147,8 @@ def publish(root, metadata, writer):
         manifest = dict(payload, identity_sha256=digest(payload))
         atomic_write_json(staging/'manifest.json', manifest)
         destination = root/manifest['identity_sha256']
+        if publication_guard is not None:
+            publication_guard()
         if destination.exists():
             if verify_bundle(destination) != manifest:
                 raise ValueError('different experiment at existing identity')
