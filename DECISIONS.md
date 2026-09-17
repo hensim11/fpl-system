@@ -632,3 +632,130 @@ visible. Paired GW bootstrap deltas are descriptive and do not account for inter
 serial dependence or product utility. The narrow M4 exit criterion is satisfied;
 future work should establish point-in-time feature evidence and fresh prospective
 evaluation. The reported 2025/26 test cannot become a new untouched holdout.
+
+## 038 — Establish playing-time evidence separately from frozen M3
+
+Status: implemented and verified in M4B.
+
+Use accepted bootstrap captures directly for cumulative minutes/starts and
+availability, retaining raw identities and missingness. GW1 cumulative fields are
+stale prior-season values; exclude them from current-season features. Starts
+remain null when absent, including all 2021/22 observations. Do not infer starts
+from minutes or link to later/final player identity.
+
+For GW1's target, compare the settled post-reset cumulative minutes with the
+canonical GW1 fixture sum. For later GWs, compare settled cumulative minus that
+GW's accepted pre-deadline cumulative minutes with the canonical full-GW sum.
+Require independent existing settlement selection, finished/data_checked, capture
+after the target deadline and before the next GW deadline, and explicit integer
+player values. Every target, including no-fact zero, must agree. History additionally
+requires a strictly earlier GW and settlement at or before the prediction capture.
+No final-source minutes become predictors merely because points were settled.
+This supplies the independent evidence required by Decision 032 without relaxing it.
+
+Publish `playing-time-v1` separately: position, status, chance, previous minutes,
+three-calendar-GW minutes mean/count and appearance fraction, observed cumulative
+minutes/starts, and consecutive status/chance changes; 11 values plus 9 missingness
+flags. No history means null, not zero. Globally fixture-empty GW7 remains unlabelled;
+doubles sum all fixtures; the exact GW18 exception and 207-minute age remain visible.
+
+All 80,234 targets in 2021/22–2023/24 reconcile. A source-only 2024/25 audit finds
+GW27 element 123 observed minutes delta 34 versus canonical 17. No correction or
+replacement evidence is invented; that season is excluded from this minutes build.
+Historical fixture context is still unavailable under Decision 014. No Vaastav xP,
+quarantine, FPL ep_next or final identity enters the new feature projection.
+
+## 039 — Freeze a bounded minutes experiment before downstream integration
+
+Status: implemented and verified in M4B.
+
+Train 2021/22–2022/23, develop/select 2023/24. No 2024/25 or consumed 2025/26 model
+selection, calibration or new minutes performance reporting. Latest training labels
+must precede the first development capture. Target total GW minutes can exceed 90.
+
+Compare fixed training-position, recent-minutes and availability-aware recent
+baselines with one fixed 15-leaf histogram booster using the existing sklearn stack.
+Use training-only preprocessing, explicit missingness, no early stopping or grid,
+a zero lower bound and no upper cap. Select by development RMSE; report MAE,
+actual-appearance, useful-history, missingness and position segments honestly.
+The model wins RMSE but loses MAE to the availability-aware baseline.
+
+Publish fitted state, baseline means, environment, exact feature identity, protocol,
+development-only predictions and evaluation through the shared atomic immutable IO.
+Do not export training predictions or feed development predictions into xPts.
+`downstream_training_allowed: false` records this boundary. Future integration must
+produce expanding chronological OOS predictions with both fitting and selection
+information available before each downstream row's deadline. No new untouched
+historical holdout exists; genuinely prospective evidence is required.
+
+## 040 — Freeze forecasts with actual capture clocks; score in separate bundles
+
+Status: implemented and verified with network-free prospective lifecycle tests.
+
+Add explicit current-season capture/freeze/verify/settle/score commands. Bootstrap
+and fixture responses carry separate request/receipt intervals, exact hashes,
+season/GW and authoritative deadline. They are not assumed simultaneous. Target
+capture, computation and the final publication check must precede the deadline;
+there is no CLI timestamp override. Prediction timestamps are semantic provenance,
+not incidental build timestamps. Immutable identities exclude machine-local paths.
+
+Forecast artifacts contain features and predictions without outcomes, bound to
+exact snapshot, fixture-context, contract and model/freeze identities. Current
+fixture context is safely captured but is not an input to the v1 minutes model.
+Optional previous snapshots and already settled prior forecast pairs supply history;
+absent history remains missing. Expected points stays null pending an actual live
+xPts feature adapter. Checksums protect integrity, not hostile pickle execution or
+independently witnessed timestamps; model inputs must be trusted local artifacts.
+
+Settlement captures official bootstrap, fixtures and per-GW live player statistics.
+Require event finished/data_checked, finished target fixtures, explicit complete
+player outcomes and live-stat/per-fixture-explanation agreement. Empty GWs retain
+null outcomes. Scoring writes a separate immutable bundle referencing both source
+identities; it cannot write within either input directory. Reuse verifies the exact
+artifact set, contracts, hashes and identities without rewriting.
+
+The lifecycle is tested offline, including missed deadlines, request crossings,
+late publication cleanup, doubles/blanks, corrupted inputs, missing player evidence
+and future history rejection. No live 2026/27 forecast or confirmation score is
+claimed yet. Operational API compatibility and real capture retention are next;
+a scheduler, service and external timestamp attestation are outside this batch.
+
+## 041 — Require independent positive fixture-schedule evidence for blank GWs
+
+Status: implemented and verified in the focused M4B hardening pass.
+
+Missing evidence cannot establish absence of fixtures. Extend the existing current
+fixture validation with a stricter forecast/settlement boundary: require a nonempty
+fixture array, the existing required row fields plus an explicit nullable event,
+valid unique fixture IDs, known distinct teams, boolean completion and known event
+assignments. At least one fixture must be assigned to a known event. Reject missing,
+empty, malformed and all-unassigned schedules; retain a genuine blank target when a
+usable season schedule exists but none of its fixtures belongs to that target GW.
+No arbitrary season fixture count is imposed. Ordinary between-season ingestion's
+empty-response behaviour is not changed. Capture and read/scoring paths both enforce
+this evidence requirement before publication.
+
+For historical minutes labels, processed `fixtures.csv` independently defines the
+fixture-bearing GWs. Reconcile every fact's season/fixture/GW against that schedule
+and require football-player evidence for every scheduled fixture. Losing all facts
+for a GW or one fixture in a double now fails. Player-level no-fact zero handling
+still requires explicit independent settlement evidence. The verifier separately
+reads and reconciles the schedule; it cannot repeat the old circular inference.
+Final schedule use is strictly post-event label validation, not a predictor, so
+Decision 014's historical feature boundary is unchanged.
+
+Version the stronger contract as `playing-time-v2`, record the consumed schedule
+checksum, and publish new feature/minutes identities without rewriting earlier
+artifacts. Prospective snapshot/settlement contracts also become v2; forecasts bind
+the updated feature contract. Readers reject older semantics rather than silently
+migrating them. Feature/label/audit CSVs, fitted model bytes, development forecasts
+and all metrics remain unchanged. No model tuning or selection-season change occurs.
+
+Six focused regressions and the full 176-test normal/optimized suites pass. Real
+verification reconciles all 1,140 schedule fixtures, preserves 624 blank GW7 rows,
+explicit player zeros, doubles and GW18 freshness, and reproduces affected artifacts.
+All 638 pre-existing data files remain byte/mtime-identical. Structurally plausible
+server truncation cannot be ruled out without further authoritative evidence; live
+operational verification remains pending. The next objective is unchanged: real
+2026/27 retention and chronological OOS minutes before xPts stacking. No scheduler,
+service, UI or optimiser is introduced.

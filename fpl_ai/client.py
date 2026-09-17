@@ -36,6 +36,14 @@ class FPLClient:
             raise FPLDownloadError("fixtures response was not a JSON array")
         return payload
 
+    def get_event_live(self, gameweek: int) -> dict[str, Any]:
+        if type(gameweek) is not int or not 1 <= gameweek <= 38:
+            raise ValueError("invalid gameweek")
+        payload = self._get_json(f"event/{gameweek}/live/")
+        if not isinstance(payload, dict):
+            raise FPLDownloadError("event live response was not a JSON object")
+        return payload
+
     def _get_json(self, path: str) -> Any:
         url = f"{self.base_url}/{path.lstrip('/')}"
         request = Request(

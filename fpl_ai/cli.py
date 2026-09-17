@@ -71,6 +71,35 @@ def build_parser() -> argparse.ArgumentParser:
     experiment.add_argument('--m3-dir', type=Path, required=True, help='exact frozen M3 artifact directory')
     experiment.add_argument('--frozen-dir', type=Path, help='published validation-freeze directory; required for holdout')
     experiment.add_argument('--artifact-dir', type=Path)
+    minutes = subparsers.add_parser('minutes', help='build playing-time features or fit the bounded minutes experiment')
+    ms = minutes.add_subparsers(dest='minutes_stage', required=True)
+    mf = ms.add_parser('features')
+    mf.add_argument('--data-dir', type=Path, default=Path('data'))
+    mf.add_argument('--artifact-dir', type=Path, default=Path('data/playing_time'))
+    mt = ms.add_parser('train')
+    mt.add_argument('--features-dir', type=Path, required=True)
+    mt.add_argument('--artifact-dir', type=Path, default=Path('data/minutes'))
+    prospective = subparsers.add_parser('prospective', help='capture, freeze, settle and score genuine future forecasts')
+    ps = prospective.add_subparsers(dest='prospective_stage', required=True)
+    pc = ps.add_parser('capture')
+    pc.add_argument('--season', required=True)
+    pc.add_argument('--gameweek', type=int, required=True)
+    pc.add_argument('--artifact-dir', type=Path, default=Path('data/prospective_snapshots'))
+    pf = ps.add_parser('freeze')
+    pf.add_argument('--snapshot-dir', type=Path, required=True)
+    pf.add_argument('--model-dir', type=Path, required=True)
+    pf.add_argument('--previous-dir', type=Path)
+    pf.add_argument('--history-pair', nargs=2, type=Path, action='append', default=[], metavar=('PREDICTION_DIR','SETTLEMENT_DIR'))
+    pf.add_argument('--artifact-dir', type=Path, default=Path('data/prospective_predictions'))
+    pl = ps.add_parser('settle')
+    pl.add_argument('--prediction-dir', type=Path, required=True)
+    pl.add_argument('--artifact-dir', type=Path, default=Path('data/prospective_settlements'))
+    pe = ps.add_parser('score')
+    pe.add_argument('--prediction-dir', type=Path, required=True)
+    pe.add_argument('--settlement-dir', type=Path, required=True)
+    pe.add_argument('--artifact-dir', type=Path, default=Path('data/prospective_scores'))
+    pv = ps.add_parser('verify', help='verify/reuse an existing forecast without rewriting or re-dating it')
+    pv.add_argument('--prediction-dir', type=Path, required=True)
     return parser
 
 
@@ -78,6 +107,32 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
+        if args.command in ('minutes', 'prospective'):
+            if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
+                parser.error('modelling commands do not accept current-ingestion options')
+            if args.command == 'minutes':
+                if args.minutes_stage == 'features':
+                    from fpl_ai.playing_time import build_playing_time
+                    path, reused = build_playing_time(args.data_dir, args.artifact_dir)
+                else:
+                    from fpl_ai.minutes import run_minutes
+                    path, reused = run_minutes(args.features_dir, args.artifact_dir)
+            else:
+                from fpl_ai.prospective import capture_snapshot, freeze_predictions, capture_settlement, score_predictions, verify_prediction
+                if args.prospective_stage == 'capture':
+                    path, reused = capture_snapshot(args.season, args.gameweek, args.artifact_dir)
+                elif args.prospective_stage == 'freeze':
+                    path, reused = freeze_predictions(args.snapshot_dir, args.model_dir, args.artifact_dir,
+                                                      previous_dir=args.previous_dir, history_pairs=args.history_pair)
+                elif args.prospective_stage == 'settle':
+                    path, reused = capture_settlement(args.prediction_dir, args.artifact_dir)
+                elif args.prospective_stage == 'score':
+                    path, reused = score_predictions(args.prediction_dir, args.settlement_dir, args.artifact_dir)
+                else:
+                    verify_prediction(args.prediction_dir)
+                    path, reused = args.prediction_dir, True
+            print(f"Artifacts {'verified/reused' if reused else 'completed'}: {path}")
+            return 0
         if args.command == 'experiment':
             from fpl_ai.experiments import run_validation, run_holdout
             if any(v is not None for v in (args.current_output_dir,args.current_base_url,args.current_timeout)):

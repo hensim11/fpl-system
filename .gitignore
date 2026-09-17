@@ -19,3 +19,10 @@ data/historical/
 data/modelling/
 data/experiments/
 data/experiment_holdouts/
+
+data/playing_time/
+data/minutes/
+data/prospective_snapshots/
+data/prospective_predictions/
+data/prospective_settlements/
+data/prospective_scores/

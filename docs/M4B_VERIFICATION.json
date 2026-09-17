@@ -1,0 +1,959 @@
+{
+  "checks": {
+    "2025_26_not_loaded": true,
+    "accepted_M2_M3_M4_preserved": true,
+    "all_scheduled_fixtures_have_football_facts": true,
+    "blank_GWs_require_independent_processed_schedule": true,
+    "catalogue_preserved": true,
+    "fresh_features_byte_identical": true,
+    "fresh_model_predictions_metrics_byte_identical": true,
+    "no_temporary_artifacts": true,
+    "reuse_preserves_bytes_and_mtimes": true
+  },
+  "development": {
+    "actual_appearance": {
+      "availability_recent": {
+        "mae": 24.15030201332202,
+        "rmse": 35.24257640629704,
+        "rows": 11073,
+        "scored": 11073
+      },
+      "hist_15": {
+        "mae": 22.15469207093931,
+        "rmse": 30.754753851523542,
+        "rows": 11073,
+        "scored": 11073
+      },
+      "recent_minutes": {
+        "mae": 23.934388916723314,
+        "rmse": 35.02253592523677,
+        "rows": 11073,
+        "scored": 11073
+      },
+      "training_position_mean": {
+        "mae": 45.16652863046274,
+        "rmse": 51.18785175977187,
+        "rows": 11073,
+        "scored": 11073
+      }
+    },
+    "all": {
+      "availability_recent": {
+        "mae": 12.30236962202089,
+        "rmse": 25.34698106720808,
+        "rows": 29510,
+        "scored": 29510
+      },
+      "hist_15": {
+        "mae": 12.659551891876871,
+        "rmse": 23.292081576819555,
+        "rows": 29510,
+        "scored": 29510
+      },
+      "recent_minutes": {
+        "mae": 13.75868064169784,
+        "rmse": 27.010577839372225,
+        "rows": 29510,
+        "scored": 29510
+      },
+      "training_position_mean": {
+        "mae": 35.23158626289062,
+        "rmse": 39.024999306318286,
+        "rows": 29510,
+        "scored": 29510
+      }
+    },
+    "cold_history": {
+      "availability_recent": {
+        "mae": 30.683229824819758,
+        "rmse": 35.817208622881644,
+        "rows": 861,
+        "scored": 861
+      },
+      "hist_15": {
+        "mae": 28.514626191852653,
+        "rmse": 33.81015704768336,
+        "rows": 861,
+        "scored": 861
+      },
+      "recent_minutes": {
+        "mae": 34.48296446361196,
+        "rmse": 37.3436221691899,
+        "rows": 861,
+        "scored": 861
+      },
+      "training_position_mean": {
+        "mae": 34.48296446361196,
+        "rmse": 37.3436221691899,
+        "rows": 861,
+        "scored": 861
+      }
+    },
+    "missing_chance": {
+      "availability_recent": {
+        "mae": 13.200444299625389,
+        "rmse": 25.554055675963863,
+        "rows": 9995,
+        "scored": 9995
+      },
+      "hist_15": {
+        "mae": 14.369292940913025,
+        "rmse": 24.131959309110268,
+        "rows": 9995,
+        "scored": 9995
+      },
+      "recent_minutes": {
+        "mae": 13.200444299625389,
+        "rmse": 25.554055675963863,
+        "rows": 9995,
+        "scored": 9995
+      },
+      "training_position_mean": {
+        "mae": 35.56338437268081,
+        "rmse": 39.38956266803329,
+        "rows": 9995,
+        "scored": 9995
+      }
+    },
+    "position_1": {
+      "availability_recent": {
+        "mae": 7.424301711116947,
+        "rmse": 21.616709971953977,
+        "rows": 3388,
+        "scored": 3388
+      },
+      "hist_15": {
+        "mae": 8.332383654582015,
+        "rmse": 20.48458181227031,
+        "rows": 3388,
+        "scored": 3388
+      },
+      "recent_minutes": {
+        "mae": 7.8635472208268204,
+        "rmse": 22.30776620843381,
+        "rows": 3388,
+        "scored": 3388
+      },
+      "training_position_mean": {
+        "mae": 33.904391946164964,
+        "rmse": 38.9255552124803,
+        "rows": 3388,
+        "scored": 3388
+      }
+    },
+    "position_2": {
+      "availability_recent": {
+        "mae": 14.292637532994023,
+        "rmse": 28.583748859656648,
+        "rows": 9546,
+        "scored": 9546
+      },
+      "hist_15": {
+        "mae": 14.751786347231583,
+        "rmse": 26.05737970529156,
+        "rows": 9546,
+        "scored": 9546
+      },
+      "recent_minutes": {
+        "mae": 16.21923990327898,
+        "rmse": 30.6252094542575,
+        "rows": 9546,
+        "scored": 9546
+      },
+      "training_position_mean": {
+        "mae": 38.88577277933456,
+        "rmse": 41.949217912551624,
+        "rows": 9546,
+        "scored": 9546
+      }
+    },
+    "position_3": {
+      "availability_recent": {
+        "mae": 12.460871387496825,
+        "rmse": 24.410869367525667,
+        "rows": 12753,
+        "scored": 12753
+      },
+      "hist_15": {
+        "mae": 12.64593161754197,
+        "rmse": 22.475548515140005,
+        "rows": 12753,
+        "scored": 12753
+      },
+      "recent_minutes": {
+        "mae": 13.888689934217934,
+        "rmse": 26.034262029079056,
+        "rows": 12753,
+        "scored": 12753
+      },
+      "training_position_mean": {
+        "mae": 34.183882736150764,
+        "rmse": 37.852872467374034,
+        "rows": 12753,
+        "scored": 12753
+      }
+    },
+    "position_4": {
+      "availability_recent": {
+        "mae": 11.126963812153889,
+        "rmse": 22.742599595583897,
+        "rows": 3823,
+        "scored": 3823
+      },
+      "hist_15": {
+        "mae": 11.315496238131619,
+        "rmse": 20.865015379262555,
+        "rows": 3823,
+        "scored": 3823
+      },
+      "recent_minutes": {
+        "mae": 12.4053468230603,
+        "rmse": 24.241929887833027,
+        "rows": 3823,
+        "scored": 3823
+      },
+      "training_position_mean": {
+        "mae": 30.77828595831464,
+        "rmse": 35.2017518511756,
+        "rows": 3823,
+        "scored": 3823
+      }
+    },
+    "useful_history": {
+      "availability_recent": {
+        "mae": 20.36884068736691,
+        "rmse": 33.602790363007955,
+        "rows": 6731,
+        "scored": 6731
+      },
+      "hist_15": {
+        "mae": 20.71156961428791,
+        "rmse": 31.336579925401985,
+        "rows": 6731,
+        "scored": 6731
+      },
+      "recent_minutes": {
+        "mae": 23.313796860298122,
+        "rmse": 37.28171578310363,
+        "rows": 6731,
+        "scored": 6731
+      },
+      "training_position_mean": {
+        "mae": 51.51326820614997,
+        "rmse": 55.64592384545628,
+        "rows": 6731,
+        "scored": 6731
+      }
+    }
+  },
+  "features_manifest": {
+    "artifacts": {
+      "contract.json": "bc439bcfe19bb452a482dfb0caab10b137f50d1827547bf533cf6c4c65ccad3a",
+      "evidence.json": "ca918f4361272ddad1e37438b681915c1fb5c002742051aa1f1a7924c0e7c397",
+      "features.csv": "a5a70a2c37c84866d2151d7bf20c3dfab159e5bf7046374bcec56b960e52a1ab",
+      "labels.csv": "fa68fd1aa111ebd3c273f6d2dcbc3403efccdf09f912585e471328936523b020",
+      "row_audit.csv": "9af0a5e50b7b6b10d71c02ab7c9a8e3c9e07d6468dbc2a95085cbcd5f2471cce",
+      "sources.json": "191c08a8b1db996f0b48042e7ee982a24ba2f1371ac450542c8e8be9fd32117f"
+    },
+    "identity_sha256": "4f2ef778e5df032ffa22457811c6ba5845d0f8dbc51ff83cb6292cbfa8f6003c",
+    "metadata": {
+      "contract": {
+        "asof": "accepted capture, strictly before authoritative deadline",
+        "availability_changes": "current minus immediately preceding GW accepted capture for same season/element; null if either observation missing",
+        "cumulative": "copy accepted bootstrap minutes/starts only after GW1; GW1 stale prior-season values excluded",
+        "downstream": "not an xPts input; no in-sample predictions exported; temporal OOS integration deferred",
+        "features": [
+          "position",
+          "status",
+          "chance",
+          "previous_minutes",
+          "minutes_mean_3",
+          "minutes_count_3",
+          "appearance_rate_3",
+          "observed_season_minutes",
+          "observed_season_starts",
+          "status_changed",
+          "chance_change",
+          "status_missing",
+          "chance_missing",
+          "previous_minutes_missing",
+          "minutes_mean_3_missing",
+          "appearance_rate_3_missing",
+          "observed_season_minutes_missing",
+          "observed_season_starts_missing",
+          "status_changed_missing",
+          "chance_change_missing"
+        ],
+        "fixture_context": "unavailable historically; final fixtures never enter features",
+        "freshness": "2021-22 GW18 remains 12:33 state / 16:00 deadline / 207 minutes",
+        "history": "only earlier GWs with independently evidenced minutes settled at or before capture; last three calendar GWs; missing stays null with counts",
+        "minutes_evidence": "GW1 settled cumulative after season reset; later GWs settled cumulative minus accepted pre-GW cumulative; exact canonical sum agreement required",
+        "population": "accepted snapshot football positions 1..4; season-local element; no final identity",
+        "schedule_evidence": "processed fixtures.csv defines fixture-bearing GWs for labels only; each scheduled fixture requires football-player facts with matching fixture/GW; blanks require schedule absence, never fact absence",
+        "splits": {
+          "development": [
+            "2023-24"
+          ],
+          "train": [
+            "2021-22",
+            "2022-23"
+          ]
+        },
+        "target": "total realised minutes across all target-GW fixtures; registered nonplayers zero with evidence; globally fixture-empty GW null",
+        "version": "playing-time-v2"
+      },
+      "kind": "playing-time-features"
+    }
+  },
+  "frozen": {
+    "environment": {
+      "libraries": {
+        "joblib": "1.5.2",
+        "numpy": "2.3.3",
+        "scikit-learn": "1.7.2",
+        "scipy": "1.16.2",
+        "threadpoolctl": "3.6.0"
+      },
+      "machine": "arm64",
+      "python": "3.14.0",
+      "system": "Darwin"
+    },
+    "features_identity": "4f2ef778e5df032ffa22457811c6ba5845d0f8dbc51ff83cb6292cbfa8f6003c",
+    "features_manifest_sha256": "41acab32b5411effd6f5de2601816d2efffc6701942c1ac969354fd57ce28411",
+    "first_development_capture": "2023-08-11T12:31:00Z",
+    "latest_training_settlement": "2023-05-29T06:23:00Z",
+    "overall_mean": 29.53032095260626,
+    "position_means": {
+      "1": 24.620950323974082,
+      "2": 32.3017459223524,
+      "3": 29.630565808531514,
+      "4": 25.890288052888398
+    },
+    "protocol": {
+      "baselines": "training position mean (overall fallback); recent three calendar-GW observed minutes (position fallback); recent baseline times chance/100 only when explicitly observed, otherwise unadjusted",
+      "candidate": {
+        "categorical_features": null,
+        "early_stopping": false,
+        "l2_regularization": 10.0,
+        "learning_rate": 0.05,
+        "loss": "squared_error",
+        "max_iter": 150,
+        "max_leaf_nodes": 15,
+        "min_samples_leaf": 50,
+        "random_state": 1729
+      },
+      "contract": {
+        "asof": "accepted capture, strictly before authoritative deadline",
+        "availability_changes": "current minus immediately preceding GW accepted capture for same season/element; null if either observation missing",
+        "cumulative": "copy accepted bootstrap minutes/starts only after GW1; GW1 stale prior-season values excluded",
+        "downstream": "not an xPts input; no in-sample predictions exported; temporal OOS integration deferred",
+        "features": [
+          "position",
+          "status",
+          "chance",
+          "previous_minutes",
+          "minutes_mean_3",
+          "minutes_count_3",
+          "appearance_rate_3",
+          "observed_season_minutes",
+          "observed_season_starts",
+          "status_changed",
+          "chance_change",
+          "status_missing",
+          "chance_missing",
+          "previous_minutes_missing",
+          "minutes_mean_3_missing",
+          "appearance_rate_3_missing",
+          "observed_season_minutes_missing",
+          "observed_season_starts_missing",
+          "status_changed_missing",
+          "chance_change_missing"
+        ],
+        "fixture_context": "unavailable historically; final fixtures never enter features",
+        "freshness": "2021-22 GW18 remains 12:33 state / 16:00 deadline / 207 minutes",
+        "history": "only earlier GWs with independently evidenced minutes settled at or before capture; last three calendar GWs; missing stays null with counts",
+        "minutes_evidence": "GW1 settled cumulative after season reset; later GWs settled cumulative minus accepted pre-GW cumulative; exact canonical sum agreement required",
+        "population": "accepted snapshot football positions 1..4; season-local element; no final identity",
+        "schedule_evidence": "processed fixtures.csv defines fixture-bearing GWs for labels only; each scheduled fixture requires football-player facts with matching fixture/GW; blanks require schedule absence, never fact absence",
+        "splits": {
+          "development": [
+            "2023-24"
+          ],
+          "train": [
+            "2021-22",
+            "2022-23"
+          ]
+        },
+        "target": "total realised minutes across all target-GW fixtures; registered nonplayers zero with evidence; globally fixture-empty GW null",
+        "version": "playing-time-v2"
+      },
+      "development": [
+        "2023-24"
+      ],
+      "downstream_training_allowed": false,
+      "forbidden_selection_seasons": [
+        "2024-25",
+        "2025-26"
+      ],
+      "prediction_transform": "lower bound zero; no 90-minute cap; no hindsight opportunity scaling",
+      "preprocessing": "train-only median numeric imputation, all-null computational zero, explicit original missing flags; train-only one-hot position/status, unknown ignored",
+      "primary_metric": "development RMSE; name breaks ties",
+      "segments": "all; actual appearance (target > 0, diagnostic only); useful-history (pre-capture minutes_mean_3 >= 60); cold history; missing chance",
+      "stacking_handoff": "future xPts rows require expanding chronological out-of-sample fits and selection fixed before each row; these development predictions are not stacking features",
+      "target": "total realised minutes across all target-GW fixtures; registered nonplayers zero with evidence; globally fixture-empty GW null",
+      "train": [
+        "2021-22",
+        "2022-23"
+      ],
+      "version": "expected-minutes-v1"
+    },
+    "selected": "hist_15",
+    "training_keys_sha256": "51ca8ec82ad63c85deb0e215e3635955aaf46d2d26944ae35c5acef6a1b787fe",
+    "training_rows": 50724
+  },
+  "independent_checks": {
+    "by_season": {
+      "2021-22": 25150,
+      "2022-23": 26198,
+      "2023-24": 29510
+    },
+    "counts": {
+      "double_rows": 4705,
+      "explicit_empty_player_zero": 3784,
+      "fixture_empty_rows": 624,
+      "gw18_exception_rows": 656,
+      "independently_checked_feature_rows": 80858,
+      "independently_checked_schedule_fixtures": 1140,
+      "independently_checked_targets": 80234
+    },
+    "missingness": {
+      "appearance_rate_3": 2373,
+      "appearance_rate_3_missing": 0,
+      "chance": 29139,
+      "chance_change": 30960,
+      "chance_change_missing": 0,
+      "chance_missing": 0,
+      "minutes_count_3": 0,
+      "minutes_mean_3": 2373,
+      "minutes_mean_3_missing": 0,
+      "observed_season_minutes": 1728,
+      "observed_season_minutes_missing": 0,
+      "observed_season_starts": 35092,
+      "observed_season_starts_missing": 0,
+      "position": 0,
+      "previous_minutes": 2996,
+      "previous_minutes_missing": 0,
+      "status": 0,
+      "status_changed": 2372,
+      "status_changed_missing": 0,
+      "status_missing": 0
+    },
+    "schedule_evidence": {
+      "2021-22": {
+        "blank_gameweeks": [],
+        "fact_covered_fixtures": 380,
+        "fixture_bearing_gameweeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38
+        ],
+        "fixtures_sha256": "019a435c07f25f15acdc57ce404397f10b44e0e3467454a92acb9bfc98e5bde6",
+        "scheduled_fixtures": 380,
+        "use": "independent post-event label validation only; not a predictor"
+      },
+      "2022-23": {
+        "blank_gameweeks": [
+          7
+        ],
+        "fact_covered_fixtures": 380,
+        "fixture_bearing_gameweeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38
+        ],
+        "fixtures_sha256": "c81bb9f945653a6386b95543f48e2c065ee6efbb9d203fd6c7f1ac496a0fb271",
+        "scheduled_fixtures": 380,
+        "use": "independent post-event label validation only; not a predictor"
+      },
+      "2023-24": {
+        "blank_gameweeks": [],
+        "fact_covered_fixtures": 380,
+        "fixture_bearing_gameweeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38
+        ],
+        "fixtures_sha256": "107a1d3b92639f7eb5f55f3fb5e747cbdbcc1c25417cbc9c46000bedf51f0def",
+        "scheduled_fixtures": 380,
+        "use": "independent post-event label validation only; not a predictor"
+      }
+    },
+    "traces": [
+      {
+        "audit": {
+          "capture_time_utc": "2021-08-13T12:32:00Z",
+          "deadline_time_utc": "2021-08-13T17:30:00Z",
+          "element": "1",
+          "label_status": "observed_fixture_sum",
+          "observed_player_code": "80201",
+          "payload_deadline_utc": "2021-08-13T17:30:00Z",
+          "season": "2021-22",
+          "snapshot_age_minutes": "298.0",
+          "snapshot_sha256": "137f929662b384e1e3f6baef1684e578bf2d9578e8b652a0fb35d4a1a48e57bd",
+          "snapshot_source_path": "cache/2021/8/13/1232.json.xz",
+          "superseded_deadline_exception": "False",
+          "target_gameweek": "1"
+        },
+        "case": "gw1",
+        "element": 1,
+        "features": {
+          "appearance_rate_3": null,
+          "appearance_rate_3_missing": 1.0,
+          "chance": null,
+          "chance_change": null,
+          "chance_change_missing": 1.0,
+          "chance_missing": 1.0,
+          "minutes_count_3": 0.0,
+          "minutes_mean_3": null,
+          "minutes_mean_3_missing": 1.0,
+          "observed_season_minutes": null,
+          "observed_season_minutes_missing": 1.0,
+          "observed_season_starts": null,
+          "observed_season_starts_missing": 1.0,
+          "position": 1.0,
+          "previous_minutes": null,
+          "previous_minutes_missing": 1.0,
+          "status": "a",
+          "status_changed": null,
+          "status_changed_missing": 1.0,
+          "status_missing": 0.0
+        },
+        "gameweek": 1,
+        "season": "2021-22",
+        "target_minutes": 90
+      },
+      {
+        "audit": {
+          "capture_time_utc": "2022-01-01T06:26:00Z",
+          "deadline_time_utc": "2022-01-01T11:00:00Z",
+          "element": "76",
+          "label_status": "observed_fixture_sum",
+          "observed_player_code": "61810",
+          "payload_deadline_utc": "2022-01-01T11:00:00Z",
+          "season": "2021-22",
+          "snapshot_age_minutes": "274.0",
+          "snapshot_sha256": "0e4c01668b930b457b00e0c054c70b765c4e69804f2fb0ea1410c3d830ba0743",
+          "snapshot_source_path": "cache/2022/1/1/0626.json.xz",
+          "superseded_deadline_exception": "False",
+          "target_gameweek": "21"
+        },
+        "case": "double",
+        "element": 76,
+        "features": {
+          "appearance_rate_3": 0.6666666666666666,
+          "appearance_rate_3_missing": 0.0,
+          "chance": null,
+          "chance_change": null,
+          "chance_change_missing": 1.0,
+          "chance_missing": 1.0,
+          "minutes_count_3": 3.0,
+          "minutes_mean_3": 60.0,
+          "minutes_mean_3_missing": 0.0,
+          "observed_season_minutes": 1611.0,
+          "observed_season_minutes_missing": 0.0,
+          "observed_season_starts": null,
+          "observed_season_starts_missing": 1.0,
+          "position": 2.0,
+          "previous_minutes": 90.0,
+          "previous_minutes_missing": 0.0,
+          "status": "a",
+          "status_changed": 0.0,
+          "status_changed_missing": 0.0,
+          "status_missing": 0.0
+        },
+        "gameweek": 21,
+        "season": "2021-22",
+        "target_minutes": 180
+      },
+      {
+        "audit": {
+          "capture_time_utc": "2022-08-05T12:49:00Z",
+          "deadline_time_utc": "2022-08-05T17:30:00Z",
+          "element": "1",
+          "label_status": "observed_fixture_sum",
+          "observed_player_code": "58822",
+          "payload_deadline_utc": "2022-08-05T17:30:00Z",
+          "season": "2022-23",
+          "snapshot_age_minutes": "281.0",
+          "snapshot_sha256": "725f2c09a4aa8f928b83021924562843d515550eaa344121466af347739638b3",
+          "snapshot_source_path": "cache/2022/8/5/1249.json.xz",
+          "superseded_deadline_exception": "False",
+          "target_gameweek": "1"
+        },
+        "case": "gw1",
+        "element": 1,
+        "features": {
+          "appearance_rate_3": null,
+          "appearance_rate_3_missing": 1.0,
+          "chance": null,
+          "chance_change": null,
+          "chance_change_missing": 1.0,
+          "chance_missing": 1.0,
+          "minutes_count_3": 0.0,
+          "minutes_mean_3": null,
+          "minutes_mean_3_missing": 1.0,
+          "observed_season_minutes": null,
+          "observed_season_minutes_missing": 1.0,
+          "observed_season_starts": null,
+          "observed_season_starts_missing": 1.0,
+          "position": 2.0,
+          "previous_minutes": null,
+          "previous_minutes_missing": 1.0,
+          "status": "a",
+          "status_changed": null,
+          "status_changed_missing": 1.0,
+          "status_missing": 0.0
+        },
+        "gameweek": 1,
+        "season": "2022-23",
+        "target_minutes": 0
+      },
+      {
+        "audit": {
+          "capture_time_utc": "2023-01-02T12:37:00Z",
+          "deadline_time_utc": "2023-01-02T16:00:00Z",
+          "element": "2",
+          "label_status": "observed_fixture_sum",
+          "observed_player_code": "80201",
+          "payload_deadline_utc": "2023-01-02T16:00:00Z",
+          "season": "2022-23",
+          "snapshot_age_minutes": "203.0",
+          "snapshot_sha256": "98dbda343fdae191875d66dd95938e150e878749b10ce70bed9e78c758ee42b3",
+          "snapshot_source_path": "cache/2023/1/2/1237.json.xz",
+          "superseded_deadline_exception": "False",
+          "target_gameweek": "19"
+        },
+        "case": "double",
+        "element": 2,
+        "features": {
+          "appearance_rate_3": 1.0,
+          "appearance_rate_3_missing": 0.0,
+          "chance": null,
+          "chance_change": null,
+          "chance_change_missing": 1.0,
+          "chance_missing": 1.0,
+          "minutes_count_3": 3.0,
+          "minutes_mean_3": 90.0,
+          "minutes_mean_3_missing": 0.0,
+          "observed_season_minutes": 1350.0,
+          "observed_season_minutes_missing": 0.0,
+          "observed_season_starts": 15.0,
+          "observed_season_starts_missing": 0.0,
+          "position": 1.0,
+          "previous_minutes": 90.0,
+          "previous_minutes_missing": 0.0,
+          "status": "a",
+          "status_changed": 0.0,
+          "status_changed_missing": 0.0,
+          "status_missing": 0.0
+        },
+        "gameweek": 19,
+        "season": "2022-23",
+        "target_minutes": 180
+      },
+      {
+        "audit": {
+          "capture_time_utc": "2023-08-11T12:31:00Z",
+          "deadline_time_utc": "2023-08-11T17:30:00Z",
+          "element": "1",
+          "label_status": "observed_fixture_sum",
+          "observed_player_code": "232223",
+          "payload_deadline_utc": "2023-08-11T17:30:00Z",
+          "season": "2023-24",
+          "snapshot_age_minutes": "299.0",
+          "snapshot_sha256": "3e010b2d0339bde641988eb477c5df7f02d3a2cacdf9a984fdd52a797729c7d3",
+          "snapshot_source_path": "cache/2023/8/11/1231.json.xz",
+          "superseded_deadline_exception": "False",
+          "target_gameweek": "1"
+        },
+        "case": "gw1",
+        "element": 1,
+        "features": {
+          "appearance_rate_3": null,
+          "appearance_rate_3_missing": 1.0,
+          "chance": 75.0,
+          "chance_change": null,
+          "chance_change_missing": 1.0,
+          "chance_missing": 0.0,
+          "minutes_count_3": 0.0,
+          "minutes_mean_3": null,
+          "minutes_mean_3_missing": 1.0,
+          "observed_season_minutes": null,
+          "observed_season_minutes_missing": 1.0,
+          "observed_season_starts": null,
+          "observed_season_starts_missing": 1.0,
+          "position": 4.0,
+          "previous_minutes": null,
+          "previous_minutes_missing": 1.0,
+          "status": "d",
+          "status_changed": null,
+          "status_changed_missing": 1.0,
+          "status_missing": 0.0
+        },
+        "gameweek": 1,
+        "season": "2023-24",
+        "target_minutes": 0
+      },
+      {
+        "audit": {
+          "capture_time_utc": "2023-09-30T06:21:00Z",
+          "deadline_time_utc": "2023-09-30T10:00:00Z",
+          "element": "21",
+          "label_status": "observed_fixture_sum",
+          "observed_player_code": "437742",
+          "payload_deadline_utc": "2023-09-30T10:00:00Z",
+          "season": "2023-24",
+          "snapshot_age_minutes": "219.0",
+          "snapshot_sha256": "38eb4d437476bb70c2c6d689246e13e7c0e17ee4e5fbf4be5d37e5c4b9f16896",
+          "snapshot_source_path": "cache/2023/9/30/0621.json.xz",
+          "superseded_deadline_exception": "False",
+          "target_gameweek": "7"
+        },
+        "case": "double",
+        "element": 21,
+        "features": {
+          "appearance_rate_3": 0.6666666666666666,
+          "appearance_rate_3_missing": 0.0,
+          "chance": 0.0,
+          "chance_change": null,
+          "chance_change_missing": 1.0,
+          "chance_missing": 0.0,
+          "minutes_count_3": 3.0,
+          "minutes_mean_3": 43.333333333333336,
+          "minutes_mean_3_missing": 0.0,
+          "observed_season_minutes": 130.0,
+          "observed_season_minutes_missing": 0.0,
+          "observed_season_starts": 2.0,
+          "observed_season_starts_missing": 0.0,
+          "position": 3.0,
+          "previous_minutes": 56.0,
+          "previous_minutes_missing": 0.0,
+          "status": "i",
+          "status_changed": 1.0,
+          "status_changed_missing": 0.0,
+          "status_missing": 0.0
+        },
+        "gameweek": 7,
+        "season": "2023-24",
+        "target_minutes": 0
+      }
+    ]
+  },
+  "minutes_manifest": {
+    "artifacts": {
+      "development.json": "a915f6cf5044f206fc557e478794b246f3060baf8fbd309ef704968458bab499",
+      "frozen.json": "342e8e9d797db0f6902d271a541d57c65bc8a0df440c0d2acfa6a5aaa8bdc817",
+      "model.pickle": "b06796cc1b742be8df0e832f62af5c1b7f6913bf00b65aac9ce9df312ef75f0c",
+      "predictions.csv": "3287609ed8c7fc436fe7073d86de4696f3f6f0bc4d32bfd96c520f91a12b1842"
+    },
+    "identity_sha256": "e8b168652ce16cf238f84186977b329c55a3d754605066b7e50422b7a0bb3ddc",
+    "metadata": {
+      "environment": {
+        "libraries": {
+          "joblib": "1.5.2",
+          "numpy": "2.3.3",
+          "scikit-learn": "1.7.2",
+          "scipy": "1.16.2",
+          "threadpoolctl": "3.6.0"
+        },
+        "machine": "arm64",
+        "python": "3.14.0",
+        "system": "Darwin"
+      },
+      "features_identity": "4f2ef778e5df032ffa22457811c6ba5845d0f8dbc51ff83cb6292cbfa8f6003c",
+      "kind": "minutes-freeze",
+      "protocol": {
+        "baselines": "training position mean (overall fallback); recent three calendar-GW observed minutes (position fallback); recent baseline times chance/100 only when explicitly observed, otherwise unadjusted",
+        "candidate": {
+          "categorical_features": null,
+          "early_stopping": false,
+          "l2_regularization": 10.0,
+          "learning_rate": 0.05,
+          "loss": "squared_error",
+          "max_iter": 150,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 50,
+          "random_state": 1729
+        },
+        "contract": {
+          "asof": "accepted capture, strictly before authoritative deadline",
+          "availability_changes": "current minus immediately preceding GW accepted capture for same season/element; null if either observation missing",
+          "cumulative": "copy accepted bootstrap minutes/starts only after GW1; GW1 stale prior-season values excluded",
+          "downstream": "not an xPts input; no in-sample predictions exported; temporal OOS integration deferred",
+          "features": [
+            "position",
+            "status",
+            "chance",
+            "previous_minutes",
+            "minutes_mean_3",
+            "minutes_count_3",
+            "appearance_rate_3",
+            "observed_season_minutes",
+            "observed_season_starts",
+            "status_changed",
+            "chance_change",
+            "status_missing",
+            "chance_missing",
+            "previous_minutes_missing",
+            "minutes_mean_3_missing",
+            "appearance_rate_3_missing",
+            "observed_season_minutes_missing",
+            "observed_season_starts_missing",
+            "status_changed_missing",
+            "chance_change_missing"
+          ],
+          "fixture_context": "unavailable historically; final fixtures never enter features",
+          "freshness": "2021-22 GW18 remains 12:33 state / 16:00 deadline / 207 minutes",
+          "history": "only earlier GWs with independently evidenced minutes settled at or before capture; last three calendar GWs; missing stays null with counts",
+          "minutes_evidence": "GW1 settled cumulative after season reset; later GWs settled cumulative minus accepted pre-GW cumulative; exact canonical sum agreement required",
+          "population": "accepted snapshot football positions 1..4; season-local element; no final identity",
+          "schedule_evidence": "processed fixtures.csv defines fixture-bearing GWs for labels only; each scheduled fixture requires football-player facts with matching fixture/GW; blanks require schedule absence, never fact absence",
+          "splits": {
+            "development": [
+              "2023-24"
+            ],
+            "train": [
+              "2021-22",
+              "2022-23"
+            ]
+          },
+          "target": "total realised minutes across all target-GW fixtures; registered nonplayers zero with evidence; globally fixture-empty GW null",
+          "version": "playing-time-v2"
+        },
+        "development": [
+          "2023-24"
+        ],
+        "downstream_training_allowed": false,
+        "forbidden_selection_seasons": [
+          "2024-25",
+          "2025-26"
+        ],
+        "prediction_transform": "lower bound zero; no 90-minute cap; no hindsight opportunity scaling",
+        "preprocessing": "train-only median numeric imputation, all-null computational zero, explicit original missing flags; train-only one-hot position/status, unknown ignored",
+        "primary_metric": "development RMSE; name breaks ties",
+        "segments": "all; actual appearance (target > 0, diagnostic only); useful-history (pre-capture minutes_mean_3 >= 60); cold history; missing chance",
+        "stacking_handoff": "future xPts rows require expanding chronological out-of-sample fits and selection fixed before each row; these development predictions are not stacking features",
+        "target": "total realised minutes across all target-GW fixtures; registered nonplayers zero with evidence; globally fixture-empty GW null",
+        "train": [
+          "2021-22",
+          "2022-23"
+        ],
+        "version": "expected-minutes-v1"
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # FPL AI Platform
 
-Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for the complete 2021/22–2025/26 range. Milestones 2 and 3 are complete: deadline-safe features and chronological non-ML baseline evaluation now build offline from those historical inputs. Milestone 4 now adds reproducible trained regressors and a frozen-model holdout workflow. The selected model improves the frozen next-GW prediction benchmark; optimisation and recommendations remain future work.
+Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for the complete 2021/22–2025/26 range. Milestones 2 and 3 are complete: deadline-safe features and chronological non-ML baseline evaluation now build offline from those historical inputs. Milestone 4 now adds reproducible trained regressors and a frozen-model holdout workflow. The selected model improves the frozen next-GW prediction benchmark. M4B now adds independently evidenced playing-time features, a bounded expected-minutes model, and a CLI for immutable prospective forecasts and separate settled scoring. Optimisation and recommendations remain future work.
 
 ## Quick start
 
@@ -411,3 +411,49 @@ See [the complete experiment record and reproduction commands](docs/M4_VERIFICAT
 [machine-readable results](docs/M4_VERIFICATION.json),
 [source sanity traces](docs/M4_SANITY_TRACES.json),
 [upstream preservation evidence](docs/M4_REGRESSION.json), and Decisions 036–037.
+
+
+## M4B: expected minutes and prospective evaluation
+
+The new `playing-time-v2` contract is separate from frozen M3/M4. It admits
+independently reconciled earlier-GW minutes, observed cumulative minutes/starts,
+and availability changes with explicit missingness. Stale GW1 cumulative values
+are excluded. Historical fixture context remains unavailable; the GW18 207-minute
+freshness exception is preserved.
+
+Train **2021/22–2022/23**, develop **2023/24**. A single fixed histogram model has
+development minutes MAE **12.6596**, RMSE **23.2921**; the availability-aware recent
+baseline has MAE **12.3024**, RMSE **25.3470**. Thus RMSE improves while MAE does not.
+Neither 2024/25 nor consumed 2025/26 selects or evaluates the new model. A separate
+2024/25 source audit finds a minutes discrepancy; no correction is fabricated.
+
+```bash
+.venv/bin/python -m fpl_ai minutes features
+.venv/bin/python -m fpl_ai minutes train --features-dir data/playing_time/4f2ef778e5df032ffa22457811c6ba5845d0f8dbc51ff83cb6292cbfa8f6003c
+.venv/bin/python -m fpl_ai prospective --help
+```
+
+`prospective capture` freezes official bootstrap/fixtures before a future deadline;
+`freeze` generates expected minutes with exact source/model provenance; `settle`
+captures settled live per-GW evidence; `score` publishes separate metrics and leaves
+the forecast unchanged. `verify` checks an existing forecast without re-dating it.
+These paths are tested offline; no actual live 2026/27 forecast has been claimed.
+Expected points is explicitly null until a current-season xPts adapter exists.
+No in-sample minutes predictions are exported for downstream xPts training.
+
+Modules: `playing_time.py` (evidence/features), `minutes.py` (bounded experiment),
+`prospective.py` (capture/freeze/settle/score), with shared immutable experiment IO.
+Generated bundles use separate ignored `data/playing_time/`, `data/minutes/` and
+`data/prospective_*/` roots. No new dependency or scheduler.
+
+See [M4B verification](docs/M4B_VERIFICATION.md) for exact contracts, metrics,
+operational commands, limitations and all 176 tests; [machine source evidence](docs/M4B_SOURCE_AUDIT.json)
+and [regression preservation](docs/M4B_REGRESSION.json) accompany it.
+
+Blank-GW evidence is now explicit: prospective capture/settlement/scoring rejects
+empty, missing or structurally unusable season schedules. A nonempty schedule with
+valid team/event assignments can establish a target-specific blank. Historical
+minutes labels use processed `fixtures.csv` to determine fixture-bearing GWs and
+require player facts for every scheduled fixture. This is label validation only;
+no final fixture field becomes a historical predictor. See Decision 041 and the
+M4B verification record for new identities and unchanged model results.
