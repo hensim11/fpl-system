@@ -10,7 +10,7 @@ from fpl_ai.errors import FPLValidationError
 
 
 TRANSFORMATION_CONTRACT_VERSION = "historical-transform-v6"
-SUPPORTED_SOURCE_ADAPTERS = {"declarative-normalization-v1"}
+SUPPORTED_SOURCE_ADAPTERS = {"declarative-normalization-v1", "declarative-normalization-v2"}
 
 
 @dataclass(frozen=True)
@@ -618,6 +618,66 @@ def _vaastav_2022_23_schema() -> dict[str, object]:
 VAASTAV_SOURCE_SCHEMAS["vaastav-2022-23-v1"] = _vaastav_2022_23_schema()
 
 
+# Observed omissions at the same immutable Vaastav revision as newer seasons.
+_VAASTAV_2021_22_ABSENT_COLUMNS = {
+    "merged_gw.csv": {
+        "expected_assists", "expected_goal_involvements", "expected_goals",
+        "expected_goals_conceded", "starts",
+    },
+    "players_raw.csv": {
+        "clean_sheets_per_90", "expected_assists", "expected_assists_per_90",
+        "expected_goal_involvements", "expected_goal_involvements_per_90",
+        "expected_goals", "expected_goals_conceded", "expected_goals_conceded_per_90",
+        "expected_goals_per_90", "form_rank", "form_rank_type", "goals_conceded_per_90",
+        "now_cost_rank", "now_cost_rank_type", "points_per_game_rank",
+        "points_per_game_rank_type", "saves_per_90", "selected_rank",
+        "selected_rank_type", "starts", "starts_per_90",
+    },
+    "teams.csv": set(),
+    "fixtures.csv": set(),
+}
+
+
+def _vaastav_2021_22_schema() -> dict[str, object]:
+    """Keep unavailable older metrics null in the shared canonical contract."""
+
+    schema = deepcopy(VAASTAV_SOURCE_SCHEMAS["vaastav-2023-24-v1"])
+    schema.update(
+        schema_id="vaastav-2021-22-v1",
+        adapter_id="declarative-normalization-v2",
+        applicable_seasons=["2021-22"],
+        expected_metric_fields_available=[],
+        known_source_exceptions=[
+            "Starts and expected metrics are absent; canonical outcomes remain null.",
+            "GW37 uses GKP for 101 goalkeeper rows; the position alias normalizes it to GK.",
+            "No Assistant Manager or modified columns occur in 2021/22.",
+            "xP timing is not trusted and is forbidden from every processed table.",
+        ],
+    )
+    for filename, absent in _VAASTAV_2021_22_ABSENT_COLUMNS.items():
+        file_schema = schema["files"][filename]
+        for key in (
+            "known_column_order", "required_columns", "optional_columns",
+            "ignored_columns", "quarantined_columns", "forbidden_columns",
+        ):
+            file_schema[key] = [field for field in file_schema[key] if field not in absent]
+        for key in (
+            "source_to_canonical_mappings", "quarantined_source_to_canonical_mappings",
+            "type_expectations",
+        ):
+            file_schema[key] = {
+                field: value for field, value in file_schema[key].items()
+                if field not in absent
+            }
+    schema["files"]["merged_gw.csv"]["type_expectations"]["position"]["value_aliases"] = {
+        "GKP": "GK",
+    }
+    return schema
+
+
+VAASTAV_SOURCE_SCHEMAS["vaastav-2021-22-v1"] = _vaastav_2021_22_schema()
+
+
 def validate_vaastav_source_schema(
     schema: object, season: str | None = None
 ) -> dict[str, object]:
@@ -746,6 +806,8 @@ def validate_vaastav_source_schema(
             if field not in declared:
                 fail(f"{filename} type expectation names unsupported field {field!r}")
             _validate_type_expectation(filename, field, expectation, fail)
+            if "value_aliases" in expectation and adapter_id != "declarative-normalization-v2":
+                fail(f"{filename} field {field!r} value_aliases requires adapter v2")
 
         trusted_sources = set(declared_by_category["required_columns"]) | set(
             declared_by_category["optional_columns"]
@@ -829,7 +891,7 @@ def _validate_type_expectation(
 ) -> None:
     if not isinstance(expectation, dict):
         fail(f"{filename} field {field!r} type expectation must be an object")
-    allowed_keys = {"type", "nullable", "allowed_values"}
+    allowed_keys = {"type", "nullable", "allowed_values", "value_aliases"}
     unexpected = sorted(set(expectation) - allowed_keys)
     if unexpected:
         fail(
@@ -852,6 +914,18 @@ def _validate_type_expectation(
             or len(allowed_values) != len(set(allowed_values))
         ):
             fail(f"{filename} field {field!r} allowed_values must be unique strings")
+
+    if "value_aliases" in expectation:
+        aliases = expectation["value_aliases"]
+        if data_type != "string" or allowed_values is None:
+            fail(f"{filename} field {field!r} value_aliases requires a string enumeration")
+        if (
+            not isinstance(aliases, dict) or not aliases
+            or any(not isinstance(k, str) or not k or k.strip() in ("None", "null", "")
+                   or not isinstance(v, str) or v not in allowed_values
+                   or k in allowed_values for k, v in aliases.items())
+        ):
+            fail(f"{filename} field {field!r} value_aliases must map new labels to allowed values")
 
 
 def _validate_canonical_mapping_target(

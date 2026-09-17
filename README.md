@@ -1,6 +1,6 @@
 # FPL AI Platform
 
-Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for 2022/23, 2023/24 and 2024/25. The project does **not** contain feature engineering, prediction models, optimisation, or recommendations.
+Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for 2021/22, 2022/23, 2023/24 and 2024/25. The project does **not** contain feature engineering, prediction models, optimisation, or recommendations.
 
 ## Quick start
 
@@ -14,6 +14,7 @@ source .venv/bin/activate
 python -m fpl_ai --output-dir data
 
 # Pinned Milestone 2 historical seasons
+python -m fpl_ai historical --season 2021-22 --output-dir data
 python -m fpl_ai historical --season 2022-23 --output-dir data
 python -m fpl_ai historical --season 2023-24 --output-dir data
 python -m fpl_ai historical --season 2024-25 --output-dir data
@@ -82,9 +83,9 @@ Milestone 1 makes two unauthenticated requests to the public endpoints used by t
 
 These are public but not guaranteed as a versioned developer API.
 
-### Historical 2022/23, 2023/24 and 2024/25
+### Historical 2021/22–2024/25
 
-All three seasons use the same two immutable repository revisions, inspected for their respective season files:
+All four seasons use the same two immutable repository revisions, inspected for their respective season files:
 
 | Provider | Pinned revision | Use |
 | --- | --- | --- |
@@ -94,6 +95,45 @@ All three seasons use the same two immutable repository revisions, inspected for
 `fpl_ai/historical_sources.json` records repositories, configured refs, resolved immutable commit SHAs, required paths, expected gameweeks, season audit counts, the selected Vaastav source-schema ID/version, and the season's reconciliation policy. No moving `master` or `main` ref is accepted. Every downloaded file is retained byte-for-byte under `data/historical/raw/` and recorded with requested season, provider, repository, configured ref, resolved commit, source path and URL, retrieval time, SHA-256, and byte size.
 
 Provenance has two deliberately separate hashes. `source_identity_sha256` identifies only pinned immutable artifacts that materially participated in the build, including their paths, content hashes, sizes, and deterministic consumption roles. Rejected snapshot candidates and unrelated cached files may remain in the mutable raw-cache manifest for operational audit, but they are excluded from the frozen consumed inventory and source identity. `build_identity_sha256` identifies the transformation contract, canonical schema contract, season expectations, snapshot-selection settings, selected source schema, and reconciliation policy. Timestamps, local output paths, cache contents, and discovery order are excluded from deterministic identities. This permits two semantic builds from the same sources without overwriting one another.
+
+### Verified 2021/22 batch
+
+The normal historical command publishes 38 Gameweeks, 737 players, 20 teams,
+380 fixtures, 25,447 fixture facts and 25,150 deadline observations. All **43/43**
+quality checks pass, with **38/38** snapshot coverage and **23,230/23,230** exact
+settled-event points comparisons (coverage 1.0, zero unmatched or mismatching).
+Unavailable starts and expected metrics remain null. The scoped `GKP -> GK` and
+78-row delayed-kickoff normalization policies remain unchanged.
+
+GW18 uses one explicitly authorized **superseded-deadline exception**:
+`cache/2021/12/18/1233.json.xz`, SHA-256
+`9c8fbad59eecb978494d98425e0dadcfa16fbb3a3954f99b4263c65277e2eed1`.
+The payload still says **13:30**, while the authoritative deadline remains **16:00**.
+Player state is observed **as of 12:33 UTC**, before both deadlines, with a
+**3-hour-27-minute freshness gap**. This does not establish state immediately before
+16:00. The 18:25 capture remains forbidden. Every other snapshot uses the normal
+exact-deadline rule. Policy identity, hash, both deadlines, capture age and reason
+are retained in quality and audit evidence; raw bytes are unchanged.
+
+Independent settlement selection is separate from this eligibility exception.
+It still reconciles every eligible total, including all 460 GW17 totals and Daniel
+James's GW3 value of 1. The later settled-value mutation is diagnostic only.
+
+Build: `v3-9779cdbc0c07-33dac28d1895-build-5644015b364e`.
+See [the acceptance record](docs/M2_2021_22_VERIFICATION.md) and
+[cross-season audit](docs/M2_CROSS_SEASON_AUDIT.json). The
+[source-search log](docs/M2_2021_22_SOURCE_SEARCH.json) remains historical evidence;
+no exact-final-deadline GW18 capture was discovered.
+
+Default audits derive supported seasons from successful catalogue entries and now
+include all four seasons. `--season` explicitly selects published seasons;
+`--investigate-season` is for unpublished attempts and rejects published seasons.
+Publication, not a hard-coded status, moved 2021/22 into normal verification.
+
+```bash
+PYTHONPATH=. python scripts/verify_historical_seasons.py --report /tmp/published-audit.json
+PYTHONPATH=. python scripts/verify_historical_seasons.py --season 2021-22 --report /tmp/selected-audit.json
+```
 
 ### Verified 2022/23 batch
 
@@ -114,7 +154,7 @@ Build: `v3-9779cdbc0c07-33dac28d1895-build-9227d246d371`.
 See [the verification record](docs/M2_2022_23_VERIFICATION.md) and
 [cross-season audit](docs/M2_CROSS_SEASON_AUDIT.json).
 
-After ingesting all three seasons, repeat the full offline rebuild and sanity audit:
+After ingesting the supported seasons, repeat the default offline audit:
 
 ```bash
 PYTHONPATH=. python scripts/verify_historical_seasons.py --report /tmp/historical-audit.json
@@ -197,7 +237,7 @@ Historical schema fields are separated into explicit information classes:
 - final fixture identity, assignment, teams, opponent, home/away, kickoff, difficulty and status remain post-event fixture context;
 - unverified-timing fields stay quarantined.
 
-For each gameweek, the selector accepts only the latest snapshot where the target event is `is_next`, its deadline exactly matches the recorded deadline, and capture is strictly before that deadline. A post-deadline capture is never accepted. Missing snapshots are not interpolated or backfilled, and missing values are never converted to zero. Because the pinned inputs do not preserve fixture-list snapshots at every deadline, no fixture ID, opponent, home/away flag, kickoff, difficulty, score, played minutes, started/finished flag, or rescheduling state is attached to `player_deadline_snapshots`.
+For each gameweek, the selector accepts only the latest snapshot where the target event is `is_next`, its deadline exactly matches the recorded deadline, and capture is strictly before that deadline. The sole superseded-deadline exception is the exact 2021/22 GW18 case documented above; its capture precedes both deadlines. A post-deadline capture is never accepted. Missing snapshots are not interpolated or backfilled, and missing values are never converted to zero. Because the pinned inputs do not preserve fixture-list snapshots at every deadline, no fixture ID, opponent, home/away flag, kickoff, difficulty, score, played minutes, started/finished flag, or rescheduling state is attached to `player_deadline_snapshots`.
 
 All fixtures in a double gameweek share one gameweek-deadline information cutoff. The first fixture's outcomes therefore cannot become information for the second fixture. This milestone creates no modelling features.
 
@@ -214,11 +254,22 @@ Current ingestion retains its required-field, unique-ID, and foreign-key validat
 - configured expectations: 380 fixtures per season; 2022/23 has 37 fixture-bearing gameweeks, 26,505 facts and 778 fact elements; 2023/24 has 29,725 facts and 865 fact elements, while 2024/25 has 27,605 and 804.
 - Vaastav fixture-level `total_points`, summed by player/Gameweek, against `fplcache` `event_points` from a later snapshot where that event is both `finished` and `data_checked`.
 
-Vaastav `merged_gw.csv` remains canonical for fixture-grain `total_points`; `fplcache` is the independent Gameweek-total check. Reconciliation coverage is `compared_row_count / eligible_row_count`: eligible rows are the unique `(season, gameweek, element)` totals obtained by summing canonical fixture rows, while compared rows additionally have an integer `event_points` in a later snapshot whose event is `finished` and `data_checked`. For all three verified seasons reconciliation is required and the tracked minimum coverage is `1.0`. No eligible rows, no usable comparisons, coverage below the threshold, or any points mismatch fails the build. Only a season explicitly configured with optional reconciliation may record `skipped_optional`.
+Vaastav `merged_gw.csv` remains canonical for fixture-grain `total_points`; `fplcache` is the independent Gameweek-total check. Reconciliation coverage is `compared_row_count / eligible_row_count`: eligible rows are the unique `(season, gameweek, element)` totals obtained by summing canonical fixture rows, while compared rows additionally have an integer `event_points` in a later snapshot whose event is `finished` and `data_checked`. For all four verified seasons reconciliation is required and the tracked minimum coverage is `1.0`. No eligible rows, no usable comparisons, coverage below the threshold, or any points mismatch fails the build. Only a season explicitly configured with optional reconciliation may record `skipped_optional`.
 
 The standalone reconciliation artifact records coverage counts, unmatched reasons, policy, threshold, both identities, creation time, provider/repository/revision/path provenance, and its processed-file hash in the manifest. Gameweek 38 uses `cache/2023/5/29/0623.json.xz` for 2022/23, `cache/2024/5/20/0625.json.xz` for 2023/24 and `cache/2025/5/26/0206.json.xz` for 2024/25.
 
 Vaastav schemas are registered by schema ID and restricted to declared seasons. The 2024/25 definition records disjoint required, optional, ignored, quarantined, and forbidden categories; executable trusted and quarantine mappings; expected types and metrics; and known exceptions. A small declarative normalisation adapter validates each source value and maps it to canonical names before generic transformations run. Integer, finite decimal, explicit `True`/`False`, string/enumeration, nullability, and UTC ISO-8601 rules are enforced with row-level diagnostics. Validation rejects duplicate or overlapping declarations, undeclared mapping sources, ambiguous canonical or quarantine targets, malformed schemas/adapters, and every mapping from a forbidden field. `xP` is structurally forbidden from mapping to any output. Reports separately list required-present/missing, optional-present/absent, unexpected, ignored, quarantined, and encountered-forbidden columns; an absent optional target remains null. The verified `vaastav-2023-24-v1` definition reuses the inspected common mappings, removes the absent manager and `modified` fields, and restricts fixture positions to GK/DEF/MID/FWD. No generic transformation or reconciliation change was needed.
+
+For 2021/22, `earliest_settled_current_event_v1` independently searches
+strictly after final fixture kickoff plus two hours (and the event deadline), and
+before the next deadline or seven days after final kickoff, whichever comes first.
+It chooses the earliest archived current-event payload with exact event deadline
+and both settlement flags true. The API does not timestamp settlement itself;
+flags prove it had occurred by capture. The selector never receives canonical
+player points. Every inspected candidate is consumed evidence; selection paths,
+times, hashes, flags, bounds and reasons are recorded in reconciliation metadata.
+Later settled-value mutations are diagnostic only. Accepted older seasons retain
+their previous pinned comparison contracts and identities.
 
 Every new processed build owns `source_inventory.json`, an atomic frozen copy of its canonicalised, materially consumed records. Exact duplicate registrations merge their sorted roles; conflicting registrations or any mismatch between resolved dependencies and actual consumption fail. Its portable relative path, SHA-256, full source identity, and source-identity hash are recorded in the processed manifest and catalogue. Raw files remain shared without duplication, but later additions to the raw cache cannot change a successful build's provenance, identity, or CSVs. Catalogue schema v2 retains a version-indexed build history as well as the latest-successful lookup.
 
@@ -228,7 +279,7 @@ A table-quality failure does not update `catalogue.json`. It is retained under `
 
 ## Assumptions and limitations
 
-- Historical support currently covers verified 2022/23, 2023/24 and 2024/25. The eventual range is 2021/22–2025/26.
+- Historical support currently covers verified 2021/22, 2022/23, 2023/24 and 2024/25. The eventual range is 2021/22–2025/26.
 - `fplcache` capture filenames are interpreted as UTC because the pinned archive is generated by GitHub Actions' UTC runner.
 - Assistant Manager elements have club-slot rather than stable person identity semantics.
 - CSV is retained for portability and zero dependencies; downstream readers must apply `schemas.json`.

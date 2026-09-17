@@ -1,0 +1,155 @@
+[
+  {
+    "path": "cache/2022/5/22/1239.json.xz",
+    "payload": {
+      "events": [
+        {
+          "average_entry_score": 0,
+          "chip_plays": [
+            {
+              "chip_name": "bboost",
+              "num_played": 70913
+            },
+            {
+              "chip_name": "freehit",
+              "num_played": 47790
+            },
+            {
+              "chip_name": "wildcard",
+              "num_played": 23751
+            },
+            {
+              "chip_name": "3xc",
+              "num_played": 57561
+            }
+          ],
+          "cup_leagues_created": true,
+          "data_checked": false,
+          "deadline_time": "2022-05-22T13:30:00Z",
+          "deadline_time_epoch": 1653226200,
+          "deadline_time_game_offset": 0,
+          "finished": false,
+          "h2h_ko_matches_created": true,
+          "highest_score": null,
+          "highest_scoring_entry": null,
+          "id": 38,
+          "is_current": false,
+          "is_next": true,
+          "is_previous": false,
+          "most_captained": null,
+          "most_selected": null,
+          "most_transferred_in": null,
+          "most_vice_captained": null,
+          "name": "Gameweek 38",
+          "top_element": null,
+          "top_element_info": null,
+          "transfers_made": 1504511
+        }
+      ]
+    }
+  },
+  {
+    "path": "cache/2022/5/23/0158.json.xz",
+    "payload": {
+      "events": [
+        {
+          "average_entry_score": 50,
+          "chip_plays": [
+            {
+              "chip_name": "bboost",
+              "num_played": 346490
+            },
+            {
+              "chip_name": "freehit",
+              "num_played": 228651
+            },
+            {
+              "chip_name": "wildcard",
+              "num_played": 131714
+            },
+            {
+              "chip_name": "3xc",
+              "num_played": 259017
+            }
+          ],
+          "cup_leagues_created": true,
+          "data_checked": false,
+          "deadline_time": "2022-05-22T13:30:00Z",
+          "deadline_time_epoch": 1653226200,
+          "deadline_time_game_offset": 0,
+          "finished": false,
+          "h2h_ko_matches_created": true,
+          "highest_score": 135,
+          "highest_scoring_entry": 797216,
+          "id": 38,
+          "is_current": true,
+          "is_next": false,
+          "is_previous": false,
+          "most_captained": 233,
+          "most_selected": 256,
+          "most_transferred_in": 359,
+          "most_vice_captained": 359,
+          "name": "Gameweek 38",
+          "top_element": 701,
+          "top_element_info": {
+            "id": 701,
+            "points": 16
+          },
+          "transfers_made": 8851595
+        }
+      ]
+    }
+  },
+  {
+    "path": "cache/2022/5/23/0632.json.xz",
+    "payload": {
+      "events": [
+        {
+          "average_entry_score": 50,
+          "chip_plays": [
+            {
+              "chip_name": "bboost",
+              "num_played": 346490
+            },
+            {
+              "chip_name": "freehit",
+              "num_played": 228651
+            },
+            {
+              "chip_name": "wildcard",
+              "num_played": 131714
+            },
+            {
+              "chip_name": "3xc",
+              "num_played": 259017
+            }
+          ],
+          "cup_leagues_created": true,
+          "data_checked": true,
+          "deadline_time": "2022-05-22T13:30:00Z",
+          "deadline_time_epoch": 1653226200,
+          "deadline_time_game_offset": 0,
+          "finished": true,
+          "h2h_ko_matches_created": true,
+          "highest_score": 135,
+          "highest_scoring_entry": 797216,
+          "id": 38,
+          "is_current": true,
+          "is_next": false,
+          "is_previous": false,
+          "most_captained": 233,
+          "most_selected": 256,
+          "most_transferred_in": 359,
+          "most_vice_captained": 359,
+          "name": "Gameweek 38",
+          "top_element": 701,
+          "top_element_info": {
+            "id": 701,
+            "points": 16
+          },
+          "transfers_made": 8851595
+        }
+      ]
+    }
+  }
+]

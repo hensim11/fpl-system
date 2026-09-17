@@ -1,27 +1,27 @@
 # Project state
 
-Last updated: 2026-09-16
+Last updated: 2026-09-17
 
 ## Current milestone
 
 Milestone 2 — Reproducible historical data foundation.
 
-Status: in progress. Milestone 1 remains complete; the 2024/25 vertical slice and its Milestone 2 closure hardening are implemented and verified. The 2023/24 and 2022/23 expansions are now implemented and fully verified.
+Status: in progress. Milestone 1 remains complete; the 2024/25 vertical slice and its Milestone 2 closure hardening are implemented and verified. The 2023/24 and 2022/23 expansions are now implemented and fully verified. The 2021/22 expansion is now accepted and published, using one exact authorized GW18 superseded-deadline exception.
 
 ## What currently works
 
 - The zero-runtime-dependency Milestone 1 CLI still retrieves current FPL bootstrap and fixture data into timestamped raw JSON and processed CSV snapshots.
-- `python -m fpl_ai historical --season 2024-25 --output-dir data` processes configured commit-pinned 2024/25 sources; `--season 2023-24` and `--season 2022-23` process the separately validated older seasons.
+- `python -m fpl_ai historical --season 2024-25 --output-dir data` processes configured commit-pinned 2024/25 sources; `--season 2023-24`, `--season 2022-23` and `--season 2021-22` process the separately validated older seasons.
 - Immutable historical raw files carry requested season, repository, configured ref, resolved commit SHA, source path/URL, retrieval time, SHA-256, and byte-size provenance. The hashed source identity includes only materially consumed records, with deterministic consumption roles; rejected discovery candidates and unrelated cache entries are audit-only.
 - A separate deterministic build identity covers the explicit transformation contract version, canonical schemas, season checks, selected source schema, snapshot-selection contract, and reconciliation configuration. Build time and local paths are excluded; different builds over the same source use different directories.
 - Seven leakage-classified CSV tables and five metadata artifacts are generated deterministically (12 processed artifacts total), including standalone points-reconciliation and frozen source-inventory artifacts.
 - Every new processed build owns an atomic `source_inventory.json` with its exact source identity and canonicalised consumed-file inventory. Actual consumption must equal the resolved dependency set; exact duplicates merge safely and conflicts fail. Catalogue schema v2 retains all discovered build versions; pre-v5 builds remain explicitly readable as `legacy_shared_raw_inventory` without rewriting their metadata.
 - `data/historical/catalogue.json` provides an atomic latest-successful lookup without a filesystem symlink.
-- Snapshot selection requires `is_next`, an exact deadline match, and capture strictly before the deadline. Missing values remain null; every fixture in a double gameweek shares the deadline cutoff.
+- Snapshot selection requires `is_next`, an exact deadline match, and capture strictly before the deadline, except for the single authorized, hash-bound 2021/22 GW18 superseded-deadline policy described below. Missing values remain null; every fixture in a double gameweek shares the deadline cutoff.
 - Each player deadline row takes team ID/code/names and position ID/labels from that accepted snapshot. It never falls back to end-of-season identity; 29, 23 and 31 elements show more than one deadline team in 2022/23, 2023/24 and 2024/25 respectively.
 - Deadline-safe fixture context is allowlisted to season, target gameweek, and deadline. Final fixture identity, assignment, teams/opponent, home/away, kickoff, difficulty, status, minutes, and results remain only in post-event tables.
-- Vaastav fixture-level `total_points` is canonical. Player/Gameweek sums are reconciled against settled `fplcache` `event_points`; all three seasons require 100% eligible-row coverage, and no usable comparison, sub-threshold coverage, or any mismatch is a hard quality failure.
-- Vaastav input shape is selected through the season's `vaastav-2024-25-v1`, `vaastav-2023-24-v1` or `vaastav-2022-23-v1` schema. Its declarative mappings execute at one typed normalisation boundary, after which generic transforms consume only canonical names. Integer, decimal, boolean, string/enumeration, nullability, and UTC timestamp contracts are enforced. Optional-column reporting is category-accurate, quarantine targets are unique, and `xP` remains structurally forbidden.
+- Vaastav fixture-level `total_points` is canonical. Player/Gameweek sums are reconciled against settled `fplcache` `event_points`; all four seasons require 100% eligible-row coverage, and no usable comparison, sub-threshold coverage, or any mismatch is a hard quality failure.
+- Vaastav input shape is selected through the season's `vaastav-2024-25-v1`, `vaastav-2023-24-v1`, `vaastav-2022-23-v1` or `vaastav-2021-22-v1` schema. Its declarative mappings execute at one typed normalisation boundary, after which generic transforms consume only canonical names. Integer, decimal, boolean, string/enumeration, nullability, and UTC timestamp contracts are enforced. Optional-column reporting is category-accurate, quarantine targets are unique, and `xP` remains structurally forbidden.
 - Current and historical CLI option destinations are independent. Conflicting duplicate values before and after `historical` produce an argparse error instead of silent overwriting.
 - Prediction models, feature engineering, optimisation, and FPL decision rules have intentionally not been started.
 
@@ -103,6 +103,43 @@ The local python.org installation has an empty default CA store. Both download p
 - Full evidence: [2022/23 verification](docs/M2_2022_23_VERIFICATION.md) and
   [machine-readable cross-season audit](docs/M2_CROSS_SEASON_AUDIT.json).
 
+
+### Verified historical 2021/22 (2026-09-17)
+
+- Normal command: `.venv/bin/python -m fpl_ai historical --season 2021-22 --output-dir data`.
+- **Published successfully**: 38 Gameweeks, 737 players, 20 teams, 380 fixtures,
+  25,447 facts, **25,150** deadline rows and 25,447 audit-only quarantine rows.
+- **43/43 quality checks pass; 38/38 deadline snapshots**. All **23,230** eligible
+  totals match independently selected settlement captures, coverage **1.0**, zero
+  unmatched rows or mismatches. GW17 has 460 comparisons; James GW3 remains 1.
+- Version: `v3-9779cdbc0c07-33dac28d1895-build-5644015b364e`.
+- Source identity: `c4045c8739a4dfd0d3d47115f23d8a0c6ee211b510e8572ab6315f699542f863`.
+- Build identity: `5644015b364e43177485c5d5c3f520efe64b7a17d4113b84b56c400bab2c57d8`.
+- Frozen inventory: **134** materially consumed artifacts; SHA-256
+  `4c094e22593ebfd61b77602720ec3b00309bdc75b5468acf16503b4ac4c57137`.
+- User-authorized policy v1 admits only GW18's exact pinned `cache/2021/12/18/1233.json.xz`
+  capture, hash `9c8fbad59eecb978494d98425e0dadcfa16fbb3a3954f99b4263c65277e2eed1`.
+  It retains the observed payload deadline 13:30 and authoritative deadline 16:00.
+  State is **as of 12:33**, with a **3h27 freshness limitation**. Capture is strictly
+  before both deadlines; the 18:25 post-deadline capture remains forbidden.
+- Exact season/GW/path/hash/revision/time/deadline matching and one unambiguous
+  upcoming event are mandatory. The policy enters build identity and quality/audit
+  evidence. No raw rewrite, interpolation, outcome backfill or global mismatch switch.
+- Earlier compatibility and independent settlement policies remain intact. The new
+  snapshot eligibility does not change settlement paths, fixture facts or points.
+- All four seasons pass fresh offline builds, deterministic identities/CSV hashes
+  and checksum-verified reuse without byte/mtime changes. The three prior seasons'
+  complete audit entries remain identical to their pre-batch baseline.
+- Default and explicit `--season 2021-22` audits pass. Status is now `published`
+  solely because the successful catalogue entry exists. Earlier failures are retained.
+- **102 tests pass**, including eight focused exception regressions on top of the
+  94-test baseline; compilation, pipeline/audit help, dependency and whitespace
+  checks pass. No new runtime dependency, commit or merge.
+- [Acceptance record](docs/M2_2021_22_VERIFICATION.md),
+  [cross-season audit](docs/M2_CROSS_SEASON_AUDIT.json), and historical
+  [source-search record](docs/M2_2021_22_SOURCE_SEARCH.json).
+
+
 ## Architecture
 
 Milestone 1 remains unchanged:
@@ -146,7 +183,7 @@ atomic catalogue latest-successful entry
   the archive itself exhibits this cumulative inconsistency. No arbitrary point
   adjustment was made. Details and precise captures are in the 2022/23 verification.
 
-- Historical support covers 2022/23, 2023/24 and 2024/25. The remaining agreed seasons, 2021/22 and 2025/26, are not configured or verified.
+- Historical support covers 2021/22–2024/25. GW18 2021/22 state is as of 12:33, 3h27 before its final deadline, under the exact superseded-deadline exception. 2025/26 is not configured or verified.
 - Current ingestion responses are not atomic with each other and have no retry/backoff, retention policy, or schedule.
 - CSV is portable and inspectable but requires downstream readers to apply the published schema.
 - The source APIs and datasets are not guaranteed versioned developer contracts. Raw preservation makes corrections and revision changes auditable.
@@ -157,7 +194,6 @@ atomic catalogue latest-successful entry
 
 ## Recommended next step
 
-Add 2021/22 through the same pinned-source workflow, explicitly auditing older
-metric availability and snapshot/settlement coverage; then complete 2025/26 and
-the full-range identity/availability audit. Keep feature engineering and modelling
-deferred until the agreed historical foundation is complete.
+Add and validate 2025/26 through the pinned-source workflow, then complete full-range
+identity and availability audits before feature/evaluation design. Preserve the
+explicit GW18 freshness limitation in downstream uses. No models or optimizers yet.

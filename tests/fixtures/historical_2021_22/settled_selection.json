@@ -1,0 +1,270 @@
+[
+  {
+    "gameweek": 3,
+    "last_kickoff": "2021-08-29T15:30:00Z",
+    "deadline": "2021-08-28T10:00:00Z",
+    "expected_selected_path": "cache/2021/8/30/0104.json.xz",
+    "captures": [
+      {
+        "path": "cache/2021/8/29/1823.json.xz",
+        "capture": "2021-08-29T18:23:00Z",
+        "sha256": "8db153e86ccc0798fc7bb83cd76b25aaac2f5e92492a35dbfcc90181044cfa15",
+        "payload": {
+          "events": [
+            {
+              "average_entry_score": 51,
+              "chip_plays": [
+                {
+                  "chip_name": "bboost",
+                  "num_played": 94049
+                },
+                {
+                  "chip_name": "freehit",
+                  "num_played": 117627
+                },
+                {
+                  "chip_name": "wildcard",
+                  "num_played": 372083
+                },
+                {
+                  "chip_name": "3xc",
+                  "num_played": 138714
+                }
+              ],
+              "data_checked": false,
+              "deadline_time": "2021-08-28T10:00:00Z",
+              "deadline_time_epoch": 1630144800,
+              "deadline_time_game_offset": 0,
+              "finished": false,
+              "highest_score": 116,
+              "highest_scoring_entry": 7202236,
+              "id": 3,
+              "is_current": true,
+              "is_next": false,
+              "is_previous": false,
+              "most_captained": 277,
+              "most_selected": 277,
+              "most_transferred_in": 419,
+              "most_vice_captained": 277,
+              "name": "Gameweek 3",
+              "top_element": 268,
+              "top_element_info": {
+                "id": 268,
+                "points": 18
+              },
+              "transfers_made": 15553648
+            }
+          ],
+          "elements": [
+            {
+              "id": 1,
+              "event_points": 1
+            },
+            {
+              "id": 287,
+              "event_points": 1
+            }
+          ]
+        }
+      },
+      {
+        "path": "cache/2021/8/30/0104.json.xz",
+        "capture": "2021-08-30T01:04:00Z",
+        "sha256": "774cc99b6acfbd9921b21a237bc17bd17795334ed1c687c06ca402905aa3b35a",
+        "payload": {
+          "events": [
+            {
+              "average_entry_score": 54,
+              "chip_plays": [
+                {
+                  "chip_name": "bboost",
+                  "num_played": 94049
+                },
+                {
+                  "chip_name": "freehit",
+                  "num_played": 117627
+                },
+                {
+                  "chip_name": "wildcard",
+                  "num_played": 372083
+                },
+                {
+                  "chip_name": "3xc",
+                  "num_played": 138714
+                }
+              ],
+              "data_checked": true,
+              "deadline_time": "2021-08-28T10:00:00Z",
+              "deadline_time_epoch": 1630144800,
+              "deadline_time_game_offset": 0,
+              "finished": true,
+              "highest_score": 119,
+              "highest_scoring_entry": 7516002,
+              "id": 3,
+              "is_current": true,
+              "is_next": false,
+              "is_previous": false,
+              "most_captained": 277,
+              "most_selected": 277,
+              "most_transferred_in": 419,
+              "most_vice_captained": 277,
+              "name": "Gameweek 3",
+              "top_element": 268,
+              "top_element_info": {
+                "id": 268,
+                "points": 18
+              },
+              "transfers_made": 15553648
+            }
+          ],
+          "elements": [
+            {
+              "id": 1,
+              "event_points": 1
+            },
+            {
+              "id": 287,
+              "event_points": 1
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "gameweek": 17,
+    "last_kickoff": "2021-12-16T20:00:00Z",
+    "deadline": "2021-12-14T18:15:00Z",
+    "expected_selected_path": "cache/2021/12/17/0626.json.xz",
+    "captures": [
+      {
+        "path": "cache/2021/12/17/0113.json.xz",
+        "capture": "2021-12-17T01:13:00Z",
+        "sha256": "88c9497c92729777de1ab40bc692655921ebb28b43f996e9745aa3d49f588060",
+        "payload": {
+          "events": [
+            {
+              "average_entry_score": 37,
+              "chip_plays": [
+                {
+                  "chip_name": "bboost",
+                  "num_played": 27449
+                },
+                {
+                  "chip_name": "freehit",
+                  "num_played": 95245
+                },
+                {
+                  "chip_name": "wildcard",
+                  "num_played": 70462
+                },
+                {
+                  "chip_name": "3xc",
+                  "num_played": 164689
+                }
+              ],
+              "cup_leagues_created": true,
+              "data_checked": false,
+              "deadline_time": "2021-12-14T18:15:00Z",
+              "deadline_time_epoch": 1639505700,
+              "deadline_time_game_offset": 0,
+              "finished": false,
+              "h2h_ko_matches_created": true,
+              "highest_score": 117,
+              "highest_scoring_entry": 8662424,
+              "id": 17,
+              "is_current": true,
+              "is_next": false,
+              "is_previous": false,
+              "most_captained": 233,
+              "most_selected": 233,
+              "most_transferred_in": 450,
+              "most_vice_captained": 261,
+              "name": "Gameweek 17",
+              "top_element": 251,
+              "top_element_info": {
+                "id": 251,
+                "points": 16
+              },
+              "transfers_made": 8595948
+            }
+          ],
+          "elements": [
+            {
+              "id": 1,
+              "event_points": 0
+            },
+            {
+              "id": 287,
+              "event_points": 1
+            }
+          ]
+        }
+      },
+      {
+        "path": "cache/2021/12/17/0626.json.xz",
+        "capture": "2021-12-17T06:26:00Z",
+        "sha256": "333489ab92010ab17c63dddd4d542476e4c225a5d264369dc5597e38decc8411",
+        "payload": {
+          "events": [
+            {
+              "average_entry_score": 45,
+              "chip_plays": [
+                {
+                  "chip_name": "bboost",
+                  "num_played": 27449
+                },
+                {
+                  "chip_name": "freehit",
+                  "num_played": 95245
+                },
+                {
+                  "chip_name": "wildcard",
+                  "num_played": 70462
+                },
+                {
+                  "chip_name": "3xc",
+                  "num_played": 164689
+                }
+              ],
+              "cup_leagues_created": true,
+              "data_checked": true,
+              "deadline_time": "2021-12-14T18:15:00Z",
+              "deadline_time_epoch": 1639505700,
+              "deadline_time_game_offset": 0,
+              "finished": true,
+              "h2h_ko_matches_created": true,
+              "highest_score": 127,
+              "highest_scoring_entry": 8741274,
+              "id": 17,
+              "is_current": true,
+              "is_next": false,
+              "is_previous": false,
+              "most_captained": 233,
+              "most_selected": 233,
+              "most_transferred_in": 450,
+              "most_vice_captained": 261,
+              "name": "Gameweek 17",
+              "top_element": 251,
+              "top_element_info": {
+                "id": 251,
+                "points": 16
+              },
+              "transfers_made": 8595948
+            }
+          ],
+          "elements": [
+            {
+              "id": 1,
+              "event_points": 0
+            },
+            {
+              "id": 287,
+              "event_points": 1
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

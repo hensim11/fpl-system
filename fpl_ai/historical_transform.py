@@ -121,7 +121,7 @@ def _normalize_source_row(
     file_schema: dict[str, object],
 ) -> dict[str, Any]:
     adapter_id = source_schema.get("adapter_id")
-    if adapter_id != "declarative-normalization-v1":
+    if adapter_id not in {"declarative-normalization-v1", "declarative-normalization-v2"}:
         raise FPLValidationError(
             f"Vaastav source schema {source_schema.get('schema_id')!r} has unsupported "
             f"adapter_id {adapter_id!r}"
@@ -220,6 +220,9 @@ def _parse_source_value(
         _source_type_failure(
             source_schema, filename, row_number, column, value, expectation
         )
+    # Versioned, schema-scoped aliases standardize source labels only.
+    if data_type == "string" and source_schema["adapter_id"] == "declarative-normalization-v2":
+        parsed = expectation.get("value_aliases", {}).get(parsed, parsed)
     allowed_values = expectation.get("allowed_values")
     if allowed_values is not None and parsed not in allowed_values:
         _source_type_failure(
@@ -337,6 +340,64 @@ def transform_fixtures(
             }
         )
     return rows
+
+
+def validate_fixture_kickoff_reconciliation(policy: Any) -> None:
+    """Require exact, counted post-event discrepancies rather than a blanket fallback."""
+
+    if not isinstance(policy, list) or not policy:
+        raise FPLValidationError("fixture kickoff reconciliation must be a non-empty list")
+    seen = set()
+    for entry in policy:
+        required = {"fixture", "gameweek", "source_kickoff", "fixture_kickoff", "expected_rows", "reason"}
+        if not isinstance(entry, dict) or set(entry) != required:
+            raise FPLValidationError("malformed fixture kickoff reconciliation entry")
+        for key in ("fixture", "gameweek", "expected_rows"):
+            if type(entry[key]) is not int or entry[key] < 1:
+                raise FPLValidationError(f"fixture kickoff reconciliation {key} must be positive integer")
+        if entry["fixture"] in seen:
+            raise FPLValidationError("duplicate fixture kickoff reconciliation")
+        seen.add(entry["fixture"])
+        for key in ("source_kickoff", "fixture_kickoff"):
+            value = entry[key]
+            if not isinstance(value, str) or utc_string(parse_utc(value, key)) != value:
+                raise FPLValidationError("fixture kickoff reconciliation requires canonical UTC timestamps")
+        if entry["source_kickoff"] == entry["fixture_kickoff"]:
+            raise FPLValidationError("fixture kickoff reconciliation must describe a difference")
+        if not isinstance(entry["reason"], str) or not entry["reason"].strip():
+            raise FPLValidationError("fixture kickoff reconciliation requires a reason")
+
+
+def reconcile_fixture_kickoffs(
+    source_rows: list[dict[str, Any]],
+    fixtures: list[dict[str, Any]],
+    policy: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Normalize only declared post-event kickoff discrepancies; keep raw bytes intact."""
+
+    validate_fixture_kickoff_reconciliation(policy)
+    by_fixture = {r["fixture"]: r for r in fixtures}
+    rules = {r["fixture"]: r for r in policy}
+    counts = {key: 0 for key in rules}
+    normalized = []
+    for row in source_rows:
+        source = row["trusted"]
+        rule = rules.get(source["fixture"])
+        if rule is None:
+            normalized.append(row)
+            continue
+        fixture = by_fixture.get(source["fixture"])
+        if (fixture is None or source["gameweek"] != rule["gameweek"]
+                or fixture["gameweek"] != rule["gameweek"]
+                or source["kickoff_time_utc"] != rule["source_kickoff"]
+                or fixture["kickoff_time_utc"] != rule["fixture_kickoff"]):
+            raise FPLValidationError(f"fixture kickoff reconciliation no longer matches: {rule['fixture']}")
+        counts[rule["fixture"]] += 1
+        normalized.append({**row, "trusted": {**source, "kickoff_time_utc": rule["fixture_kickoff"]}})
+    for rule in policy:
+        if counts[rule["fixture"]] != rule["expected_rows"]:
+            raise FPLValidationError(f"fixture kickoff reconciliation row count mismatch: {rule['fixture']}")
+    return normalized, [{**r, "normalized_rows": counts[r["fixture"]]} for r in policy]
 
 
 def transform_facts(

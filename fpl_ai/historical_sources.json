@@ -243,6 +243,141 @@
           "reason": "Hugo Bueno: same name, team and position; archive code changes by GW2. Preserve observed GW1 code."
         }
       ]
+    },
+    "2021-22": {
+      "superseded_deadline_exception": {
+        "policy_version": 1,
+        "exception_type": "superseded_deadline",
+        "season": "2021-22",
+        "gameweek": 18,
+        "source_path": "cache/2021/12/18/1233.json.xz",
+        "source_sha256": "9c8fbad59eecb978494d98425e0dadcfa16fbb3a3954f99b4263c65277e2eed1",
+        "resolved_commit_sha": "33dac28d18953bee5bc4bd56ddd8a5e32e169d68",
+        "capture_time_utc": "2021-12-18T12:33:00Z",
+        "payload_deadline_utc": "2021-12-18T13:30:00Z",
+        "authoritative_deadline_utc": "2021-12-18T16:00:00Z",
+        "reason": "The deadline moved after this archived capture. State is observed as of 12:33, before both deadlines, with a 3-hour-27-minute freshness gap to the final deadline."
+      },
+      "fixture_kickoff_reconciliation": [
+        {
+          "fixture": 263,
+          "gameweek": 27,
+          "source_kickoff": "2022-02-26T15:00:00Z",
+          "fixture_kickoff": "2022-02-26T15:30:00Z",
+          "expected_rows": 78,
+          "reason": "Brighton v Aston Villa was delayed 30 minutes. The 78 merged rows retain scheduled kickoff; use the pinned fixture timestamp only in post-event context."
+        }
+      ],
+      "vaastav_source_schema": {
+        "schema_id": "vaastav-2021-22-v1",
+        "schema_version": 1
+      },
+      "reconciliation": {
+        "total_points": {
+          "policy_version": 3,
+          "mode": "required",
+          "minimum_coverage_ratio": 1.0,
+          "canonical_source": {
+            "provider_key": "vaastav",
+            "source_path": "data/2021-22/gws/merged_gw.csv",
+            "field": "total_points",
+            "grain": "player_fixture",
+            "gameweek_aggregation": "sum_by_season_gameweek_element"
+          },
+          "comparison_source": {
+            "provider_key": "fplcache",
+            "field": "elements[].event_points",
+            "settlement_strategy": "earliest_settled_current_event_v1",
+            "selection_policy": {
+              "strategy": "earliest_settled_current_event_v1",
+              "minimum_hours_after_last_kickoff": 2,
+              "maximum_days_after_last_kickoff": 7,
+              "require_current_event": true,
+              "require_exact_event_deadline": true,
+              "tie_policy": "reject",
+              "later_mutation_policy": "report_next_deadline_only"
+            },
+            "require_event_finished": true,
+            "require_data_checked": true
+          }
+        }
+      },
+      "expected_gameweeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38
+      ],
+      "expected_counts": {
+        "fixtures": 380,
+        "player_fixture_facts": 25447,
+        "distinct_fact_elements": 737,
+        "fixture_gameweeks": 38,
+        "players": 737,
+        "teams": 20,
+        "gameweeks_with_valid_snapshot": 38
+      },
+      "sources": {
+        "vaastav": {
+          "provider": "Vaastav historical FPL dataset",
+          "repository": "https://github.com/vaastav/Fantasy-Premier-League",
+          "configured_ref": "9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88",
+          "resolved_commit_sha": "9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88",
+          "raw_base_url": "https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88",
+          "files": [
+            "data/2021-22/gws/merged_gw.csv",
+            "data/2021-22/players_raw.csv",
+            "data/2021-22/teams.csv",
+            "data/2021-22/fixtures.csv"
+          ]
+        },
+        "fplcache": {
+          "provider": "Randdalf fplcache",
+          "repository": "https://github.com/Randdalf/fplcache",
+          "configured_ref": "33dac28d18953bee5bc4bd56ddd8a5e32e169d68",
+          "resolved_commit_sha": "33dac28d18953bee5bc4bd56ddd8a5e32e169d68",
+          "tree_url": "https://api.github.com/repos/Randdalf/fplcache/git/trees/33dac28d18953bee5bc4bd56ddd8a5e32e169d68?recursive=1",
+          "raw_base_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68",
+          "archive_path_pattern": "^cache/(\\d{4})/(\\d{1,2})/(\\d{1,2})/(\\d{2})(\\d{2})\\.json\\.xz$",
+          "capture_timezone": "UTC",
+          "reference_snapshot_path": "cache/2022/5/22/1239.json.xz",
+          "points_settlement_snapshot_path": "cache/2022/5/23/0632.json.xz"
+        }
+      }
     }
   }
 }
