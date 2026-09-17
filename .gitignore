@@ -17,3 +17,5 @@ data/historical/
 .DS_Store
 .env
 data/modelling/
+data/experiments/
+data/experiment_holdouts/

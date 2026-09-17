@@ -1,0 +1,415 @@
+{
+  "checked": 17,
+  "rule": "Top two highs, lows and scoring-rate disagreements for each validation model and frozen test winner",
+  "traces": [
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2024-08-24T06:27:00Z",
+      "deadline": "2024-08-24T10:00:00Z",
+      "key": [
+        "2024-25",
+        2,
+        328
+      ],
+      "observed_name": "M.Salah",
+      "snapshot_path": "cache/2024/8/24/0627.json.xz",
+      "snapshot_sha256": "c4ae1aa11edc4940b4b964469f3e7bbe70087595818781b52554a79b622dc721",
+      "state": {
+        "chance_of_playing_next_round": null,
+        "deadline_position_id": 3,
+        "deadline_team_id": 12,
+        "price": 125,
+        "selected_by_percent": 36.5,
+        "status": "a",
+        "transfers_in_event": 247232,
+        "transfers_out_event": 57020
+      },
+      "target": 10
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2024-08-31T06:27:00Z",
+      "deadline": "2024-08-31T10:00:00Z",
+      "key": [
+        "2024-25",
+        3,
+        351
+      ],
+      "observed_name": "Haaland",
+      "snapshot_path": "cache/2024/8/31/0627.json.xz",
+      "snapshot_sha256": "0d6c4800cf20f1a17fa7647e6db612acf01ee5b8821cca266c713bd7c8ed4143",
+      "state": {
+        "chance_of_playing_next_round": null,
+        "deadline_position_id": 4,
+        "deadline_team_id": 13,
+        "price": 151,
+        "selected_by_percent": 60.7,
+        "status": "a",
+        "transfers_in_event": 609302,
+        "transfers_out_event": 68760
+      },
+      "target": 17
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2024-09-14T06:29:00Z",
+      "deadline": "2024-09-14T10:00:00Z",
+      "key": [
+        "2024-25",
+        4,
+        351
+      ],
+      "observed_name": "Haaland",
+      "snapshot_path": "cache/2024/9/14/0629.json.xz",
+      "snapshot_sha256": "e7bea990fa0f8b5d20d98607ff499d39d2a6952386bdbba7f8d9fe1d9db10f2f",
+      "state": {
+        "chance_of_playing_next_round": 75,
+        "deadline_position_id": 4,
+        "deadline_team_id": 13,
+        "price": 152,
+        "selected_by_percent": 67.9,
+        "status": "d",
+        "transfers_in_event": 751693,
+        "transfers_out_event": 72342
+      },
+      "target": 13
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2024-09-21T06:28:00Z",
+      "deadline": "2024-09-21T10:00:00Z",
+      "key": [
+        "2024-25",
+        5,
+        351
+      ],
+      "observed_name": "Haaland",
+      "snapshot_path": "cache/2024/9/21/0628.json.xz",
+      "snapshot_sha256": "d87c99edc17bad545c2563bd9bc299d246e9f84c05e8dc534504e841c1e1e733",
+      "state": {
+        "chance_of_playing_next_round": 100,
+        "deadline_position_id": 4,
+        "deadline_team_id": 13,
+        "price": 153,
+        "selected_by_percent": 70.2,
+        "status": "a",
+        "transfers_in_event": 295871,
+        "transfers_out_event": 44407
+      },
+      "target": 9
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2024-12-21T06:28:00Z",
+      "deadline": "2024-12-21T11:00:00Z",
+      "key": [
+        "2024-25",
+        17,
+        533
+      ],
+      "observed_name": "Aït-Nouri",
+      "snapshot_path": "cache/2024/12/21/0628.json.xz",
+      "snapshot_sha256": "7fc3c43081fff59a586ef8679323f1a08939c072738608a4ed16da1704b2551c",
+      "state": {
+        "chance_of_playing_next_round": 0,
+        "deadline_position_id": 2,
+        "deadline_team_id": 20,
+        "price": 48,
+        "selected_by_percent": 8.5,
+        "status": "s",
+        "transfers_in_event": 1750,
+        "transfers_out_event": 785906
+      },
+      "target": 0
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2024-12-26T06:31:00Z",
+      "deadline": "2024-12-26T11:00:00Z",
+      "key": [
+        "2024-25",
+        18,
+        17
+      ],
+      "observed_name": "Saka",
+      "snapshot_path": "cache/2024/12/26/0631.json.xz",
+      "snapshot_sha256": "28566dd7cdba24ad9f395f635fff1fa3483f14526c2aa38d0b166b74c74c77b6",
+      "state": {
+        "chance_of_playing_next_round": 0,
+        "deadline_position_id": 3,
+        "deadline_team_id": 1,
+        "price": 104,
+        "selected_by_percent": 22.8,
+        "status": "i",
+        "transfers_in_event": 24893,
+        "transfers_out_event": 2366646
+      },
+      "target": 0
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2025-02-21T12:44:00Z",
+      "deadline": "2025-02-21T18:30:00Z",
+      "key": [
+        "2024-25",
+        26,
+        232
+      ],
+      "observed_name": "Ndiaye",
+      "snapshot_path": "cache/2025/2/21/1244.json.xz",
+      "snapshot_sha256": "bcb377af43c784e6a750437ece4d915451755f47fbb4c272bdff3b7bf0673835",
+      "state": {
+        "chance_of_playing_next_round": 0,
+        "deadline_position_id": 4,
+        "deadline_team_id": 8,
+        "price": 55,
+        "selected_by_percent": 3.5,
+        "status": "i",
+        "transfers_in_event": 192,
+        "transfers_out_event": 179954
+      },
+      "target": 0
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2025-03-15T12:41:00Z",
+      "deadline": "2025-03-15T13:30:00Z",
+      "key": [
+        "2024-25",
+        29,
+        311
+      ],
+      "observed_name": "Alexander-Arnold",
+      "snapshot_path": "cache/2025/3/15/1241.json.xz",
+      "snapshot_sha256": "9a3ebd94707ce3453822fe49a8bf3ae2789dbb60b31c2a993dd0811952becd97",
+      "state": {
+        "chance_of_playing_next_round": 25,
+        "deadline_position_id": 2,
+        "deadline_team_id": 12,
+        "price": 74,
+        "selected_by_percent": 24.7,
+        "status": "d",
+        "transfers_in_event": 19690,
+        "transfers_out_event": 659883
+      },
+      "target": 0
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2025-03-15T12:41:00Z",
+      "deadline": "2025-03-15T13:30:00Z",
+      "key": [
+        "2024-25",
+        29,
+        328
+      ],
+      "observed_name": "M.Salah",
+      "snapshot_path": "cache/2025/3/15/1241.json.xz",
+      "snapshot_sha256": "9a3ebd94707ce3453822fe49a8bf3ae2789dbb60b31c2a993dd0811952becd97",
+      "state": {
+        "chance_of_playing_next_round": null,
+        "deadline_position_id": 3,
+        "deadline_team_id": 12,
+        "price": 137,
+        "selected_by_percent": 59.3,
+        "status": "a",
+        "transfers_in_event": 21272,
+        "transfers_out_event": 471780
+      },
+      "target": 0
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2025-04-01T12:50:00Z",
+      "deadline": "2025-04-01T17:15:00Z",
+      "key": [
+        "2024-25",
+        30,
+        328
+      ],
+      "observed_name": "M.Salah",
+      "snapshot_path": "cache/2025/4/1/1250.json.xz",
+      "snapshot_sha256": "4e9a21ee6bc996453b31344b552e590efa5bb80dec33e473ab77a6e934d20564",
+      "state": {
+        "chance_of_playing_next_round": null,
+        "deadline_position_id": 3,
+        "deadline_team_id": 12,
+        "price": 137,
+        "selected_by_percent": 70.8,
+        "status": "a",
+        "transfers_in_event": 287048,
+        "transfers_out_event": 11835
+      },
+      "target": 3
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2025-04-19T06:31:00Z",
+      "deadline": "2025-04-19T12:30:00Z",
+      "key": [
+        "2024-25",
+        33,
+        17
+      ],
+      "observed_name": "Saka",
+      "snapshot_path": "cache/2025/4/19/0631.json.xz",
+      "snapshot_sha256": "0a4e081203f79bf7e44882faf82d04b077491e4e4280eeaaff36d68ec1a5df1a",
+      "state": {
+        "chance_of_playing_next_round": 100,
+        "deadline_position_id": 3,
+        "deadline_team_id": 1,
+        "price": 105,
+        "selected_by_percent": 27.0,
+        "status": "a",
+        "transfers_in_event": 601445,
+        "transfers_out_event": 25114
+      },
+      "target": 2
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2025-05-16T12:52:00Z",
+      "deadline": "2025-05-16T17:00:00Z",
+      "key": [
+        "2024-25",
+        37,
+        182
+      ],
+      "observed_name": "Palmer",
+      "snapshot_path": "cache/2025/5/16/1252.json.xz",
+      "snapshot_sha256": "7672e1df9c37b5d971abf698bd95c15c5360f2b14929834796b24c8dca26a6e7",
+      "state": {
+        "chance_of_playing_next_round": 100,
+        "deadline_position_id": 3,
+        "deadline_team_id": 6,
+        "price": 105,
+        "selected_by_percent": 34.7,
+        "status": "a",
+        "transfers_in_event": 110668,
+        "transfers_out_event": 36849
+      },
+      "target": 2
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2025-11-22T06:34:00Z",
+      "deadline": "2025-11-22T11:00:00Z",
+      "key": [
+        "2025-26",
+        12,
+        5
+      ],
+      "observed_name": "Gabriel",
+      "snapshot_path": "cache/2025/11/22/0634.json.xz",
+      "snapshot_sha256": "3c3a52d10e696f93f49f75d803ceb2753aa45ba09495523ee777b23377cc400d",
+      "state": {
+        "chance_of_playing_next_round": 0,
+        "deadline_position_id": 2,
+        "deadline_team_id": 1,
+        "price": 65,
+        "selected_by_percent": 33.2,
+        "status": "i",
+        "transfers_in_event": 94685,
+        "transfers_out_event": 1230158
+      },
+      "target": 0
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2025-11-29T12:50:00Z",
+      "deadline": "2025-11-29T13:30:00Z",
+      "key": [
+        "2025-26",
+        13,
+        5
+      ],
+      "observed_name": "Gabriel",
+      "snapshot_path": "cache/2025/11/29/1250.json.xz",
+      "snapshot_sha256": "88a3689a796c51387ac427ce215f0f8a56b4d95999f422d671dc46cede87e091",
+      "state": {
+        "chance_of_playing_next_round": 0,
+        "deadline_position_id": 2,
+        "deadline_team_id": 1,
+        "price": 64,
+        "selected_by_percent": 22.0,
+        "status": "i",
+        "transfers_in_event": 3851,
+        "transfers_out_event": 988674
+      },
+      "target": 0
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2025-12-20T06:38:00Z",
+      "deadline": "2025-12-20T11:00:00Z",
+      "key": [
+        "2025-26",
+        17,
+        256
+      ],
+      "observed_name": "Muñoz",
+      "snapshot_path": "cache/2025/12/20/0638.json.xz",
+      "snapshot_sha256": "125e16fb0120ad65e2fbe2998c9613b70f4310b7dfa219b6110ce4a9968bcc81",
+      "state": {
+        "chance_of_playing_next_round": 0,
+        "deadline_position_id": 2,
+        "deadline_team_id": 8,
+        "price": 59,
+        "selected_by_percent": 10.1,
+        "status": "i",
+        "transfers_in_event": 3547,
+        "transfers_out_event": 617541
+      },
+      "target": 0
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2026-04-24T13:55:00Z",
+      "deadline": "2026-04-24T17:30:00Z",
+      "key": [
+        "2025-26",
+        34,
+        449
+      ],
+      "observed_name": "B.Fernandes",
+      "snapshot_path": "cache/2026/4/24/1355.json.xz",
+      "snapshot_sha256": "057f28b2a0d8e326ef9a6a67efd63b91d7cf31b0d1dbfac5e7240267d70b3195",
+      "state": {
+        "chance_of_playing_next_round": 100,
+        "deadline_position_id": 3,
+        "deadline_team_id": 14,
+        "price": 103,
+        "selected_by_percent": 47.3,
+        "status": "a",
+        "transfers_in_event": 170962,
+        "transfers_out_event": 9040
+      },
+      "target": 5
+    },
+    {
+      "all_state_fields_match_raw": true,
+      "capture": "2026-05-09T08:04:00Z",
+      "deadline": "2026-05-09T10:00:00Z",
+      "key": [
+        "2025-26",
+        36,
+        430
+      ],
+      "observed_name": "Haaland",
+      "snapshot_path": "cache/2026/5/9/0804.json.xz",
+      "snapshot_sha256": "b3db8dab3968df2ab7be35e73ed095ac0fa95394d6b82c0a99a59779975a2914",
+      "state": {
+        "chance_of_playing_next_round": 100,
+        "deadline_position_id": 4,
+        "deadline_team_id": 13,
+        "price": 147,
+        "selected_by_percent": 64.1,
+        "status": "a",
+        "transfers_in_event": 355596,
+        "transfers_out_event": 7231
+      },
+      "target": 11
+    }
+  ],
+  "upstream_identity": "57c2e4a54faca1328dc77e19471564cedd41eb6b73238b476ff00ab21f194f7a"
+}

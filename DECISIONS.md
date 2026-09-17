@@ -566,3 +566,69 @@ checks every label against raw settled event_points and counts all 4,553 support
 empty-player zeros. Success flags are returned only after all checks pass. A failing
 fresh-build condition is tested in normal and optimized subprocesses. No historical
 foundation files, predictors, model or milestone scope are changed.
+
+## 036 — Use a bounded sklearn experiment with train-only preprocessing
+
+Status: implemented and verified for the first Milestone 4 batch.
+
+Introduce scikit-learn 1.7.2 with exact NumPy 2.3.3, SciPy 1.16.2, joblib 1.5.2 and
+threadpoolctl 3.6.0 pins. Mature regression and fitted Pipeline implementations
+justify these dependencies; the zero-dependency preference does not justify writing
+inferior custom algorithms. Ingestion imports remain independent of ML modules.
+The recorded Python/library/platform environment scopes exact numerical reproduction.
+
+Consume the frozen M3 artifacts directly. Select 25 of its 27 predictors, excluding
+team ID and its missingness flag because numeric club IDs are season-local. There
+is no replacement team join or feature expansion. Train-median numeric fills plus
+train-fitted standardisation, passthrough original missingness flags and training
+one-hot position/status encoding form a common pipeline. Unknown categories map to
+all zeros. Computational null fills do not reinterpret chance as fit or missing
+history as observed zero. All-null numeric columns remain represented.
+
+Compare only Ridge alpha 10/100 and squared-error histogram boosting with 15/31
+leaves, 150 iterations, learning rate .05, minimum leaf 50, L2 10 and seed 1729.
+Disable early stopping and use single-thread numerical work. Predeclare validation
+RMSE as primary because expected points estimates the conditional mean; retain
+MAE, within-GW Spearman and all existing baselines/coverage. No output clipping.
+Training uses only labelled 2021/22–2023/24 rows with labels settled before validation.
+2024/25 selects the configuration; it never fits preprocessing or refits the model.
+Only the frozen saved winner is evaluated on 2025/26. No test-based candidate choice.
+
+Consequences: deliberately limited search and fully inspectable fits; no claims
+that the chosen two tree sizes differ significantly, or that global registered-player
+prediction gains establish downstream FPL decision quality. Fixture timing,
+settlement gates, quarantines, AM exclusion, xP prohibition and GW18 freshness remain
+exactly as M3. [Experiment evidence](docs/M4_VERIFICATION.md).
+
+## 037 — Separate immutable validation freeze from holdout products
+
+Status: implemented and verified for Milestone 4.
+
+Publish a validation artifact with all four fitted pipelines, validation predictions,
+full metrics, diagnostics, coefficient/permutation information, common-row baseline
+deltas and machine-readable selection. The original M3 manifest is inherited in
+`upstream.json`. Hash actual serialized products together with the explicit protocol,
+versions, feature order, configuration and seed. Timestamps/local paths are excluded.
+Model pickle SHA-256 values identify the fitted states. The aggregate freeze identity
+binds those states to the exact upstream data and selection evidence.
+
+A separate holdout command requires that published freeze, verifies its identity,
+closed artifact/checksum set, environment and selection, and loads only the selected
+pipeline. It cannot fit a model or consider other test candidates. Holdout outputs
+reference the exact freeze identity and manifest hash and never modify the freeze.
+Predictions, labels, features and historical data remain separate. Pickle artifacts
+must be trusted local products; checksums are not protection against malicious code.
+
+Publication is staged and atomic. Same-identity differences, corruption, missing or
+extra artifacts, wrong directory identity and incompatible contracts fail. Reuse
+recomputes deterministic candidates and compares bytes without rewriting. Exact
+replays are allowed for verification, not as a pretext for holdout tuning. Verification
+checks stay active under Python optimization. M3 integer settlement-GW keys are
+restored only for its original identity verification; no upstream bytes are changed.
+
+The selected hist_15 improves the agreed prediction problem on validation and the
+separate holdout. Every baseline, other metric, segment and negative forecast remains
+visible. Paired GW bootstrap deltas are descriptive and do not account for inter-GW
+serial dependence or product utility. The narrow M4 exit criterion is satisfied;
+future work should establish point-in-time feature evidence and fresh prospective
+evaluation. The reported 2025/26 test cannot become a new untouched holdout.

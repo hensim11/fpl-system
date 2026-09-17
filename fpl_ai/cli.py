@@ -66,6 +66,11 @@ def build_parser() -> argparse.ArgumentParser:
     features.add_argument('--data-dir', type=Path, default=Path('data'))
     features.add_argument('--artifact-dir', type=Path, default=None)
     features.add_argument('--builds-from', type=Path, help='prior modelling manifest whose exact historical builds to reuse')
+    experiment = subparsers.add_parser('experiment', help='train/validate or evaluate a frozen M4 model')
+    experiment.add_argument('stage', choices=('validate','holdout'))
+    experiment.add_argument('--m3-dir', type=Path, required=True, help='exact frozen M3 artifact directory')
+    experiment.add_argument('--frozen-dir', type=Path, help='published validation-freeze directory; required for holdout')
+    experiment.add_argument('--artifact-dir', type=Path)
     return parser
 
 
@@ -73,6 +78,20 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
+        if args.command == 'experiment':
+            from fpl_ai.experiments import run_validation, run_holdout
+            if any(v is not None for v in (args.current_output_dir,args.current_base_url,args.current_timeout)):
+                parser.error('experiment uses --m3-dir and --artifact-dir, not ingestion options')
+            if args.stage == 'validate':
+                if args.frozen_dir:
+                    parser.error('--frozen-dir is only valid for holdout')
+                path, reused = run_validation(args.m3_dir,args.artifact_dir or Path('data/experiments'))
+            else:
+                if not args.frozen_dir:
+                    parser.error('holdout requires --frozen-dir')
+                path, reused = run_holdout(args.m3_dir,args.frozen_dir,args.artifact_dir or Path('data/experiment_holdouts'))
+            print(f"Experiment {'reused' if reused else 'completed'}: {path}")
+            return 0
         if args.command == 'features':
             from fpl_ai.modelling import run_modelling
             import json

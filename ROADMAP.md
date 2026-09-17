@@ -48,11 +48,23 @@ Exit criterion: **satisfied** — an evaluation harness that can compare approac
 
 ## Milestone 4 — First predictive experiments
 
-- Train transparent baseline models for the agreed target.
-- Track data snapshot, features, configuration, and evaluation results.
-- Compare against non-ML baselines and document uncertainty.
+Status: **first substantial batch complete; current exit criterion satisfied**.
+See `docs/M4_VERIFICATION.md` for the separate validation and frozen holdout evidence.
 
-Exit criterion: a reproducible experiment with evidence that modelling adds value.
+- [x] Train transparent Ridge and bounded nonlinear models for the frozen M3 target.
+- [x] Track exact upstream identity, preprocessing, models, predictions and evaluation.
+- [x] Select with validation RMSE, publish the fitted winner, then evaluate holdout.
+- [x] Compare all five non-ML baselines, positions, history segments and uncertainty.
+- [x] Verify fit boundaries, source anomalies, exact replay and upstream preservation.
+
+Exit criterion: **satisfied for the agreed prediction problem** — held-out RMSE
+1.9164 versus 2.0880 scoring rate and 2.1234 external ep_next, with MAE/ranking gains,
+full coverage and lower squared error in all 38 test GWs. This does not establish
+squad/transfer/captain utility or universal superiority. 145 tests pass.
+
+Recommended next modelling batch: targeted independently proven point-in-time
+feature expansion, position calibration investigation and prospective evaluation.
+Preserve M4's frozen results; do not retune against the now-reported 2025/26 holdout.
 
 ## Later milestones
 
