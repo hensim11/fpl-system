@@ -1,0 +1,605 @@
+{
+  "checks": {
+    "all_validation_test_baseline_segment_metrics_unchanged": true,
+    "automated_tests_passed": 145,
+    "cli_help_passed": true,
+    "compilation_passed": true,
+    "diff_check_passed": true,
+    "files_preserved": 146,
+    "final_artifact_reader_matches_replay_evidence": true,
+    "initial_historical_and_m3_bytes_mtimes_unchanged": true,
+    "m2_five_season_offline_verification_passed": true,
+    "m3_verification_exactly_equal": true,
+    "new_tests_passed": 13,
+    "pip_check_passed": true,
+    "prior_tests_passed": 132
+  },
+  "historical_verification_sha256": "99459b5620698cbf270c974b438e26368cb702e1c13a5ff339ecc01efdc314d7",
+  "m3_verification_sha256": "df0df4c491202d313c99726515d89ce0cbb4fe3ef656b957b3dbb1531bd88cce",
+  "preexisting_files": {
+    "data/historical/catalogue.json": [
+      "1e3219bba59ccf3487fda4a57672180da72ca9af120839bd1551292915595688",
+      1789635230215146714
+    ],
+    "data/historical/processed/2021-22/v3-9779cdbc0c07-33dac28d1895-build-5644015b364e/data_quality_report.json": [
+      "2c1f5958fffcf366e76f6c657c6300e21de9b25454680db5a488a41070688467",
+      1789633469137505893
+    ],
+    "data/historical/processed/2021-22/v3-9779cdbc0c07-33dac28d1895-build-5644015b364e/fixtures.csv": [
+      "019a435c07f25f15acdc57ce404397f10b44e0e3467454a92acb9bfc98e5bde6",
+      1789633468916392985
+    ],
+    "data/historical/processed/2021-22/v3-9779cdbc0c07-33dac28d1895-build-5644015b364e/gameweeks.csv": [
+      "daa2e9a9b39a03a63cbd8d9f56002a23c73ab3fe60846fd2c96e368c3612e3d1",
+      1789633468914042893
+    ],
+    "data/historical/processed/2021-22/v3-9779cdbc0c07-33dac28d1895-build-5644015b364e/manifest.json": [
+      "0f33b422cc385d2cb54e6fd3757ec9e12d7991e6e64a04b27e1c8793c8abe16e",
+      1789633469145679465
+    ],
+    "data/historical/processed/2021-22/v3-9779cdbc0c07-33dac28d1895-build-5644015b364e/player_deadline_snapshots.csv": [
+      "c3c01dcd8aeccdfb6276875cd63144904683e6fb8eb200a71e80c027d132c17b",
+      1789633469095570737
+    ],
+    "data/historical/processed/2021-22/v3-9779cdbc0c07-33dac28d1895-build-5644015b364e/player_fixture_facts.csv": [
+      "8310163bc8c3abfc5033af1ee1a77812e0268a3f9d2802911dfa7c52a72b9876",
+      1789633468997672704
+    ],
+    "data/historical/processed/2021-22/v3-9779cdbc0c07-33dac28d1895-build-5644015b364e/players.csv": [
+      "1b358661dfb235b35a27258964d4a4c3bafcdc4f343ec31c7215ea0f051ca122",
+      1789633468915387439
+    ],
+    "data/historical/processed/2021-22/v3-9779cdbc0c07-33dac28d1895-build-5644015b364e/quarantined_source_metadata.csv": [
+      "a4f7be8b33e2b736cf375e9617060ce4bd22067faac35070690a083a05b652ed",
+      1789633469135197384
+    ],
+    "data/historical/processed/2021-22/v3-9779cdbc0c07-33dac28d1895-build-5644015b364e/schemas.json": [
+      "f6594621f5a980cd8d6d5c8943294383f3011f425b68f96bdf00cc7c9870f796",
+      1789633469136556556
+    ],
+    "data/historical/processed/2021-22/v3-9779cdbc0c07-33dac28d1895-build-5644015b364e/source_inventory.json": [
+      "4c094e22593ebfd61b77602720ec3b00309bdc75b5468acf16503b4ac4c57137",
+      1789633469139201691
+    ],
+    "data/historical/processed/2021-22/v3-9779cdbc0c07-33dac28d1895-build-5644015b364e/teams.csv": [
+      "f46e390afddb375624503cac6ef295b508183e297346b918c22f2c396e60ba4e",
+      1789633468915634148
+    ],
+    "data/historical/processed/2021-22/v3-9779cdbc0c07-33dac28d1895-build-5644015b364e/total_points_reconciliation.json": [
+      "a26070cbc6d7d611458348cf5f7f6e38bfa4876e731ebfa71029cd2d8d1b986d",
+      1789633469138527272
+    ],
+    "data/historical/processed/2022-23/v3-9779cdbc0c07-33dac28d1895-build-9227d246d371/data_quality_report.json": [
+      "a8f5b9984878491d7c9413050776fb7be78663e06f0ac3c4177763f975b7a38a",
+      1789582977894237844
+    ],
+    "data/historical/processed/2022-23/v3-9779cdbc0c07-33dac28d1895-build-9227d246d371/fixtures.csv": [
+      "c81bb9f945653a6386b95543f48e2c065ee6efbb9d203fd6c7f1ac496a0fb271",
+      1789582977664114981
+    ],
+    "data/historical/processed/2022-23/v3-9779cdbc0c07-33dac28d1895-build-9227d246d371/gameweeks.csv": [
+      "00a4ae6a8f6dd0b605b49c64ffbcb3162bac0506456f4c9957aac93b9ec93f43",
+      1789582977661949518
+    ],
+    "data/historical/processed/2022-23/v3-9779cdbc0c07-33dac28d1895-build-9227d246d371/manifest.json": [
+      "abaa3c332a220564039465e9217e2e7ee6f580c77b5d21fa358b3d3fe39fcbe1",
+      1789582977900735398
+    ],
+    "data/historical/processed/2022-23/v3-9779cdbc0c07-33dac28d1895-build-9227d246d371/player_deadline_snapshots.csv": [
+      "67a7f5d00e7b5ac8f64e7ad4a8aded1e8c0ad3e3ade715e316e51e6aa3c34d79",
+      1789582977855677977
+    ],
+    "data/historical/processed/2022-23/v3-9779cdbc0c07-33dac28d1895-build-9227d246d371/player_fixture_facts.csv": [
+      "5713293c4b75c3681c2b74e949a941127ad7a1dcf1c43d4da517d95f5e2b72b6",
+      1789582977752261193
+    ],
+    "data/historical/processed/2022-23/v3-9779cdbc0c07-33dac28d1895-build-9227d246d371/players.csv": [
+      "babd0338884a07788fb99236cf02f3e162f4aae191e6828bd7fc1a23a1b9c52e",
+      1789582977663136438
+    ],
+    "data/historical/processed/2022-23/v3-9779cdbc0c07-33dac28d1895-build-9227d246d371/quarantined_source_metadata.csv": [
+      "5673455b5768f5adc4ddb6ac75d2138d8c00d60f02d5bb507fae8dbc50f66f90",
+      1789582977892632757
+    ],
+    "data/historical/processed/2022-23/v3-9779cdbc0c07-33dac28d1895-build-9227d246d371/schemas.json": [
+      "efeab7eb8e19ab7352694ec1cd54fa611c9bc5680868de9c4578c14f09554e77",
+      1789582977893684384
+    ],
+    "data/historical/processed/2022-23/v3-9779cdbc0c07-33dac28d1895-build-9227d246d371/source_inventory.json": [
+      "63696cce33db071417e9c7992918b7afb2cf2a33a9b8b7a71494c237ebac5a72",
+      1789582977894938720
+    ],
+    "data/historical/processed/2022-23/v3-9779cdbc0c07-33dac28d1895-build-9227d246d371/teams.csv": [
+      "e6d9b1d47004ea82c008ed13ccfd8755cda306100c743d15be6746241bca50d1",
+      1789582977663362521
+    ],
+    "data/historical/processed/2022-23/v3-9779cdbc0c07-33dac28d1895-build-9227d246d371/total_points_reconciliation.json": [
+      "f93720ed3f3bac3e29280e6e4b6dc4f0a9da81cae957c835724f8b709d38fc77",
+      1789582977894540969
+    ],
+    "data/historical/processed/2023-24/v3-9779cdbc0c07-33dac28d1895-build-7886af1a34dd/data_quality_report.json": [
+      "3adabc7fcef9dd76bac8675534dcb909977e34c3484ecad0923a923049af1874",
+      1789571659406793225
+    ],
+    "data/historical/processed/2023-24/v3-9779cdbc0c07-33dac28d1895-build-7886af1a34dd/fixtures.csv": [
+      "107a1d3b92639f7eb5f55f3fb5e747cbdbcc1c25417cbc9c46000bedf51f0def",
+      1789571659150855537
+    ],
+    "data/historical/processed/2023-24/v3-9779cdbc0c07-33dac28d1895-build-7886af1a34dd/gameweeks.csv": [
+      "e412079827c4efb65e8451df7e8453e6460eeb64a68986c6df96527e97a2ef1e",
+      1789571659148578947
+    ],
+    "data/historical/processed/2023-24/v3-9779cdbc0c07-33dac28d1895-build-7886af1a34dd/manifest.json": [
+      "c451eb2995d0f568d156aa7a4a01f3ad89f057a88011536d1ff9ce97181a8d0c",
+      1789571659413955997
+    ],
+    "data/historical/processed/2023-24/v3-9779cdbc0c07-33dac28d1895-build-7886af1a34dd/player_deadline_snapshots.csv": [
+      "147e275e5740afec57afcbd9b5bc6abc0606664dbfa8ffc6403912d1fa7a72d0",
+      1789571659364484347
+    ],
+    "data/historical/processed/2023-24/v3-9779cdbc0c07-33dac28d1895-build-7886af1a34dd/player_fixture_facts.csv": [
+      "0df65458dff40414bb847785a16e34b76c8630060901fc8f04981bb207047b7f",
+      1789571659248683998
+    ],
+    "data/historical/processed/2023-24/v3-9779cdbc0c07-33dac28d1895-build-7886af1a34dd/players.csv": [
+      "04e01295bab2517443ead2e42f4bbf7ef5519c9fd8b5c12812ac0df14cde3f2f",
+      1789571659149886243
+    ],
+    "data/historical/processed/2023-24/v3-9779cdbc0c07-33dac28d1895-build-7886af1a34dd/quarantined_source_metadata.csv": [
+      "67451659ca16e65515a106a5b699f66f846a8d53dd925b1cd532466295860c4e",
+      1789571659405005428
+    ],
+    "data/historical/processed/2023-24/v3-9779cdbc0c07-33dac28d1895-build-7886af1a34dd/schemas.json": [
+      "2f5393e2a4f710d2f362ddd46be3ef74723dc8cb0382f98460697bf613e0a395",
+      1789571659406235098
+    ],
+    "data/historical/processed/2023-24/v3-9779cdbc0c07-33dac28d1895-build-7886af1a34dd/source_inventory.json": [
+      "1774f4b05981a9b5ff03af0c2979faf4ae7d276fe69a90bb73a550d2a1d1366b",
+      1789571659407564602
+    ],
+    "data/historical/processed/2023-24/v3-9779cdbc0c07-33dac28d1895-build-7886af1a34dd/teams.csv": [
+      "42730f6ac029bcb7dd093782b849702425bc8e86aa8bc3f720353a2fda1d8a36",
+      1789571659150108244
+    ],
+    "data/historical/processed/2023-24/v3-9779cdbc0c07-33dac28d1895-build-7886af1a34dd/total_points_reconciliation.json": [
+      "42b2161baecf400469fcb9299b48bef5da2357eab28c4d124608adac14911e93",
+      1789571659407095018
+    ],
+    "data/historical/processed/2024-25/v1-9779cdbc0c07-33dac28d1895/data_quality_report.json": [
+      "3700fe00c2c14c8c259576840f4d11e1b0a75d41910882de24dca4cc321f5dfb",
+      1788300800706948713
+    ],
+    "data/historical/processed/2024-25/v1-9779cdbc0c07-33dac28d1895/fixtures.csv": [
+      "f16b12e35243062373ab0c70b8aab0eca2d71097e9b0d91193b96a8bac35f070",
+      1788300800489499267
+    ],
+    "data/historical/processed/2024-25/v1-9779cdbc0c07-33dac28d1895/gameweeks.csv": [
+      "5239b2ad9505d81989cb2beee6bc45bbd6a268521405d846b3f98993e1ac791c",
+      1788300800486951841
+    ],
+    "data/historical/processed/2024-25/v1-9779cdbc0c07-33dac28d1895/manifest.json": [
+      "0208ff5b93492dd54f21f2aab65a86a0f8786b659fac16bb136e5125c6e45681",
+      1788300800712172399
+    ],
+    "data/historical/processed/2024-25/v1-9779cdbc0c07-33dac28d1895/player_deadline_snapshots.csv": [
+      "ce2b9687f93b6cac3df8f1bf8215a1e1dfedb9c8a9560f0215af1032554194a5",
+      1788300800666005691
+    ],
+    "data/historical/processed/2024-25/v1-9779cdbc0c07-33dac28d1895/player_fixture_facts.csv": [
+      "a9b9b0fc16fdacb89941c3b8b879216751ed7b33f7a04352df9f084453ff060b",
+      1788300800578269168
+    ],
+    "data/historical/processed/2024-25/v1-9779cdbc0c07-33dac28d1895/players.csv": [
+      "caef45ca4563e28ba0557551b3f3ae166b0bffb06cf264dd733a4dca836f9ae7",
+      1788300800488436805
+    ],
+    "data/historical/processed/2024-25/v1-9779cdbc0c07-33dac28d1895/quarantined_source_metadata.csv": [
+      "7b7400ec405ecb3a7733af2c44cb81974d3383658fda694a63335dfd8cda11b0",
+      1788300800705996502
+    ],
+    "data/historical/processed/2024-25/v1-9779cdbc0c07-33dac28d1895/schemas.json": [
+      "6c7dd4dece9d0b4ee138a47f2762aa44f60be6b6336ea349043414ed344c1845",
+      1788300800706645337
+    ],
+    "data/historical/processed/2024-25/v1-9779cdbc0c07-33dac28d1895/teams.csv": [
+      "aa44bb9410908c2af8cabddf7678fbcf1bfd5804472141fcd7dcc404f02e53f4",
+      1788300800488712139
+    ],
+    "data/historical/processed/2024-25/v2-9779cdbc0c07-33dac28d1895/data_quality_report.json": [
+      "d2bb95cc3e9043dfe16b8196922e009c2ecef128c44a9d4a05454a89c7288a72",
+      1788362071884624061
+    ],
+    "data/historical/processed/2024-25/v2-9779cdbc0c07-33dac28d1895/fixtures.csv": [
+      "f16b12e35243062373ab0c70b8aab0eca2d71097e9b0d91193b96a8bac35f070",
+      1788362071647900275
+    ],
+    "data/historical/processed/2024-25/v2-9779cdbc0c07-33dac28d1895/gameweeks.csv": [
+      "5239b2ad9505d81989cb2beee6bc45bbd6a268521405d846b3f98993e1ac791c",
+      1788362071645547516
+    ],
+    "data/historical/processed/2024-25/v2-9779cdbc0c07-33dac28d1895/manifest.json": [
+      "2f3eeafe59d49fa56fa1ffbbab32dd8785381322b5811a15f2ea74382f282892",
+      1788362071890787336
+    ],
+    "data/historical/processed/2024-25/v2-9779cdbc0c07-33dac28d1895/player_deadline_snapshots.csv": [
+      "bec32e2e82ac3ac2fdf6628a0a6657ed948d2f996807feeb7f25c167bca93b74",
+      1788362071843885980
+    ],
+    "data/historical/processed/2024-25/v2-9779cdbc0c07-33dac28d1895/player_fixture_facts.csv": [
+      "677d15f5f1c3b092e086db1414f57ad9ebeb0134d5795d996be6dc0d7d7e9159",
+      1788362071736225131
+    ],
+    "data/historical/processed/2024-25/v2-9779cdbc0c07-33dac28d1895/players.csv": [
+      "0a0b8b31ae36adba55b89ac6fa822593821e70e1bc46350ca902c10687d0740d",
+      1788362071646948772
+    ],
+    "data/historical/processed/2024-25/v2-9779cdbc0c07-33dac28d1895/quarantined_source_metadata.csv": [
+      "7b7400ec405ecb3a7733af2c44cb81974d3383658fda694a63335dfd8cda11b0",
+      1788362071883560765
+    ],
+    "data/historical/processed/2024-25/v2-9779cdbc0c07-33dac28d1895/schemas.json": [
+      "5fdda2eb1149923dcab66655dda4240096cccd7fb29529505c1be3eb83a17a81",
+      1788362071884207017
+    ],
+    "data/historical/processed/2024-25/v2-9779cdbc0c07-33dac28d1895/teams.csv": [
+      "aa44bb9410908c2af8cabddf7678fbcf1bfd5804472141fcd7dcc404f02e53f4",
+      1788362071647173564
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-105600b4135e/data_quality_report.json": [
+      "f9b7bb4426ded0961efbc96c436c82231a236bba747cfe800a6a6a41e646d884",
+      1788386626332186985
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-105600b4135e/fixtures.csv": [
+      "f16b12e35243062373ab0c70b8aab0eca2d71097e9b0d91193b96a8bac35f070",
+      1788386626095562770
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-105600b4135e/gameweeks.csv": [
+      "5239b2ad9505d81989cb2beee6bc45bbd6a268521405d846b3f98993e1ac791c",
+      1788386626093109554
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-105600b4135e/manifest.json": [
+      "9e3a28067b803ffb5ead4df013f5820b89916f0df7e8a3f90e8df96f3573517b",
+      1788386626339036339
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-105600b4135e/player_deadline_snapshots.csv": [
+      "bec32e2e82ac3ac2fdf6628a0a6657ed948d2f996807feeb7f25c167bca93b74",
+      1788386626291241694
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-105600b4135e/player_fixture_facts.csv": [
+      "677d15f5f1c3b092e086db1414f57ad9ebeb0134d5795d996be6dc0d7d7e9159",
+      1788386626182668408
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-105600b4135e/players.csv": [
+      "0a0b8b31ae36adba55b89ac6fa822593821e70e1bc46350ca902c10687d0740d",
+      1788386626094498392
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-105600b4135e/quarantined_source_metadata.csv": [
+      "7b7400ec405ecb3a7733af2c44cb81974d3383658fda694a63335dfd8cda11b0",
+      1788386626330367646
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-105600b4135e/schemas.json": [
+      "4e8e1aeb50410b12d29bcab6acd04730c2c1c2c75b1cd83f9c1df911285880e0",
+      1788386626331676692
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-105600b4135e/source_inventory.json": [
+      "f8bbf7daf5fa54c881473560843c15acaecab86ef911bbf06c79c79f1b78ec40",
+      1788386626332769861
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-105600b4135e/teams.csv": [
+      "aa44bb9410908c2af8cabddf7678fbcf1bfd5804472141fcd7dcc404f02e53f4",
+      1788386626094778643
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-105600b4135e/total_points_reconciliation.json": [
+      "447a792756d9916ac1ec28b41ee8cae16fed527891d265a2f245b294e9fb45a1",
+      1788386626332471444
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-1fbdcc84c93d/data_quality_report.json": [
+      "fd9a51ee0ad4a394531e64a2700d900e98fff1dd23c320324f5c90c643935eda",
+      1788388844987332995
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-1fbdcc84c93d/fixtures.csv": [
+      "f16b12e35243062373ab0c70b8aab0eca2d71097e9b0d91193b96a8bac35f070",
+      1788388844747352665
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-1fbdcc84c93d/gameweeks.csv": [
+      "5239b2ad9505d81989cb2beee6bc45bbd6a268521405d846b3f98993e1ac791c",
+      1788388844744790946
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-1fbdcc84c93d/manifest.json": [
+      "e0ed43d33bbe3fb99a14247a1baa0e2d95873824afff03c013ef0d67b717cd86",
+      1788388844994167065
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-1fbdcc84c93d/player_deadline_snapshots.csv": [
+      "bec32e2e82ac3ac2fdf6628a0a6657ed948d2f996807feeb7f25c167bca93b74",
+      1788388844945820656
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-1fbdcc84c93d/player_fixture_facts.csv": [
+      "677d15f5f1c3b092e086db1414f57ad9ebeb0134d5795d996be6dc0d7d7e9159",
+      1788388844836404659
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-1fbdcc84c93d/players.csv": [
+      "0a0b8b31ae36adba55b89ac6fa822593821e70e1bc46350ca902c10687d0740d",
+      1788388844746377327
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-1fbdcc84c93d/quarantined_source_metadata.csv": [
+      "7b7400ec405ecb3a7733af2c44cb81974d3383658fda694a63335dfd8cda11b0",
+      1788388844985547862
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-1fbdcc84c93d/schemas.json": [
+      "e7825f7de116bafff4fd186043d836e34ccfde4c52972b664e2d7321d991b6fe",
+      1788388844986689784
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-1fbdcc84c93d/source_inventory.json": [
+      "ccee8444e994e81cf4d1d0dc1bde04c4bbeb9eeace50c570dd1d007a3169840c",
+      1788388844987968373
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-1fbdcc84c93d/teams.csv": [
+      "aa44bb9410908c2af8cabddf7678fbcf1bfd5804472141fcd7dcc404f02e53f4",
+      1788388844746632912
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-1fbdcc84c93d/total_points_reconciliation.json": [
+      "5e60536f76d2c64dca0d1dafd566053c51c44557fbddeec8c9935f08e0c1151c",
+      1788388844987637663
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-50b4c45a5abf/data_quality_report.json": [
+      "641304b230e5f179a387a2306d184a254bca6406a17e96e0f8c0424b83ac32c6",
+      1788369845627806365
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-50b4c45a5abf/fixtures.csv": [
+      "f16b12e35243062373ab0c70b8aab0eca2d71097e9b0d91193b96a8bac35f070",
+      1788369845391678994
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-50b4c45a5abf/gameweeks.csv": [
+      "5239b2ad9505d81989cb2beee6bc45bbd6a268521405d846b3f98993e1ac791c",
+      1788369845389462358
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-50b4c45a5abf/manifest.json": [
+      "3bba19a53b0313ee952e237564bd85167b576c8cd3a98f6191549c5a03ab81f5",
+      1788369845633776228
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-50b4c45a5abf/player_deadline_snapshots.csv": [
+      "bec32e2e82ac3ac2fdf6628a0a6657ed948d2f996807feeb7f25c167bca93b74",
+      1788369845586673030
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-50b4c45a5abf/player_fixture_facts.csv": [
+      "677d15f5f1c3b092e086db1414f57ad9ebeb0134d5795d996be6dc0d7d7e9159",
+      1788369845478704563
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-50b4c45a5abf/players.csv": [
+      "0a0b8b31ae36adba55b89ac6fa822593821e70e1bc46350ca902c10687d0740d",
+      1788369845390707405
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-50b4c45a5abf/quarantined_source_metadata.csv": [
+      "7b7400ec405ecb3a7733af2c44cb81974d3383658fda694a63335dfd8cda11b0",
+      1788369845626140439
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-50b4c45a5abf/schemas.json": [
+      "85b8f07fb9a466f565b41827532c8b986ac16c6ab76cad2055c31dc528738581",
+      1788369845627238528
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-50b4c45a5abf/teams.csv": [
+      "aa44bb9410908c2af8cabddf7678fbcf1bfd5804472141fcd7dcc404f02e53f4",
+      1788369845390945407
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-50b4c45a5abf/total_points_reconciliation.json": [
+      "a6ed6e2b634a7377fa5ae363b80a3d9482451061439652d1e1c7bb3fcf083d9b",
+      1788369845628114783
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-eef9e0c6f4d1/data_quality_report.json": [
+      "1c4c12f4708a79ee6c0031697825fe123c960e5fd1b064fcea6c3d1fe74c9272",
+      1788369478446161931
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-eef9e0c6f4d1/fixtures.csv": [
+      "f16b12e35243062373ab0c70b8aab0eca2d71097e9b0d91193b96a8bac35f070",
+      1788369478210221103
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-eef9e0c6f4d1/gameweeks.csv": [
+      "5239b2ad9505d81989cb2beee6bc45bbd6a268521405d846b3f98993e1ac791c",
+      1788369478207808507
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-eef9e0c6f4d1/manifest.json": [
+      "c1517e9822a018289bdd7729e49f6c2df863eb8426da3334cd5f5b04c18e7b5f",
+      1788369478452109920
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-eef9e0c6f4d1/player_deadline_snapshots.csv": [
+      "bec32e2e82ac3ac2fdf6628a0a6657ed948d2f996807feeb7f25c167bca93b74",
+      1788369478404746095
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-eef9e0c6f4d1/player_fixture_facts.csv": [
+      "677d15f5f1c3b092e086db1414f57ad9ebeb0134d5795d996be6dc0d7d7e9159",
+      1788369478297727924
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-eef9e0c6f4d1/players.csv": [
+      "0a0b8b31ae36adba55b89ac6fa822593821e70e1bc46350ca902c10687d0740d",
+      1788369478209224348
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-eef9e0c6f4d1/quarantined_source_metadata.csv": [
+      "7b7400ec405ecb3a7733af2c44cb81974d3383658fda694a63335dfd8cda11b0",
+      1788369478444537131
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-eef9e0c6f4d1/schemas.json": [
+      "ca88994be125c4b86a06c2c3a0d33bdef764553119ad37a4be296e55a9553fe7",
+      1788369478445672012
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-eef9e0c6f4d1/teams.csv": [
+      "aa44bb9410908c2af8cabddf7678fbcf1bfd5804472141fcd7dcc404f02e53f4",
+      1788369478209493058
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895-build-eef9e0c6f4d1/total_points_reconciliation.json": [
+      "0b0e6649e6b3ddd34d19d74b65386702fe9a3419f9b5bf952669fabd078b12be",
+      1788369478446442599
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895/data_quality_report.json": [
+      "4a0eb1b6c4cf8c2bdcc73e6ca7ee1c7b3212de7792900d199f3f3b2f4a72f688",
+      1788362215549942336
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895/fixtures.csv": [
+      "f16b12e35243062373ab0c70b8aab0eca2d71097e9b0d91193b96a8bac35f070",
+      1788362215309311534
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895/gameweeks.csv": [
+      "5239b2ad9505d81989cb2beee6bc45bbd6a268521405d846b3f98993e1ac791c",
+      1788362215306546857
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895/manifest.json": [
+      "23f5b1cab0dab0d7fca832e0a14d7530961063a6db2d4437741e0fb9d6d8dc30",
+      1788362215555720484
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895/player_deadline_snapshots.csv": [
+      "bec32e2e82ac3ac2fdf6628a0a6657ed948d2f996807feeb7f25c167bca93b74",
+      1788362215508390877
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895/player_fixture_facts.csv": [
+      "677d15f5f1c3b092e086db1414f57ad9ebeb0134d5795d996be6dc0d7d7e9159",
+      1788362215399063104
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895/players.csv": [
+      "0a0b8b31ae36adba55b89ac6fa822593821e70e1bc46350ca902c10687d0740d",
+      1788362215308336114
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895/quarantined_source_metadata.csv": [
+      "7b7400ec405ecb3a7733af2c44cb81974d3383658fda694a63335dfd8cda11b0",
+      1788362215548325829
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895/schemas.json": [
+      "5fdda2eb1149923dcab66655dda4240096cccd7fb29529505c1be3eb83a17a81",
+      1788362215549558334
+    ],
+    "data/historical/processed/2024-25/v3-9779cdbc0c07-33dac28d1895/teams.csv": [
+      "aa44bb9410908c2af8cabddf7678fbcf1bfd5804472141fcd7dcc404f02e53f4",
+      1788362215308571032
+    ],
+    "data/historical/processed/2025-26/v3-9779cdbc0c07-33dac28d1895-build-0fa66b641643/data_quality_report.json": [
+      "f92aed1c2020b3412ab8ed978ee8d67679074cbf0a967a9e199a620c4252f3c1",
+      1789635230204007223
+    ],
+    "data/historical/processed/2025-26/v3-9779cdbc0c07-33dac28d1895-build-0fa66b641643/fixtures.csv": [
+      "663700c0d7df1cd8a6db0b4f730dc66cbfeed1ac0dbc71955d8faa2c9107133b",
+      1789635229937808331
+    ],
+    "data/historical/processed/2025-26/v3-9779cdbc0c07-33dac28d1895-build-0fa66b641643/gameweeks.csv": [
+      "b9040033dd92718bd1d080a4c0e35652a5aabab32104daa559c0039de5e6a60b",
+      1789635229935278157
+    ],
+    "data/historical/processed/2025-26/v3-9779cdbc0c07-33dac28d1895-build-0fa66b641643/manifest.json": [
+      "b349487674fbbf159c2997e0a80879534cf2e2954939b7062e7b8a172b6a3ccb",
+      1789635230211026827
+    ],
+    "data/historical/processed/2025-26/v3-9779cdbc0c07-33dac28d1895-build-0fa66b641643/player_deadline_snapshots.csv": [
+      "777d17799bdabcac071505eb9a342a0155479eb9366a81b1f07347135c36af40",
+      1789635230158022716
+    ],
+    "data/historical/processed/2025-26/v3-9779cdbc0c07-33dac28d1895-build-0fa66b641643/player_fixture_facts.csv": [
+      "8176f154bacabc974e63496ffcb9a98f82d69bc532e5193ce2996289b953d4a1",
+      1789635230037542494
+    ],
+    "data/historical/processed/2025-26/v3-9779cdbc0c07-33dac28d1895-build-0fa66b641643/players.csv": [
+      "0c6ec64eedf0418d1099274b3b5122f2023edf1282b2b6acb0f535e61aa81dc3",
+      1789635229936759787
+    ],
+    "data/historical/processed/2025-26/v3-9779cdbc0c07-33dac28d1895-build-0fa66b641643/quarantined_source_metadata.csv": [
+      "8b8a2206cc16fe7328fe4b2b60ab65df9f6f94e6aa2849fb0f2369724ca35389",
+      1789635230202058259
+    ],
+    "data/historical/processed/2025-26/v3-9779cdbc0c07-33dac28d1895-build-0fa66b641643/schemas.json": [
+      "cc3e8d74898b91e785d35271a799679b35610ea656d2df91a0981ea59f6f933e",
+      1789635230203137179
+    ],
+    "data/historical/processed/2025-26/v3-9779cdbc0c07-33dac28d1895-build-0fa66b641643/source_inventory.json": [
+      "1b1cf8b00991fab11caf0a2ba2ff2ae415787c607f9e6cae364700bcd15e6fd1",
+      1789635230204745350
+    ],
+    "data/historical/processed/2025-26/v3-9779cdbc0c07-33dac28d1895-build-0fa66b641643/teams.csv": [
+      "0aa548175578def53a7e0495f557ad3c3f3c7a1e86647030809db8393b42b700",
+      1789635229937008287
+    ],
+    "data/historical/processed/2025-26/v3-9779cdbc0c07-33dac28d1895-build-0fa66b641643/total_points_reconciliation.json": [
+      "2b86063fd99a1bc6db0e6e6f82ca5bcf92d33e923bedd748e41eee6d8970cad7",
+      1789635230204410349
+    ],
+    "data/modelling/43019484073d51d4e9fd0b28c0e34c4d2d5a8168ca4f2a8f3308599a65f6ae3f/evaluation.json": [
+      "ff86e277c3840dfd94ab5a4241111020909e1f2cb24caf4cff6637ae99a936f5",
+      1789640026716399473
+    ],
+    "data/modelling/43019484073d51d4e9fd0b28c0e34c4d2d5a8168ca4f2a8f3308599a65f6ae3f/features.csv": [
+      "a5457d0961267744a42e4d954d1f45f393ae0698238a7c827aced02cfd42803b",
+      1789640025692688585
+    ],
+    "data/modelling/43019484073d51d4e9fd0b28c0e34c4d2d5a8168ca4f2a8f3308599a65f6ae3f/labels.csv": [
+      "8ef3ef7840a394399067c1965d63b90133731fc66d47eba9f0a68704744e78dd",
+      1789640025884670187
+    ],
+    "data/modelling/43019484073d51d4e9fd0b28c0e34c4d2d5a8168ca4f2a8f3308599a65f6ae3f/manifest.json": [
+      "0932281fc1ddc44a2f14dfb1f9f3c71fdc3fcd942b8cefd346d6dc066bbd554e",
+      1789640026747283993
+    ],
+    "data/modelling/43019484073d51d4e9fd0b28c0e34c4d2d5a8168ca4f2a8f3308599a65f6ae3f/predictions.csv": [
+      "61b050cbce15d86b9abe54f89ec4cc492eae4f8ad75eb033e3ec0d8fc5064d24",
+      1789640026711350873
+    ],
+    "data/modelling/43019484073d51d4e9fd0b28c0e34c4d2d5a8168ca4f2a8f3308599a65f6ae3f/row_audit.csv": [
+      "2d53986b1dbd41e70d5aeb13c256beb522a95d1773e9a64dbf4011ee3ce2c66f",
+      1789640026314479085
+    ],
+    "data/modelling/43019484073d51d4e9fd0b28c0e34c4d2d5a8168ca4f2a8f3308599a65f6ae3f/schema.json": [
+      "3800660c4fa4d780663d2b563d9aaec04bc89ef54b52cb0a8c20b7825404dd28",
+      1789640026716676433
+    ],
+    "data/modelling/44dc57fbabd0c6a6b2deec6c19189ee6ac2df5c9b7f0904977bd871fb0832fb6/evaluation.json": [
+      "48cbea62b29bfb92a3eb78bcbde14e884fed339ce741d64c60308b9fe3b6ca32",
+      1789639820574405808
+    ],
+    "data/modelling/44dc57fbabd0c6a6b2deec6c19189ee6ac2df5c9b7f0904977bd871fb0832fb6/features.csv": [
+      "a5457d0961267744a42e4d954d1f45f393ae0698238a7c827aced02cfd42803b",
+      1789639819525610169
+    ],
+    "data/modelling/44dc57fbabd0c6a6b2deec6c19189ee6ac2df5c9b7f0904977bd871fb0832fb6/labels.csv": [
+      "8ef3ef7840a394399067c1965d63b90133731fc66d47eba9f0a68704744e78dd",
+      1789639819726035299
+    ],
+    "data/modelling/44dc57fbabd0c6a6b2deec6c19189ee6ac2df5c9b7f0904977bd871fb0832fb6/manifest.json": [
+      "58eccec0dd333d8ff49279dfdf3fb1bb86fea43b710da4f1f8f405dc7ce63832",
+      1789639820598971390
+    ],
+    "data/modelling/44dc57fbabd0c6a6b2deec6c19189ee6ac2df5c9b7f0904977bd871fb0832fb6/predictions.csv": [
+      "61b050cbce15d86b9abe54f89ec4cc492eae4f8ad75eb033e3ec0d8fc5064d24",
+      1789639820572301300
+    ],
+    "data/modelling/44dc57fbabd0c6a6b2deec6c19189ee6ac2df5c9b7f0904977bd871fb0832fb6/row_audit.csv": [
+      "2d53986b1dbd41e70d5aeb13c256beb522a95d1773e9a64dbf4011ee3ce2c66f",
+      1789639820150852889
+    ],
+    "data/modelling/44dc57fbabd0c6a6b2deec6c19189ee6ac2df5c9b7f0904977bd871fb0832fb6/schema.json": [
+      "21839a4c83bcf4ca0da31ff6eb0d0266f9d0b863ac05185f5f7a79d6b3fb99b6",
+      1789639820574665767
+    ],
+    "data/modelling/57c2e4a54faca1328dc77e19471564cedd41eb6b73238b476ff00ab21f194f7a/evaluation.json": [
+      "ea8e2b8c7782627c0055fcddacddaac31c1b5f406be1ca6bb75f88303c24fa64",
+      1789641107995823518
+    ],
+    "data/modelling/57c2e4a54faca1328dc77e19471564cedd41eb6b73238b476ff00ab21f194f7a/features.csv": [
+      "a5457d0961267744a42e4d954d1f45f393ae0698238a7c827aced02cfd42803b",
+      1789641106960728427
+    ],
+    "data/modelling/57c2e4a54faca1328dc77e19471564cedd41eb6b73238b476ff00ab21f194f7a/labels.csv": [
+      "8ef3ef7840a394399067c1965d63b90133731fc66d47eba9f0a68704744e78dd",
+      1789641107147377527
+    ],
+    "data/modelling/57c2e4a54faca1328dc77e19471564cedd41eb6b73238b476ff00ab21f194f7a/manifest.json": [
+      "76b36ad7cd112c1644b3472d4f0a13b569005a573399d200b881235ae5335e23",
+      1789641108021082102
+    ],
+    "data/modelling/57c2e4a54faca1328dc77e19471564cedd41eb6b73238b476ff00ab21f194f7a/predictions.csv": [
+      "61b050cbce15d86b9abe54f89ec4cc492eae4f8ad75eb033e3ec0d8fc5064d24",
+      1789641107967881795
+    ],
+    "data/modelling/57c2e4a54faca1328dc77e19471564cedd41eb6b73238b476ff00ab21f194f7a/row_audit.csv": [
+      "2d53986b1dbd41e70d5aeb13c256beb522a95d1773e9a64dbf4011ee3ce2c66f",
+      1789641107575254791
+    ],
+    "data/modelling/57c2e4a54faca1328dc77e19471564cedd41eb6b73238b476ff00ab21f194f7a/schema.json": [
+      "3800660c4fa4d780663d2b563d9aaec04bc89ef54b52cb0a8c20b7825404dd28",
+      1789641107969683220
+    ]
+  }
+}

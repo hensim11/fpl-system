@@ -4,9 +4,9 @@ Last updated: 2026-09-17
 
 ## Current milestone
 
-Milestone 3 — Leakage-safe feature and evaluation foundation.
+Milestone 4 — First predictive experiments.
 
-Status: **complete against the current roadmap exit criterion**. Deterministic point-in-time features, explicit targets/splits, five non-ML baselines and a reusable evaluation harness are implemented and verified on all five seasons. Milestones 1 and 2 remain complete and unchanged. The exact authorized 2021/22 GW18 freshness exception remains applicable. No trained predictive model or recommendations exist.
+Status: **first substantial Milestone 4 batch complete; current exit criterion satisfied**. A reproducible, validation-selected histogram gradient-boosting model improves next-Gameweek point prediction over all five frozen baselines on the separate 2025/26 holdout. This is evidence for the agreed registered-player target, not downstream FPL decision utility. Milestones 1–3 and their artifacts remain unchanged. The exact 2021/22 GW18 freshness exception remains applicable. No optimiser or recommendations exist.
 
 ## What currently works
 
@@ -23,7 +23,7 @@ Status: **complete against the current roadmap exit criterion**. Deterministic p
 - Vaastav fixture-level `total_points` is canonical. Player/Gameweek sums are reconciled against settled `fplcache` `event_points`; all five seasons require 100% eligible-row coverage, and no usable comparison, sub-threshold coverage, or any mismatch is a hard quality failure.
 - Vaastav input shape is selected through the season's `vaastav-2024-25-v1`, `vaastav-2023-24-v1`, `vaastav-2022-23-v1`, `vaastav-2021-22-v1` or `vaastav-2025-26-v1` schema. Its declarative mappings execute at one typed normalisation boundary, after which generic transforms consume only canonical names. Integer, decimal, boolean, string/enumeration, nullability, and UTC timestamp contracts are enforced. Optional-column reporting is category-accurate, quarantine targets are unique, and `xP` remains structurally forbidden.
 - Current and historical CLI option destinations are independent. Conflicting duplicate values before and after `historical` produce an argparse error instead of silent overwriting.
-- Milestone 3 now adds offline features and baseline evaluation through `python -m fpl_ai features`; trained models, optimisation and FPL decision rules remain future work.
+- Milestone 3 provides offline features and baseline evaluation through `python -m fpl_ai features`. Milestone 4 consumes its frozen products through `python -m fpl_ai experiment validate` and `experiment holdout`; optimisation and FPL decision rules remain future work.
 
 ### Verified current-state run
 
@@ -268,10 +268,45 @@ evidence. The new identity intentionally replaces the incomplete four-file code-
 boundary; old published artifacts remain intact. See Decision 035 and the verification
 record for normal/optimized runs, preservation and unchanged metric comparisons.
 
+## Verified Milestone 4 batch (2026-09-17)
+
+- M3 input `57c2e4a54faca1328dc77e19471564cedd41eb6b73238b476ff00ab21f194f7a`;
+  feature, target, split and freshness contracts unchanged. 25 model inputs from
+  the 27-feature artifact, excluding season-local team ID and its indicator.
+- Ridge alpha 10/100 and histogram boosting 15/31 leaves; fixed common train-only
+  imputation/scaling/encoding, original missingness flags retained. No new features.
+- 80,234 labelled training rows from 2021/22–2023/24; 27,159 validation rows in
+  2024/25. Validation RMSE selected hist_15. No early stopping, validation refit,
+  test-based selection or clipping. Pipelines saved before test evaluation.
+- Freeze `09eb67bd0fc9198073c28f921e3ba0ffd67876f341d32a97dc0f76743e0d411c`;
+  validation MAE **0.9853**, RMSE **1.9164**, within-GW Spearman **0.7269**.
+- Separate test `21ea26b746acce28a243b749c6facab09e934a5e0fbffc7f163b6355055ca9bd`;
+  29,645 rows, MAE **0.9537**, RMSE **1.9164**, Spearman **0.7415**, full coverage.
+  RMSE improves 8.2% over scoring rate and 9.7% over archived ep_next, with lower
+  squared error in every one of 38 test GWs against every baseline.
+- Coefficients, validation permutation diagnostics, paired GW bootstrap deltas,
+  all position/history segments, distributions/extremes and disagreements retained.
+  17 extreme/disagreement rows match all eight raw snapshot state fields.
+- Known model limits: 1,654 small negative test forecasts; test defender average
+  1.086 predicted versus 1.240 actual; strong reliance on transfer activity and
+  availability; no causal interpretation or squad-selection utility established.
+- **145 tests pass**. Fresh training and holdout replay produce identical model,
+  prediction, metric and diagnostic bytes. Reuse preserves mtimes. All 146 tracked
+  pre-batch historical/M3 files (124 historical processed, 21 M3, one catalogue)
+  remain byte/mtime-identical; M3 verification JSON is exactly unchanged.
+- Added pinned scikit-learn 1.7.2 / NumPy 2.3.3 / SciPy 1.16.2 / joblib 1.5.2 /
+  threadpoolctl 3.6.0. No large framework or architectural rewrite.
+- Full record: [M4 verification](docs/M4_VERIFICATION.md),
+  [machine-readable evidence](docs/M4_VERIFICATION.json),
+  [anomaly traces](docs/M4_SANITY_TRACES.json),
+  [preservation](docs/M4_REGRESSION.json), Decisions 036–037.
+
 ## Recommended next step
 
-Milestone 4: transparent predictive experiments using the frozen feature/target
-and chronological evaluation contracts. Use validation for model choices; the
-reported 2025/26 holdout must not become a tuning set. Extend features only with
-independently justified point-in-time evidence. No final fixture schedule or
-unverified historical-statistic availability may be inferred for stronger scores.
+Targeted point-in-time feature expansion: prove recoverable playing-time/availability
+history and, only with independent deadline-time evidence, fixture context. Version
+new contracts explicitly and use chronological train/validation experiments. Preserve
+the accepted M4 result as a frozen reference; seek new prospective holdout observations
+for subsequent confirmation. The 2025/26 ML holdout has been reported and is not a
+fresh tuning or confirmation set. Investigate position calibration and useful-player
+segments without test-driven retuning. No optimiser or arbitrary complexity increase.
