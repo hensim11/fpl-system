@@ -1,0 +1,254 @@
+{
+  "gw18_captures": [
+    {
+      "path": "cache/2021/12/18/0115.json.xz",
+      "sha256": "d8d83518e7bc97569d1009c8c6e9cee11ea411dedbdd1b72a0b2f2ab755f3fa6",
+      "event": {
+        "average_entry_score": 0,
+        "chip_plays": [],
+        "cup_leagues_created": true,
+        "data_checked": false,
+        "deadline_time": "2021-12-18T13:30:00Z",
+        "deadline_time_epoch": 1639834200,
+        "deadline_time_game_offset": 0,
+        "finished": false,
+        "h2h_ko_matches_created": true,
+        "highest_score": null,
+        "highest_scoring_entry": null,
+        "id": 18,
+        "is_current": false,
+        "is_next": true,
+        "is_previous": false,
+        "most_captained": null,
+        "most_selected": null,
+        "most_transferred_in": null,
+        "most_vice_captained": null,
+        "name": "Gameweek 18",
+        "top_element": null,
+        "top_element_info": null,
+        "transfers_made": 0
+      }
+    },
+    {
+      "path": "cache/2021/12/18/0626.json.xz",
+      "sha256": "ed2c56e4f0a9e4c86d392e7340ff620e50f25847e5b1a4434d2f8d032db98522",
+      "event": {
+        "average_entry_score": 0,
+        "chip_plays": [],
+        "cup_leagues_created": true,
+        "data_checked": false,
+        "deadline_time": "2021-12-18T13:30:00Z",
+        "deadline_time_epoch": 1639834200,
+        "deadline_time_game_offset": 0,
+        "finished": false,
+        "h2h_ko_matches_created": true,
+        "highest_score": null,
+        "highest_scoring_entry": null,
+        "id": 18,
+        "is_current": false,
+        "is_next": true,
+        "is_previous": false,
+        "most_captained": null,
+        "most_selected": null,
+        "most_transferred_in": null,
+        "most_vice_captained": null,
+        "name": "Gameweek 18",
+        "top_element": null,
+        "top_element_info": null,
+        "transfers_made": 0
+      }
+    },
+    {
+      "path": "cache/2021/12/18/1233.json.xz",
+      "sha256": "9c8fbad59eecb978494d98425e0dadcfa16fbb3a3954f99b4263c65277e2eed1",
+      "event": {
+        "average_entry_score": 0,
+        "chip_plays": [],
+        "cup_leagues_created": true,
+        "data_checked": false,
+        "deadline_time": "2021-12-18T13:30:00Z",
+        "deadline_time_epoch": 1639834200,
+        "deadline_time_game_offset": 0,
+        "finished": false,
+        "h2h_ko_matches_created": true,
+        "highest_score": null,
+        "highest_scoring_entry": null,
+        "id": 18,
+        "is_current": false,
+        "is_next": true,
+        "is_previous": false,
+        "most_captained": null,
+        "most_selected": null,
+        "most_transferred_in": null,
+        "most_vice_captained": null,
+        "name": "Gameweek 18",
+        "top_element": null,
+        "top_element_info": null,
+        "transfers_made": 0
+      }
+    },
+    {
+      "path": "cache/2021/12/18/1825.json.xz",
+      "sha256": "ec8e01f3a691e8fa5144125bc69a4dbfb7d7cfa37eab3d743320f79db686218e",
+      "event": {
+        "average_entry_score": 0,
+        "chip_plays": [
+          {
+            "chip_name": "bboost",
+            "num_played": 11265
+          },
+          {
+            "chip_name": "freehit",
+            "num_played": 387457
+          },
+          {
+            "chip_name": "wildcard",
+            "num_played": 75472
+          },
+          {
+            "chip_name": "3xc",
+            "num_played": 22698
+          }
+        ],
+        "cup_leagues_created": true,
+        "data_checked": false,
+        "deadline_time": "2021-12-18T16:00:00Z",
+        "deadline_time_epoch": 1639843200,
+        "deadline_time_game_offset": 0,
+        "finished": false,
+        "h2h_ko_matches_created": true,
+        "highest_score": null,
+        "highest_scoring_entry": null,
+        "id": 18,
+        "is_current": true,
+        "is_next": false,
+        "is_previous": false,
+        "most_captained": 233,
+        "most_selected": 233,
+        "most_transferred_in": 40,
+        "most_vice_captained": 233,
+        "name": "Gameweek 18",
+        "top_element": 26,
+        "top_element_info": {
+          "id": 26,
+          "points": 11
+        },
+        "transfers_made": 12347450
+      }
+    }
+  ],
+  "james_captures": [
+    {
+      "path": "cache/2021/8/30/0624.json.xz",
+      "sha256": "59f97d255d1e5c8e045c66cd06f9d24ef5d669f4f81527df43ffe7e4b5ff72be",
+      "event": {
+        "average_entry_score": 54,
+        "chip_plays": [
+          {
+            "chip_name": "bboost",
+            "num_played": 94049
+          },
+          {
+            "chip_name": "freehit",
+            "num_played": 117627
+          },
+          {
+            "chip_name": "wildcard",
+            "num_played": 372083
+          },
+          {
+            "chip_name": "3xc",
+            "num_played": 138714
+          }
+        ],
+        "data_checked": true,
+        "deadline_time": "2021-08-28T10:00:00Z",
+        "deadline_time_epoch": 1630144800,
+        "deadline_time_game_offset": 0,
+        "finished": true,
+        "highest_score": 119,
+        "highest_scoring_entry": 7516002,
+        "id": 3,
+        "is_current": true,
+        "is_next": false,
+        "is_previous": false,
+        "most_captained": 277,
+        "most_selected": 277,
+        "most_transferred_in": 419,
+        "most_vice_captained": 277,
+        "name": "Gameweek 3",
+        "top_element": 268,
+        "top_element_info": {
+          "id": 268,
+          "points": 18
+        },
+        "transfers_made": 15553648
+      },
+      "player": {
+        "id": 287,
+        "code": 200617,
+        "web_name": "James",
+        "team": 13,
+        "element_type": 3,
+        "event_points": 1,
+        "total_points": 3
+      }
+    },
+    {
+      "path": "cache/2021/9/11/0623.json.xz",
+      "sha256": "cc1319472ab8308647bf55e8a3f94278d78b02cec633e7e47eef39351c49eab6",
+      "event": {
+        "average_entry_score": 54,
+        "chip_plays": [
+          {
+            "chip_name": "bboost",
+            "num_played": 94049
+          },
+          {
+            "chip_name": "freehit",
+            "num_played": 117627
+          },
+          {
+            "chip_name": "wildcard",
+            "num_played": 372083
+          },
+          {
+            "chip_name": "3xc",
+            "num_played": 138714
+          }
+        ],
+        "data_checked": true,
+        "deadline_time": "2021-08-28T10:00:00Z",
+        "deadline_time_epoch": 1630144800,
+        "deadline_time_game_offset": 0,
+        "finished": true,
+        "highest_score": 119,
+        "highest_scoring_entry": 7516002,
+        "id": 3,
+        "is_current": true,
+        "is_next": false,
+        "is_previous": false,
+        "most_captained": 277,
+        "most_selected": 277,
+        "most_transferred_in": 419,
+        "most_vice_captained": 277,
+        "name": "Gameweek 3",
+        "top_element": 268,
+        "top_element_info": {
+          "id": 268,
+          "points": 18
+        },
+        "transfers_made": 15553648
+      },
+      "player": {
+        "id": 287,
+        "code": 200617,
+        "web_name": "James",
+        "team": 10,
+        "element_type": 3,
+        "event_points": 0,
+        "total_points": 3
+      }
+    }
+  ]
+}

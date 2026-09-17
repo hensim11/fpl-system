@@ -1,0 +1,210 @@
+{
+  "record": {
+    "byte_size": 79444,
+    "configured_ref": "33dac28d18953bee5bc4bd56ddd8a5e32e169d68",
+    "provider": "Randdalf fplcache",
+    "provider_key": "fplcache",
+    "raw_path": "fplcache/cache/2021/12/18/1233.json.xz",
+    "repository": "https://github.com/Randdalf/fplcache",
+    "requested_season": "2021-22",
+    "resolved_commit_sha": "33dac28d18953bee5bc4bd56ddd8a5e32e169d68",
+    "retrieved_at_utc": "2026-09-16T18:42:22.032307Z",
+    "sha256": "9c8fbad59eecb978494d98425e0dadcfa16fbb3a3954f99b4263c65277e2eed1",
+    "source_path": "cache/2021/12/18/1233.json.xz",
+    "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2021/12/18/1233.json.xz"
+  },
+  "payload": {
+    "events": [
+      {
+        "id": 1,
+        "deadline_time": "2021-08-13T17:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 2,
+        "deadline_time": "2021-08-21T10:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 3,
+        "deadline_time": "2021-08-28T10:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 4,
+        "deadline_time": "2021-09-11T10:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 5,
+        "deadline_time": "2021-09-17T17:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 6,
+        "deadline_time": "2021-09-25T10:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 7,
+        "deadline_time": "2021-10-02T10:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 8,
+        "deadline_time": "2021-10-16T10:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 9,
+        "deadline_time": "2021-10-22T17:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 10,
+        "deadline_time": "2021-10-30T10:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 11,
+        "deadline_time": "2021-11-05T18:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 12,
+        "deadline_time": "2021-11-20T11:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 13,
+        "deadline_time": "2021-11-27T11:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 14,
+        "deadline_time": "2021-11-30T18:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 15,
+        "deadline_time": "2021-12-04T11:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 16,
+        "deadline_time": "2021-12-10T18:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 17,
+        "deadline_time": "2021-12-14T18:15:00Z",
+        "is_next": false
+      },
+      {
+        "id": 18,
+        "deadline_time": "2021-12-18T13:30:00Z",
+        "is_next": true
+      },
+      {
+        "id": 19,
+        "deadline_time": "2021-12-26T11:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 20,
+        "deadline_time": "2021-12-28T11:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 21,
+        "deadline_time": "2022-01-01T11:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 22,
+        "deadline_time": "2022-01-14T18:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 23,
+        "deadline_time": "2022-01-21T18:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 24,
+        "deadline_time": "2022-02-08T18:15:00Z",
+        "is_next": false
+      },
+      {
+        "id": 25,
+        "deadline_time": "2022-02-12T11:00:00Z",
+        "is_next": false
+      },
+      {
+        "id": 26,
+        "deadline_time": "2022-02-19T13:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 27,
+        "deadline_time": "2022-02-26T13:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 28,
+        "deadline_time": "2022-03-05T13:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 29,
+        "deadline_time": "2022-03-12T13:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 30,
+        "deadline_time": "2022-03-19T13:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 31,
+        "deadline_time": "2022-04-02T12:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 32,
+        "deadline_time": "2022-04-09T12:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 33,
+        "deadline_time": "2022-04-16T12:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 34,
+        "deadline_time": "2022-04-23T12:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 35,
+        "deadline_time": "2022-04-30T12:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 36,
+        "deadline_time": "2022-05-07T12:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 37,
+        "deadline_time": "2022-05-15T12:30:00Z",
+        "is_next": false
+      },
+      {
+        "id": 38,
+        "deadline_time": "2022-05-22T12:30:00Z",
+        "is_next": false
+      }
+    ]
+  }
+}

@@ -14,7 +14,7 @@ Status: implemented; verification details are recorded in `PROJECT_STATE.md`.
 
 ## Milestone 2 — Reproducible historical data foundation
 
-Status: in progress. The 2022/23, 2023/24 and 2024/25 seasons are implemented and live-verified; expansion to the other agreed seasons remains.
+Status: in progress. The 2021/22, 2022/23, 2023/24 and 2024/25 seasons are implemented and live-verified; expansion to the other agreed seasons remains.
 
 - [x] Set the eventual target range to 2021/22–2025/26 and pin the permitted historical sources.
 - [x] Add a machine-readable 2024/25 source catalogue and season audit expectations.
@@ -26,7 +26,11 @@ Status: in progress. The 2022/23, 2023/24 and 2024/25 seasons are implemented an
 - [x] Make 2024/25 schema mappings/types executable and scope frozen provenance to materially consumed records, with byte-identical canonical outputs.
 - [x] Verify 2023/24 through its own observed schema/catalogue entry, 38/38 deadline coverage, complete points reconciliation, deterministic rebuilds, and byte-identical 2024/25 regression checks.
 - [x] Verify 2022/23 end-to-end, preserving fixture-empty GW7 and observed person-code changes; require complete points reconciliation and cross-season schema/rebuild checks.
-- [ ] Expand the proven pipeline to 2021/22 next, explicitly auditing older metric availability, then 2025/26.
+- [x] Investigate 2021/22 schema differences, implement strict label/kickoff compatibility, and reproduce source blockers without publishing invalid data.
+- [x] Implement independently selected, pinned settled-event comparisons for 2021/22: 23,230/23,230 exact matches, including GW3/GW17; preserve accepted-season identities.
+- [x] Make the default audit verify published seasons and route unpublished attempts through explicit investigation mode.
+- [x] Complete 2021/22 publication with 43/43 passing checks, 38/38 snapshots and complete settlement reconciliation, using one authorized, pinned GW18 superseded-deadline exception (state as of 12:33; 3h27 freshness limitation).
+- [ ] Add and verify 2025/26 through the proven pipeline.
 - [ ] Re-run cross-season identity and availability audits over the full supported range.
 
 Exit criterion: a documented, reproducible dataset suitable for exploratory analysis across agreed seasons.

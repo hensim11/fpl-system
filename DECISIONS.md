@@ -263,3 +263,115 @@ point to a fixture. Retain the existing fixture-grain source policy and report t
 aggregate discrepancy separately. Do not invent an allocation or alter the passing
 settled-event reconciliation. Detailed evidence and limitations are in
 [the verification record](docs/M2_2022_23_VERIFICATION.md).
+
+## 025 — Scope older label and kickoff compatibility without waiving acceptance
+
+Status: compatibility implemented. Historical blocking status subsequently resolved by Decisions 026 and 028.
+
+The pinned 2021/22 source omits starts and expected metrics. Its schema removes
+unavailable mappings, so canonical nullable outcomes remain null. Retained source
+fields keep their existing types. In GW37, 101 goalkeeper rows use `GKP` instead
+of `GK`; their accepted archive positions are all goalkeeper ID 1.
+`declarative-normalization-v2` permits explicit string-enumeration `value_aliases`.
+Aliases may introduce only new labels mapped directly to declared allowed values;
+chains, shadowing canonical labels, malformed mappings and use under v1 fail.
+Only the 2021/22 schema selects v2 and `GKP -> GK`. Its entire schema and adapter
+identity are hashed; other seasons retain the exact v1 contracts and build hashes.
+
+Fixture 263 (Brighton–Aston Villa, GW27) has 78 merged player rows at scheduled
+15:00 and a fixture source at 15:30. Contemporary reporting confirms the delay.
+A version-1 optional `fixture_kickoff_reconciliation` policy records the exact
+fixture, Gameweek, both timestamps, expected row count and explanation in build
+identity. It standardizes only post-event fact context to the pinned fixture time.
+Stale/missing rules, changed timestamps/counts and undeclared discrepancies fail.
+The successful normalization is listed in the quality report; raw bytes and
+point-in-time snapshots remain unchanged. Transformation failures now retain an
+identified failed-attempt report and never publish a catalogue entry.
+
+Consequence: these compatibility changes do not authorize weaker acceptance.
+At the end of the compatibility batch, 2021/22 failed because the archive had no
+exact pre-deadline GW18 capture and next-deadline points selection had missing
+comparisons and one mismatch. Decision 026 resolves the settlement failures; GW18
+remains unresolved.
+The expected 38 snapshot Gameweeks and required 1.0 reconciliation remain intact.
+Earlier settled points evidence is diagnostic only; it is not silently substituted.
+No successful 2021/22 output is claimed. See
+[the investigation record](docs/M2_2021_22_VERIFICATION.md).
+
+## 026 — Select first observed settled current-event captures independently
+
+Status: implemented and verified for the investigatory 2021/22 season.
+
+The next-deadline strategy cannot compare GW17 when GW18 has no accepted deadline
+snapshot, and Daniel James's settled GW3 event points change across the transfer
+interval. Strategy `earliest_settled_current_event_v1` selects separately for each
+fixture-bearing Gameweek. It searches immutable archive entries in timestamp order,
+strictly after the later of the event deadline and final fixture kickoff plus two
+hours, and strictly before the earlier of the next deadline or final kickoff plus
+seven days. It requires one unambiguous event with the exact deadline,
+`is_current=true`, `finished=true`, `data_checked=true`, and unique player IDs with
+integer event points. Unsettled candidates are audited and skipped; missing,
+malformed, stale, ambiguous or policy-inconsistent evidence fails. Final GW selection
+must also equal its explicit, validated final-settlement pin.
+
+The API has no timestamp for the transition to settled. True flags evidence that
+settlement had occurred by capture time; the two-hour boundary is only a conservative
+additional guard, not a claimed settlement timestamp. Earliest observed settlement
+limits exposure to later transfer resets. The selector never receives Vaastav player
+points. Comparison against them happens only after selection. Later differences in
+already-consumed next-deadline captures are reported without changing selection.
+
+Policy version 3 records the full immutable selection policy in build identity.
+Every inspected candidate is materially consumed evidence for the earliest-selection
+claim; selected records additionally carry the reconciliation role. Per-GW selection
+records include timestamps, hashes, flags, search bounds, rejection reasons and
+selection reason. Failure evidence is retained without publishing a dataset.
+
+Consequence: all 23,230 2021/22 totals now reconcile exactly, including all 460 GW17
+totals and James's GW3 value of 1. GW18 remains a separate decision-time source gap.
+No points, snapshot or publication gate is weakened. Existing accepted seasons
+retain their legacy selection contracts and exact source/build identities; migrating
+them would be a separate intentional version change, not a silent overwrite.
+
+## 027 — Derive operational support status from successful publication
+
+Status: implemented.
+
+Source configuration is not evidence of acceptance. The audit enumerates published
+seasons from `data/historical/catalogue.json`, then checksum-verifies their builds.
+Configured seasons without publication are `blocked` when failed attempts exist,
+and otherwise `investigatory`. Status is operational metadata, excluded from build
+identity. Successful publication automatically brings a season into the default audit.
+
+`--season` selects published seasons; `--investigate-season` explicitly audits
+unpublished attempts. Invalid mode combinations produce argparse errors. The
+2021/22 diagnostic acquisition option remains explicit and separate from the fully
+offline default. This fixes the default-audit regression without a season exclusion
+list or changing any accepted dataset.
+
+## 028 — Admit one exact superseded-deadline snapshot for 2021/22 GW18
+
+Status: explicitly authorized by the user; implemented, published and verified.
+
+The user approved the pinned 12:33 capture despite its superseded 13:30 deadline.
+The final 16:00 deadline remains authoritative. Capture precedes both deadlines,
+so no future state is introduced; the limitation is freshness, not temporal leakage.
+State is as of 12:33, **3 hours 27 minutes before final deadline**, not immediately
+before 16:00. No exact-final-deadline archive capture was discovered.
+
+Version-1 `superseded_deadline_exception` in season configuration identifies season,
+GW18, source path, SHA-256, immutable revision, capture timestamp, payload and final
+deadlines, exception type and reason. The entire policy enters build identity.
+The validator admits only this scoped case with exact identifying fields and one
+unambiguous upcoming GW18 event. Capture must precede both deadlines. Missing,
+changed, malformed or stale exceptions fail. The 18:25 capture remains forbidden.
+Normal exact-deadline selection remains unchanged everywhere else.
+
+Quality and cross-season evidence expose the policy, both deadlines, source hash,
+capture age and state-as-of time. Canonical deadlines remain 16:00. Raw bytes,
+fixture facts, outcome selection and points reconciliation are unchanged. All 43
+checks pass; 38/38 snapshots and all 23,230 exact comparisons are retained. The
+successful manifest, frozen inventory and catalogue publish normally; operational
+status derives from that publication. All three prior seasons' identities and CSVs
+remain unchanged. Decisions 025/026's GW18 blocking status is superseded by this
+specific authorization, not by finding a new source or relaxing coverage.

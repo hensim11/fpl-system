@@ -1,0 +1,136 @@
+{
+  "investigated_on": "2026-09-17",
+  "conclusion": "No qualifying source obtained; Wayback search was unavailable, so absence outside the pinned archive is not established.",
+  "queries": [
+    {
+      "query_url": "https://web.archive.org/cdx/search/cdx?url=fantasy.premierleague.com/api/bootstrap-static/*&from=20211218&to=20211218&output=json&filter=statuscode:200",
+      "result": "unavailable",
+      "detail": "The read operation timed out"
+    },
+    {
+      "query_url": "https://api.github.com/repos/Randdalf/fplcache/commits?path=cache/2021/12/18&per_page=100",
+      "response_sha256": "642743cf0477c5420c28fc0c19ce0c356e1eabeb743fcf19d45091e60b14fc16",
+      "commits": [
+        {
+          "sha": "619f26396e9fabb2728b894c8ad92c117a3c60a3",
+          "time": "2021-12-18T18:25:38Z",
+          "message": "Updated cache @ Sat Dec 18 18:25:38 UTC 2021"
+        },
+        {
+          "sha": "d35ca477e6eb647e2226479a54d9b7d369c29b6e",
+          "time": "2021-12-18T12:33:41Z",
+          "message": "Updated cache @ Sat Dec 18 12:33:41 UTC 2021"
+        },
+        {
+          "sha": "999f6f058a4b74e1fe4c4f743cddee957db35c5b",
+          "time": "2021-12-18T06:26:48Z",
+          "message": "Updated cache @ Sat Dec 18 06:26:48 UTC 2021"
+        },
+        {
+          "sha": "105949184f4d6bb9ebedf27da6a22bb89bb6a93d",
+          "time": "2021-12-18T01:15:39Z",
+          "message": "Updated cache @ Sat Dec 18 01:15:39 UTC 2021"
+        }
+      ],
+      "result": "history inspected"
+    },
+    {
+      "query_url": "https://api.github.com/repos/vaastav/Fantasy-Premier-League/commits?until=2021-12-18T16:00:00Z&since=2021-12-18T12:33:00Z&per_page=100",
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "commits": [],
+      "result": "history inspected"
+    },
+    {
+      "query_url": "https://api.github.com/search/repositories?q=fpl+historical+bootstrap&per_page=10",
+      "response_sha256": "4b076502affdd4e76c6ee4aed923933a8fb3f4fc65b51680d3994e5be3ea35a4",
+      "repositories": [],
+      "total_count": 0,
+      "result": "repository search"
+    },
+    {
+      "query_url": "https://api.github.com/repos/TopMarx/fpl/commits?until=2021-12-18T16:00:00Z&per_page=1",
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "commits": [],
+      "result": "history inspected"
+    },
+    {
+      "query_url": "https://archive.org/wayback/available?url=https%3A%2F%2Ffantasy.premierleague.com%2Fapi%2Fbootstrap-static%2F&timestamp=20211218150000",
+      "result": "unavailable",
+      "detail": "historical request failed with HTTP 429: https://archive.org/wayback/available?url=https%3A%2F%2Ffantasy.premierleague.com%2Fapi%2Fbootstrap-static%2F&timestamp=20211218150000"
+    },
+    {
+      "query_url": "https://web.archive.org/cdx/search/cdx?url=fantasy.premierleague.com%2Fapi%2Fbootstrap-static%2F&from=20211218123300&to=20211218160000&output=json",
+      "result": "unavailable",
+      "detail": "historical request failed with HTTP 503: https://web.archive.org/cdx/search/cdx?url=fantasy.premierleague.com%2Fapi%2Fbootstrap-static%2F&from=20211218123300&to=20211218160000&output=json"
+    },
+    {
+      "query_url": "https://api.github.com/search/repositories?q=fpl+data+archive&per_page=15",
+      "response_sha256": "ccc7f2d67a21b2a42b096ee03be1c32a8ab17d962705c0fa5c5aa18f4b74efca",
+      "repositories": [
+        "shshiheng/FPL_H2H_league_data_archive",
+        "James-Leslie/fplstat-archive",
+        "Casper-Guo/FPL-Archive",
+        "sertalpbilal/fpl_optimized_data_archive",
+        "duonglam-lab/FPL-player-price"
+      ],
+      "total_count": 5,
+      "result": "repository search"
+    },
+    {
+      "query_url": "https://api.github.com/repos/vaastav/Fantasy-Premier-League/commits?until=2021-12-18T16:00:00Z&per_page=1",
+      "response_sha256": "4484ea857d3613095f077a3ad2a4e365c1dab78d0fa1fe1b6f471e26b2368d1a",
+      "commits": [
+        {
+          "sha": "d6698249f9c62cb1756f06c411d6dff4d8291b7d",
+          "time": "2021-12-17T09:12:32Z",
+          "message": "Add BGW17 data"
+        }
+      ],
+      "result": "history inspected"
+    },
+    {
+      "query_url": "https://api.github.com/repos/owainlewis/fpl-data/commits?until=2021-12-18T16:00:00Z&per_page=1",
+      "result": "unavailable",
+      "detail": "historical request failed with HTTP 404: https://api.github.com/repos/owainlewis/fpl-data/commits?until=2021-12-18T16:00:00Z&per_page=1"
+    },
+    {
+      "query_url": "https://api.github.com/repos/duonglam-lab/FPL-player-price/commits?until=2021-12-18T16:00:00Z&per_page=1",
+      "response_sha256": "ef608124134bdf833103503ce4a00a4fc804cf95b4bbecdf6dbf220d916b6fd6",
+      "commits": [
+        {
+          "sha": "b4f5ab5a53e59e29de1e3b65774eb01ccf70aaee",
+          "time": "2019-09-30T04:48:38Z",
+          "message": "Add files via upload"
+        }
+      ],
+      "result": "history inspected"
+    },
+    {
+      "query_url": "https://api.github.com/search/repositories?q=fpl+bootstrap+created:%3C2021-12-19&per_page=20",
+      "response_sha256": "f030028d274590c2235544a05be9e602e9909141d3c20f09192433f7e03488ef",
+      "repositories": [
+        "Randdalf/fplcache",
+        "bjanes0/fplfever",
+        "kLISHO/phpFPLhelp",
+        "AlgooRhythm/CalculateFPLCupStartGameweek"
+      ],
+      "total_count": 4,
+      "result": "repository search"
+    },
+    {
+      "query_url": "https://api.github.com/search/repositories?q=fpl+snapshot+created:%3C2021-12-19&per_page=20",
+      "response_sha256": "4b076502affdd4e76c6ee4aed923933a8fb3f4fc65b51680d3994e5be3ea35a4",
+      "repositories": [],
+      "total_count": 0,
+      "result": "repository search"
+    },
+    {
+      "query_url": "https://api.github.com/repos/vaastav/Fantasy-Premier-League/git/trees/d6698249f9c62cb1756f06c411d6dff4d8291b7d?recursive=1",
+      "response_sha256": "86da9a4d82af46db5db53dd3b27b9027b71d4d930de175453de3916122074ff1",
+      "tree_sha": "d6698249f9c62cb1756f06c411d6dff4d8291b7d",
+      "truncated": false,
+      "season_json_paths": [],
+      "result": "pinned tree inspected"
+    }
+  ]
+}

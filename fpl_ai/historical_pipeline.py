@@ -34,6 +34,8 @@ from fpl_ai.historical_schema import (
 from fpl_ai.historical_transform import (
     parse_utc,
     read_source_csv,
+    reconcile_fixture_kickoffs,
+    validate_fixture_kickoff_reconciliation,
     transform_facts,
     transform_fixtures,
     transform_players,
@@ -46,6 +48,12 @@ from fpl_ai.historical_validation import (
     raise_for_quality_failures,
     reconcile_total_points,
 )
+
+from fpl_ai.historical_settlement import (
+    STRATEGY, validate_policy, select_settled_events, later_mutations,
+)
+
+from fpl_ai.historical_snapshot_policy import validate_superseded_policy, accept_superseded_snapshot
 
 Fetcher = Callable[[str], bytes]
 
@@ -246,9 +254,23 @@ def run_historical_pipeline(
     reference_payload = _decode_snapshot(reference_bytes, reference_path)
     deadlines = _extract_deadlines(reference_payload, config["expected_gameweeks"], reference_path)
     archive_entries = _archive_entries(tree_bytes, cache_config)
-    selected = _select_snapshots(
-        config["expected_gameweeks"], deadlines, archive_entries, cache_config, source_store
-    )
+    snapshot_exception_evidence = []
+    try:
+        selected = _select_snapshots(
+            config["expected_gameweeks"], deadlines, archive_entries, cache_config, source_store,
+            season=season, exception=config.get("superseded_deadline_exception"),
+            exception_evidence=snapshot_exception_evidence,
+        )
+    except FPLValidationError as exc:
+        source_store.write_manifest()
+        failed_identity = _source_identity(season, config, consumed_sources.records())
+        _write_failed_quality_report(
+            root, season, version, retrieved_at,
+            sha256_bytes(canonical_json_bytes(failed_identity)), build_identity_sha256,
+            {"season": season, "passed": False, "failures": ["snapshots.selection"],
+             "errors": [str(exc)], "source_identity": failed_identity, "build_identity": build_identity},
+        )
+        raise
     for _, _, _, record in selected.values():
         consumed_sources.register(record, "accepted_predeadline_snapshot")
     settlement_path = cache_config["points_settlement_snapshot_path"]
@@ -316,39 +338,89 @@ def run_historical_pipeline(
     players = transform_players(season, source_rows["players_raw.csv"])
     teams = transform_teams(season, source_rows["teams.csv"])
     fixtures = transform_fixtures(season, source_rows["fixtures.csv"])
-    facts, quarantined = transform_facts(
-        season, source_rows["merged_gw.csv"], players, fixtures
-    )
+    kickoff_audit = None
+    fact_source_rows = source_rows["merged_gw.csv"]
+    try:
+        if "fixture_kickoff_reconciliation" in config:
+            fact_source_rows, kickoff_audit = reconcile_fixture_kickoffs(
+                fact_source_rows, fixtures, config["fixture_kickoff_reconciliation"]
+            )
+        facts, quarantined = transform_facts(season, fact_source_rows, players, fixtures)
+    except FPLValidationError as exc:
+        source_store.write_manifest()
+        failed_identity = _source_identity(season, config, consumed_sources.records())
+        _write_failed_quality_report(
+            root, season, version, retrieved_at,
+            sha256_bytes(canonical_json_bytes(failed_identity)), build_identity_sha256,
+            {"season": season, "passed": False, "failures": ["facts.transformation"],
+             "errors": [str(exc)], "source_identity": failed_identity,
+             "build_identity": build_identity},
+        )
+        raise
 
-    comparison_snapshots: dict[int, tuple[dict[str, Any], str, str]] = {}
-    for gameweek in config["expected_gameweeks"]:
-        if gameweek == final_gameweek:
-            comparison_snapshots[gameweek] = (
-                settlement_payload,
-                settlement_path,
-                settlement_record["sha256"],
+    settlement_evidence = None
+    settlement_records = []
+    comparison_config = config["reconciliation"]["total_points"]["comparison_source"]
+    if comparison_config["settlement_strategy"] == STRATEGY:
+        try:
+            comparison_snapshots, selection, settlement_records = select_settled_events(
+                fixtures, deadlines, archive_entries, comparison_config["selection_policy"],
+                lambda path: source_store.obtain("fplcache", cache_config, path, _raw_url(cache_config, path)),
+                _decode_snapshot, consumed_sources.register,
             )
-            consumed_sources.register(
-                settlement_record, "total_points_reconciliation"
+            for record, role in settlement_records:
+                consumed_sources.register(record, role)
+            if final_gameweek not in comparison_snapshots:
+                raise FPLValidationError("final gameweek has no fixture-bearing settlement evidence")
+            if comparison_snapshots[final_gameweek][1] != settlement_path:
+                raise FPLValidationError("final settlement pin disagrees with earliest-settled selection")
+            settlement_evidence = {
+                "policy": comparison_config["selection_policy"],
+                "by_gameweek": selection,
+                "later_settled_value_mutations": later_mutations(comparison_snapshots, selected, deadlines),
+            }
+        except FPLValidationError as exc:
+            source_store.write_manifest()
+            failed_identity = _source_identity(season, config, consumed_sources.records())
+            _write_failed_quality_report(
+                root, season, version, retrieved_at,
+                sha256_bytes(canonical_json_bytes(failed_identity)), build_identity_sha256,
+                {"season": season, "passed": False, "failures": ["settlement.selection"],
+                 "errors": [str(exc)], "source_identity": failed_identity,
+                 "build_identity": build_identity},
             )
-            continue
-        next_snapshot = selected.get(gameweek + 1)
-        if next_snapshot is not None:
-            _, next_path, next_payload, next_record = next_snapshot
-            comparison_snapshots[gameweek] = (
-                next_payload,
-                next_path,
-                next_record["sha256"],
-            )
-            consumed_sources.register(
-                next_record, "total_points_reconciliation"
-            )
+            raise
+    else:
+        comparison_snapshots: dict[int, tuple[dict[str, Any], str, str]] = {}
+        for gameweek in config["expected_gameweeks"]:
+            if gameweek == final_gameweek:
+                comparison_snapshots[gameweek] = (
+                    settlement_payload,
+                    settlement_path,
+                    settlement_record["sha256"],
+                )
+                consumed_sources.register(
+                    settlement_record, "total_points_reconciliation"
+                )
+                continue
+            next_snapshot = selected.get(gameweek + 1)
+            if next_snapshot is not None:
+                _, next_path, next_payload, next_record = next_snapshot
+                comparison_snapshots[gameweek] = (
+                    next_payload,
+                    next_path,
+                    next_record["sha256"],
+                )
+                consumed_sources.register(
+                    next_record, "total_points_reconciliation"
+                )
     resolved_dependencies = [
         *(record for _, record in vaastav_files.values()),
         tree_record,
         reference_record,
         *(record for _, _, _, record in selected.values()),
         settlement_record,
+        *(record for record, _ in settlement_records),
     ]
     consumed_records = consumed_sources.finalize(resolved_dependencies)
     source_store.write_manifest()
@@ -373,6 +445,11 @@ def run_historical_pipeline(
         build_identity=build_identity,
         build_identity_sha256=build_identity_sha256,
     )
+
+    if settlement_evidence is not None:
+        points_reconciliation["settlement_selection"] = settlement_evidence
+        points_reconciliation.pop("artifact_sha256", None)
+        points_reconciliation["artifact_sha256"] = sha256_bytes(canonical_json_bytes(points_reconciliation))
 
     gameweeks: list[dict[str, Any]] = []
     deadline_snapshots: list[dict[str, Any]] = []
@@ -440,7 +517,7 @@ def run_historical_pipeline(
         "vaastav.fixtures.csv": len(source_rows["fixtures.csv"]),
         "fplcache.accepted_snapshots": len(selected),
         "fplcache.accepted_snapshot_elements": len(deadline_snapshots),
-        "fplcache.points_settlement_snapshots": 1,
+        "fplcache.points_settlement_snapshots": (len(comparison_snapshots) if settlement_evidence is not None else 1),
     }
     quality_report = build_quality_report(
         season,
@@ -453,6 +530,10 @@ def run_historical_pipeline(
         vaastav_source_schema,
         snapshot_player_code_exceptions=config.get("snapshot_player_code_exceptions"),
     )
+    if snapshot_exception_evidence:
+        quality_report["snapshot_deadline_exceptions"] = snapshot_exception_evidence
+    if kickoff_audit is not None:
+        quality_report["fixture_kickoff_reconciliation"] = kickoff_audit
     quality_report["dataset_version"] = version
     quality_report["source_version"] = source_version
     quality_report["source_identity"] = source_identity
@@ -762,9 +843,12 @@ def _select_snapshots(
     entries: list[tuple[datetime, str]],
     config: dict[str, Any],
     store: _SourceStore,
+    *, season: str | None = None, exception: dict | None = None,
+    exception_evidence: list | None = None,
 ) -> dict[int, tuple[datetime, str, dict[str, Any], dict[str, Any]]]:
     selected: dict[int, tuple[datetime, str, dict[str, Any], dict[str, Any]]] = {}
     previous_deadline: datetime | None = None
+    exception_used = False
     for gameweek in expected_gameweeks:
         deadline = deadlines[gameweek]
         candidates = [
@@ -777,10 +861,21 @@ def _select_snapshots(
                 "fplcache", config, source_path, _raw_url(config, source_path)
             )
             payload = _decode_snapshot(value, source_path)
+            if exception is not None and gameweek == exception["gameweek"] and source_path == exception["source_path"]:
+                evidence = accept_superseded_snapshot(
+                    exception, season, gameweek, source_path, capture, deadline, payload, record,
+                )
+                selected[gameweek] = (capture, source_path, payload, record)
+                exception_used = True
+                if exception_evidence is not None:
+                    exception_evidence.append(evidence)
+                break
             if _valid_snapshot(payload, gameweek, deadline, capture):
                 selected[gameweek] = (capture, source_path, payload, record)
                 break
         previous_deadline = deadline
+    if exception is not None and not exception_used:
+        raise FPLValidationError("configured superseded-deadline exception was not used; stale or missing evidence")
     return selected
 
 
@@ -830,6 +925,13 @@ def _validate_source_config(season: str, config: dict[str, Any]) -> None:
         cache = config["sources"]["fplcache"]
         canonical = reconciliation["canonical_source"]
         comparison = reconciliation["comparison_source"]
+        strategy = comparison.get("settlement_strategy")
+        if strategy == STRATEGY:
+            if reconciliation.get("policy_version") != 3:
+                raise FPLValidationError("independent settlement selection requires reconciliation policy version 3")
+            validate_policy(comparison.get("selection_policy"))
+        elif strategy != "next_accepted_deadline_snapshot_plus_final_settlement" or "selection_policy" in comparison:
+            raise FPLValidationError("unsupported settlement strategy")
         if canonical["provider_key"] != "vaastav" or canonical["source_path"] not in vaastav["files"]:
             raise FPLValidationError(
                 "historical total_points canonical source must name a configured Vaastav file"
@@ -888,7 +990,18 @@ def create_build_identity(
         schema_config["schema_id"], season, schema_config["schema_version"]
     )
     cache = config["sources"]["fplcache"]
+    if "superseded_deadline_exception" in config:
+        exception = config["superseded_deadline_exception"]
+        validate_superseded_policy(exception, season)
+        if exception["resolved_commit_sha"] != cache["resolved_commit_sha"]:
+            raise FPLValidationError("superseded-deadline revision differs from configured source")
+    comparison_policy = config["reconciliation"]["total_points"]["comparison_source"]
+    if comparison_policy.get("settlement_strategy") == STRATEGY:
+        validate_policy(comparison_policy.get("selection_policy"))
     canonical_contract = schema_document()
+    kickoff_policy = config.get("fixture_kickoff_reconciliation")
+    if "fixture_kickoff_reconciliation" in config:
+        validate_fixture_kickoff_reconciliation(kickoff_policy)
     identity_exceptions = config.get("snapshot_player_code_exceptions")
     if "snapshot_player_code_exceptions" in config:
         validate_snapshot_player_code_exceptions(identity_exceptions, config["expected_gameweeks"])
@@ -899,6 +1012,9 @@ def create_build_identity(
         "season_contract": {
             "expected_gameweeks": list(config["expected_gameweeks"]),
             "expected_counts": dict(config["expected_counts"]),
+            **({"fixture_kickoff_reconciliation_policy_version": 1,
+                "fixture_kickoff_reconciliation": kickoff_policy}
+               if kickoff_policy is not None else {}),
             **({"snapshot_player_code_exception_policy_version": 1,
                 "snapshot_player_code_exceptions": identity_exceptions}
                if identity_exceptions is not None else {}),
@@ -910,6 +1026,8 @@ def create_build_identity(
         },
         "reconciliation": config["reconciliation"],
         "snapshot_selection": {
+            **({"superseded_deadline_exception": config["superseded_deadline_exception"]}
+               if "superseded_deadline_exception" in config else {}),
             "archive_path_pattern": cache["archive_path_pattern"],
             "capture_timezone": cache["capture_timezone"],
             "reference_snapshot_path": cache["reference_snapshot_path"],
