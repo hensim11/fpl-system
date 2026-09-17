@@ -16,3 +16,4 @@ data/historical/
 # Local/editor files
 .DS_Store
 .env
+data/modelling/

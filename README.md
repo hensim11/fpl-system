@@ -1,6 +1,6 @@
 # FPL AI Platform
 
-Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for the complete 2021/22–2025/26 range. Milestone 2 is complete; Milestone 3 feature and evaluation design is next. The project does **not** contain feature engineering, prediction models, optimisation, or recommendations.
+Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for the complete 2021/22–2025/26 range. Milestones 2 and 3 are complete: deadline-safe features and chronological non-ML baseline evaluation now build offline from those historical inputs. The project does **not** contain trained predictive models, optimisation, or recommendations.
 
 ## Quick start
 
@@ -320,3 +320,51 @@ A table-quality failure does not update `catalogue.json`. It is retained under `
 - Data use and redistribution require a separate review; see [DATA_NOTICE.md](DATA_NOTICE.md).
 
 For wider context, see [PROJECT_VISION.md](PROJECT_VISION.md), [ROADMAP.md](ROADMAP.md), [PROJECT_STATE.md](PROJECT_STATE.md), and [DECISIONS.md](DECISIONS.md).
+
+## Milestone 3: features and baseline evaluation
+
+```bash
+.venv/bin/python -m fpl_ai features
+PYTHONPATH=. .venv/bin/python scripts/verify_modelling.py --report docs/M3_VERIFICATION.json
+```
+
+The command consumes the five published M2 builds without modifying them. It
+predicts unmultiplied total points in one upcoming Gameweek for football players
+present in its accepted snapshot, keyed by `(season, target_gameweek, element)`.
+Doubles sum all fixture points. A player without fixture facts in a fixture-bearing
+GW has an explicit empty-sum zero label; globally empty 2022/23 GW7 has null labels
+and stays outside fitting/scoring. AM elements are excluded.
+
+The 27 predictors comprise eight snapshot state fields, seven settlement-gated
+points-history fields and 12 missingness flags. History is season-local, strictly
+before the target GW, and independently observed settled by the accepted capture.
+No final fixture context, final identity, quarantined metadata or Vaastav xP is used.
+The 2021/22 GW18 12:33 state/207-minute freshness limitation remains in row metadata.
+
+Train: 2021/22–2023/24; validation: 2024/25; final holdout: 2025/26. Overall/position
+means fit only settled training labels. Recent-three-GW and player-season means use
+available earlier observations, with declared cold-start fallbacks. Archived FPL
+ep_next is an external benchmark, never an engineered predictor. MAE, RMSE and
+within-GW Spearman include coverage and split/season/position breakdowns.
+
+Artifacts are ignored under `data/modelling/<identity>/`: separate `features.csv`,
+`labels.csv`, `predictions.csv`, `row_audit.csv`, `schema.json`, `evaluation.json`
+and `manifest.json`. The manifest records exact M2 versions/source/build identities,
+contracts and hashes of actual serialized products. Reuse regenerates candidate
+outputs and requires the exact artifact set and every checksum;
+fresh builds are deterministic across output roots. Use `--artifact-dir` for another
+output root or `--builds-from <prior-manifest.json>` to pin exact historical versions.
+
+Verified: **137,662 rows**, 137,038 labels, 132 passing tests, all five historical
+offline rebuilds and independent row traces. The original M3 exit criterion is
+satisfied; Milestone 4 predictive experiments are next. See
+[full verification and reproducible commands](docs/M3_VERIFICATION.md) and
+[Decisions 031–035](DECISIONS.md). Fixture strength, other outcome-statistic features,
+cross-season player linking and trained models remain unimplemented.
+
+M3 hardening requires matching integer settlement evidence for every non-null
+label, including all 4,553 empty-player zeros. Missing or disagreeing evidence fails.
+Identity `serialized-products-v2` covers the actual derived population, predictions,
+metrics and serialization rather than selected source-code hashes. Reuse costs a
+fresh computation but never rewrites published files. Verification remains active
+under `PYTHONOPTIMIZE=1`; see the M3 verification record for both executed runs.

@@ -4,9 +4,9 @@ Last updated: 2026-09-17
 
 ## Current milestone
 
-Milestone 2 — Reproducible historical data foundation.
+Milestone 3 — Leakage-safe feature and evaluation foundation.
 
-Status: **complete**. All five agreed seasons, 2021/22–2025/26, are accepted and published. The full-range identity, availability, temporal-integrity and offline reproducibility audit passes. Milestone 1 remains complete; Milestone 3 is not implemented. The exact authorized 2021/22 GW18 freshness exception remains applicable.
+Status: **complete against the current roadmap exit criterion**. Deterministic point-in-time features, explicit targets/splits, five non-ML baselines and a reusable evaluation harness are implemented and verified on all five seasons. Milestones 1 and 2 remain complete and unchanged. The exact authorized 2021/22 GW18 freshness exception remains applicable. No trained predictive model or recommendations exist.
 
 ## What currently works
 
@@ -23,7 +23,7 @@ Status: **complete**. All five agreed seasons, 2021/22–2025/26, are accepted a
 - Vaastav fixture-level `total_points` is canonical. Player/Gameweek sums are reconciled against settled `fplcache` `event_points`; all five seasons require 100% eligible-row coverage, and no usable comparison, sub-threshold coverage, or any mismatch is a hard quality failure.
 - Vaastav input shape is selected through the season's `vaastav-2024-25-v1`, `vaastav-2023-24-v1`, `vaastav-2022-23-v1`, `vaastav-2021-22-v1` or `vaastav-2025-26-v1` schema. Its declarative mappings execute at one typed normalisation boundary, after which generic transforms consume only canonical names. Integer, decimal, boolean, string/enumeration, nullability, and UTC timestamp contracts are enforced. Optional-column reporting is category-accurate, quarantine targets are unique, and `xP` remains structurally forbidden.
 - Current and historical CLI option destinations are independent. Conflicting duplicate values before and after `historical` produce an argparse error instead of silent overwriting.
-- Prediction models, feature engineering, optimisation, and FPL decision rules have intentionally not been started.
+- Milestone 3 now adds offline features and baseline evaluation through `python -m fpl_ai features`; trained models, optimisation and FPL decision rules remain future work.
 
 ### Verified current-state run
 
@@ -230,9 +230,48 @@ atomic catalogue latest-successful entry
 - Points can be reconciled only when a later snapshot marks the event `finished` and `data_checked` and provides integer `event_points`. Required reconciliation cannot publish as unavailable; optional skipping exists only as an explicit future-season policy and is not used for any verified season.
 - The existing `notebooks/exploration.ipynb` remains an empty placeholder.
 
+## Verified Milestone 3 batch (2026-09-17)
+
+- 137,662 football-player rows; 137,038 labels, with 624 fixture-empty GW7 rows
+  retained but unlabelled. AM excluded. Target sums all target-GW fixture points.
+- 27 allowlisted predictors: eight accepted snapshot fields, seven points-history
+  fields and 12 missingness flags. Earlier GW points require independently settled
+  evidence at or before capture; no fixture context, quarantine, xP or final identity.
+- Season-local identity and observed code audit preserve all historical anomalies;
+  656 GW18 exception rows retain the 12:33 state and 207-minute freshness gap.
+- Train 2021/22–2023/24; validation 2024/25; final holdout 2025/26. Training means
+  cannot consume validation/test labels. Player histories update prospectively.
+- Five deterministic baselines: overall/position training means, recent points,
+  player season scoring rate, and separate FPL ep_next. MAE/RMSE and per-GW
+  Spearman report coverage by split, season and position.
+- Versioned, checksum-verified artifacts under ignored `data/modelling/<identity>`
+  separate predictors, labels, predictions and audit metadata. Fresh outputs are
+  byte-identical across roots; reuse preserves bytes/mtimes. Exact historical build
+  pins, source identities, contracts, schemas and hashes are in the manifest.
+- 132 tests pass, including all 112 existing tests. Full five-season M2 offline
+  rebuild/audit passes. All 124 pre-existing historical processed files and catalogue
+  bytes remain unchanged in M3 verification; no M2 source/configuration code changed.
+- Validation recent-points MAE/RMSE: 1.0888/2.2029; FPL: 1.1071/2.1213.
+  Final holdout separately: recent 1.0729/2.2077; FPL 1.0692/2.1234. No tuning
+  or significance/superiority claim follows from these descriptive differences.
+- [Verification, exact commands and limits](docs/M3_VERIFICATION.md),
+  [machine evidence and source traces](docs/M3_VERIFICATION.json), Decisions 031–035.
+
+## Milestone 3 hardening
+
+All four review findings are addressed: every target requires matching integer
+settlement evidence; identity covers serialized products; reuse enforces the exact
+artifact set and checksums; verification uses explicit checks active under python -O.
+The 137,662-row population, 137,038 labels, features, splits and baseline definitions
+remain unchanged. All 4,553 empty-player zeros have explicit matching settlement
+evidence. The new identity intentionally replaces the incomplete four-file code-hash
+boundary; old published artifacts remain intact. See Decision 035 and the verification
+record for normal/optimized runs, preservation and unchanged metric comparisons.
+
 ## Recommended next step
 
-Begin the first substantial Milestone 3 batch: feature and evaluation design.
-Use the five-season availability/identity audit to define targets, permissible inputs,
-identity linking and time-aware evaluation before implementing features or models.
-Preserve the explicit 2021/22 GW18 freshness limitation and all documented anomalies.
+Milestone 4: transparent predictive experiments using the frozen feature/target
+and chronological evaluation contracts. Use validation for model choices; the
+reported 2025/26 holdout must not become a tuning set. Extend features only with
+independently justified point-in-time evidence. No final fixture schedule or
+unverified historical-statistic availability may be inferred for stronger scores.

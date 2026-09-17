@@ -1,0 +1,38 @@
+{
+  "all_baseline_metrics_unchanged": true,
+  "all_summary_counts_unchanged": true,
+  "commands": [
+    ".venv/bin/python -m unittest discover -v",
+    "PYTHONPATH=. .venv/bin/python scripts/verify_modelling.py --report docs/M3_VERIFICATION.json",
+    "PYTHONPATH=. PYTHONOPTIMIZE=1 .venv/bin/python scripts/verify_modelling.py --report /tmp/m3-hardening-optimized.json",
+    "PYTHONPATH=. .venv/bin/python scripts/verify_historical_seasons.py --report /tmp/m3-hardening-historical.json",
+    ".venv/bin/python -m compileall -q fpl_ai scripts tests main.py",
+    ".venv/bin/python -m pip check",
+    "git diff --check"
+  ],
+  "current_report_sha256": "df0df4c491202d313c99726515d89ce0cbb4fe3ef656b957b3dbb1531bd88cce",
+  "fresh_rebuild_byte_identical": true,
+  "historical_build_identities_unchanged": true,
+  "historical_catalogue_bytes_unchanged": true,
+  "historical_processed_files": 124,
+  "historical_processed_hashes_and_mtimes_unchanged": true,
+  "historical_verification_report_sha256": "99459b5620698cbf270c974b438e26368cb702e1c13a5ff339ecc01efdc314d7",
+  "identity_after": "57c2e4a54faca1328dc77e19471564cedd41eb6b73238b476ff00ab21f194f7a",
+  "identity_before": "43019484073d51d4e9fd0b28c0e34c4d2d5a8168ca4f2a8f3308599a65f6ae3f",
+  "identity_boundary": "serialized-products-v2",
+  "labels": 137038,
+  "normal_and_optimized_reports_identical": true,
+  "optimized_report_sha256": "df0df4c491202d313c99726515d89ce0cbb4fe3ef656b957b3dbb1531bd88cce",
+  "original_published_artifacts_preserved": true,
+  "reuse_preserves_hashes_and_mtimes": true,
+  "rows": 137662,
+  "settlement_verified_empty_player_zeros": 4553,
+  "tests_passed": 132,
+  "unchanged_product_hashes": {
+    "features.csv": "a5457d0961267744a42e4d954d1f45f393ae0698238a7c827aced02cfd42803b",
+    "labels.csv": "8ef3ef7840a394399067c1965d63b90133731fc66d47eba9f0a68704744e78dd",
+    "predictions.csv": "61b050cbce15d86b9abe54f89ec4cc492eae4f8ad75eb033e3ec0d8fc5064d24",
+    "row_audit.csv": "2d53986b1dbd41e70d5aeb13c256beb522a95d1773e9a64dbf4011ee3ce2c66f",
+    "schema.json": "3800660c4fa4d780663d2b563d9aaec04bc89ef54b52cb0a8c20b7825404dd28"
+  }
+}
