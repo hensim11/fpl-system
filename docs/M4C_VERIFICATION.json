@@ -1,0 +1,3240 @@
+{
+  "checks": {
+    "annual_expanding_populations": true,
+    "earliest_unsupported_rows_unavailable": true,
+    "exact_reuse_preserves_hashes_mtimes": true,
+    "fresh_deterministic": true,
+    "independent_raw_history_targets_schedule": true,
+    "separate_outcome_bundle": true
+  },
+  "folds": {
+    "2024-25": {
+      "first_development_capture": "2024-08-16T12:38:00Z",
+      "first_prediction_capture": "2024-08-16T12:38:00Z",
+      "latest_training_settlement": "2024-05-20T06:25:00Z",
+      "model_identity": "6b2c5ae833aa96e684738a0f5a185f600e20c78c5cb1097d2fef9bb9c6439084",
+      "overall_mean": 27.997656853702917,
+      "position_means": {
+        "1": 22.94118962432916,
+        "2": 31.32888196453743,
+        "3": 27.90405785220752,
+        "4": 23.93111242138365
+      },
+      "selected": "hist_15",
+      "selection_cutoff": "2024-05-20T06:25:00Z",
+      "training_keys_sha256": "1d85184692cc7d4d2b0ff00b26f48dfb056e941740e795518309dcb94adc1d0d",
+      "training_population_sha256": "e1bbf06e9ddce7391fe145fe36be8bfa5701b1a17526311755c5308918ed9e72",
+      "training_rows": 80234,
+      "training_seasons": [
+        "2021-22",
+        "2022-23",
+        "2023-24"
+      ]
+    },
+    "2025-26": {
+      "first_development_capture": "2025-08-15T12:52:00Z",
+      "first_prediction_capture": "2025-08-15T12:52:00Z",
+      "latest_training_settlement": "2025-05-26T02:06:00Z",
+      "model_identity": "a72011576b81d40b111b048fef4169311ee26c0689038e4590bd9bb042775a4f",
+      "overall_mean": 27.884563095947556,
+      "position_means": {
+        "1": 23.186964997033648,
+        "2": 31.067226890756302,
+        "3": 27.779827002308075,
+        "4": 23.750474311299993
+      },
+      "selected": "hist_15",
+      "selection_cutoff": "2024-05-20T06:25:00Z",
+      "training_keys_sha256": "2c70e2e0dd27afb15ff5ddd5c60031d932f9aaad6a0d6bf134a1a7a83ac78aba",
+      "training_population_sha256": "6dc9ea5b982a6afb84d6a9a2a5660d9071dd6635ad6dfb9fdd2b749cc54f5c54",
+      "training_rows": 107392,
+      "training_seasons": [
+        "2021-22",
+        "2022-23",
+        "2023-24",
+        "2024-25"
+      ]
+    }
+  },
+  "independent": {
+    "counts": {
+      "blank_gw7_rows": 624,
+      "double_rows": 5476,
+      "explicit_player_zeros": 4553,
+      "gw18_freshness_rows": 656,
+      "independent_feature_rows": 137662,
+      "masked_cumulative_rows": 11,
+      "reconciled_targets": 137037,
+      "scheduled_fixtures": 1900,
+      "unresolved_targets": 1
+    },
+    "coverage": {
+      "2021-22": {
+        "gameweeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38
+        ],
+        "rows": 25150,
+        "safe": 0
+      },
+      "2022-23": {
+        "gameweeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38
+        ],
+        "rows": 26198,
+        "safe": 0
+      },
+      "2023-24": {
+        "gameweeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38
+        ],
+        "rows": 29510,
+        "safe": 0
+      },
+      "2024-25": {
+        "gameweeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38
+        ],
+        "rows": 27159,
+        "safe": 27159
+      },
+      "2025-26": {
+        "gameweeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38
+        ],
+        "rows": 29645,
+        "safe": 29645
+      }
+    },
+    "downstream_safe_rows": 56804
+  },
+  "metrics": {
+    "2024-25": {
+      "gameweeks": {
+        "1": {
+          "availability_recent": {
+            "mae": 31.637914980288482,
+            "rmse": 37.857440266006385,
+            "rows": 610,
+            "scored": 610
+          },
+          "hist_15": {
+            "mae": 33.24408106156928,
+            "rmse": 36.943380919692075,
+            "rows": 610,
+            "scored": 610
+          },
+          "recent_minutes": {
+            "mae": 35.437302545603195,
+            "rmse": 39.273521108629275,
+            "rows": 610,
+            "scored": 610
+          },
+          "training_position_mean": {
+            "mae": 35.437302545603195,
+            "rmse": 39.273521108629275,
+            "rows": 610,
+            "scored": 610
+          }
+        },
+        "10": {
+          "availability_recent": {
+            "mae": 11.215613822706262,
+            "rmse": 21.904013975842965,
+            "rows": 670,
+            "scored": 670
+          },
+          "hist_15": {
+            "mae": 11.809763677128773,
+            "rmse": 19.76282273425556,
+            "rows": 670,
+            "scored": 670
+          },
+          "recent_minutes": {
+            "mae": 12.824693424696312,
+            "rmse": 23.94624596880551,
+            "rows": 670,
+            "scored": 670
+          },
+          "training_position_mean": {
+            "mae": 35.276938309453115,
+            "rmse": 38.94529696798199,
+            "rows": 670,
+            "scored": 670
+          }
+        },
+        "11": {
+          "availability_recent": {
+            "mae": 10.495375803549088,
+            "rmse": 21.655364014674557,
+            "rows": 674,
+            "scored": 674
+          },
+          "hist_15": {
+            "mae": 11.737057617666613,
+            "rmse": 20.31463688546316,
+            "rows": 674,
+            "scored": 674
+          },
+          "recent_minutes": {
+            "mae": 11.77504939405354,
+            "rmse": 23.222628027292334,
+            "rows": 674,
+            "scored": 674
+          },
+          "training_position_mean": {
+            "mae": 35.35718022796987,
+            "rmse": 39.000230395568714,
+            "rows": 674,
+            "scored": 674
+          }
+        },
+        "12": {
+          "availability_recent": {
+            "mae": 12.009453688597835,
+            "rmse": 24.277889475867784,
+            "rows": 678,
+            "scored": 678
+          },
+          "hist_15": {
+            "mae": 12.69736884045945,
+            "rmse": 22.015188847975068,
+            "rows": 678,
+            "scored": 678
+          },
+          "recent_minutes": {
+            "mae": 14.168376992432645,
+            "rmse": 27.746032963524815,
+            "rows": 678,
+            "scored": 678
+          },
+          "training_position_mean": {
+            "mae": 34.79102577123134,
+            "rmse": 38.494657992633066,
+            "rows": 678,
+            "scored": 678
+          }
+        },
+        "13": {
+          "availability_recent": {
+            "mae": 12.427069424147517,
+            "rmse": 23.92852252592099,
+            "rows": 684,
+            "scored": 684
+          },
+          "hist_15": {
+            "mae": 13.467121379930228,
+            "rmse": 22.598227124025765,
+            "rows": 684,
+            "scored": 684
+          },
+          "recent_minutes": {
+            "mae": 13.928896909527634,
+            "rmse": 25.944293088529154,
+            "rows": 684,
+            "scored": 684
+          },
+          "training_position_mean": {
+            "mae": 34.19523601740088,
+            "rmse": 37.94251584578162,
+            "rows": 684,
+            "scored": 684
+          }
+        },
+        "14": {
+          "availability_recent": {
+            "mae": 14.908379931570389,
+            "rmse": 27.644394636210265,
+            "rows": 690,
+            "scored": 690
+          },
+          "hist_15": {
+            "mae": 15.067039062511114,
+            "rmse": 25.056785661018782,
+            "rows": 690,
+            "scored": 690
+          },
+          "recent_minutes": {
+            "mae": 16.675892008865073,
+            "rmse": 29.57975559184667,
+            "rows": 690,
+            "scored": 690
+          },
+          "training_position_mean": {
+            "mae": 34.535580846927914,
+            "rmse": 38.18770103334259,
+            "rows": 690,
+            "scored": 690
+          }
+        },
+        "15": {
+          "availability_recent": {
+            "mae": 13.82933403816443,
+            "rmse": 25.937135963711142,
+            "rows": 693,
+            "scored": 693
+          },
+          "hist_15": {
+            "mae": 15.066603120970392,
+            "rmse": 25.150884493521396,
+            "rows": 693,
+            "scored": 693
+          },
+          "recent_minutes": {
+            "mae": 15.241791950622341,
+            "rmse": 27.413445366954566,
+            "rows": 693,
+            "scored": 693
+          },
+          "training_position_mean": {
+            "mae": 34.15062389548669,
+            "rmse": 37.543425592857524,
+            "rows": 693,
+            "scored": 693
+          }
+        },
+        "16": {
+          "availability_recent": {
+            "mae": 11.928571428571429,
+            "rmse": 22.544165052315524,
+            "rows": 693,
+            "scored": 693
+          },
+          "hist_15": {
+            "mae": 12.943378713155777,
+            "rmse": 21.42535893923416,
+            "rows": 693,
+            "scored": 693
+          },
+          "recent_minutes": {
+            "mae": 13.96921596921597,
+            "rmse": 25.200259331729182,
+            "rows": 693,
+            "scored": 693
+          },
+          "training_position_mean": {
+            "mae": 34.79694485003561,
+            "rmse": 38.382102868519304,
+            "rows": 693,
+            "scored": 693
+          }
+        },
+        "17": {
+          "availability_recent": {
+            "mae": 12.816857807499513,
+            "rmse": 23.562838512988215,
+            "rows": 701,
+            "scored": 701
+          },
+          "hist_15": {
+            "mae": 12.586439767511177,
+            "rmse": 20.555049200282753,
+            "rows": 701,
+            "scored": 701
+          },
+          "recent_minutes": {
+            "mae": 14.713077493662139,
+            "rmse": 26.2431437478617,
+            "rows": 701,
+            "scored": 701
+          },
+          "training_position_mean": {
+            "mae": 34.460323587324424,
+            "rmse": 38.08300259934094,
+            "rows": 701,
+            "scored": 701
+          }
+        },
+        "18": {
+          "availability_recent": {
+            "mae": 12.628031383737518,
+            "rmse": 23.770005589306123,
+            "rows": 701,
+            "scored": 701
+          },
+          "hist_15": {
+            "mae": 12.841724524380496,
+            "rmse": 21.164007379896212,
+            "rows": 701,
+            "scored": 701
+          },
+          "recent_minutes": {
+            "mae": 13.93057536852116,
+            "rmse": 25.336524062647428,
+            "rows": 701,
+            "scored": 701
+          },
+          "training_position_mean": {
+            "mae": 35.114147080699794,
+            "rmse": 38.57967855128518,
+            "rows": 701,
+            "scored": 701
+          }
+        },
+        "19": {
+          "availability_recent": {
+            "mae": 12.420937828157838,
+            "rmse": 24.30860786762588,
+            "rows": 705,
+            "scored": 705
+          },
+          "hist_15": {
+            "mae": 12.83929353384704,
+            "rmse": 22.2656846889794,
+            "rows": 705,
+            "scored": 705
+          },
+          "recent_minutes": {
+            "mae": 13.966327899079822,
+            "rmse": 26.248815958740703,
+            "rows": 705,
+            "scored": 705
+          },
+          "training_position_mean": {
+            "mae": 34.510457143668425,
+            "rmse": 38.05733868411889,
+            "rows": 705,
+            "scored": 705
+          }
+        },
+        "2": {
+          "availability_recent": {
+            "mae": 8.670173686011623,
+            "rmse": 19.65380291185847,
+            "rows": 625,
+            "scored": 625
+          },
+          "hist_15": {
+            "mae": 11.37990914100014,
+            "rmse": 18.89246337328772,
+            "rows": 625,
+            "scored": 625
+          },
+          "recent_minutes": {
+            "mae": 9.151373686011624,
+            "rmse": 20.557331268872826,
+            "rows": 625,
+            "scored": 625
+          },
+          "training_position_mean": {
+            "mae": 35.16397727382337,
+            "rmse": 39.0012463675212,
+            "rows": 625,
+            "scored": 625
+          }
+        },
+        "20": {
+          "availability_recent": {
+            "mae": 11.31584859723344,
+            "rmse": 22.72497136415358,
+            "rows": 709,
+            "scored": 709
+          },
+          "hist_15": {
+            "mae": 12.193433187995181,
+            "rmse": 21.189842894648894,
+            "rows": 709,
+            "scored": 709
+          },
+          "recent_minutes": {
+            "mae": 13.058091192437953,
+            "rmse": 25.08312632235211,
+            "rows": 709,
+            "scored": 709
+          },
+          "training_position_mean": {
+            "mae": 34.790052518508205,
+            "rmse": 38.36817744059206,
+            "rows": 709,
+            "scored": 709
+          }
+        },
+        "21": {
+          "availability_recent": {
+            "mae": 10.703572971803593,
+            "rmse": 21.120499593795518,
+            "rows": 718,
+            "scored": 718
+          },
+          "hist_15": {
+            "mae": 11.81697740363602,
+            "rmse": 19.99159128689412,
+            "rows": 718,
+            "scored": 718
+          },
+          "recent_minutes": {
+            "mae": 11.918405840884374,
+            "rmse": 22.683853158831777,
+            "rows": 718,
+            "scored": 718
+          },
+          "training_position_mean": {
+            "mae": 35.12075900292981,
+            "rmse": 38.54331227217035,
+            "rows": 718,
+            "scored": 718
+          }
+        },
+        "22": {
+          "availability_recent": {
+            "mae": 12.169568979067101,
+            "rmse": 23.908358402520555,
+            "rows": 726,
+            "scored": 726
+          },
+          "hist_15": {
+            "mae": 12.019771990865893,
+            "rmse": 20.968505112119452,
+            "rows": 726,
+            "scored": 726
+          },
+          "recent_minutes": {
+            "mae": 13.43242481010475,
+            "rmse": 25.288692442390733,
+            "rows": 726,
+            "scored": 726
+          },
+          "training_position_mean": {
+            "mae": 34.57540155253751,
+            "rmse": 38.097434485025495,
+            "rows": 726,
+            "scored": 726
+          }
+        },
+        "23": {
+          "availability_recent": {
+            "mae": 10.056628377201333,
+            "rmse": 20.69390049032927,
+            "rows": 735,
+            "scored": 735
+          },
+          "hist_15": {
+            "mae": 11.039792336013072,
+            "rmse": 18.971225726632504,
+            "rows": 735,
+            "scored": 735
+          },
+          "recent_minutes": {
+            "mae": 11.200846064276163,
+            "rmse": 21.865352500077137,
+            "rows": 735,
+            "scored": 735
+          },
+          "training_position_mean": {
+            "mae": 34.7693943311877,
+            "rmse": 38.169409979709044,
+            "rows": 735,
+            "scored": 735
+          }
+        },
+        "24": {
+          "availability_recent": {
+            "mae": 13.027390418257168,
+            "rmse": 27.66212126781641,
+            "rows": 737,
+            "scored": 737
+          },
+          "hist_15": {
+            "mae": 14.164419589850354,
+            "rmse": 26.54884472635433,
+            "rows": 737,
+            "scored": 737
+          },
+          "recent_minutes": {
+            "mae": 14.435011404236363,
+            "rmse": 29.336758144152796,
+            "rows": 737,
+            "scored": 737
+          },
+          "training_position_mean": {
+            "mae": 37.1446157649382,
+            "rmse": 43.89488036590657,
+            "rows": 737,
+            "scored": 737
+          }
+        },
+        "25": {
+          "availability_recent": {
+            "mae": 14.052262157931208,
+            "rmse": 28.664102683131116,
+            "rows": 753,
+            "scored": 753
+          },
+          "hist_15": {
+            "mae": 15.181434341811313,
+            "rmse": 28.35032166104641,
+            "rows": 753,
+            "scored": 753
+          },
+          "recent_minutes": {
+            "mae": 15.580482609458432,
+            "rmse": 30.465812416349273,
+            "rows": 753,
+            "scored": 753
+          },
+          "training_position_mean": {
+            "mae": 36.640291352932856,
+            "rmse": 43.059487634260655,
+            "rows": 753,
+            "scored": 753
+          }
+        },
+        "26": {
+          "availability_recent": {
+            "mae": 11.761924966939501,
+            "rmse": 23.347064066604055,
+            "rows": 759,
+            "scored": 759
+          },
+          "hist_15": {
+            "mae": 11.280316399007134,
+            "rmse": 20.050858434626058,
+            "rows": 759,
+            "scored": 759
+          },
+          "recent_minutes": {
+            "mae": 13.500396640193783,
+            "rmse": 25.342417112662453,
+            "rows": 759,
+            "scored": 759
+          },
+          "training_position_mean": {
+            "mae": 34.1363026455816,
+            "rmse": 37.52145225212865,
+            "rows": 759,
+            "scored": 759
+          }
+        },
+        "27": {
+          "availability_recent": {
+            "mae": 11.243830660233991,
+            "rmse": 23.0001584299963,
+            "rows": 763,
+            "scored": 762
+          },
+          "hist_15": {
+            "mae": 10.88728006137663,
+            "rmse": 19.613324201548416,
+            "rows": 763,
+            "scored": 762
+          },
+          "recent_minutes": {
+            "mae": 12.892343346148252,
+            "rmse": 24.64972677932662,
+            "rows": 763,
+            "scored": 762
+          },
+          "training_position_mean": {
+            "mae": 34.0579136143239,
+            "rmse": 37.46235069021758,
+            "rows": 763,
+            "scored": 762
+          }
+        },
+        "28": {
+          "availability_recent": {
+            "mae": 10.204141834780293,
+            "rmse": 21.803582022267744,
+            "rows": 765,
+            "scored": 765
+          },
+          "hist_15": {
+            "mae": 11.102780205994488,
+            "rmse": 19.57451165762405,
+            "rows": 765,
+            "scored": 765
+          },
+          "recent_minutes": {
+            "mae": 11.6636189589633,
+            "rmse": 24.2861429816723,
+            "rows": 765,
+            "scored": 765
+          },
+          "training_position_mean": {
+            "mae": 34.19629098647008,
+            "rmse": 37.58627256950144,
+            "rows": 765,
+            "scored": 765
+          }
+        },
+        "29": {
+          "availability_recent": {
+            "mae": 12.557798091861448,
+            "rmse": 26.360525317019963,
+            "rows": 769,
+            "scored": 769
+          },
+          "hist_15": {
+            "mae": 13.703676855930546,
+            "rmse": 25.516700047509733,
+            "rows": 769,
+            "scored": 769
+          },
+          "recent_minutes": {
+            "mae": 13.667789422594002,
+            "rmse": 27.615921747383474,
+            "rows": 769,
+            "scored": 769
+          },
+          "training_position_mean": {
+            "mae": 33.33603852763529,
+            "rmse": 36.17809166680649,
+            "rows": 769,
+            "scored": 769
+          }
+        },
+        "3": {
+          "availability_recent": {
+            "mae": 11.177561355383531,
+            "rmse": 23.372760222135447,
+            "rows": 637,
+            "scored": 637
+          },
+          "hist_15": {
+            "mae": 12.931025915724389,
+            "rmse": 21.79600153197294,
+            "rows": 637,
+            "scored": 637
+          },
+          "recent_minutes": {
+            "mae": 11.785187910649489,
+            "rmse": 23.845677039605416,
+            "rows": 637,
+            "scored": 637
+          },
+          "training_position_mean": {
+            "mae": 35.51560347020412,
+            "rmse": 39.22472519538317,
+            "rows": 637,
+            "scored": 637
+          }
+        },
+        "30": {
+          "availability_recent": {
+            "mae": 13.575747724317296,
+            "rmse": 26.491057116274103,
+            "rows": 769,
+            "scored": 769
+          },
+          "hist_15": {
+            "mae": 13.600472287785905,
+            "rmse": 23.965808699177018,
+            "rows": 769,
+            "scored": 769
+          },
+          "recent_minutes": {
+            "mae": 14.40875596012137,
+            "rmse": 27.46917990277717,
+            "rows": 769,
+            "scored": 769
+          },
+          "training_position_mean": {
+            "mae": 34.16039013509795,
+            "rmse": 37.527961764322065,
+            "rows": 769,
+            "scored": 769
+          }
+        },
+        "31": {
+          "availability_recent": {
+            "mae": 11.808127461932656,
+            "rmse": 23.061916080035324,
+            "rows": 771,
+            "scored": 771
+          },
+          "hist_15": {
+            "mae": 11.926669735109561,
+            "rmse": 21.00317097834593,
+            "rows": 771,
+            "scored": 771
+          },
+          "recent_minutes": {
+            "mae": 12.822178477929198,
+            "rmse": 24.289806487077975,
+            "rows": 771,
+            "scored": 771
+          },
+          "training_position_mean": {
+            "mae": 33.35276923115691,
+            "rmse": 36.77510243296917,
+            "rows": 771,
+            "scored": 771
+          }
+        },
+        "32": {
+          "availability_recent": {
+            "mae": 14.242103701881097,
+            "rmse": 28.638057022387144,
+            "rows": 772,
+            "scored": 772
+          },
+          "hist_15": {
+            "mae": 14.005133769649895,
+            "rmse": 25.276187063619457,
+            "rows": 772,
+            "scored": 772
+          },
+          "recent_minutes": {
+            "mae": 14.889772095663481,
+            "rmse": 29.155264803218042,
+            "rows": 772,
+            "scored": 772
+          },
+          "training_position_mean": {
+            "mae": 35.78323760257755,
+            "rmse": 42.304190072945275,
+            "rows": 772,
+            "scored": 772
+          }
+        },
+        "33": {
+          "availability_recent": {
+            "mae": 14.834470072716899,
+            "rmse": 29.787085751661277,
+            "rows": 778,
+            "scored": 778
+          },
+          "hist_15": {
+            "mae": 15.639613728961036,
+            "rmse": 28.83251489593289,
+            "rows": 778,
+            "scored": 778
+          },
+          "recent_minutes": {
+            "mae": 15.213326113848005,
+            "rmse": 30.274426654178015,
+            "rows": 778,
+            "scored": 778
+          },
+          "training_position_mean": {
+            "mae": 37.787071206967056,
+            "rmse": 46.02300019291933,
+            "rows": 778,
+            "scored": 778
+          }
+        },
+        "34": {
+          "availability_recent": {
+            "mae": 15.520640413304926,
+            "rmse": 32.33806287530561,
+            "rows": 779,
+            "scored": 779
+          },
+          "hist_15": {
+            "mae": 15.500501497241817,
+            "rmse": 27.357957898820608,
+            "rows": 779,
+            "scored": 779
+          },
+          "recent_minutes": {
+            "mae": 16.48458992122106,
+            "rmse": 33.174961257394976,
+            "rows": 779,
+            "scored": 779
+          },
+          "training_position_mean": {
+            "mae": 32.52806543635778,
+            "rmse": 35.3998364925267,
+            "rows": 779,
+            "scored": 779
+          }
+        },
+        "35": {
+          "availability_recent": {
+            "mae": 11.314941099810524,
+            "rmse": 22.643480601415124,
+            "rows": 780,
+            "scored": 780
+          },
+          "hist_15": {
+            "mae": 12.281395195042967,
+            "rmse": 21.737523571092083,
+            "rows": 780,
+            "scored": 780
+          },
+          "recent_minutes": {
+            "mae": 12.324235971605395,
+            "rmse": 23.915094138128577,
+            "rows": 780,
+            "scored": 780
+          },
+          "training_position_mean": {
+            "mae": 34.101946683893374,
+            "rmse": 37.447147591563365,
+            "rows": 780,
+            "scored": 780
+          }
+        },
+        "36": {
+          "availability_recent": {
+            "mae": 10.5616673691394,
+            "rmse": 22.370392232959855,
+            "rows": 781,
+            "scored": 781
+          },
+          "hist_15": {
+            "mae": 11.601455084773034,
+            "rmse": 20.96662454771546,
+            "rows": 781,
+            "scored": 781
+          },
+          "recent_minutes": {
+            "mae": 11.49850048907111,
+            "rmse": 23.526232969396258,
+            "rows": 781,
+            "scored": 781
+          },
+          "training_position_mean": {
+            "mae": 33.77680214127828,
+            "rmse": 37.16296306549032,
+            "rows": 781,
+            "scored": 781
+          }
+        },
+        "37": {
+          "availability_recent": {
+            "mae": 12.311566367904396,
+            "rmse": 24.318460834215717,
+            "rows": 781,
+            "scored": 781
+          },
+          "hist_15": {
+            "mae": 12.680209145799497,
+            "rmse": 22.79500022851224,
+            "rows": 781,
+            "scored": 781
+          },
+          "recent_minutes": {
+            "mae": 12.973538198890312,
+            "rmse": 24.843917373750696,
+            "rows": 781,
+            "scored": 781
+          },
+          "training_position_mean": {
+            "mae": 33.754684784498664,
+            "rmse": 37.10932856710319,
+            "rows": 781,
+            "scored": 781
+          }
+        },
+        "38": {
+          "availability_recent": {
+            "mae": 12.081306017925737,
+            "rmse": 24.79024862613345,
+            "rows": 781,
+            "scored": 781
+          },
+          "hist_15": {
+            "mae": 13.165260122341582,
+            "rmse": 23.223001829594313,
+            "rows": 781,
+            "scored": 781
+          },
+          "recent_minutes": {
+            "mae": 13.167733674775928,
+            "rmse": 26.208125486454172,
+            "rows": 781,
+            "scored": 781
+          },
+          "training_position_mean": {
+            "mae": 33.83406612362354,
+            "rmse": 37.20829693257532,
+            "rows": 781,
+            "scored": 781
+          }
+        },
+        "4": {
+          "availability_recent": {
+            "mae": 14.505647735951117,
+            "rmse": 26.86200526245506,
+            "rows": 655,
+            "scored": 655
+          },
+          "hist_15": {
+            "mae": 13.903891907227507,
+            "rmse": 23.89006319951461,
+            "rows": 655,
+            "scored": 655
+          },
+          "recent_minutes": {
+            "mae": 15.575622290658496,
+            "rmse": 28.066505188366634,
+            "rows": 655,
+            "scored": 655
+          },
+          "training_position_mean": {
+            "mae": 34.34918016107626,
+            "rmse": 38.11236768402502,
+            "rows": 655,
+            "scored": 655
+          }
+        },
+        "5": {
+          "availability_recent": {
+            "mae": 12.005765118310809,
+            "rmse": 22.81055489543458,
+            "rows": 659,
+            "scored": 659
+          },
+          "hist_15": {
+            "mae": 12.698427013532505,
+            "rmse": 20.943496258977547,
+            "rows": 659,
+            "scored": 659
+          },
+          "recent_minutes": {
+            "mae": 13.1491642078404,
+            "rmse": 24.386094797926887,
+            "rows": 659,
+            "scored": 659
+          },
+          "training_position_mean": {
+            "mae": 34.20608096126306,
+            "rmse": 38.025572841924294,
+            "rows": 659,
+            "scored": 659
+          }
+        },
+        "6": {
+          "availability_recent": {
+            "mae": 11.122811771270605,
+            "rmse": 21.431162347274064,
+            "rows": 661,
+            "scored": 661
+          },
+          "hist_15": {
+            "mae": 12.473734748805793,
+            "rmse": 20.82492630721043,
+            "rows": 661,
+            "scored": 661
+          },
+          "recent_minutes": {
+            "mae": 12.29073915402401,
+            "rmse": 23.044315918601857,
+            "rows": 661,
+            "scored": 661
+          },
+          "training_position_mean": {
+            "mae": 35.241010372017,
+            "rmse": 38.891151630513626,
+            "rows": 661,
+            "scored": 661
+          }
+        },
+        "7": {
+          "availability_recent": {
+            "mae": 10.757259004859858,
+            "rmse": 21.51757659558078,
+            "rows": 664,
+            "scored": 664
+          },
+          "hist_15": {
+            "mae": 12.05663228467772,
+            "rmse": 20.435064457411205,
+            "rows": 664,
+            "scored": 664
+          },
+          "recent_minutes": {
+            "mae": 11.414136514900019,
+            "rmse": 22.369618775917598,
+            "rows": 664,
+            "scored": 664
+          },
+          "training_position_mean": {
+            "mae": 35.1530091174929,
+            "rmse": 38.82968409354067,
+            "rows": 664,
+            "scored": 664
+          }
+        },
+        "8": {
+          "availability_recent": {
+            "mae": 10.387027018597479,
+            "rmse": 21.22185823423316,
+            "rows": 666,
+            "scored": 666
+          },
+          "hist_15": {
+            "mae": 11.679937182855586,
+            "rmse": 19.96849705474789,
+            "rows": 666,
+            "scored": 666
+          },
+          "recent_minutes": {
+            "mae": 11.749889881460343,
+            "rmse": 23.129836282893343,
+            "rows": 666,
+            "scored": 666
+          },
+          "training_position_mean": {
+            "mae": 34.54228040833617,
+            "rmse": 38.30191593870047,
+            "rows": 666,
+            "scored": 666
+          }
+        },
+        "9": {
+          "availability_recent": {
+            "mae": 12.444009082237192,
+            "rmse": 25.327540881157788,
+            "rows": 667,
+            "scored": 667
+          },
+          "hist_15": {
+            "mae": 12.870100133757873,
+            "rmse": 22.241652643379293,
+            "rows": 667,
+            "scored": 667
+          },
+          "recent_minutes": {
+            "mae": 13.992859656949836,
+            "rmse": 26.851612926884076,
+            "rows": 667,
+            "scored": 667
+          },
+          "training_position_mean": {
+            "mae": 35.124369702439864,
+            "rmse": 38.78806318803082,
+            "rows": 667,
+            "scored": 667
+          }
+        }
+      },
+      "segments": {
+        "actual_appearance": {
+          "availability_recent": {
+            "mae": 22.354914352468544,
+            "rmse": 32.52981336563159,
+            "rows": 11421,
+            "scored": 11421
+          },
+          "hist_15": {
+            "mae": 21.017035345467086,
+            "rmse": 28.43217872686274,
+            "rows": 11421,
+            "scored": 11421
+          },
+          "recent_minutes": {
+            "mae": 22.186889074112905,
+            "rmse": 32.358855781601854,
+            "rows": 11421,
+            "scored": 11421
+          },
+          "training_position_mean": {
+            "mae": 44.00839428793462,
+            "rmse": 49.65362682457953,
+            "rows": 11421,
+            "scored": 11421
+          }
+        },
+        "all": {
+          "availability_recent": {
+            "mae": 12.603901835703233,
+            "rmse": 24.818715813713972,
+            "rows": 27159,
+            "scored": 27158
+          },
+          "hist_15": {
+            "mae": 13.304009919450081,
+            "rmse": 22.94444056483639,
+            "rows": 27159,
+            "scored": 27158
+          },
+          "recent_minutes": {
+            "mae": 13.908726731886546,
+            "rmse": 26.3244999064137,
+            "rows": 27159,
+            "scored": 27158
+          },
+          "training_position_mean": {
+            "mae": 34.7138537702636,
+            "rmse": 38.669508427477,
+            "rows": 27159,
+            "scored": 27158
+          }
+        },
+        "chance_known": {
+          "availability_recent": {
+            "mae": 12.139667541070509,
+            "rmse": 24.629424133224596,
+            "rows": 17051,
+            "scored": 17050
+          },
+          "hist_15": {
+            "mae": 12.474677315991133,
+            "rmse": 22.454413751519997,
+            "rows": 17051,
+            "scored": 17050
+          },
+          "recent_minutes": {
+            "mae": 14.218050797994051,
+            "rmse": 27.00508312046346,
+            "rows": 17051,
+            "scored": 17050
+          },
+          "training_position_mean": {
+            "mae": 34.58407926730923,
+            "rmse": 38.442611261668404,
+            "rows": 17051,
+            "scored": 17050
+          }
+        },
+        "cold_history": {
+          "availability_recent": {
+            "mae": 31.11429712423614,
+            "rmse": 36.49691651816398,
+            "rows": 781,
+            "scored": 781
+          },
+          "hist_15": {
+            "mae": 29.42587189737295,
+            "rmse": 34.63263789881212,
+            "rows": 781,
+            "scored": 781
+          },
+          "recent_minutes": {
+            "mae": 34.15326579330962,
+            "rmse": 37.67396990560359,
+            "rows": 781,
+            "scored": 781
+          },
+          "training_position_mean": {
+            "mae": 34.15326579330962,
+            "rmse": 37.67396990560359,
+            "rows": 781,
+            "scored": 781
+          }
+        },
+        "cumulative_minutes_missing": {
+          "availability_recent": {
+            "mae": 31.273421585575914,
+            "rmse": 37.57088475844275,
+            "rows": 621,
+            "scored": 621
+          },
+          "hist_15": {
+            "mae": 33.04053789535655,
+            "rmse": 36.760173268294906,
+            "rows": 621,
+            "scored": 621
+          },
+          "recent_minutes": {
+            "mae": 35.00765628473099,
+            "rmse": 38.9725955276493,
+            "rows": 621,
+            "scored": 621
+          },
+          "training_position_mean": {
+            "mae": 35.17090912175588,
+            "rmse": 39.02754323057162,
+            "rows": 621,
+            "scored": 621
+          }
+        },
+        "missing_chance": {
+          "availability_recent": {
+            "mae": 13.386964234148817,
+            "rmse": 25.134779611220136,
+            "rows": 10108,
+            "scored": 10108
+          },
+          "hist_15": {
+            "mae": 14.702913845941481,
+            "rmse": 23.74810788640068,
+            "rows": 10108,
+            "scored": 10108
+          },
+          "recent_minutes": {
+            "mae": 13.386964234148817,
+            "rmse": 25.134779611220136,
+            "rows": 10108,
+            "scored": 10108
+          },
+          "training_position_mean": {
+            "mae": 34.93275516276181,
+            "rmse": 39.049247271271895,
+            "rows": 10108,
+            "scored": 10108
+          }
+        },
+        "position_1": {
+          "availability_recent": {
+            "mae": 8.193099627754506,
+            "rmse": 22.99072403653855,
+            "rows": 2855,
+            "scored": 2855
+          },
+          "hist_15": {
+            "mae": 9.296062813416397,
+            "rmse": 21.069277985293745,
+            "rows": 2855,
+            "scored": 2855
+          },
+          "recent_minutes": {
+            "mae": 8.705405209243844,
+            "rmse": 23.76753891747508,
+            "rows": 2855,
+            "scored": 2855
+          },
+          "training_position_mean": {
+            "mae": 34.71073039797737,
+            "rmse": 40.35509292731964,
+            "rows": 2855,
+            "scored": 2855
+          }
+        },
+        "position_2": {
+          "availability_recent": {
+            "mae": 13.409172458016187,
+            "rmse": 26.683815008171944,
+            "rows": 9099,
+            "scored": 9099
+          },
+          "hist_15": {
+            "mae": 14.54042470922788,
+            "rmse": 24.635761580941928,
+            "rows": 9099,
+            "scored": 9099
+          },
+          "recent_minutes": {
+            "mae": 14.978233928521473,
+            "rmse": 28.465500490330072,
+            "rows": 9099,
+            "scored": 9099
+          },
+          "training_position_mean": {
+            "mae": 38.2341657500609,
+            "rmse": 41.09195804124521,
+            "rows": 9099,
+            "scored": 9099
+          }
+        },
+        "position_3": {
+          "availability_recent": {
+            "mae": 13.651470153272165,
+            "rmse": 24.773100820343124,
+            "rows": 12203,
+            "scored": 12203
+          },
+          "hist_15": {
+            "mae": 13.930362422052296,
+            "rmse": 22.885784330354156,
+            "rows": 12203,
+            "scored": 12203
+          },
+          "recent_minutes": {
+            "mae": 14.942000267296429,
+            "rmse": 26.193741166964838,
+            "rows": 12203,
+            "scored": 12203
+          },
+          "training_position_mean": {
+            "mae": 33.23845800244732,
+            "rmse": 37.26307995439709,
+            "rows": 12203,
+            "scored": 12203
+          }
+        },
+        "position_4": {
+          "availability_recent": {
+            "mae": 10.098805778380477,
+            "rmse": 20.42218960846529,
+            "rows": 3002,
+            "scored": 3001
+          },
+          "hist_15": {
+            "mae": 10.821227922210218,
+            "rmse": 19.28475212483498,
+            "rows": 3002,
+            "scored": 3001
+          },
+          "recent_minutes": {
+            "mae": 11.414558125540962,
+            "rmse": 22.070043689917092,
+            "rows": 3002,
+            "scored": 3001
+          },
+          "training_position_mean": {
+            "mae": 30.04269518258065,
+            "rmse": 34.885956042416296,
+            "rows": 3002,
+            "scored": 3001
+          }
+        },
+        "status_available": {
+          "availability_recent": {
+            "mae": 17.237607501525652,
+            "rmse": 29.04971716751906,
+            "rows": 18652,
+            "scored": 18651
+          },
+          "hist_15": {
+            "mae": 18.07359996578027,
+            "rmse": 26.783342163248953,
+            "rows": 18652,
+            "scored": 18651
+          },
+          "recent_minutes": {
+            "mae": 17.237607501525652,
+            "rmse": 29.04971716751906,
+            "rows": 18652,
+            "scored": 18651
+          },
+          "training_position_mean": {
+            "mae": 37.50041397113007,
+            "rmse": 42.26657316563653,
+            "rows": 18652,
+            "scored": 18651
+          }
+        },
+        "status_missing": {
+          "availability_recent": {
+            "mae": null,
+            "rmse": null,
+            "rows": 0,
+            "scored": 0
+          },
+          "hist_15": {
+            "mae": null,
+            "rmse": null,
+            "rows": 0,
+            "scored": 0
+          },
+          "recent_minutes": {
+            "mae": null,
+            "rmse": null,
+            "rows": 0,
+            "scored": 0
+          },
+          "training_position_mean": {
+            "mae": null,
+            "rmse": null,
+            "rows": 0,
+            "scored": 0
+          }
+        },
+        "status_other": {
+          "availability_recent": {
+            "mae": 2.44482761761767,
+            "rmse": 10.783122692088941,
+            "rows": 8507,
+            "scored": 8507
+          },
+          "hist_15": {
+            "mae": 2.8470187411140784,
+            "rmse": 10.388087856128722,
+            "rows": 8507,
+            "scored": 8507
+          },
+          "recent_minutes": {
+            "mae": 6.610389452641343,
+            "rmse": 19.029629434798117,
+            "rows": 8507,
+            "scored": 8507
+          },
+          "training_position_mean": {
+            "mae": 28.604516247475228,
+            "rmse": 29.275308831781306,
+            "rows": 8507,
+            "scored": 8507
+          }
+        },
+        "useful_history": {
+          "availability_recent": {
+            "mae": 18.019262763210172,
+            "rmse": 30.756098323158337,
+            "rows": 6712,
+            "scored": 6712
+          },
+          "hist_15": {
+            "mae": 19.032105799615714,
+            "rmse": 28.485496924919314,
+            "rows": 6712,
+            "scored": 6712
+          },
+          "recent_minutes": {
+            "mae": 20.457687723480333,
+            "rmse": 34.02650373697017,
+            "rows": 6712,
+            "scored": 6712
+          },
+          "training_position_mean": {
+            "mae": 51.07411097770909,
+            "rmse": 54.63074509676091,
+            "rows": 6712,
+            "scored": 6712
+          }
+        }
+      }
+    },
+    "2025-26": {
+      "gameweeks": {
+        "1": {
+          "availability_recent": {
+            "mae": 30.940251413885086,
+            "rmse": 37.07078410799823,
+            "rows": 685,
+            "scored": 685
+          },
+          "hist_15": {
+            "mae": 33.41353594395382,
+            "rmse": 37.0011939385539,
+            "rows": 685,
+            "scored": 685
+          },
+          "recent_minutes": {
+            "mae": 34.981117532002486,
+            "rmse": 38.598258119226294,
+            "rows": 685,
+            "scored": 685
+          },
+          "training_position_mean": {
+            "mae": 34.981117532002486,
+            "rmse": 38.598258119226294,
+            "rows": 685,
+            "scored": 685
+          }
+        },
+        "10": {
+          "availability_recent": {
+            "mae": 8.537573494641164,
+            "rmse": 17.85496538050768,
+            "rows": 746,
+            "scored": 746
+          },
+          "hist_15": {
+            "mae": 9.905833978186557,
+            "rmse": 17.06759309794949,
+            "rows": 746,
+            "scored": 746
+          },
+          "recent_minutes": {
+            "mae": 9.189606559877982,
+            "rmse": 18.658009247231604,
+            "rows": 746,
+            "scored": 746
+          },
+          "training_position_mean": {
+            "mae": 34.06633879190219,
+            "rmse": 37.55626126153201,
+            "rows": 746,
+            "scored": 746
+          }
+        },
+        "11": {
+          "availability_recent": {
+            "mae": 8.679051319821387,
+            "rmse": 18.73100874176434,
+            "rows": 748,
+            "scored": 748
+          },
+          "hist_15": {
+            "mae": 9.671485032684629,
+            "rmse": 16.93414978984042,
+            "rows": 748,
+            "scored": 748
+          },
+          "recent_minutes": {
+            "mae": 9.335134207521921,
+            "rmse": 19.684575490375206,
+            "rows": 748,
+            "scored": 748
+          },
+          "training_position_mean": {
+            "mae": 34.26870964309169,
+            "rmse": 37.69940876596015,
+            "rows": 748,
+            "scored": 748
+          }
+        },
+        "12": {
+          "availability_recent": {
+            "mae": 9.285236819718689,
+            "rmse": 20.968276940261703,
+            "rows": 752,
+            "scored": 752
+          },
+          "hist_15": {
+            "mae": 10.770738675163141,
+            "rmse": 19.489520788647397,
+            "rows": 752,
+            "scored": 752
+          },
+          "recent_minutes": {
+            "mae": 10.238915897732873,
+            "rmse": 22.48853576114706,
+            "rows": 752,
+            "scored": 752
+          },
+          "training_position_mean": {
+            "mae": 34.189514314408235,
+            "rmse": 37.66792152004389,
+            "rows": 752,
+            "scored": 752
+          }
+        },
+        "13": {
+          "availability_recent": {
+            "mae": 10.880127972187616,
+            "rmse": 23.473302100968272,
+            "rows": 755,
+            "scored": 755
+          },
+          "hist_15": {
+            "mae": 11.99108584040009,
+            "rmse": 21.326540335487234,
+            "rows": 755,
+            "scored": 755
+          },
+          "recent_minutes": {
+            "mae": 11.755955786757152,
+            "rmse": 24.50502690931976,
+            "rows": 755,
+            "scored": 755
+          },
+          "training_position_mean": {
+            "mae": 34.24620082189455,
+            "rmse": 37.64072929363851,
+            "rows": 755,
+            "scored": 755
+          }
+        },
+        "14": {
+          "availability_recent": {
+            "mae": 11.223841059602648,
+            "rmse": 23.196326718159487,
+            "rows": 755,
+            "scored": 755
+          },
+          "hist_15": {
+            "mae": 11.888445111752215,
+            "rmse": 21.188353258925794,
+            "rows": 755,
+            "scored": 755
+          },
+          "recent_minutes": {
+            "mae": 12.110154525386314,
+            "rmse": 24.196857141195125,
+            "rows": 755,
+            "scored": 755
+          },
+          "training_position_mean": {
+            "mae": 33.91133106782509,
+            "rmse": 37.41175860154189,
+            "rows": 755,
+            "scored": 755
+          }
+        },
+        "15": {
+          "availability_recent": {
+            "mae": 10.755272584434895,
+            "rmse": 22.157983446193473,
+            "rows": 758,
+            "scored": 758
+          },
+          "hist_15": {
+            "mae": 11.999187986572894,
+            "rmse": 21.419204364509664,
+            "rows": 758,
+            "scored": 758
+          },
+          "recent_minutes": {
+            "mae": 11.536165284522845,
+            "rmse": 23.044482548879518,
+            "rows": 758,
+            "scored": 758
+          },
+          "training_position_mean": {
+            "mae": 33.679390119912576,
+            "rmse": 37.156147359048546,
+            "rows": 758,
+            "scored": 758
+          }
+        },
+        "16": {
+          "availability_recent": {
+            "mae": 9.019192657300074,
+            "rmse": 19.533322235110017,
+            "rows": 759,
+            "scored": 759
+          },
+          "hist_15": {
+            "mae": 10.737948414135563,
+            "rmse": 18.73697694508117,
+            "rows": 759,
+            "scored": 759
+          },
+          "recent_minutes": {
+            "mae": 10.237681897528445,
+            "rmse": 21.33821362601715,
+            "rows": 759,
+            "scored": 759
+          },
+          "training_position_mean": {
+            "mae": 34.44293157281095,
+            "rmse": 37.91004409317527,
+            "rows": 759,
+            "scored": 759
+          }
+        },
+        "17": {
+          "availability_recent": {
+            "mae": 10.382763895031697,
+            "rmse": 22.51029265321429,
+            "rows": 760,
+            "scored": 760
+          },
+          "hist_15": {
+            "mae": 10.866561219365115,
+            "rmse": 20.41016049199807,
+            "rows": 760,
+            "scored": 760
+          },
+          "recent_minutes": {
+            "mae": 13.99482529854047,
+            "rmse": 27.48925242740449,
+            "rows": 760,
+            "scored": 760
+          },
+          "training_position_mean": {
+            "mae": 34.284968590325,
+            "rmse": 37.71672987997601,
+            "rows": 760,
+            "scored": 760
+          }
+        },
+        "18": {
+          "availability_recent": {
+            "mae": 9.508698531918018,
+            "rmse": 20.840004439055438,
+            "rows": 770,
+            "scored": 770
+          },
+          "hist_15": {
+            "mae": 10.232222233583363,
+            "rmse": 18.71062567976939,
+            "rows": 770,
+            "scored": 770
+          },
+          "recent_minutes": {
+            "mae": 11.845819744039229,
+            "rmse": 23.69364972274961,
+            "rows": 770,
+            "scored": 770
+          },
+          "training_position_mean": {
+            "mae": 34.517070435477414,
+            "rmse": 37.89747901775481,
+            "rows": 770,
+            "scored": 770
+          }
+        },
+        "19": {
+          "availability_recent": {
+            "mae": 11.696740561017338,
+            "rmse": 24.197991234037367,
+            "rows": 775,
+            "scored": 775
+          },
+          "hist_15": {
+            "mae": 11.288091831072604,
+            "rmse": 20.429820125563918,
+            "rows": 775,
+            "scored": 775
+          },
+          "recent_minutes": {
+            "mae": 13.388998625533468,
+            "rmse": 26.01728268671696,
+            "rows": 775,
+            "scored": 775
+          },
+          "training_position_mean": {
+            "mae": 34.475449505049475,
+            "rmse": 37.827309236126986,
+            "rows": 775,
+            "scored": 775
+          }
+        },
+        "2": {
+          "availability_recent": {
+            "mae": 9.74378454684052,
+            "rmse": 21.80552672961446,
+            "rows": 698,
+            "scored": 698
+          },
+          "hist_15": {
+            "mae": 11.44432457945331,
+            "rmse": 19.9597561296889,
+            "rows": 698,
+            "scored": 698
+          },
+          "recent_minutes": {
+            "mae": 10.073372391871843,
+            "rmse": 22.284161869690028,
+            "rows": 698,
+            "scored": 698
+          },
+          "training_position_mean": {
+            "mae": 33.828978472762984,
+            "rmse": 37.51972144200694,
+            "rows": 698,
+            "scored": 698
+          }
+        },
+        "20": {
+          "availability_recent": {
+            "mae": 9.651184311490843,
+            "rmse": 21.145444978788163,
+            "rows": 780,
+            "scored": 780
+          },
+          "hist_15": {
+            "mae": 10.562083628402197,
+            "rmse": 19.20637714703755,
+            "rows": 780,
+            "scored": 780
+          },
+          "recent_minutes": {
+            "mae": 10.538470636277168,
+            "rmse": 22.338426475711902,
+            "rows": 780,
+            "scored": 780
+          },
+          "training_position_mean": {
+            "mae": 34.1000101331141,
+            "rmse": 37.46800044581947,
+            "rows": 780,
+            "scored": 780
+          }
+        },
+        "21": {
+          "availability_recent": {
+            "mae": 10.035448770210037,
+            "rmse": 21.164320037651887,
+            "rows": 790,
+            "scored": 790
+          },
+          "hist_15": {
+            "mae": 10.65517483099148,
+            "rmse": 19.350543110643677,
+            "rows": 790,
+            "scored": 790
+          },
+          "recent_minutes": {
+            "mae": 10.49515341156025,
+            "rmse": 21.910740971990574,
+            "rows": 790,
+            "scored": 790
+          },
+          "training_position_mean": {
+            "mae": 34.15614240376236,
+            "rmse": 37.48710839586346,
+            "rows": 790,
+            "scored": 790
+          }
+        },
+        "22": {
+          "availability_recent": {
+            "mae": 11.288525367280611,
+            "rmse": 24.61362995735351,
+            "rows": 796,
+            "scored": 796
+          },
+          "hist_15": {
+            "mae": 11.53340541234727,
+            "rmse": 21.202845233894042,
+            "rows": 796,
+            "scored": 796
+          },
+          "recent_minutes": {
+            "mae": 12.561594664184684,
+            "rmse": 26.249755355549063,
+            "rows": 796,
+            "scored": 796
+          },
+          "training_position_mean": {
+            "mae": 34.72261646056735,
+            "rmse": 37.976460861718635,
+            "rows": 796,
+            "scored": 796
+          }
+        },
+        "23": {
+          "availability_recent": {
+            "mae": 10.745831898016185,
+            "rmse": 22.316739801494947,
+            "rows": 802,
+            "scored": 802
+          },
+          "hist_15": {
+            "mae": 10.769949415876496,
+            "rmse": 18.8308421499396,
+            "rows": 802,
+            "scored": 802
+          },
+          "recent_minutes": {
+            "mae": 12.25366210624849,
+            "rmse": 24.25746339603165,
+            "rows": 802,
+            "scored": 802
+          },
+          "training_position_mean": {
+            "mae": 33.46340081316844,
+            "rmse": 36.83068111274824,
+            "rows": 802,
+            "scored": 802
+          }
+        },
+        "24": {
+          "availability_recent": {
+            "mae": 10.21768273583391,
+            "rmse": 21.532955367068126,
+            "rows": 808,
+            "scored": 808
+          },
+          "hist_15": {
+            "mae": 10.714923807027072,
+            "rmse": 19.27697046256376,
+            "rows": 808,
+            "scored": 808
+          },
+          "recent_minutes": {
+            "mae": 11.793384055965921,
+            "rmse": 23.759494249776537,
+            "rows": 808,
+            "scored": 808
+          },
+          "training_position_mean": {
+            "mae": 33.77232536650878,
+            "rmse": 37.05142942610104,
+            "rows": 808,
+            "scored": 808
+          }
+        },
+        "25": {
+          "availability_recent": {
+            "mae": 9.495441825817206,
+            "rmse": 20.891738228307787,
+            "rows": 817,
+            "scored": 817
+          },
+          "hist_15": {
+            "mae": 10.39089010759466,
+            "rmse": 19.477466445815665,
+            "rows": 817,
+            "scored": 817
+          },
+          "recent_minutes": {
+            "mae": 10.652316570819247,
+            "rmse": 22.389947263002632,
+            "rows": 817,
+            "scored": 817
+          },
+          "training_position_mean": {
+            "mae": 33.91424102556631,
+            "rmse": 37.20419028879221,
+            "rows": 817,
+            "scored": 817
+          }
+        },
+        "26": {
+          "availability_recent": {
+            "mae": 11.628212974296206,
+            "rmse": 25.744441599883533,
+            "rows": 817,
+            "scored": 817
+          },
+          "hist_15": {
+            "mae": 12.456854399009327,
+            "rmse": 24.15194910716825,
+            "rows": 817,
+            "scored": 817
+          },
+          "recent_minutes": {
+            "mae": 12.626478988168095,
+            "rmse": 26.751002019945485,
+            "rows": 817,
+            "scored": 817
+          },
+          "training_position_mean": {
+            "mae": 35.78579867364675,
+            "rmse": 41.792992420443866,
+            "rows": 817,
+            "scored": 817
+          }
+        },
+        "27": {
+          "availability_recent": {
+            "mae": 8.85281517747858,
+            "rmse": 19.39643489733374,
+            "rows": 817,
+            "scored": 817
+          },
+          "hist_15": {
+            "mae": 9.695378764268309,
+            "rmse": 17.50602339927478,
+            "rows": 817,
+            "scored": 817
+          },
+          "recent_minutes": {
+            "mae": 10.02937576499388,
+            "rmse": 21.105648258532423,
+            "rows": 817,
+            "scored": 817
+          },
+          "training_position_mean": {
+            "mae": 33.93941865355065,
+            "rmse": 37.22612654933328,
+            "rows": 817,
+            "scored": 817
+          }
+        },
+        "28": {
+          "availability_recent": {
+            "mae": 9.663611011790506,
+            "rmse": 21.47158019683597,
+            "rows": 818,
+            "scored": 818
+          },
+          "hist_15": {
+            "mae": 9.904754616807814,
+            "rmse": 18.777889974330872,
+            "rows": 818,
+            "scored": 818
+          },
+          "recent_minutes": {
+            "mae": 10.68999650486304,
+            "rmse": 22.748464413069517,
+            "rows": 818,
+            "scored": 818
+          },
+          "training_position_mean": {
+            "mae": 33.9943642641121,
+            "rmse": 37.23262299259127,
+            "rows": 818,
+            "scored": 818
+          }
+        },
+        "29": {
+          "availability_recent": {
+            "mae": 10.720981555015168,
+            "rmse": 23.382425508352657,
+            "rows": 819,
+            "scored": 819
+          },
+          "hist_15": {
+            "mae": 10.849131614196464,
+            "rmse": 20.50729085845835,
+            "rows": 819,
+            "scored": 819
+          },
+          "recent_minutes": {
+            "mae": 11.479935563969178,
+            "rmse": 24.167948833487902,
+            "rows": 819,
+            "scored": 819
+          },
+          "training_position_mean": {
+            "mae": 33.33835474843948,
+            "rmse": 36.65262284814773,
+            "rows": 819,
+            "scored": 819
+          }
+        },
+        "3": {
+          "availability_recent": {
+            "mae": 10.628984739872061,
+            "rmse": 22.8751573531364,
+            "rows": 709,
+            "scored": 709
+          },
+          "hist_15": {
+            "mae": 12.140464164054727,
+            "rmse": 21.030701245763847,
+            "rows": 709,
+            "scored": 709
+          },
+          "recent_minutes": {
+            "mae": 11.484591227883344,
+            "rmse": 24.06884952250432,
+            "rows": 709,
+            "scored": 709
+          },
+          "training_position_mean": {
+            "mae": 34.38255901741553,
+            "rmse": 38.022769555108454,
+            "rows": 709,
+            "scored": 709
+          }
+        },
+        "30": {
+          "availability_recent": {
+            "mae": 11.198715236181677,
+            "rmse": 23.70834342547545,
+            "rows": 820,
+            "scored": 820
+          },
+          "hist_15": {
+            "mae": 11.96802397102736,
+            "rmse": 21.620985873903503,
+            "rows": 820,
+            "scored": 820
+          },
+          "recent_minutes": {
+            "mae": 11.981032309352408,
+            "rmse": 24.858585047319384,
+            "rows": 820,
+            "scored": 820
+          },
+          "training_position_mean": {
+            "mae": 33.834391510556834,
+            "rmse": 37.13669529713985,
+            "rows": 820,
+            "scored": 820
+          }
+        },
+        "31": {
+          "availability_recent": {
+            "mae": 12.215806553939112,
+            "rmse": 25.691850389268872,
+            "rows": 822,
+            "scored": 822
+          },
+          "hist_15": {
+            "mae": 13.559806305765646,
+            "rmse": 25.22663907979254,
+            "rows": 822,
+            "scored": 822
+          },
+          "recent_minutes": {
+            "mae": 13.037582709656872,
+            "rmse": 26.811072252365705,
+            "rows": 822,
+            "scored": 822
+          },
+          "training_position_mean": {
+            "mae": 32.72209246506336,
+            "rmse": 35.54309691246496,
+            "rows": 822,
+            "scored": 822
+          }
+        },
+        "32": {
+          "availability_recent": {
+            "mae": 12.278167376297228,
+            "rmse": 24.828550348616186,
+            "rows": 825,
+            "scored": 825
+          },
+          "hist_15": {
+            "mae": 12.306439743122255,
+            "rmse": 22.15110654187213,
+            "rows": 825,
+            "scored": 825
+          },
+          "recent_minutes": {
+            "mae": 13.482409800539653,
+            "rmse": 26.457026523800987,
+            "rows": 825,
+            "scored": 825
+          },
+          "training_position_mean": {
+            "mae": 33.87052530310404,
+            "rmse": 37.10329649505902,
+            "rows": 825,
+            "scored": 825
+          }
+        },
+        "33": {
+          "availability_recent": {
+            "mae": 16.828224165055257,
+            "rmse": 34.92386549866215,
+            "rows": 826,
+            "scored": 826
+          },
+          "hist_15": {
+            "mae": 16.171895829753044,
+            "rmse": 31.491696407666907,
+            "rows": 826,
+            "scored": 826
+          },
+          "recent_minutes": {
+            "mae": 17.7120014047647,
+            "rmse": 35.59097984405158,
+            "rows": 826,
+            "scored": 826
+          },
+          "training_position_mean": {
+            "mae": 40.069303528711686,
+            "rmse": 51.04252824881519,
+            "rows": 826,
+            "scored": 826
+          }
+        },
+        "34": {
+          "availability_recent": {
+            "mae": 16.892738181344974,
+            "rmse": 35.067711048331574,
+            "rows": 829,
+            "scored": 829
+          },
+          "hist_15": {
+            "mae": 15.564251501740179,
+            "rmse": 28.19614023095143,
+            "rows": 829,
+            "scored": 829
+          },
+          "recent_minutes": {
+            "mae": 17.75441892119218,
+            "rmse": 35.83003679640385,
+            "rows": 829,
+            "scored": 829
+          },
+          "training_position_mean": {
+            "mae": 32.04078282399072,
+            "rmse": 34.629772086889616,
+            "rows": 829,
+            "scored": 829
+          }
+        },
+        "35": {
+          "availability_recent": {
+            "mae": 10.818775671861005,
+            "rmse": 23.35870290437478,
+            "rows": 830,
+            "scored": 830
+          },
+          "hist_15": {
+            "mae": 12.153742145947355,
+            "rmse": 22.155831201987546,
+            "rows": 830,
+            "scored": 830
+          },
+          "recent_minutes": {
+            "mae": 11.637048764230482,
+            "rmse": 24.471314150128606,
+            "rows": 830,
+            "scored": 830
+          },
+          "training_position_mean": {
+            "mae": 33.450671174949576,
+            "rmse": 36.7821464151824,
+            "rows": 830,
+            "scored": 830
+          }
+        },
+        "36": {
+          "availability_recent": {
+            "mae": 12.867993820377952,
+            "rmse": 27.470003147110425,
+            "rows": 832,
+            "scored": 832
+          },
+          "hist_15": {
+            "mae": 13.171930223578416,
+            "rmse": 24.861376200814767,
+            "rows": 832,
+            "scored": 832
+          },
+          "recent_minutes": {
+            "mae": 14.126707762685644,
+            "rmse": 28.881114814372268,
+            "rows": 832,
+            "scored": 832
+          },
+          "training_position_mean": {
+            "mae": 35.67549524634513,
+            "rmse": 41.170420600118504,
+            "rows": 832,
+            "scored": 832
+          }
+        },
+        "37": {
+          "availability_recent": {
+            "mae": 11.230469007838858,
+            "rmse": 22.406801953140416,
+            "rows": 838,
+            "scored": 838
+          },
+          "hist_15": {
+            "mae": 11.3336900375266,
+            "rmse": 20.269844622830025,
+            "rows": 838,
+            "scored": 838
+          },
+          "recent_minutes": {
+            "mae": 11.802266939421992,
+            "rmse": 22.98420733087324,
+            "rows": 838,
+            "scored": 838
+          },
+          "training_position_mean": {
+            "mae": 33.60495996400416,
+            "rmse": 36.84968688305285,
+            "rows": 838,
+            "scored": 838
+          }
+        },
+        "38": {
+          "availability_recent": {
+            "mae": 13.404996390452707,
+            "rmse": 27.692509168896066,
+            "rows": 840,
+            "scored": 840
+          },
+          "hist_15": {
+            "mae": 13.753298098969456,
+            "rmse": 25.397497324120973,
+            "rows": 840,
+            "scored": 840
+          },
+          "recent_minutes": {
+            "mae": 14.127615438071755,
+            "rmse": 28.406044037826113,
+            "rows": 840,
+            "scored": 840
+          },
+          "training_position_mean": {
+            "mae": 32.83998478274398,
+            "rmse": 36.13630969978703,
+            "rows": 840,
+            "scored": 840
+          }
+        },
+        "4": {
+          "availability_recent": {
+            "mae": 12.070397615425893,
+            "rmse": 23.885054547635328,
+            "rows": 738,
+            "scored": 738
+          },
+          "hist_15": {
+            "mae": 13.064760839776808,
+            "rmse": 22.88350700400437,
+            "rows": 738,
+            "scored": 738
+          },
+          "recent_minutes": {
+            "mae": 13.968298103534416,
+            "rmse": 26.29317558400396,
+            "rows": 738,
+            "scored": 738
+          },
+          "training_position_mean": {
+            "mae": 33.984499685415294,
+            "rmse": 37.541611670921405,
+            "rows": 738,
+            "scored": 738
+          }
+        },
+        "5": {
+          "availability_recent": {
+            "mae": 10.655311334089726,
+            "rmse": 22.15098496943899,
+            "rows": 740,
+            "scored": 740
+          },
+          "hist_15": {
+            "mae": 11.607434185268309,
+            "rmse": 20.590065981625763,
+            "rows": 740,
+            "scored": 740
+          },
+          "recent_minutes": {
+            "mae": 12.00970322598162,
+            "rmse": 23.808547315648582,
+            "rows": 740,
+            "scored": 740
+          },
+          "training_position_mean": {
+            "mae": 33.823732725870855,
+            "rmse": 37.345611114044374,
+            "rows": 740,
+            "scored": 740
+          }
+        },
+        "6": {
+          "availability_recent": {
+            "mae": 9.951698795741745,
+            "rmse": 20.524787269833045,
+            "rows": 741,
+            "scored": 741
+          },
+          "hist_15": {
+            "mae": 10.6749873106346,
+            "rmse": 19.090233853136247,
+            "rows": 741,
+            "scored": 741
+          },
+          "recent_minutes": {
+            "mae": 11.378430689578902,
+            "rmse": 22.392751894807795,
+            "rows": 741,
+            "scored": 741
+          },
+          "training_position_mean": {
+            "mae": 33.78754416760969,
+            "rmse": 37.3885121242691,
+            "rows": 741,
+            "scored": 741
+          }
+        },
+        "7": {
+          "availability_recent": {
+            "mae": 10.44714262399233,
+            "rmse": 21.564148033193888,
+            "rows": 742,
+            "scored": 742
+          },
+          "hist_15": {
+            "mae": 10.843981108761238,
+            "rmse": 19.581818084808223,
+            "rows": 742,
+            "scored": 742
+          },
+          "recent_minutes": {
+            "mae": 11.89772663118011,
+            "rmse": 23.604046552254253,
+            "rows": 742,
+            "scored": 742
+          },
+          "training_position_mean": {
+            "mae": 33.82701291389645,
+            "rmse": 37.36548096619799,
+            "rows": 742,
+            "scored": 742
+          }
+        },
+        "8": {
+          "availability_recent": {
+            "mae": 9.828999318531595,
+            "rmse": 20.650967075868657,
+            "rows": 743,
+            "scored": 743
+          },
+          "hist_15": {
+            "mae": 10.962938344049407,
+            "rmse": 19.381513526454373,
+            "rows": 743,
+            "scored": 743
+          },
+          "recent_minutes": {
+            "mae": 10.762377515032268,
+            "rmse": 22.11169583571882,
+            "rows": 743,
+            "scored": 743
+          },
+          "training_position_mean": {
+            "mae": 33.80004048813145,
+            "rmse": 37.329245848105806,
+            "rows": 743,
+            "scored": 743
+          }
+        },
+        "9": {
+          "availability_recent": {
+            "mae": 10.187826023122682,
+            "rmse": 21.094550596262078,
+            "rows": 745,
+            "scored": 745
+          },
+          "hist_15": {
+            "mae": 11.08272611974214,
+            "rmse": 19.304022256488597,
+            "rows": 745,
+            "scored": 745
+          },
+          "recent_minutes": {
+            "mae": 11.085700743480624,
+            "rmse": 22.70715564706664,
+            "rows": 745,
+            "scored": 745
+          },
+          "training_position_mean": {
+            "mae": 33.85938275426025,
+            "rmse": 37.44897338499098,
+            "rows": 745,
+            "scored": 745
+          }
+        }
+      },
+      "segments": {
+        "actual_appearance": {
+          "availability_recent": {
+            "mae": 22.174073716146808,
+            "rmse": 32.789585745443425,
+            "rows": 11352,
+            "scored": 11352
+          },
+          "hist_15": {
+            "mae": 21.026429850756045,
+            "rmse": 28.29642754927317,
+            "rows": 11352,
+            "scored": 11352
+          },
+          "recent_minutes": {
+            "mae": 22.027004451626922,
+            "rmse": 32.63769556219308,
+            "rows": 11352,
+            "scored": 11352
+          },
+          "training_position_mean": {
+            "mae": 44.46683744177634,
+            "rmse": 50.06733059187898,
+            "rows": 11352,
+            "scored": 11352
+          }
+        },
+        "all": {
+          "availability_recent": {
+            "mae": 11.410266919183053,
+            "rmse": 23.873512629876288,
+            "rows": 29645,
+            "scored": 29645
+          },
+          "hist_15": {
+            "mae": 12.114528207778754,
+            "rmse": 21.77615835723609,
+            "rows": 29645,
+            "scored": 29645
+          },
+          "recent_minutes": {
+            "mae": 12.59774954652789,
+            "rmse": 25.28068098806776,
+            "rows": 29645,
+            "scored": 29645
+          },
+          "training_position_mean": {
+            "mae": 34.148929855722805,
+            "rmse": 37.9470347493312,
+            "rows": 29645,
+            "scored": 29645
+          }
+        },
+        "chance_known": {
+          "availability_recent": {
+            "mae": 11.011040258974344,
+            "rmse": 23.73785452302085,
+            "rows": 18101,
+            "scored": 18101
+          },
+          "hist_15": {
+            "mae": 11.26879592234387,
+            "rmse": 21.26504482215031,
+            "rows": 18101,
+            "scored": 18101
+          },
+          "recent_minutes": {
+            "mae": 12.95584565578323,
+            "rmse": 26.014732994565993,
+            "rows": 18101,
+            "scored": 18101
+          },
+          "training_position_mean": {
+            "mae": 33.51731854107682,
+            "rmse": 37.10424251704506,
+            "rows": 18101,
+            "scored": 18101
+          }
+        },
+        "cold_history": {
+          "availability_recent": {
+            "mae": 30.28406287997813,
+            "rmse": 35.86906137192664,
+            "rows": 840,
+            "scored": 840
+          },
+          "hist_15": {
+            "mae": 30.166955867723207,
+            "rmse": 35.013908606870025,
+            "rows": 840,
+            "scored": 840
+          },
+          "recent_minutes": {
+            "mae": 33.690220603356295,
+            "rmse": 37.20389299439163,
+            "rows": 840,
+            "scored": 840
+          },
+          "training_position_mean": {
+            "mae": 33.690220603356295,
+            "rmse": 37.20389299439163,
+            "rows": 840,
+            "scored": 840
+          }
+        },
+        "cumulative_minutes_missing": {
+          "availability_recent": {
+            "mae": 30.940251413885086,
+            "rmse": 37.07078410799823,
+            "rows": 685,
+            "scored": 685
+          },
+          "hist_15": {
+            "mae": 33.41353594395382,
+            "rmse": 37.0011939385539,
+            "rows": 685,
+            "scored": 685
+          },
+          "recent_minutes": {
+            "mae": 34.981117532002486,
+            "rmse": 38.598258119226294,
+            "rows": 685,
+            "scored": 685
+          },
+          "training_position_mean": {
+            "mae": 34.981117532002486,
+            "rmse": 38.598258119226294,
+            "rows": 685,
+            "scored": 685
+          }
+        },
+        "missing_chance": {
+          "availability_recent": {
+            "mae": 12.036254599054663,
+            "rmse": 24.084686310671188,
+            "rows": 11544,
+            "scored": 11544
+          },
+          "hist_15": {
+            "mae": 13.440637017433714,
+            "rmse": 22.554277384445722,
+            "rows": 11544,
+            "scored": 11544
+          },
+          "recent_minutes": {
+            "mae": 12.036254599054663,
+            "rmse": 24.084686310671188,
+            "rows": 11544,
+            "scored": 11544
+          },
+          "training_position_mean": {
+            "mae": 35.13929683479478,
+            "rmse": 39.23209935033012,
+            "rows": 11544,
+            "scored": 11544
+          }
+        },
+        "position_1": {
+          "availability_recent": {
+            "mae": 5.45499503862809,
+            "rmse": 18.898158204917944,
+            "rows": 3416,
+            "scored": 3416
+          },
+          "hist_15": {
+            "mae": 6.686052606671792,
+            "rmse": 17.555295948009018,
+            "rows": 3416,
+            "scored": 3416
+          },
+          "recent_minutes": {
+            "mae": 5.87547318740345,
+            "rmse": 19.531399744290972,
+            "rows": 3416,
+            "scored": 3416
+          },
+          "training_position_mean": {
+            "mae": 32.956009723167504,
+            "rmse": 38.114644327127486,
+            "rows": 3416,
+            "scored": 3416
+          }
+        },
+        "position_2": {
+          "availability_recent": {
+            "mae": 13.378749099310065,
+            "rmse": 27.11198467263136,
+            "rows": 9707,
+            "scored": 9707
+          },
+          "hist_15": {
+            "mae": 14.531619795587494,
+            "rmse": 24.712097459292774,
+            "rows": 9707,
+            "scored": 9707
+          },
+          "recent_minutes": {
+            "mae": 14.772609156983078,
+            "rmse": 28.669893295441934,
+            "rows": 9707,
+            "scored": 9707
+          },
+          "training_position_mean": {
+            "mae": 38.02534080491164,
+            "rmse": 40.97579206680871,
+            "rows": 9707,
+            "scored": 9707
+          }
+        },
+        "position_3": {
+          "availability_recent": {
+            "mae": 11.516343405148422,
+            "rmse": 22.91751832468543,
+            "rows": 13255,
+            "scored": 13255
+          },
+          "hist_15": {
+            "mae": 11.84856908796244,
+            "rmse": 20.797050556642454,
+            "rows": 13255,
+            "scored": 13255
+          },
+          "recent_minutes": {
+            "mae": 12.862311040314022,
+            "rmse": 24.51027013053353,
+            "rows": 13255,
+            "scored": 13255
+          },
+          "training_position_mean": {
+            "mae": 32.749713378302275,
+            "rmse": 36.33025111051952,
+            "rows": 13255,
+            "scored": 13255
+          }
+        },
+        "position_4": {
+          "availability_recent": {
+            "mae": 11.357958501678276,
+            "rmse": 21.985177518630646,
+            "rows": 3267,
+            "scored": 3267
+          },
+          "hist_15": {
+            "mae": 11.687914416437215,
+            "rmse": 20.282336141319114,
+            "rows": 3267,
+            "scored": 3267
+          },
+          "recent_minutes": {
+            "mae": 12.09122098942516,
+            "rmse": 22.822031727367623,
+            "rows": 3267,
+            "scored": 3267
+          },
+          "training_position_mean": {
+            "mae": 29.555513417780315,
+            "rmse": 34.693599921416954,
+            "rows": 3267,
+            "scored": 3267
+          }
+        },
+        "status_available": {
+          "availability_recent": {
+            "mae": 16.20184132502697,
+            "rmse": 28.53331920162361,
+            "rows": 19641,
+            "scored": 19641
+          },
+          "hist_15": {
+            "mae": 17.095392542516326,
+            "rmse": 25.9544863611198,
+            "rows": 19641,
+            "scored": 19641
+          },
+          "recent_minutes": {
+            "mae": 16.201841325026965,
+            "rmse": 28.53331920162361,
+            "rows": 19641,
+            "scored": 19641
+          },
+          "training_position_mean": {
+            "mae": 37.199442363201655,
+            "rmse": 41.898186639120276,
+            "rows": 19641,
+            "scored": 19641
+          }
+        },
+        "status_missing": {
+          "availability_recent": {
+            "mae": null,
+            "rmse": null,
+            "rows": 0,
+            "scored": 0
+          },
+          "hist_15": {
+            "mae": null,
+            "rmse": null,
+            "rows": 0,
+            "scored": 0
+          },
+          "recent_minutes": {
+            "mae": null,
+            "rmse": null,
+            "rows": 0,
+            "scored": 0
+          },
+          "training_position_mean": {
+            "mae": null,
+            "rmse": null,
+            "rows": 0,
+            "scored": 0
+          }
+        },
+        "status_other": {
+          "availability_recent": {
+            "mae": 2.002898576002296,
+            "rmse": 9.512726854263349,
+            "rows": 10004,
+            "scored": 10004
+          },
+          "hist_15": {
+            "mae": 2.335524169535992,
+            "rmse": 9.091138859238509,
+            "rows": 10004,
+            "scored": 10004
+          },
+          "recent_minutes": {
+            "mae": 5.521783270888108,
+            "rmse": 17.188926408896556,
+            "rows": 10004,
+            "scored": 10004
+          },
+          "training_position_mean": {
+            "mae": 28.159813886171406,
+            "rmse": 28.64593793242173,
+            "rows": 10004,
+            "scored": 10004
+          }
+        },
+        "useful_history": {
+          "availability_recent": {
+            "mae": 17.447467778433687,
+            "rmse": 30.907213793858787,
+            "rows": 6776,
+            "scored": 6776
+          },
+          "hist_15": {
+            "mae": 18.9933217492284,
+            "rmse": 28.448476215348357,
+            "rows": 6776,
+            "scored": 6776
+          },
+          "recent_minutes": {
+            "mae": 19.771522038567493,
+            "rmse": 33.97016888243788,
+            "rows": 6776,
+            "scored": 6776
+          },
+          "training_position_mean": {
+            "mae": 51.58663182374001,
+            "rmse": 55.12354616371007,
+            "rows": 6776,
+            "scored": 6776
+          }
+        }
+      }
+    }
+  },
+  "prediction_manifest": {
+    "artifacts": {
+      "features.csv": "a93163cf70bfcb53352b57132a073733a4f72479b8b138dc6be731c53edde248",
+      "folds.json": "02ef06baadf6d1eddd10667130c95d0d180d8244e7874d43eef37ac7b25406e8",
+      "model_2024-25.pickle": "cdefe7a40725530993f237e9e0525cb4a5e8128f45a59a4fa9d1f685eb46093e",
+      "model_2025-26.pickle": "ca18eec2948a7d72824a215d1df3351f28e9dd248d64315c612b605e1dabd7a0",
+      "predictions.csv": "c58cb8d9e2c077674521712efd7fe78478d37e411153260360ecdc2aec35628e",
+      "protocol.json": "b172125e731d30eb68f9060979e04216dcf7be4cd99e3c51d94448fb6f087ef2",
+      "row_audit.csv": "2d53986b1dbd41e70d5aeb13c256beb522a95d1773e9a64dbf4011ee3ce2c66f",
+      "sources.json": "a6dd2e4d5638e03749e78bb33f825fbeafc075fa4fa0d7f2c6b6a56e95896582",
+      "training.csv": "6b4e55f974f70f92c5b97279024c37e35ae1d186c90678ab9abb538d6e58d4c2"
+    },
+    "identity_sha256": "3550ded6a2aff16fa9f799b9c993b8799726d0243a3b1e643e6249af475867be",
+    "metadata": {
+      "environment": {
+        "libraries": {
+          "joblib": "1.5.2",
+          "numpy": "2.3.3",
+          "scikit-learn": "1.7.2",
+          "scipy": "1.16.2",
+          "threadpoolctl": "3.6.0"
+        },
+        "machine": "arm64",
+        "python": "3.14.0",
+        "system": "Darwin"
+      },
+      "feature_identity": "f4de2bb06e7ac79a446061bf734b67cb574b9074137bc43270b9b9379f4f8f16",
+      "kind": "minutes-oos",
+      "protocol": {
+        "baselines": "training position mean (overall fallback); recent three calendar-GW observed minutes (position fallback); recent baseline times chance/100 only when explicitly observed, otherwise unadjusted",
+        "candidate": {
+          "categorical_features": null,
+          "early_stopping": false,
+          "l2_regularization": 10.0,
+          "learning_rate": 0.05,
+          "loss": "squared_error",
+          "max_iter": 150,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 50,
+          "random_state": 1729
+        },
+        "cutoffs": "Every fitting label, fitting feature capture, selection label and selection feature capture strictly precedes first forecast capture; all row captures precede their deadlines.",
+        "diagnostic_groups": [
+          "status_available",
+          "status_other",
+          "status_missing",
+          "chance_known",
+          "cumulative_minutes_missing"
+        ],
+        "early_rows": "2021-22 through 2023-24 unavailable, never retroactively OOS",
+        "evaluation_role": "historical walk-forward backtest; 2025-26 is a consumed points holdout, not fresh confirmation",
+        "exception": {
+          "after_sha256": "5bfe4a25cba3a035cc7d9990433bd29adeae07092b3ef05e37320fc7a8d547c1",
+          "before_sha256": "76a4a39d6b9b8364085e80043bf21dbbac642a080c45af99a0f71e1924bf4511",
+          "element": 123,
+          "gameweek": 27,
+          "known_at": "2025-03-08T06:25:00Z",
+          "policy": "GW27 label unavailable; never history or fitting. Mask cumulative minutes for this player from the first evidenced discrepancy through season end; retain independently reconciled later GW deltas. No numeric correction.",
+          "season": "2024-25",
+          "source_identity": "d94912c4423cd0f7ffb8b1fbaf4ff4493450f772af7d1258f9cfe5bea5a89f69",
+          "version": "ferguson-unresolved-minutes-v1"
+        },
+        "feature_contract": {
+          "asof": "accepted capture, strictly before authoritative deadline",
+          "availability_changes": "current minus immediately preceding GW accepted capture for same season/element; null if either observation missing",
+          "cumulative": "copy accepted bootstrap minutes/starts only after GW1; GW1 stale prior-season values excluded",
+          "downstream": "not an xPts input; no in-sample predictions exported; temporal OOS integration deferred",
+          "features": [
+            "position",
+            "status",
+            "chance",
+            "previous_minutes",
+            "minutes_mean_3",
+            "minutes_count_3",
+            "appearance_rate_3",
+            "observed_season_minutes",
+            "observed_season_starts",
+            "status_changed",
+            "chance_change",
+            "status_missing",
+            "chance_missing",
+            "previous_minutes_missing",
+            "minutes_mean_3_missing",
+            "appearance_rate_3_missing",
+            "observed_season_minutes_missing",
+            "observed_season_starts_missing",
+            "status_changed_missing",
+            "chance_change_missing"
+          ],
+          "fixture_context": "unavailable historically; final fixtures never enter features",
+          "freshness": "2021-22 GW18 remains 12:33 state / 16:00 deadline / 207 minutes",
+          "history": "only earlier GWs with independently evidenced minutes settled at or before capture; last three calendar GWs; missing stays null with counts",
+          "minutes_evidence": "GW1 settled cumulative after season reset; later GWs settled cumulative minus accepted pre-GW cumulative; exact canonical sum agreement required",
+          "population": "accepted snapshot football positions 1..4; season-local element; no final identity",
+          "schedule_evidence": "processed fixtures.csv defines fixture-bearing GWs for labels only; each scheduled fixture requires football-player facts with matching fixture/GW; blanks require schedule absence, never fact absence",
+          "splits": {
+            "development": [
+              "2023-24"
+            ],
+            "train": [
+              "2021-22",
+              "2022-23"
+            ]
+          },
+          "target": "total realised minutes across all target-GW fixtures; registered nonplayers zero with evidence; globally fixture-empty GW null",
+          "version": "playing-time-v2"
+        },
+        "first_supported_season": "2024-25",
+        "forecast_seasons": [
+          "2024-25",
+          "2025-26"
+        ],
+        "historical_clock": "reconstructed information cutoffs, not actual historical computation timestamps or prospective freezes",
+        "prediction_class": "chronological_oos",
+        "prediction_transform": "lower bound zero; no 90-minute cap; no hindsight opportunity scaling",
+        "preprocessing": "train-only median numeric imputation, all-null computational zero, explicit original missing flags; train-only one-hot position/status, unknown ignored",
+        "refit": "Once before first accepted capture of each forecast season; expand from 2021-22 through preceding season; all nonnull evidenced labels; no within-season refit.",
+        "selection": "Reuse only M4B bounded candidate selection: fit 2021-22/2022-23, validate 2023-24. No reselection, tuning or prospective outcomes.",
+        "version": "chronological-minutes-oos-v1"
+      }
+    }
+  },
+  "score_manifest": {
+    "artifacts": {
+      "metrics.json": "85039448ce41f7df31aa39912fbb5dfd8d63f136085e21a025a076d04de8d84f",
+      "outcomes.csv": "c3ad6169ecf3fa0e6c5427865c569b623a62797d4a77a14732de0883336b988b"
+    },
+    "identity_sha256": "6b469d61feac7cf9f37f0d222c9587bc840ef848e38d3dfa8013672621b61728",
+    "metadata": {
+      "evaluation_role": "historical walk-forward backtest; 2025-26 is a consumed points holdout, not fresh confirmation",
+      "kind": "minutes-oos-score",
+      "prediction_identity": "3550ded6a2aff16fa9f799b9c993b8799726d0243a3b1e643e6249af475867be",
+      "prediction_manifest_sha256": "5e53990d813b02837c394d5fed5c3e112040e9a42d1a1f078da325d345b78240",
+      "protocol": {
+        "baselines": "training position mean (overall fallback); recent three calendar-GW observed minutes (position fallback); recent baseline times chance/100 only when explicitly observed, otherwise unadjusted",
+        "candidate": {
+          "categorical_features": null,
+          "early_stopping": false,
+          "l2_regularization": 10.0,
+          "learning_rate": 0.05,
+          "loss": "squared_error",
+          "max_iter": 150,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 50,
+          "random_state": 1729
+        },
+        "cutoffs": "Every fitting label, fitting feature capture, selection label and selection feature capture strictly precedes first forecast capture; all row captures precede their deadlines.",
+        "diagnostic_groups": [
+          "status_available",
+          "status_other",
+          "status_missing",
+          "chance_known",
+          "cumulative_minutes_missing"
+        ],
+        "early_rows": "2021-22 through 2023-24 unavailable, never retroactively OOS",
+        "evaluation_role": "historical walk-forward backtest; 2025-26 is a consumed points holdout, not fresh confirmation",
+        "exception": {
+          "after_sha256": "5bfe4a25cba3a035cc7d9990433bd29adeae07092b3ef05e37320fc7a8d547c1",
+          "before_sha256": "76a4a39d6b9b8364085e80043bf21dbbac642a080c45af99a0f71e1924bf4511",
+          "element": 123,
+          "gameweek": 27,
+          "known_at": "2025-03-08T06:25:00Z",
+          "policy": "GW27 label unavailable; never history or fitting. Mask cumulative minutes for this player from the first evidenced discrepancy through season end; retain independently reconciled later GW deltas. No numeric correction.",
+          "season": "2024-25",
+          "source_identity": "d94912c4423cd0f7ffb8b1fbaf4ff4493450f772af7d1258f9cfe5bea5a89f69",
+          "version": "ferguson-unresolved-minutes-v1"
+        },
+        "feature_contract": {
+          "asof": "accepted capture, strictly before authoritative deadline",
+          "availability_changes": "current minus immediately preceding GW accepted capture for same season/element; null if either observation missing",
+          "cumulative": "copy accepted bootstrap minutes/starts only after GW1; GW1 stale prior-season values excluded",
+          "downstream": "not an xPts input; no in-sample predictions exported; temporal OOS integration deferred",
+          "features": [
+            "position",
+            "status",
+            "chance",
+            "previous_minutes",
+            "minutes_mean_3",
+            "minutes_count_3",
+            "appearance_rate_3",
+            "observed_season_minutes",
+            "observed_season_starts",
+            "status_changed",
+            "chance_change",
+            "status_missing",
+            "chance_missing",
+            "previous_minutes_missing",
+            "minutes_mean_3_missing",
+            "appearance_rate_3_missing",
+            "observed_season_minutes_missing",
+            "observed_season_starts_missing",
+            "status_changed_missing",
+            "chance_change_missing"
+          ],
+          "fixture_context": "unavailable historically; final fixtures never enter features",
+          "freshness": "2021-22 GW18 remains 12:33 state / 16:00 deadline / 207 minutes",
+          "history": "only earlier GWs with independently evidenced minutes settled at or before capture; last three calendar GWs; missing stays null with counts",
+          "minutes_evidence": "GW1 settled cumulative after season reset; later GWs settled cumulative minus accepted pre-GW cumulative; exact canonical sum agreement required",
+          "population": "accepted snapshot football positions 1..4; season-local element; no final identity",
+          "schedule_evidence": "processed fixtures.csv defines fixture-bearing GWs for labels only; each scheduled fixture requires football-player facts with matching fixture/GW; blanks require schedule absence, never fact absence",
+          "splits": {
+            "development": [
+              "2023-24"
+            ],
+            "train": [
+              "2021-22",
+              "2022-23"
+            ]
+          },
+          "target": "total realised minutes across all target-GW fixtures; registered nonplayers zero with evidence; globally fixture-empty GW null",
+          "version": "playing-time-v2"
+        },
+        "first_supported_season": "2024-25",
+        "forecast_seasons": [
+          "2024-25",
+          "2025-26"
+        ],
+        "historical_clock": "reconstructed information cutoffs, not actual historical computation timestamps or prospective freezes",
+        "prediction_class": "chronological_oos",
+        "prediction_transform": "lower bound zero; no 90-minute cap; no hindsight opportunity scaling",
+        "preprocessing": "train-only median numeric imputation, all-null computational zero, explicit original missing flags; train-only one-hot position/status, unknown ignored",
+        "refit": "Once before first accepted capture of each forecast season; expand from 2021-22 through preceding season; all nonnull evidenced labels; no within-season refit.",
+        "selection": "Reuse only M4B bounded candidate selection: fit 2021-22/2022-23, validate 2023-24. No reselection, tuning or prospective outcomes.",
+        "version": "chronological-minutes-oos-v1"
+      }
+    }
+  }
+}

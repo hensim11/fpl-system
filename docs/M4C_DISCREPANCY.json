@@ -1,0 +1,2005 @@
+{
+  "accepted_before": {
+    "capture_time_utc": "2025-02-25T12:45:00Z",
+    "deadline_time_utc": "2025-02-25T18:00:00Z",
+    "sha256": "76a4a39d6b9b8364085e80043bf21dbbac642a080c45af99a0f71e1924bf4511",
+    "source_path": "cache/2025/2/25/1245.json.xz"
+  },
+  "archive_live_paths": [],
+  "comparisons": 27159,
+  "conclusion": "Unresolved; no correction and no replacement settlement. Only element 123 GW27 delta disagrees; +17 cumulative offset persists through GW38.",
+  "cumulative_disagreements": [
+    {
+      "canonical": 287,
+      "element": 123,
+      "gameweek": 27,
+      "observed": 304
+    },
+    {
+      "canonical": 308,
+      "element": 123,
+      "gameweek": 28,
+      "observed": 325
+    },
+    {
+      "canonical": 309,
+      "element": 123,
+      "gameweek": 29,
+      "observed": 326
+    },
+    {
+      "canonical": 354,
+      "element": 123,
+      "gameweek": 30,
+      "observed": 371
+    },
+    {
+      "canonical": 354,
+      "element": 123,
+      "gameweek": 31,
+      "observed": 371
+    },
+    {
+      "canonical": 354,
+      "element": 123,
+      "gameweek": 32,
+      "observed": 371
+    },
+    {
+      "canonical": 358,
+      "element": 123,
+      "gameweek": 33,
+      "observed": 375
+    },
+    {
+      "canonical": 358,
+      "element": 123,
+      "gameweek": 34,
+      "observed": 375
+    },
+    {
+      "canonical": 368,
+      "element": 123,
+      "gameweek": 35,
+      "observed": 385
+    },
+    {
+      "canonical": 368,
+      "element": 123,
+      "gameweek": 36,
+      "observed": 385
+    },
+    {
+      "canonical": 368,
+      "element": 123,
+      "gameweek": 37,
+      "observed": 385
+    },
+    {
+      "canonical": 368,
+      "element": 123,
+      "gameweek": 38,
+      "observed": 385
+    }
+  ],
+  "element": 123,
+  "fixture_values": [
+    {
+      "fixture": "3",
+      "gameweek": "1",
+      "kickoff_time_utc": "2024-08-17T14:00:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "13",
+      "gameweek": "2",
+      "kickoff_time_utc": "2024-08-24T11:30:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "21",
+      "gameweek": "3",
+      "kickoff_time_utc": "2024-08-31T11:30:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "33",
+      "gameweek": "4",
+      "kickoff_time_utc": "2024-09-14T14:00:00Z",
+      "minutes": "5",
+      "total_points": "1"
+    },
+    {
+      "fixture": "42",
+      "gameweek": "5",
+      "kickoff_time_utc": "2024-09-22T13:00:00Z",
+      "minutes": "8",
+      "total_points": "1"
+    },
+    {
+      "fixture": "54",
+      "gameweek": "6",
+      "kickoff_time_utc": "2024-09-28T14:00:00Z",
+      "minutes": "9",
+      "total_points": "1"
+    },
+    {
+      "fixture": "64",
+      "gameweek": "7",
+      "kickoff_time_utc": "2024-10-06T15:30:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "76",
+      "gameweek": "8",
+      "kickoff_time_utc": "2024-10-19T14:00:00Z",
+      "minutes": "59",
+      "total_points": "1"
+    },
+    {
+      "fixture": "84",
+      "gameweek": "9",
+      "kickoff_time_utc": "2024-10-26T14:00:00Z",
+      "minutes": "17",
+      "total_points": "7"
+    },
+    {
+      "fixture": "94",
+      "gameweek": "10",
+      "kickoff_time_utc": "2024-11-02T15:00:00Z",
+      "minutes": "2",
+      "total_points": "1"
+    },
+    {
+      "fixture": "102",
+      "gameweek": "11",
+      "kickoff_time_utc": "2024-11-09T17:30:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "113",
+      "gameweek": "12",
+      "kickoff_time_utc": "2024-11-23T15:00:00Z",
+      "minutes": "4",
+      "total_points": "1"
+    },
+    {
+      "fixture": "122",
+      "gameweek": "13",
+      "kickoff_time_utc": "2024-11-29T20:00:00Z",
+      "minutes": "11",
+      "total_points": "1"
+    },
+    {
+      "fixture": "135",
+      "gameweek": "14",
+      "kickoff_time_utc": "2024-12-05T19:30:00Z",
+      "minutes": "10",
+      "total_points": "1"
+    },
+    {
+      "fixture": "147",
+      "gameweek": "15",
+      "kickoff_time_utc": "2024-12-08T14:00:00Z",
+      "minutes": "69",
+      "total_points": "2"
+    },
+    {
+      "fixture": "153",
+      "gameweek": "16",
+      "kickoff_time_utc": "2024-12-15T14:00:00Z",
+      "minutes": "18",
+      "total_points": "1"
+    },
+    {
+      "fixture": "170",
+      "gameweek": "17",
+      "kickoff_time_utc": "2024-12-21T15:00:00Z",
+      "minutes": "5",
+      "total_points": "1"
+    },
+    {
+      "fixture": "173",
+      "gameweek": "18",
+      "kickoff_time_utc": "2024-12-27T19:30:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "181",
+      "gameweek": "19",
+      "kickoff_time_utc": "2024-12-30T19:45:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "193",
+      "gameweek": "20",
+      "kickoff_time_utc": "2025-01-04T17:30:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "204",
+      "gameweek": "21",
+      "kickoff_time_utc": "2025-01-16T19:30:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "217",
+      "gameweek": "22",
+      "kickoff_time_utc": "2025-01-19T14:00:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "223",
+      "gameweek": "23",
+      "kickoff_time_utc": "2025-01-25T15:00:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "239",
+      "gameweek": "24",
+      "kickoff_time_utc": "2025-02-01T12:30:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "250",
+      "gameweek": "25",
+      "kickoff_time_utc": "2025-02-15T15:00:00Z",
+      "minutes": "45",
+      "total_points": "1"
+    },
+    {
+      "fixture": "251",
+      "gameweek": "26",
+      "kickoff_time_utc": "2025-02-22T15:00:00Z",
+      "minutes": "8",
+      "total_points": "1"
+    },
+    {
+      "fixture": "266",
+      "gameweek": "27",
+      "kickoff_time_utc": "2025-02-27T20:00:00Z",
+      "minutes": "17",
+      "total_points": "1"
+    },
+    {
+      "fixture": "279",
+      "gameweek": "28",
+      "kickoff_time_utc": "2025-03-10T20:00:00Z",
+      "minutes": "21",
+      "total_points": "1"
+    },
+    {
+      "fixture": "284",
+      "gameweek": "29",
+      "kickoff_time_utc": "2025-03-15T15:00:00Z",
+      "minutes": "1",
+      "total_points": "1"
+    },
+    {
+      "fixture": "295",
+      "gameweek": "30",
+      "kickoff_time_utc": "2025-04-01T18:45:00Z",
+      "minutes": "45",
+      "total_points": "1"
+    },
+    {
+      "fixture": "310",
+      "gameweek": "31",
+      "kickoff_time_utc": "2025-04-05T14:00:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "315",
+      "gameweek": "32",
+      "kickoff_time_utc": "2025-04-13T13:00:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "330",
+      "gameweek": "33",
+      "kickoff_time_utc": "2025-04-19T14:00:00Z",
+      "minutes": "4",
+      "total_points": "1"
+    },
+    {
+      "fixture": "333",
+      "gameweek": "34",
+      "kickoff_time_utc": "2025-04-26T14:00:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "350",
+      "gameweek": "35",
+      "kickoff_time_utc": "2025-05-04T13:00:00Z",
+      "minutes": "10",
+      "total_points": "1"
+    },
+    {
+      "fixture": "355",
+      "gameweek": "36",
+      "kickoff_time_utc": "2025-05-11T13:15:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "370",
+      "gameweek": "37",
+      "kickoff_time_utc": "2025-05-18T13:15:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    },
+    {
+      "fixture": "373",
+      "gameweek": "38",
+      "kickoff_time_utc": "2025-05-25T15:00:00Z",
+      "minutes": "0",
+      "total_points": "0"
+    }
+  ],
+  "minutes_target_disagreements": [
+    {
+      "element": 123,
+      "gameweek": 27,
+      "reason": "minutes target disagrees with independent evidence: GW27: 34 != 17"
+    }
+  ],
+  "observations": [
+    {
+      "bytes": 140736,
+      "capture": "2025-02-24T01:49:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "6d381b1065c0d4bd1225b8471c19a87f4890d733",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "2a327666992fb85ea5e29527c1d3a60b073058b705d772b1387d1da581a23e6b",
+      "source_path": "cache/2025/2/24/0149.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/24/0149.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 140748,
+      "capture": "2025-02-24T06:33:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "63f8c62555e62c11dd2a031242caceb65abba8c2",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "468014cdc086ef61b9a2a549c69f5599192d67aa98dab52ab196b7ac4ed9d47d",
+      "source_path": "cache/2025/2/24/0633.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/24/0633.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 140904,
+      "capture": "2025-02-24T12:46:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "482db612a4ea23f36256bff0cc3d5c6d2fc99cff",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "16673421de4222f29e8d7abbd5a30221fb13eb2830285c102f76a216ee56435a",
+      "source_path": "cache/2025/2/24/1246.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/24/1246.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 140940,
+      "capture": "2025-02-24T18:31:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "34a8266255a3f33438637d9189c431267d51aa75",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "b86cad4d50e4970ae3253dee3f62e323fb3600a4af69617320539e94475c4c99",
+      "source_path": "cache/2025/2/24/1831.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/24/1831.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 140992,
+      "capture": "2025-02-25T01:48:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "561ba3801057202b06e6476ce45792ea544de5c8",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "5b31eab49e45bdbd88ca700e53307068e35d446be057e8f480f7ddddce419c6f",
+      "source_path": "cache/2025/2/25/0148.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/25/0148.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 141024,
+      "capture": "2025-02-25T06:32:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "3f0fe7aa484925d6e86910e5eb86dd10ef7f1f7a",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "c9f06312239c359ef9e2c8eaccd46290f1c600185a9a9a9d8b43010966acc10f",
+      "source_path": "cache/2025/2/25/0632.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/25/0632.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 141204,
+      "capture": "2025-02-25T12:45:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "4cc98cb88a9143c169d6b226debe1a72402635e6",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "76a4a39d6b9b8364085e80043bf21dbbac642a080c45af99a0f71e1924bf4511",
+      "source_path": "cache/2025/2/25/1245.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/25/1245.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 141196,
+      "capture": "2025-02-25T18:31:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "40651c4bf28f8bf6aa5eeb865f6debfc698984f5",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "b1748ce20d20c43fdef2f6055c3d872f9b891200fc5821de50ea7437bed36657",
+      "source_path": "cache/2025/2/25/1831.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/25/1831.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 139956,
+      "capture": "2025-02-26T01:48:00Z",
+      "event_points": 0,
+      "git_blob_sha1": "9267f938f7ce7cbe196c0a0ce84eeb83b556d2fa",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "27fcf9d941f07934f69968f8f387c6f8c25ebf0c4bb37b169d07770e6584bbca",
+      "source_path": "cache/2025/2/26/0148.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/26/0148.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 139968,
+      "capture": "2025-02-26T06:32:00Z",
+      "event_points": 0,
+      "git_blob_sha1": "ebf6ea34833fa0bc4e957f992ca6eebcc69ab056",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "3aa88a6cad5f5a907b320ab18505506b385e8a2b9cd206663470c88e5d9d7483",
+      "source_path": "cache/2025/2/26/0632.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/26/0632.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 140096,
+      "capture": "2025-02-26T12:45:00Z",
+      "event_points": 0,
+      "git_blob_sha1": "e52dcd6904665b64c2acee0167ba803fdb9181b5",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "bfb1be0aac462f8f0cd343d091dec734242f1618a0f6484ab33dc6fe6ac5ac8a",
+      "source_path": "cache/2025/2/26/1245.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/26/1245.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 140272,
+      "capture": "2025-02-26T18:31:00Z",
+      "event_points": 0,
+      "git_blob_sha1": "768a5692fc626dc326134a3697ac9caf901cd6c3",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "7d8c0c547b247c84d7bbadd69ebe56ace93143fafe9d5bab5aacb0f3f4e2571c",
+      "source_path": "cache/2025/2/26/1831.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/26/1831.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 140824,
+      "capture": "2025-02-27T01:48:00Z",
+      "event_points": 0,
+      "git_blob_sha1": "0eaf54b1027d2dd2f91eae0d861f2ff8769b1684",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "1924db326b9b0e395486202fbf0c23ecf8b804397c6495128c8b4c5aeca65ac6",
+      "source_path": "cache/2025/2/27/0148.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/27/0148.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 140880,
+      "capture": "2025-02-27T06:32:00Z",
+      "event_points": 0,
+      "git_blob_sha1": "8ed6e9ed30d8466442f583c8fe0e6dcb55df485f",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "acaf34fa78ea0726da62e8b04abffda27a09aace76d4c71f61a8f37da2507355",
+      "source_path": "cache/2025/2/27/0632.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/27/0632.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 141004,
+      "capture": "2025-02-27T12:46:00Z",
+      "event_points": 0,
+      "git_blob_sha1": "c5721aa5c41c3344e063e29ed7315d971f4d64a0",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "e072eeef796e545656ebbdb7ba61a184570b92dcb0a60b294f57ee2163846aca",
+      "source_path": "cache/2025/2/27/1246.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/27/1246.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 141048,
+      "capture": "2025-02-27T18:32:00Z",
+      "event_points": 0,
+      "git_blob_sha1": "eec63236291fe1da7c98c015658c4a58a46b3628",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 270,
+      "sha256": "2f241eec0222e4fd5d44bfd351be5773099da01bcaf778ccbdae85321b72a88b",
+      "source_path": "cache/2025/2/27/1832.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/27/1832.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 21
+    },
+    {
+      "bytes": 141224,
+      "capture": "2025-02-28T01:48:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "4a242cedcb78bf8e2133288c4015c6f1409133d9",
+      "gw27_data_checked": false,
+      "gw27_finished": false,
+      "minutes": 287,
+      "sha256": "b130d8e4bd820da56975dc4db8d2fd48b9e842fd59c63d2cb18983e4b7a41bf3",
+      "source_path": "cache/2025/2/28/0148.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/28/0148.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 22
+    },
+    {
+      "bytes": 141192,
+      "capture": "2025-02-28T06:31:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "4463713c1682b4caa4aacaa3463b9972cbf6137e",
+      "gw27_data_checked": false,
+      "gw27_finished": true,
+      "minutes": 287,
+      "sha256": "0fca4e9ef6833c2aa6887b654905e82d20e32bda536d8c0fafad28dc649b925d",
+      "source_path": "cache/2025/2/28/0631.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/28/0631.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 22
+    },
+    {
+      "bytes": 141312,
+      "capture": "2025-02-28T12:44:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "6c7c42eee2c701fad5fb252c72675e2f8c08938b",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 287,
+      "sha256": "b5c8bb0ae7a4391ed96a43b5b7fad0b88e99be53738eaa7464547d723f681a82",
+      "source_path": "cache/2025/2/28/1244.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/28/1244.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 22
+    },
+    {
+      "bytes": 141316,
+      "capture": "2025-02-28T18:31:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "046d080ba54fc8fa50504b56028f6f7c98db4eeb",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 287,
+      "sha256": "6645d0faf0d6b51c96814d61ecc3e42e42455c71534791d3c7c550184021d6a6",
+      "source_path": "cache/2025/2/28/1831.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/28/1831.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 22
+    },
+    {
+      "bytes": 141392,
+      "capture": "2025-03-01T01:55:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "f62c3679fc4be612dd66b921749c151c42473b1b",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 287,
+      "sha256": "db7df838fa0772a4e3962454bfca632c4f2547a29d86fdf3416f4c3999e6ff86",
+      "source_path": "cache/2025/3/1/0155.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/1/0155.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 22
+    },
+    {
+      "bytes": 141408,
+      "capture": "2025-03-01T06:31:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "c4d95dd59c4241aeef22850ce8ef8952d391d4d2",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 287,
+      "sha256": "8b12c628eb3b22e187cd8821201944475a13d2c5318476179809528ce688a7b6",
+      "source_path": "cache/2025/3/1/0631.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/1/0631.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 22
+    },
+    {
+      "bytes": 141396,
+      "capture": "2025-03-01T12:41:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "0036618575aa0a1f25dc23da3bf07e164b9a978e",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 287,
+      "sha256": "a671907cb72d399f7a1cab4ceb4338ba6ea124154b77a54f31c194269b0a0447",
+      "source_path": "cache/2025/3/1/1241.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/1/1241.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 22
+    },
+    {
+      "bytes": 141452,
+      "capture": "2025-03-01T18:28:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "33c355883e611823b40864d5e23b2f46039b1b7b",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 287,
+      "sha256": "3ba68fc528c222ee509c5c0a3668ac5c3e16e20958d8487712ebf204d0d8ccf8",
+      "source_path": "cache/2025/3/1/1828.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/1/1828.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 22
+    },
+    {
+      "bytes": 141504,
+      "capture": "2025-03-02T01:54:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "e91c80a7351d97f0cb3aa5bf53225f0d4f0a17e9",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 287,
+      "sha256": "e6edd7fec3908a7dbc2ad97ed6c2bab92c721dd8e996e2d237710e9c30841f59",
+      "source_path": "cache/2025/3/2/0154.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/2/0154.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 22
+    },
+    {
+      "bytes": 141544,
+      "capture": "2025-03-02T06:30:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "70797825bcd9c9b252fca293eb0626e0fc5e9653",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 287,
+      "sha256": "e3f066689dfb3aeba87195ad3b7f915a27c3963a17eca9b1dcc6613e4cdf3a3a",
+      "source_path": "cache/2025/3/2/0630.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/2/0630.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 22
+    },
+    {
+      "bytes": 141600,
+      "capture": "2025-03-02T12:40:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "7885257c72020ccb41d8390541f36bb7bd670437",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 287,
+      "sha256": "c0bb2a5d4c96b7a2eb09698a4dc61aeefc5aec8a9463eddff369e1b130833369",
+      "source_path": "cache/2025/3/2/1240.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/2/1240.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 22
+    },
+    {
+      "bytes": 141640,
+      "capture": "2025-03-02T18:29:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "e136681bdae8eed2680855ddd78d7e7252fee5d0",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 287,
+      "sha256": "4252d5c4a3d8d8d1773db9249e213397b9e6398194e422399841f2604b0f2ef0",
+      "source_path": "cache/2025/3/2/1829.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/2/1829.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 22
+    },
+    {
+      "bytes": 141752,
+      "capture": "2025-03-03T01:52:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "4b817d6265936a0b4118e2e3552b0f6bd6803687",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "e9bb7557107f6db75f371d91607693f092fa8d7bb5309446a1ec039e1812086c",
+      "source_path": "cache/2025/3/3/0152.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/3/0152.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141676,
+      "capture": "2025-03-03T06:33:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "fdc39c4603d0f62cfa9a83004c97efa3932ef44a",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "609a796cc18520ccce1d5429213c40e52fdfbf433bd21dd29ee4dea54c45d6f7",
+      "source_path": "cache/2025/3/3/0633.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/3/0633.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141724,
+      "capture": "2025-03-03T12:46:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "344cc142380f62656992962aa63089df2c23fa7d",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "3e6d3532fc977898cab86492b55168680ff103c15b4c4fb16e1feb93c7835336",
+      "source_path": "cache/2025/3/3/1246.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/3/1246.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141820,
+      "capture": "2025-03-03T18:30:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "87e23788814fe811023ce82004c53fa03c73eae6",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "4af6512e595bbcdb8c31a78d3946f201d979377b76800bbef2120d92b90ca99f",
+      "source_path": "cache/2025/3/3/1830.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/3/1830.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141840,
+      "capture": "2025-03-04T01:50:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "c3398432667bdb41fbb8ba5829fbcc8baec6430a",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "ad0e6a27cb11221050a923f71a2e826c56765de3e748a15d77d6a1271dac560f",
+      "source_path": "cache/2025/3/4/0150.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/4/0150.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141884,
+      "capture": "2025-03-04T06:32:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "f8563c7556da48282626533b7be37f6a8b7168ce",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "1e40cae017d6f920fd1ae3a2e06db67795aaf83d19b7999b1a9e36ef43001ed4",
+      "source_path": "cache/2025/3/4/0632.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/4/0632.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141888,
+      "capture": "2025-03-04T12:46:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "4bd13b2ba547cb68a9b89c2d1bc8d6880008532d",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "f6ce2817ba489c0dd7866b8481de2b7ceee16f3102907cf5b7c4ccdda20d291f",
+      "source_path": "cache/2025/3/4/1246.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/4/1246.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141804,
+      "capture": "2025-03-04T18:32:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "cee7aadf2f3947aba618db9a44e703fcae46b0ed",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "c0731ea94873b5dcaa6574b63119f1059b9b03bb37d245273546d372939e5e20",
+      "source_path": "cache/2025/3/4/1832.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/4/1832.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141800,
+      "capture": "2025-03-05T01:50:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "310a968d73bb66d8a14659aa7c29912361893379",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "7174059b0dafd0448985e4dbc924d7ef0a0ca3385a1a82c22d350dbc4e1831b8",
+      "source_path": "cache/2025/3/5/0150.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/5/0150.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141776,
+      "capture": "2025-03-05T06:32:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "e480e11c82f7d1470bed0b939989a9fe101e6dae",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "d6220bd0460ba2248c107c49f7cd29d094ff2c0b5f6f88ff1bf7caf343266056",
+      "source_path": "cache/2025/3/5/0632.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/5/0632.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141772,
+      "capture": "2025-03-05T12:46:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "3e597e8ea9718b4f155d396d127583fffd5a904b",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "2e45aa381f9befd222c97c31ad3964a30e26a3cf61213931fb253685f5799af2",
+      "source_path": "cache/2025/3/5/1246.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/5/1246.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141760,
+      "capture": "2025-03-05T18:33:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "f801624426865a85a0f93e8f84cca334d1a4cb70",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "614be6107fea5f4b90cb5f1faddd0d903a31ad198dee468e2b074429ad08fae2",
+      "source_path": "cache/2025/3/5/1833.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/5/1833.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141904,
+      "capture": "2025-03-06T01:50:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "f550c0df2af71a40a96e09e81647753753eff2e9",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "4b7ca6d4c75cad86e650c53a570f559c7a9626d003669aca1ef23f18b6f45c63",
+      "source_path": "cache/2025/3/6/0150.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/6/0150.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141924,
+      "capture": "2025-03-06T06:32:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "31d7da2f9ec03e49d0fe8f67e1114f6aa60bfcfe",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "b8192b100a42045fd370320fcc4b421168625c5beb93ed5f8d2eb4798b14464e",
+      "source_path": "cache/2025/3/6/0632.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/6/0632.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141920,
+      "capture": "2025-03-06T12:47:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "de69b0dcd20854797a31cdfd03019f291aa0cca5",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "53a10a77a6c78e8c55948c5c082880d19d30774973861dd5ed6beb4c27c53c62",
+      "source_path": "cache/2025/3/6/1247.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/6/1247.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141864,
+      "capture": "2025-03-06T18:31:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "a714011bfbe045f92522433cb933aecfbdc864d4",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "768d28d03b82f58f6b558c7fd67a3e55af3b7c30365f12251a851621233fdedf",
+      "source_path": "cache/2025/3/6/1831.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/6/1831.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 142048,
+      "capture": "2025-03-07T01:51:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "83ac5be206a5b729ae7ffc2c565f5072fdf011aa",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "c63d788c6e28fc466f053cefb93772f8c45a64902544d9f96289a1af09caab84",
+      "source_path": "cache/2025/3/7/0151.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/7/0151.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141996,
+      "capture": "2025-03-07T06:32:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "c63b2502bba14f0f998a92c45516e48330c71633",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "72511ed72ffe74f5919c8eb3c38aefb5143e59f15768b05f54f0379323a941b6",
+      "source_path": "cache/2025/3/7/0632.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/7/0632.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141992,
+      "capture": "2025-03-07T12:45:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "4b9a0bb16e52be42d506ac2c1419b16068b15186",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "45c661fa54f7c1f77798d271f9a62001c967c2b9d63518d73ee82d642e222b91",
+      "source_path": "cache/2025/3/7/1245.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/7/1245.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 142012,
+      "capture": "2025-03-07T18:31:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "089c620f8a737a6a940fd2a069f094f053d396ed",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "b00e0b6c946edf510b8f1a2ab65267f7056556a8271ba6249f5863029ea0dc21",
+      "source_path": "cache/2025/3/7/1831.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/7/1831.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 142056,
+      "capture": "2025-03-08T01:22:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "1f8b34a234d3d76391474d45c71aef2c13da5077",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "3fa6b5a6f1d7e2f66312a742fcc679e409169447a5a0f9e3bd3f59133ed4dc16",
+      "source_path": "cache/2025/3/8/0122.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/8/0122.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 142128,
+      "capture": "2025-03-08T06:25:00Z",
+      "event_points": 1,
+      "git_blob_sha1": "a58a9819b195947900c83e94b075844e56c488ee",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "5bfe4a25cba3a035cc7d9990433bd29adeae07092b3ef05e37320fc7a8d547c1",
+      "source_path": "cache/2025/3/8/0625.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/8/0625.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 139100,
+      "capture": "2025-03-08T12:33:00Z",
+      "event_points": 0,
+      "git_blob_sha1": "d7d590f3c84fa425ba68bef0cd02abf79d733c45",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "16efb69f0c9c1e3f9818a0493ea7ca6c6a8a3bdce61e507c13bffdc93e9f2665",
+      "source_path": "cache/2025/3/8/1233.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/8/1233.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 140464,
+      "capture": "2025-03-08T18:24:00Z",
+      "event_points": 0,
+      "git_blob_sha1": "753c05d38c393641ad246fe1f7000eb118b610e7",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "c9514598537c0caa01a6ae9ae30b1daeacf3a6bb8d83898fe523b7dd6a1632dc",
+      "source_path": "cache/2025/3/8/1824.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/8/1824.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 140740,
+      "capture": "2025-03-09T01:35:00Z",
+      "event_points": 0,
+      "git_blob_sha1": "41796f3758165ca2babbec2cd1da4276f50f9817",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "a383f7fd58c3336569604685b93fb37444ce431fb540f407f95ca3098c20473f",
+      "source_path": "cache/2025/3/9/0135.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/9/0135.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 140780,
+      "capture": "2025-03-09T06:25:00Z",
+      "event_points": 0,
+      "git_blob_sha1": "b8b7a65c3bbcc53f1f1550b243f7715821db3300",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "a0f67f67354a836a0398bad1aeb6fea26cc8b1cff638f67b0e1d34def58af4fc",
+      "source_path": "cache/2025/3/9/0625.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/9/0625.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 140752,
+      "capture": "2025-03-09T12:33:00Z",
+      "event_points": 0,
+      "git_blob_sha1": "59d3c8c5435f25d4d787516c937df049be14af00",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "2cbf6bf8a1ec737c49b01ce56a79e16d6c3bf466b42ca5f47fb416511dd57a67",
+      "source_path": "cache/2025/3/9/1233.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/9/1233.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    },
+    {
+      "bytes": 141056,
+      "capture": "2025-03-09T18:23:00Z",
+      "event_points": 0,
+      "git_blob_sha1": "4d4f10f6a409e91a0be23a47bc63c8864a2c81b0",
+      "gw27_data_checked": true,
+      "gw27_finished": true,
+      "minutes": 304,
+      "sha256": "d296f2f0ed5c124ead372a9e7bb8606af282c4ab4df6b8daeb3d98dad5ee2ca5",
+      "source_path": "cache/2025/3/9/1823.json.xz",
+      "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/9/1823.json.xz",
+      "starts": 2,
+      "team": 19,
+      "total_points": 23
+    }
+  ],
+  "player": "Evan Ferguson",
+  "season": "2024-25",
+  "selected_settlement": {
+    "capture_time_utc": "2025-03-08T06:25:00Z",
+    "sha256": "5bfe4a25cba3a035cc7d9990433bd29adeae07092b3ef05e37320fc7a8d547c1",
+    "source_path": "cache/2025/3/8/0625.json.xz"
+  },
+  "selection": "all pinned archive captures Feb 24 through Mar 9 inclusive, chosen by time, never by minutes",
+  "source": {
+    "build_identity": {
+      "canonical_schema_contract_sha256": "fcfeb3540a85e976eef6520839ed52d3581db8646780d8ca35186dc030803d10",
+      "fixture_context_policy_version": 1,
+      "reconciliation": {
+        "total_points": {
+          "canonical_source": {
+            "field": "total_points",
+            "gameweek_aggregation": "sum_by_season_gameweek_element",
+            "grain": "player_fixture",
+            "provider_key": "vaastav",
+            "source_path": "data/2024-25/gws/merged_gw.csv"
+          },
+          "comparison_source": {
+            "field": "elements[].event_points",
+            "provider_key": "fplcache",
+            "require_data_checked": true,
+            "require_event_finished": true,
+            "settlement_strategy": "next_accepted_deadline_snapshot_plus_final_settlement"
+          },
+          "minimum_coverage_ratio": 1.0,
+          "mode": "required",
+          "policy_version": 2
+        }
+      },
+      "season": "2024-25",
+      "season_contract": {
+        "expected_counts": {
+          "distinct_fact_elements": 804,
+          "fixture_gameweeks": 38,
+          "fixtures": 380,
+          "player_fixture_facts": 27605
+        },
+        "expected_gameweeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38
+        ]
+      },
+      "snapshot_selection": {
+        "archive_path_pattern": "^cache/(\\d{4})/(\\d{1,2})/(\\d{1,2})/(\\d{2})(\\d{2})\\.json\\.xz$",
+        "capture_timezone": "UTC",
+        "points_settlement_snapshot_path": "cache/2025/5/26/0206.json.xz",
+        "reference_snapshot_path": "cache/2025/5/25/1247.json.xz"
+      },
+      "source_catalogue_schema_version": 3,
+      "transformation_contract_version": "historical-transform-v6",
+      "vaastav_source_schema": {
+        "contract_sha256": "172984ede37934de1feb7390d3a8720a50efa5bf23aac9d840da9e94c36a5803",
+        "schema_id": "vaastav-2024-25-v1",
+        "schema_version": 1
+      }
+    },
+    "build_identity_sha256": "1fbdcc84c93d92367c3f6f2a0b39d039dc04403980bb100491410523c62f9d86",
+    "consumed_tables": {
+      "fixtures.csv": "f16b12e35243062373ab0c70b8aab0eca2d71097e9b0d91193b96a8bac35f070",
+      "gameweeks.csv": "5239b2ad9505d81989cb2beee6bc45bbd6a268521405d846b3f98993e1ac791c",
+      "player_deadline_snapshots.csv": "bec32e2e82ac3ac2fdf6628a0a6657ed948d2f996807feeb7f25c167bca93b74",
+      "player_fixture_facts.csv": "677d15f5f1c3b092e086db1414f57ad9ebeb0134d5795d996be6dc0d7d7e9159"
+    },
+    "settlements": {
+      "1": {
+        "capture_time_utc": "2024-08-24T06:27:00Z",
+        "sha256": "c4ae1aa11edc4940b4b964469f3e7bbe70087595818781b52554a79b622dc721",
+        "source_path": "cache/2024/8/24/0627.json.xz"
+      },
+      "2": {
+        "capture_time_utc": "2024-08-31T06:27:00Z",
+        "sha256": "0d6c4800cf20f1a17fa7647e6db612acf01ee5b8821cca266c713bd7c8ed4143",
+        "source_path": "cache/2024/8/31/0627.json.xz"
+      },
+      "3": {
+        "capture_time_utc": "2024-09-14T06:29:00Z",
+        "sha256": "e7bea990fa0f8b5d20d98607ff499d39d2a6952386bdbba7f8d9fe1d9db10f2f",
+        "source_path": "cache/2024/9/14/0629.json.xz"
+      },
+      "4": {
+        "capture_time_utc": "2024-09-21T06:28:00Z",
+        "sha256": "d87c99edc17bad545c2563bd9bc299d246e9f84c05e8dc534504e841c1e1e733",
+        "source_path": "cache/2024/9/21/0628.json.xz"
+      },
+      "5": {
+        "capture_time_utc": "2024-09-28T06:28:00Z",
+        "sha256": "5daf40ee59f0606e3c2e3c41bf43325f0400c17d8f61f63a0d75ae2f26bb6b7a",
+        "source_path": "cache/2024/9/28/0628.json.xz"
+      },
+      "6": {
+        "capture_time_utc": "2024-10-05T06:29:00Z",
+        "sha256": "302448e2f4b5c0abc414f51a7ef3312597302f3292abe3e84f7eeb3ef83998af",
+        "source_path": "cache/2024/10/5/0629.json.xz"
+      },
+      "7": {
+        "capture_time_utc": "2024-10-19T06:28:00Z",
+        "sha256": "f81521531d3b115279c385c9c5e2c6000f13c4e88c20a818d32baec855eb1c71",
+        "source_path": "cache/2024/10/19/0628.json.xz"
+      },
+      "8": {
+        "capture_time_utc": "2024-10-25T12:43:00Z",
+        "sha256": "a67508d5bce013ed1c616829140e588ef7bd4400a49a0f96f2c9d99225e7666a",
+        "source_path": "cache/2024/10/25/1243.json.xz"
+      },
+      "9": {
+        "capture_time_utc": "2024-11-02T06:30:00Z",
+        "sha256": "5145cbe5bd03bba6a4cbedfa244ee7667ff02181590ca3032292a34e0534433b",
+        "source_path": "cache/2024/11/2/0630.json.xz"
+      },
+      "10": {
+        "capture_time_utc": "2024-11-09T12:38:00Z",
+        "sha256": "324fabd726b905cde3a42dd91ea08eb57b9ec1c93b5bbd55bb7f5ac338742ec0",
+        "source_path": "cache/2024/11/9/1238.json.xz"
+      },
+      "11": {
+        "capture_time_utc": "2024-11-23T06:30:00Z",
+        "sha256": "daef571b36bdedc211ee356aab1df6bedef842038daf23c816af44fdc5a8fe35",
+        "source_path": "cache/2024/11/23/0630.json.xz"
+      },
+      "12": {
+        "capture_time_utc": "2024-11-29T12:47:00Z",
+        "sha256": "ac662fba3b0b0b87b57884beeb4bdacc1cc4990ac5854e035002ee88c2b031b3",
+        "source_path": "cache/2024/11/29/1247.json.xz"
+      },
+      "13": {
+        "capture_time_utc": "2024-12-03T12:48:00Z",
+        "sha256": "47a84c44b18975879e8fd5c62bd0faa844618ce3f12b176b2aae69171e64a763",
+        "source_path": "cache/2024/12/3/1248.json.xz"
+      },
+      "14": {
+        "capture_time_utc": "2024-12-07T06:31:00Z",
+        "sha256": "27ad7fc3778f5e7f17955e28f9a9975dc8ae137ddbaee58bb8fd7fb681fc3bff",
+        "source_path": "cache/2024/12/7/0631.json.xz"
+      },
+      "15": {
+        "capture_time_utc": "2024-12-14T12:43:00Z",
+        "sha256": "b6807223f57d60f28dfe848d4cae3f22eef9961bb4f1df5c746b0195fbfdd3ef",
+        "source_path": "cache/2024/12/14/1243.json.xz"
+      },
+      "16": {
+        "capture_time_utc": "2024-12-21T06:28:00Z",
+        "sha256": "7fc3c43081fff59a586ef8679323f1a08939c072738608a4ed16da1704b2551c",
+        "source_path": "cache/2024/12/21/0628.json.xz"
+      },
+      "17": {
+        "capture_time_utc": "2024-12-26T06:31:00Z",
+        "sha256": "28566dd7cdba24ad9f395f635fff1fa3483f14526c2aa38d0b166b74c74c77b6",
+        "source_path": "cache/2024/12/26/0631.json.xz"
+      },
+      "18": {
+        "capture_time_utc": "2024-12-29T12:39:00Z",
+        "sha256": "05ca7934911c585fd51425e88baff73e03081aa0c7dd2c3e3409c4d52bd1bef8",
+        "source_path": "cache/2024/12/29/1239.json.xz"
+      },
+      "19": {
+        "capture_time_utc": "2025-01-04T06:29:00Z",
+        "sha256": "7ea80f19102e41567202b81e2f5e77734060b608ff10fabd178d43a991c19507",
+        "source_path": "cache/2025/1/4/0629.json.xz"
+      },
+      "20": {
+        "capture_time_utc": "2025-01-14T12:41:00Z",
+        "sha256": "d167faf62d41f05053bf55c4f2b97c9f58571be2fcb65eab8b1b4530e261a583",
+        "source_path": "cache/2025/1/14/1241.json.xz"
+      },
+      "21": {
+        "capture_time_utc": "2025-01-18T06:27:00Z",
+        "sha256": "c9ce77d7e5c3d2869b06ce21a6f0f0fb0202491214039a7a1f4dff7107ad325c",
+        "source_path": "cache/2025/1/18/0627.json.xz"
+      },
+      "22": {
+        "capture_time_utc": "2025-01-25T12:38:00Z",
+        "sha256": "8b27730a0f89aaa185496f2b4478b3463672b90ac957a52df3aede0c5dad6ecf",
+        "source_path": "cache/2025/1/25/1238.json.xz"
+      },
+      "23": {
+        "capture_time_utc": "2025-02-01T06:28:00Z",
+        "sha256": "defec1e4132073efa69356ee67ccdf97fdb3b6e1ae2998561b9c0104024d4dd8",
+        "source_path": "cache/2025/2/1/0628.json.xz"
+      },
+      "24": {
+        "capture_time_utc": "2025-02-14T12:43:00Z",
+        "sha256": "9b424eab523e3e88125f1d4e434a07eeb6b153b6011476078844460c2ba64f12",
+        "source_path": "cache/2025/2/14/1243.json.xz"
+      },
+      "25": {
+        "capture_time_utc": "2025-02-21T12:44:00Z",
+        "sha256": "bcb377af43c784e6a750437ece4d915451755f47fbb4c272bdff3b7bf0673835",
+        "source_path": "cache/2025/2/21/1244.json.xz"
+      },
+      "26": {
+        "capture_time_utc": "2025-02-25T12:45:00Z",
+        "sha256": "76a4a39d6b9b8364085e80043bf21dbbac642a080c45af99a0f71e1924bf4511",
+        "source_path": "cache/2025/2/25/1245.json.xz"
+      },
+      "27": {
+        "capture_time_utc": "2025-03-08T06:25:00Z",
+        "sha256": "5bfe4a25cba3a035cc7d9990433bd29adeae07092b3ef05e37320fc7a8d547c1",
+        "source_path": "cache/2025/3/8/0625.json.xz"
+      },
+      "28": {
+        "capture_time_utc": "2025-03-15T12:41:00Z",
+        "sha256": "9a3ebd94707ce3453822fe49a8bf3ae2789dbb60b31c2a993dd0811952becd97",
+        "source_path": "cache/2025/3/15/1241.json.xz"
+      },
+      "29": {
+        "capture_time_utc": "2025-04-01T12:50:00Z",
+        "sha256": "4e9a21ee6bc996453b31344b552e590efa5bb80dec33e473ab77a6e934d20564",
+        "source_path": "cache/2025/4/1/1250.json.xz"
+      },
+      "30": {
+        "capture_time_utc": "2025-04-05T06:31:00Z",
+        "sha256": "e7f1038bf684e1b75770800f72ea57b56042b0fbfacf524a3c36652b9d4b4045",
+        "source_path": "cache/2025/4/5/0631.json.xz"
+      },
+      "31": {
+        "capture_time_utc": "2025-04-12T06:31:00Z",
+        "sha256": "7e7efc36acab5ca3d8157693e6b07a44357f06fa6cd2e21d73f5db2c7eda2a88",
+        "source_path": "cache/2025/4/12/0631.json.xz"
+      },
+      "32": {
+        "capture_time_utc": "2025-04-19T06:31:00Z",
+        "sha256": "0a4e081203f79bf7e44882faf82d04b077491e4e4280eeaaff36d68ec1a5df1a",
+        "source_path": "cache/2025/4/19/0631.json.xz"
+      },
+      "33": {
+        "capture_time_utc": "2025-04-26T06:31:00Z",
+        "sha256": "54b0704e0e071c6c742c0099301c6fd55ee6ae77f243371a07e9d9135e60c373",
+        "source_path": "cache/2025/4/26/0631.json.xz"
+      },
+      "34": {
+        "capture_time_utc": "2025-05-02T12:49:00Z",
+        "sha256": "75fb742cf6b256fe52f2b83bd6450addaba51da3a6a767a55977202eef512bb8",
+        "source_path": "cache/2025/5/2/1249.json.xz"
+      },
+      "35": {
+        "capture_time_utc": "2025-05-10T06:32:00Z",
+        "sha256": "fdf87216448b42633fe9275a49a53ebd9e494ef5899d1062adb6ea626b27affe",
+        "source_path": "cache/2025/5/10/0632.json.xz"
+      },
+      "36": {
+        "capture_time_utc": "2025-05-16T12:52:00Z",
+        "sha256": "7672e1df9c37b5d971abf698bd95c15c5360f2b14929834796b24c8dca26a6e7",
+        "source_path": "cache/2025/5/16/1252.json.xz"
+      },
+      "37": {
+        "capture_time_utc": "2025-05-25T12:47:00Z",
+        "sha256": "3c85ba3075fb54bfa6ecabff5d7291d77a2b0a9344da66b4d7543b9ff5a3227b",
+        "source_path": "cache/2025/5/25/1247.json.xz"
+      },
+      "38": {
+        "capture_time_utc": "2025-05-26T02:06:00Z",
+        "sha256": "3d2fdbe3ed889ec7f2e2f1e2d7deabfa2b5492f09695c93ff7233db8e9d15e34",
+        "source_path": "cache/2025/5/26/0206.json.xz"
+      }
+    },
+    "snapshot_exception": null,
+    "source_identity": {
+      "identity_contract_version": 2,
+      "immutable_artifacts": [
+        {
+          "byte_size": 104312,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "f81521531d3b115279c385c9c5e2c6000f13c4e88c20a818d32baec855eb1c71",
+          "source_path": "cache/2024/10/19/0628.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/10/19/0628.json.xz"
+        },
+        {
+          "byte_size": 104864,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "a67508d5bce013ed1c616829140e588ef7bd4400a49a0f96f2c9d99225e7666a",
+          "source_path": "cache/2024/10/25/1243.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/10/25/1243.json.xz"
+        },
+        {
+          "byte_size": 102408,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "302448e2f4b5c0abc414f51a7ef3312597302f3292abe3e84f7eeb3ef83998af",
+          "source_path": "cache/2024/10/5/0629.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/10/5/0629.json.xz"
+        },
+        {
+          "byte_size": 106504,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "5145cbe5bd03bba6a4cbedfa244ee7667ff02181590ca3032292a34e0534433b",
+          "source_path": "cache/2024/11/2/0630.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/11/2/0630.json.xz"
+        },
+        {
+          "byte_size": 108856,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "daef571b36bdedc211ee356aab1df6bedef842038daf23c816af44fdc5a8fe35",
+          "source_path": "cache/2024/11/23/0630.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/11/23/0630.json.xz"
+        },
+        {
+          "byte_size": 109560,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "ac662fba3b0b0b87b57884beeb4bdacc1cc4990ac5854e035002ee88c2b031b3",
+          "source_path": "cache/2024/11/29/1247.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/11/29/1247.json.xz"
+        },
+        {
+          "byte_size": 107616,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "324fabd726b905cde3a42dd91ea08eb57b9ec1c93b5bbd55bb7f5ac338742ec0",
+          "source_path": "cache/2024/11/9/1238.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/11/9/1238.json.xz"
+        },
+        {
+          "byte_size": 114200,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "b6807223f57d60f28dfe848d4cae3f22eef9961bb4f1df5c746b0195fbfdd3ef",
+          "source_path": "cache/2024/12/14/1243.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/12/14/1243.json.xz"
+        },
+        {
+          "byte_size": 117784,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "7fc3c43081fff59a586ef8679323f1a08939c072738608a4ed16da1704b2551c",
+          "source_path": "cache/2024/12/21/0628.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/12/21/0628.json.xz"
+        },
+        {
+          "byte_size": 118408,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "28566dd7cdba24ad9f395f635fff1fa3483f14526c2aa38d0b166b74c74c77b6",
+          "source_path": "cache/2024/12/26/0631.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/12/26/0631.json.xz"
+        },
+        {
+          "byte_size": 119364,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "05ca7934911c585fd51425e88baff73e03081aa0c7dd2c3e3409c4d52bd1bef8",
+          "source_path": "cache/2024/12/29/1239.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/12/29/1239.json.xz"
+        },
+        {
+          "byte_size": 111420,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "47a84c44b18975879e8fd5c62bd0faa844618ce3f12b176b2aae69171e64a763",
+          "source_path": "cache/2024/12/3/1248.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/12/3/1248.json.xz"
+        },
+        {
+          "byte_size": 112172,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "27ad7fc3778f5e7f17955e28f9a9975dc8ae137ddbaee58bb8fd7fb681fc3bff",
+          "source_path": "cache/2024/12/7/0631.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/12/7/0631.json.xz"
+        },
+        {
+          "byte_size": 84632,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "039f3d6584e510aee89802dbf91ec0be0ccc69ee412a47e2104ec553d7037d51",
+          "source_path": "cache/2024/8/16/1238.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/8/16/1238.json.xz"
+        },
+        {
+          "byte_size": 82156,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "c4ae1aa11edc4940b4b964469f3e7bbe70087595818781b52554a79b622dc721",
+          "source_path": "cache/2024/8/24/0627.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/8/24/0627.json.xz"
+        },
+        {
+          "byte_size": 89976,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "0d6c4800cf20f1a17fa7647e6db612acf01ee5b8821cca266c713bd7c8ed4143",
+          "source_path": "cache/2024/8/31/0627.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/8/31/0627.json.xz"
+        },
+        {
+          "byte_size": 96764,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "e7bea990fa0f8b5d20d98607ff499d39d2a6952386bdbba7f8d9fe1d9db10f2f",
+          "source_path": "cache/2024/9/14/0629.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/9/14/0629.json.xz"
+        },
+        {
+          "byte_size": 99084,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "d87c99edc17bad545c2563bd9bc299d246e9f84c05e8dc534504e841c1e1e733",
+          "source_path": "cache/2024/9/21/0628.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/9/21/0628.json.xz"
+        },
+        {
+          "byte_size": 101036,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "5daf40ee59f0606e3c2e3c41bf43325f0400c17d8f61f63a0d75ae2f26bb6b7a",
+          "source_path": "cache/2024/9/28/0628.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2024/9/28/0628.json.xz"
+        },
+        {
+          "byte_size": 121912,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "d167faf62d41f05053bf55c4f2b97c9f58571be2fcb65eab8b1b4530e261a583",
+          "source_path": "cache/2025/1/14/1241.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/1/14/1241.json.xz"
+        },
+        {
+          "byte_size": 123008,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "c9ce77d7e5c3d2869b06ce21a6f0f0fb0202491214039a7a1f4dff7107ad325c",
+          "source_path": "cache/2025/1/18/0627.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/1/18/0627.json.xz"
+        },
+        {
+          "byte_size": 132684,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "8b27730a0f89aaa185496f2b4478b3463672b90ac957a52df3aede0c5dad6ecf",
+          "source_path": "cache/2025/1/25/1238.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/1/25/1238.json.xz"
+        },
+        {
+          "byte_size": 120420,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "7ea80f19102e41567202b81e2f5e77734060b608ff10fabd178d43a991c19507",
+          "source_path": "cache/2025/1/4/0629.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/1/4/0629.json.xz"
+        },
+        {
+          "byte_size": 133440,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "defec1e4132073efa69356ee67ccdf97fdb3b6e1ae2998561b9c0104024d4dd8",
+          "source_path": "cache/2025/2/1/0628.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/1/0628.json.xz"
+        },
+        {
+          "byte_size": 139660,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "9b424eab523e3e88125f1d4e434a07eeb6b153b6011476078844460c2ba64f12",
+          "source_path": "cache/2025/2/14/1243.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/14/1243.json.xz"
+        },
+        {
+          "byte_size": 140560,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "bcb377af43c784e6a750437ece4d915451755f47fbb4c272bdff3b7bf0673835",
+          "source_path": "cache/2025/2/21/1244.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/21/1244.json.xz"
+        },
+        {
+          "byte_size": 141204,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "76a4a39d6b9b8364085e80043bf21dbbac642a080c45af99a0f71e1924bf4511",
+          "source_path": "cache/2025/2/25/1245.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/2/25/1245.json.xz"
+        },
+        {
+          "byte_size": 142512,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "9a3ebd94707ce3453822fe49a8bf3ae2789dbb60b31c2a993dd0811952becd97",
+          "source_path": "cache/2025/3/15/1241.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/15/1241.json.xz"
+        },
+        {
+          "byte_size": 142128,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "5bfe4a25cba3a035cc7d9990433bd29adeae07092b3ef05e37320fc7a8d547c1",
+          "source_path": "cache/2025/3/8/0625.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/3/8/0625.json.xz"
+        },
+        {
+          "byte_size": 142588,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "4e9a21ee6bc996453b31344b552e590efa5bb80dec33e473ab77a6e934d20564",
+          "source_path": "cache/2025/4/1/1250.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/4/1/1250.json.xz"
+        },
+        {
+          "byte_size": 143948,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "7e7efc36acab5ca3d8157693e6b07a44357f06fa6cd2e21d73f5db2c7eda2a88",
+          "source_path": "cache/2025/4/12/0631.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/4/12/0631.json.xz"
+        },
+        {
+          "byte_size": 144932,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "0a4e081203f79bf7e44882faf82d04b077491e4e4280eeaaff36d68ec1a5df1a",
+          "source_path": "cache/2025/4/19/0631.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/4/19/0631.json.xz"
+        },
+        {
+          "byte_size": 145516,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "54b0704e0e071c6c742c0099301c6fd55ee6ae77f243371a07e9d9135e60c373",
+          "source_path": "cache/2025/4/26/0631.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/4/26/0631.json.xz"
+        },
+        {
+          "byte_size": 143108,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "e7f1038bf684e1b75770800f72ea57b56042b0fbfacf524a3c36652b9d4b4045",
+          "source_path": "cache/2025/4/5/0631.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/4/5/0631.json.xz"
+        },
+        {
+          "byte_size": 146076,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "fdf87216448b42633fe9275a49a53ebd9e494ef5899d1062adb6ea626b27affe",
+          "source_path": "cache/2025/5/10/0632.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/5/10/0632.json.xz"
+        },
+        {
+          "byte_size": 146048,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "7672e1df9c37b5d971abf698bd95c15c5360f2b14929834796b24c8dca26a6e7",
+          "source_path": "cache/2025/5/16/1252.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/5/16/1252.json.xz"
+        },
+        {
+          "byte_size": 145384,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "75fb742cf6b256fe52f2b83bd6450addaba51da3a6a767a55977202eef512bb8",
+          "source_path": "cache/2025/5/2/1249.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/5/2/1249.json.xz"
+        },
+        {
+          "byte_size": 146588,
+          "consumption_roles": [
+            "accepted_predeadline_snapshot",
+            "gameweek_deadline_reference",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "3c85ba3075fb54bfa6ecabff5d7291d77a2b0a9344da66b4d7543b9ff5a3227b",
+          "source_path": "cache/2025/5/25/1247.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/5/25/1247.json.xz"
+        },
+        {
+          "byte_size": 143828,
+          "consumption_roles": [
+            "final_points_settlement",
+            "total_points_reconciliation"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "3d2fdbe3ed889ec7f2e2f1e2d7deabfa2b5492f09695c93ff7233db8e9d15e34",
+          "source_path": "cache/2025/5/26/0206.json.xz",
+          "source_url": "https://raw.githubusercontent.com/Randdalf/fplcache/33dac28d18953bee5bc4bd56ddd8a5e32e169d68/cache/2025/5/26/0206.json.xz"
+        },
+        {
+          "byte_size": 2299411,
+          "consumption_roles": [
+            "snapshot_archive_discovery"
+          ],
+          "provider_key": "fplcache",
+          "sha256": "7dd9a24c9b2930b3a9a4e9db9afdba0ab32811b7bbafed8117cbd05d82df231a",
+          "source_path": "git/trees/33dac28d18953bee5bc4bd56ddd8a5e32e169d68?recursive=1",
+          "source_url": "https://api.github.com/repos/Randdalf/fplcache/git/trees/33dac28d18953bee5bc4bd56ddd8a5e32e169d68?recursive=1"
+        },
+        {
+          "byte_size": 751413,
+          "consumption_roles": [
+            "vaastav_transform:fixtures.csv"
+          ],
+          "provider_key": "vaastav",
+          "sha256": "ce696e187569ca7c45da2562811d3c38f525b58e65575531be37bebd0769ee28",
+          "source_path": "data/2024-25/fixtures.csv",
+          "source_url": "https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88/data/2024-25/fixtures.csv"
+        },
+        {
+          "byte_size": 5125595,
+          "consumption_roles": [
+            "vaastav_transform:merged_gw.csv"
+          ],
+          "provider_key": "vaastav",
+          "sha256": "5bbbcba6353b4c72ad273adcc8e3aa451946a826564679788f45b1cb3325b84e",
+          "source_path": "data/2024-25/gws/merged_gw.csv",
+          "source_url": "https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88/data/2024-25/gws/merged_gw.csv"
+        },
+        {
+          "byte_size": 342122,
+          "consumption_roles": [
+            "vaastav_transform:players_raw.csv"
+          ],
+          "provider_key": "vaastav",
+          "sha256": "75686051b265cbe7755ac71213ecaad21b26ee1cc46a8bafbba19c39ce894b05",
+          "source_path": "data/2024-25/players_raw.csv",
+          "source_url": "https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88/data/2024-25/players_raw.csv"
+        },
+        {
+          "byte_size": 1717,
+          "consumption_roles": [
+            "vaastav_transform:teams.csv"
+          ],
+          "provider_key": "vaastav",
+          "sha256": "d10a6db8feca6db9e44a3ba50b15168396667ea387fee9235d6b211c7f598c3b",
+          "source_path": "data/2024-25/teams.csv",
+          "source_url": "https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88/data/2024-25/teams.csv"
+        }
+      ],
+      "requested_season": "2024-25",
+      "sources": {
+        "fplcache": {
+          "configured_ref": "33dac28d18953bee5bc4bd56ddd8a5e32e169d68",
+          "provider": "Randdalf fplcache",
+          "repository": "https://github.com/Randdalf/fplcache",
+          "requested_season": "2024-25",
+          "resolved_commit_sha": "33dac28d18953bee5bc4bd56ddd8a5e32e169d68"
+        },
+        "vaastav": {
+          "configured_ref": "9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88",
+          "provider": "Vaastav historical FPL dataset",
+          "repository": "https://github.com/vaastav/Fantasy-Premier-League",
+          "requested_season": "2024-25",
+          "resolved_commit_sha": "9779cdbc0c07f6c900c2d0c181ddf6bb9c800f88"
+        }
+      }
+    },
+    "source_identity_sha256": "d94912c4423cd0f7ffb8b1fbaf4ff4493450f772af7d1258f9cfe5bea5a89f69",
+    "version": "v3-9779cdbc0c07-33dac28d1895-build-1fbdcc84c93d"
+  },
+  "tree_sha256": "7dd9a24c9b2930b3a9a4e9db9afdba0ab32811b7bbafed8117cbd05d82df231a",
+  "version": "minutes-discrepancy-investigation-v1"
+}

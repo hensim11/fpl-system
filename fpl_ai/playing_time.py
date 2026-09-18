@@ -142,6 +142,10 @@ def reconcile_schedule(season, gameweeks, schedule, facts):
 def inspect_season(season, version, data_dir, build_features=True):
     if season not in SEASONS and (build_features or season != '2024-25'):
         raise ValueError('minutes development excludes all other seasons, including consumed 2025-26')
+    return _inspect_season(season, version, data_dir, build_features)
+
+
+def _inspect_season(season, version, data_dir, build_features=True, evidence_policy=None):
     # Reuse the existing independently verified point/identity/settlement gates.
     rows, source = load_season(season, version, data_dir)
     build = load_historical_build(season, version, data_dir)
@@ -210,12 +214,14 @@ def inspect_season(season, version, data_dir, build_features=True):
              'snapshot_exception': source['snapshot_exception']}
     if not build_features:
         return [], audit, source
+    if evidence_policy is not None:
+        return evidence_policy(rows, by_gw, targets, evidence, fixture_gws, audit, source), audit, source
     if differences:
         raise ValueError(f'{season} minutes evidence failed: {differences[:3]}')
     return construct_rows(rows, by_gw, targets, evidence, fixture_gws), audit, source
 
 
-def construct_rows(rows, by_gw, targets, evidence, fixture_gws):
+def construct_rows(rows, by_gw, targets, evidence, fixture_gws, *, unavailable=frozenset()):
     """Project rows only after evidence validation; outcomes never enter same-GW inputs."""
     by_player = defaultdict(dict)
     for (g, e), value in targets.items():
@@ -227,7 +233,7 @@ def construct_rows(rows, by_gw, targets, evidence, fixture_gws):
         history = {g: v for g, v in by_player[e].items() if g < gw and evidence[g, e] <= capture}
         f = feature_values(gw, by_gw[gw][e], by_gw.get(gw-1, {}).get(e), history)
         y = targets.get((gw, e)) if gw in fixture_gws else None
-        if gw in fixture_gws and y is None:
+        if gw in fixture_gws and y is None and (gw, e) not in unavailable:
             raise ValueError('target evidence population incomplete')
         result.append({**{k: row[k] for k in KEYS}, 'features': f, 'target_minutes': y,
                        'label_available_at': evidence.get((gw, e)), 'audit': row['audit']})

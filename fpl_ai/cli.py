@@ -79,6 +79,11 @@ def build_parser() -> argparse.ArgumentParser:
     mt = ms.add_parser('train')
     mt.add_argument('--features-dir', type=Path, required=True)
     mt.add_argument('--artifact-dir', type=Path, default=Path('data/minutes'))
+    mo = ms.add_parser('oos', help='annual expanding chronological backtest; no xPts stacking')
+    mo.add_argument('--features-dir', type=Path, required=True)
+    mo.add_argument('--model-dir', type=Path, required=True)
+    mo.add_argument('--data-dir', type=Path, default=Path('data'))
+    mo.add_argument('--artifact-dir', type=Path, default=Path('data/minutes_oos'))
     prospective = subparsers.add_parser('prospective', help='capture, freeze, settle and score genuine future forecasts')
     ps = prospective.add_subparsers(dest='prospective_stage', required=True)
     pc = ps.add_parser('capture')
@@ -111,7 +116,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
                 parser.error('modelling commands do not accept current-ingestion options')
             if args.command == 'minutes':
-                if args.minutes_stage == 'features':
+                if args.minutes_stage == 'oos':
+                    from fpl_ai.minutes_oos import build_oos
+                    path, reused, score, score_reused = build_oos(args.features_dir, args.model_dir, args.data_dir, args.artifact_dir)
+                    print(f'Separate OOS diagnostics: {score} (reused={score_reused})')
+                elif args.minutes_stage == 'features':
                     from fpl_ai.playing_time import build_playing_time
                     path, reused = build_playing_time(args.data_dir, args.artifact_dir)
                 else:
