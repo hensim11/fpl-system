@@ -88,6 +88,16 @@ def fit(rows):
     first = min(r['audit']['capture_time_utc'] for r in dev)
     if latest >= first:
         raise ValueError('training minutes not settled before development')
+    return fit_training(train, first)
+
+
+def fit_training(train, first):
+    """Fit the unchanged candidate and all fallbacks on an explicit prior population."""
+    if not train or any(r['target_minutes'] is None or not r['label_available_at'] or
+                        r['label_available_at'] >= first or r['audit']['capture_time_utc'] >= first
+                        for r in train):
+        raise ValueError('training evidence must strictly precede prediction capture')
+    latest = max(r['label_available_at'] for r in train)
     prep = ColumnTransformer([
         ('numeric', SimpleImputer(strategy='median', keep_empty_features=True), list(range(len(NUMERIC)))),
         ('categorical', OneHotEncoder(handle_unknown='ignore', sparse_output=False), list(range(len(NUMERIC), len(ORDER)))),

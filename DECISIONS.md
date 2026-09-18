@@ -759,3 +759,67 @@ server truncation cannot be ruled out without further authoritative evidence; li
 operational verification remains pending. The next objective is unchanged: real
 2026/27 retention and chronological OOS minutes before xPts stacking. No scheduler,
 service, UI or optimiser is introduced.
+
+## 042 — Annual expanding OOS minutes with prior selection evidence
+
+Status: implemented and verified in M4C; see `docs/M4C_VERIFICATION.md`.
+
+The unchanged M4B bounded candidate family was selected using 2023/24 development
+labels, last evidenced at **2024-05-20 06:25 UTC**. Its first supported historical
+OOS season is therefore **2024/25**, not 2023/24. This is a reconstructed
+walk-forward information protocol, not a claim that model execution happened then.
+No earlier preregistered selection history is manufactured.
+
+Freeze that selection (`hist_15`) and refit once at each season boundary. For
+2024/25 use every evidenced 2021/22–2023/24 label (80,234). For 2025/26 expand through
+2024/25 (107,392), excluding the single unresolved minutes label in Decision 043.
+All labels and feature captures in each fitting population, including preprocessing
+and baseline fallback fitting, must strictly precede that season's first prediction
+capture. Selection evidence must also strictly precede it. No within-season refit,
+new hyperparameter search, selection on later diagnostics, or prospective tuning.
+Player histories may update only from earlier GWs already settled at capture.
+
+Use separate content-addressed `minutes-oos` and `minutes-oos-score` families under
+ignored `data/minutes_oos/`. Retain exact per-row keys/as-of, model/configuration,
+feature/protocol/source identities, fitting and selection cutoffs, freshness and
+exception provenance. Retain fitted model states and complete fitting-key/capture/
+label-availability/hash populations. Publish outcomes and metrics separately.
+`load_downstream` verifies the OOS stage, contracts, closed artifact sets, checksums,
+model identities, fitting populations, strict cutoffs and row eligibility before
+returning rows. It rejects development/prospective families rather than treating
+all minutes predictions as interchangeable.
+
+80,858 earlier rows remain explicitly unavailable. 56,804 forecasts are eligible
+OOS features across GW1–38 of 2024/25 and 2025/26. Feature eligibility is distinct
+from availability of a subsequent training target. Both seasons' diagnostics are
+walk-forward/backtest evidence; the consumed 2025/26 points holdout is not fresh
+confirmation. xPts v2 and optimisation remain outside this decision.
+
+## 043 — Quarantine the exact unresolved Ferguson minutes observation
+
+Status: investigated and narrowly implemented in M4C.
+
+The accepted 2024/25 element 123 GW27 captures show 270→304 cumulative minutes,
+against canonical fixture minutes 17. All 56 pinned neighbouring captures in a
+predeclared calendar interval show an earlier settled value of 287, followed by
+304 between March 2 18:29 and March 3 01:52 UTC. Total points also increases by one;
+GW event points stays unchanged. The +17 cumulative offset persists through GW38.
+No historical live-event payload exists in the pinned tree; cause remains unknown.
+Do not select a replacement settlement because its value agrees with canonical
+minutes. Full evidence is in `docs/M4C_DISCREPANCY.md` and its JSON companion.
+
+`ferguson-unresolved-minutes-v1` binds the complete source identity, exact two
+capture hashes/time, sole delta mismatch and 12 cumulative offsets. It leaves
+GW27's minutes target null and excludes it from fitting/history/metrics. From the
+first accepted capture where the discrepancy is observable (GW28, March 8 06:25),
+mask only this player's cumulative-minutes predictor through GW38 (11 rows).
+Do not change earlier features using future evidence. Keep later GW deltas only
+when their own explicit endpoints and canonical totals reconcile. Keep unrelated
+players and directly observed starts. No correction, zero fill or offset arithmetic.
+Any different mismatch remains a hard failure. Version this policy in OOS identity;
+M4B's existing default season restrictions and reconciliation failure remain intact.
+
+A safe pre-GW27 OOS forecast can have a missing post-GW27 minutes target. Do not use
+that future target anomaly to retroactively invalidate its pre-deadline inputs.
+The score bundle explicitly records the unavailable outcome; a downstream model
+must separately validate its own target evidence.

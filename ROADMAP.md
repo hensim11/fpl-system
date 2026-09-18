@@ -75,14 +75,35 @@ Status: **implemented and verified**; see `docs/M4B_VERIFICATION.md`.
 - [x] Require positive schedule evidence for blanks: reject empty/unusable current
   schedules and reconcile historical player facts against independent `fixtures.csv`.
   This validates labels only and adds no historical fixture predictor.
-- [ ] Operationally smoke-test and retain real 2026/27 forecasts and outcomes.
-- [ ] Produce expanding chronological OOS minutes artifacts before xPts v2 stacking.
-- [ ] Investigate the 2024/25 cumulative-minute discrepancy without guessed corrections.
+- [x] Smoke-test real 2026/27 capture/freeze/verify: GW5, 659 forecasts before its
+  September 18 17:30 UTC deadline.
+- [ ] Capture legitimate settled GW5 outcomes and score separately once available.
+- [x] Produce expanding chronological OOS minutes artifacts before xPts v2 stacking.
+- [x] Investigate the 2024/25 cumulative-minute discrepancy without guessed corrections.
+  Later aggregate change evidenced; cause unresolved; exact player/GW quarantine.
 
 176 tests pass. No new untouched historical holdout is claimed. Historical fixture
 context remains unavailable; current fixture snapshots have their own prospective
 contract. Expected points is null in the new live freeze until an xPts adapter is
 built. Preserve M4's frozen results and do not retune against reported 2025/26.
+
+### M4C — Chronological OOS and real prospective validation
+
+Status: **implemented and verified**; see `docs/M4C_VERIFICATION.md`.
+
+- [x] Annual expanding refits with frozen prior selection and strict information cutoffs.
+- [x] 56,804 downstream-safe minutes forecasts, GW1–38 in 2024/25 and 2025/26;
+  80,858 earlier rows explicitly unavailable, separate outcomes and diagnostics.
+- [x] Immutable artifacts, guarded downstream reader, exact rebuild/reuse and preservation.
+- [x] Independent five-season minutes/history/schedule checks and anomaly investigation.
+- [x] Real GW5 snapshot and pre-deadline forecast; premature settlement rejected.
+- [x] Full regression suite: 186 tests normally and under optimized Python; M2/M3/M4/M4B replay.
+
+Live outcomes remain pending, so the combined M4B forecast-and-outcomes objective
+is only partly satisfied. Next substantial batch: leakage-safe xPts v2 integration
+using these OOS rows, with an explicit downstream development/evaluation protocol.
+The consumed 2025/26 holdout cannot be presented as untouched. Continue manual
+prospective retention and score GW5 only after authoritative settlement.
 
 ## Later milestones
 

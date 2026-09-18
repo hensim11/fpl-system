@@ -1,6 +1,6 @@
 # FPL AI Platform
 
-Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for the complete 2021/22–2025/26 range. Milestones 2 and 3 are complete: deadline-safe features and chronological non-ML baseline evaluation now build offline from those historical inputs. Milestone 4 now adds reproducible trained regressors and a frozen-model holdout workflow. The selected model improves the frozen next-GW prediction benchmark. M4B now adds independently evidenced playing-time features, a bounded expected-minutes model, and a CLI for immutable prospective forecasts and separate settled scoring. Optimisation and recommendations remain future work.
+Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for the complete 2021/22–2025/26 range. Milestones 2 and 3 are complete: deadline-safe features and chronological non-ML baseline evaluation now build offline from those historical inputs. Milestone 4 now adds reproducible trained regressors and a frozen-model holdout workflow. The selected model improves the frozen next-GW prediction benchmark. M4B now adds independently evidenced playing-time features, a bounded expected-minutes model, and a CLI for immutable prospective forecasts and separate settled scoring. M4C adds annual chronological OOS minutes artifacts with guarded downstream eligibility and a verified real 2026/27 GW5 forecast. Optimisation and recommendations remain future work.
 
 ## Quick start
 
@@ -457,3 +457,47 @@ minutes labels use processed `fixtures.csv` to determine fixture-bearing GWs and
 require player facts for every scheduled fixture. This is label validation only;
 no final fixture field becomes a historical predictor. See Decision 041 and the
 M4B verification record for new identities and unchanged model results.
+
+
+## M4C: chronological OOS minutes and real prospective evidence
+
+`minutes oos` keeps M4B selection fixed from 2023/24, then refits the unchanged
+candidate once per season on the expanding prior-season population. It provides
+**56,804 downstream-safe forecasts**, GW1–38 of 2024/25 (27,159) and 2025/26 (29,645).
+The 80,858 earlier rows have null predictions and explicit unavailability. All
+fitting/preprocessing/fallback and selection evidence precedes each prediction's
+capture. This is historical walk-forward evidence, not a new untouched holdout.
+
+```bash
+FEATURES=data/playing_time/4f2ef778e5df032ffa22457811c6ba5845d0f8dbc51ff83cb6292cbfa8f6003c
+MINUTES=data/minutes/e8b168652ce16cf238f84186977b329c55a3d754605066b7e50422b7a0bb3ddc
+LOKY_MAX_CPU_COUNT=1 .venv/bin/python -m fpl_ai minutes oos --features-dir "$FEATURES" --model-dir "$MINUTES"
+```
+
+The new `fpl_ai.minutes_oos` module reuses the existing feature projection, fitted
+candidate, baselines and atomic publication. `data/minutes_oos/<identity>/` contains
+predictions, features/audits, complete fitting populations, per-season model states,
+source evidence and protocol. `data/minutes_oos/scores/<identity>/` separately
+contains realised outcomes and diagnostics. No current or frozen M4B artifact is
+rewritten. `load_downstream(Path(OOS_DIR))` verifies this specific artifact family
+and eligibility before returning forecast rows; passing a development freeze fails.
+No xPts stacking implementation is included.
+
+Ferguson's 2024/25 GW27 target remains unresolved (34 observed versus 17 canonical).
+Pinned neighbours show a later +17 cumulative change after settlement. One target
+is excluded; its value never enters later history. His cumulative minutes feature
+is masked in GW28–38, while independently reconciled deltas and unrelated players
+remain available. Details: [discrepancy report](docs/M4C_DISCREPANCY.md).
+
+On September 18, 2026, the real CLI captured and froze **659 GW5 forecasts** at
+08:27:13.598395 UTC, before the authoritative 17:30 deadline. Verification passed;
+the live settlement command correctly rejected the upcoming event. No settlement,
+score or model-quality claim is made yet. The forecast has no prior prospective
+history and expected points remains null. Exact identities and next-stage commands:
+[live record](docs/M4C_LIVE.json), [M4C verification](docs/M4C_VERIFICATION.md).
+
+The verification record includes the exact chronological protocol, per-season/GW
+and segment diagnostics, checksums, deterministic rebuild/reuse, 186 normal/optimized
+tests, and preservation of all 664 pre-batch data files in both bytes and mtimes.
+The earlier M4/M4B sections above describe their frozen evidence; this new family
+does not retrospectively change the meaning of those development predictions.

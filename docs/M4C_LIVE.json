@@ -1,0 +1,223 @@
+{
+  "bootstrap_top_level_keys": [
+    "chips",
+    "element_stats",
+    "element_types",
+    "elements",
+    "events",
+    "game_config",
+    "game_settings",
+    "phases",
+    "teams",
+    "total_players"
+  ],
+  "checks": {
+    "real_CLI_capture": true,
+    "real_CLI_predeadline_freeze": true,
+    "real_CLI_verify": true,
+    "score_published": false,
+    "settlement_published": false,
+    "timestamp_override_used": false,
+    "verification_preserves_hashes_mtimes": true
+  },
+  "feature_missingness": {
+    "appearance_rate_3": 659,
+    "appearance_rate_3_missing": 0,
+    "chance": 387,
+    "chance_change": 659,
+    "chance_change_missing": 0,
+    "chance_missing": 0,
+    "minutes_count_3": 0,
+    "minutes_mean_3": 659,
+    "minutes_mean_3_missing": 0,
+    "observed_season_minutes": 0,
+    "observed_season_minutes_missing": 0,
+    "observed_season_starts": 0,
+    "observed_season_starts_missing": 0,
+    "position": 0,
+    "previous_minutes": 659,
+    "previous_minutes_missing": 0,
+    "status": 0,
+    "status_changed": 659,
+    "status_changed_missing": 0,
+    "status_missing": 0
+  },
+  "fixtures": 380,
+  "forecast_manifest": {
+    "artifacts": {
+      "features.csv": "d36cd2149f99c3591be9f98e3cb1e9205c19267cc76eddb33a6d0a59f64d4913",
+      "predictions.csv": "6425d8faf104957be64bc340e46017c52545a88f192994f3fbbc663ce2323196"
+    },
+    "identity_sha256": "19622ab3d853222513b977fac4ae6c11d6f8e160ad9dd48f66a064892b078e24",
+    "metadata": {
+      "contract": {
+        "clock": "runtime UTC; no CLI timestamp override; completion and publication must precede deadline",
+        "confirmation": "locally timestamped evidence; not an externally witnessed or signed timestamp",
+        "expected_points": "null in v1; frozen M4 has no current-season feature adapter",
+        "feature_contract": {
+          "asof": "accepted capture, strictly before authoritative deadline",
+          "availability_changes": "current minus immediately preceding GW accepted capture for same season/element; null if either observation missing",
+          "cumulative": "copy accepted bootstrap minutes/starts only after GW1; GW1 stale prior-season values excluded",
+          "downstream": "not an xPts input; no in-sample predictions exported; temporal OOS integration deferred",
+          "features": [
+            "position",
+            "status",
+            "chance",
+            "previous_minutes",
+            "minutes_mean_3",
+            "minutes_count_3",
+            "appearance_rate_3",
+            "observed_season_minutes",
+            "observed_season_starts",
+            "status_changed",
+            "chance_change",
+            "status_missing",
+            "chance_missing",
+            "previous_minutes_missing",
+            "minutes_mean_3_missing",
+            "appearance_rate_3_missing",
+            "observed_season_minutes_missing",
+            "observed_season_starts_missing",
+            "status_changed_missing",
+            "chance_change_missing"
+          ],
+          "fixture_context": "unavailable historically; final fixtures never enter features",
+          "freshness": "2021-22 GW18 remains 12:33 state / 16:00 deadline / 207 minutes",
+          "history": "only earlier GWs with independently evidenced minutes settled at or before capture; last three calendar GWs; missing stays null with counts",
+          "minutes_evidence": "GW1 settled cumulative after season reset; later GWs settled cumulative minus accepted pre-GW cumulative; exact canonical sum agreement required",
+          "population": "accepted snapshot football positions 1..4; season-local element; no final identity",
+          "schedule_evidence": "processed fixtures.csv defines fixture-bearing GWs for labels only; each scheduled fixture requires football-player facts with matching fixture/GW; blanks require schedule absence, never fact absence",
+          "splits": {
+            "development": [
+              "2023-24"
+            ],
+            "train": [
+              "2021-22",
+              "2022-23"
+            ]
+          },
+          "target": "total realised minutes across all target-GW fixtures; registered nonplayers zero with evidence; globally fixture-empty GW null",
+          "version": "playing-time-v2"
+        },
+        "outcomes": "forbidden in prediction files; later scoring is a distinct artifact",
+        "predictions": [
+          "expected_minutes",
+          "expected_points"
+        ],
+        "version": "prospective-predictions-v1"
+      },
+      "deadline": "2026-09-18T17:30:00Z",
+      "feature_contract_identity": "bc439bcfe19bb452a482dfb0caab10b137f50d1827547bf533cf6c4c65ccad3a",
+      "fixture_context_snapshot_identity": "ffcdc756331c67fa780f2bec92237f28486032416b80a6f843ed6d9161fef0ce",
+      "fixture_features_used": false,
+      "history_sources": [],
+      "kind": "prospective-predictions",
+      "model_artifacts": {
+        "development.json": "a915f6cf5044f206fc557e478794b246f3060baf8fbd309ef704968458bab499",
+        "frozen.json": "342e8e9d797db0f6902d271a541d57c65bc8a0df440c0d2acfa6a5aaa8bdc817",
+        "model.pickle": "b06796cc1b742be8df0e832f62af5c1b7f6913bf00b65aac9ce9df312ef75f0c",
+        "predictions.csv": "3287609ed8c7fc436fe7073d86de4696f3f6f0bc4d32bfd96c520f91a12b1842"
+      },
+      "model_identity": "e8b168652ce16cf238f84186977b329c55a3d754605066b7e50422b7a0bb3ddc",
+      "model_manifest_sha256": "719d6aa60615a91d5fe7fb0306ad9ff0b0528128d34822bb1ab1a83506570acc",
+      "prediction_started_at": "2026-09-18T08:27:13.567691Z",
+      "prediction_timestamp": "2026-09-18T08:27:13.598395Z",
+      "previous_snapshot_identity": null,
+      "season": "2026-27",
+      "snapshot_artifacts": {
+        "bootstrap.json": "d4c15dfabfbf67ebd4e1fa408f42a13794c871a70bb1445dc2caed6ab20d6fa5",
+        "fixtures.json": "044192c09dad3195457012d2cd9da174fb6ed23e859f508034a2def2fc55fc9a"
+      },
+      "snapshot_identity": "ffcdc756331c67fa780f2bec92237f28486032416b80a6f843ed6d9161fef0ce",
+      "snapshot_manifest_sha256": "dd1032331605f8e37a552f9322df84f230d16537de0533f6dd40af61d4bebf72",
+      "snapshot_timing": {
+        "bootstrap_timing": {
+          "received_at": "2026-09-18T08:27:06.659694Z",
+          "requested_at": "2026-09-18T08:27:06.067616Z"
+        },
+        "fixtures_timing": {
+          "received_at": "2026-09-18T08:27:06.787729Z",
+          "requested_at": "2026-09-18T08:27:06.659859Z"
+        }
+      },
+      "target_gameweek": 5
+    }
+  },
+  "forecast_manifest_sha256": "0058485927469171029df715974b36c702522a25254487965f977f9f76d5acdc",
+  "forecast_rows": 659,
+  "limitations": [
+    "GW5 is upcoming; no prospective score or quality claim",
+    "No prior snapshots or settled forecast history: recent minutes/availability changes missing",
+    "Sequential API responses, local runtime clock, no external timestamp attestation",
+    "Only capture/freeze schema compatibility established; successful live settlement and score remain pending"
+  ],
+  "next_commands": [
+    ".venv/bin/python -m fpl_ai prospective settle --prediction-dir data/prospective_predictions/19622ab3d853222513b977fac4ae6c11d6f8e160ad9dd48f66a064892b078e24",
+    ".venv/bin/python -m fpl_ai prospective score --prediction-dir data/prospective_predictions/19622ab3d853222513b977fac4ae6c11d6f8e160ad9dd48f66a064892b078e24 --settlement-dir RETURNED_SETTLEMENT_DIR"
+  ],
+  "observed_events": [
+    {
+      "data_checked": true,
+      "deadline_time": "2026-08-21T17:30:00Z",
+      "finished": true,
+      "id": 1,
+      "is_current": false,
+      "is_next": false
+    },
+    {
+      "data_checked": true,
+      "deadline_time": "2026-09-12T12:30:00Z",
+      "finished": true,
+      "id": 4,
+      "is_current": true,
+      "is_next": false
+    },
+    {
+      "data_checked": false,
+      "deadline_time": "2026-09-18T17:30:00Z",
+      "finished": false,
+      "id": 5,
+      "is_current": false,
+      "is_next": true
+    }
+  ],
+  "players": 659,
+  "report_created_at": "2026-09-18T08:38:16.614983+00:00",
+  "settlement_attempt": {
+    "command": ".venv/bin/python -m fpl_ai prospective settle --prediction-dir data/prospective_predictions/19622ab3d853222513b977fac4ae6c11d6f8e160ad9dd48f66a064892b078e24",
+    "exit_code": 1,
+    "message": "Ingestion failed: target event not authoritatively settled"
+  },
+  "snapshot_manifest": {
+    "artifacts": {
+      "bootstrap.json": "d4c15dfabfbf67ebd4e1fa408f42a13794c871a70bb1445dc2caed6ab20d6fa5",
+      "fixtures.json": "044192c09dad3195457012d2cd9da174fb6ed23e859f508034a2def2fc55fc9a"
+    },
+    "identity_sha256": "ffcdc756331c67fa780f2bec92237f28486032416b80a6f843ed6d9161fef0ce",
+    "metadata": {
+      "bootstrap_timing": {
+        "received_at": "2026-09-18T08:27:06.659694Z",
+        "requested_at": "2026-09-18T08:27:06.067616Z"
+      },
+      "contract": {
+        "fixtures": "raw official fixture endpoint frozen at capture; target fixture id/event/teams/opponent/home-away/kickoff/difficulty available only as observed; unknown kickoff stays null",
+        "historical_use": false,
+        "schedule_evidence": "nonempty structurally valid full-season response with known teams/events and at least one event-assigned fixture; only target-specific absence establishes a blank",
+        "source": "https://fantasy.premierleague.com/api",
+        "timing": "separate request-start and response-completion UTC timestamps; both complete before authoritative bootstrap deadline; responses not atomic",
+        "version": "prospective-fixtures-v2"
+      },
+      "deadline": "2026-09-18T17:30:00Z",
+      "fixtures_timing": {
+        "received_at": "2026-09-18T08:27:06.787729Z",
+        "requested_at": "2026-09-18T08:27:06.659859Z"
+      },
+      "kind": "prospective-snapshot",
+      "season": "2026-27",
+      "target_gameweek": 5
+    }
+  },
+  "snapshot_manifest_sha256": "dd1032331605f8e37a552f9322df84f230d16537de0533f6dd40af61d4bebf72",
+  "target_fixtures": 10,
+  "teams": 20
+}

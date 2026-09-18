@@ -26,3 +26,7 @@ data/prospective_snapshots/
 data/prospective_predictions/
 data/prospective_settlements/
 data/prospective_scores/
+
+data/minutes_oos/
+data/m4c_investigation/
+data/m4c_live_inspection/

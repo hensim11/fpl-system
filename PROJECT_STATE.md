@@ -1,12 +1,54 @@
 # Project state
 
-Last updated: 2026-09-17
+Last updated: 2026-09-18
 
 ## Current milestone
 
 Milestone 4 — First predictive experiments.
 
 Status: **first substantial Milestone 4 batch complete; current exit criterion satisfied**. A reproducible, validation-selected histogram gradient-boosting model improves next-Gameweek point prediction over all five frozen baselines on the separate 2025/26 holdout. This is evidence for the agreed registered-player target, not downstream FPL decision utility. Milestones 1–3 and their artifacts remain unchanged. The exact 2021/22 GW18 freshness exception remains applicable. No optimiser or recommendations exist.
+
+## Current M4C result
+
+M4C is implemented and verified. **56,804 chronological OOS minutes forecasts** are
+available: **2024/25 GW1–38: 27,159**, **2025/26 GW1–38: 29,645**. Earlier 2021/22–
+2023/24 rows (**80,858**) remain explicitly unavailable for downstream training.
+
+Selection remains the M4B bounded `hist_15` choice, with information cutoff
+**2024-05-20 06:25 UTC**. Refit once before each forecast season: 80,234 evidenced
+2021/22–2023/24 labels for 2024/25; 107,392 labels through 2024/25 for 2025/26.
+Fitting cutoffs are respectively 2024-05-20 06:25 and 2025-05-26 02:06 UTC, strictly
+before first captures 2024-08-16 12:38 and 2025-08-15 12:52. Preprocessing and
+baseline fallbacks share the same fitting populations. No within-season refit or
+later/prospective selection. OOS outputs, outcomes, and M4B development predictions
+remain distinct immutable families; `load_downstream` enforces the OOS boundary.
+
+The Ferguson GW27 discrepancy was investigated across 56 pinned neighbours:
+287 cumulative minutes was already marked settled, then changed to 304 between
+March 2 18:29 and March 3 01:52, with one additional total point. Cause remains
+unresolved. One minutes target is unavailable, never fitted or used in history;
+his cumulative predictor is missing in GW28–38 (11 rows). Later independently
+reconciled GW deltas and all unrelated players remain usable. No correction.
+
+A real **2026/27 GW5 snapshot and 659-row forecast** were created with the existing
+CLI, forecast completed **2026-09-18 08:27:13.598395 UTC**, before the **17:30 UTC**
+deadline. Immutable verification passed. Premature live settlement was rejected;
+**no settlement or score yet**. Initial recent history and availability changes
+are missing; expected points is null. Full successful settlement schema compatibility
+still needs that next legal stage. Current fixture v2 remains enforced.
+
+Walk-forward model MAE/RMSE: **13.304010 / 22.944441** (2024/25; 27,158 scored),
+**12.114528 / 21.776158** (2025/26; 29,645 scored). Availability-aware baseline
+MAE/RMSE: 12.603902 / 24.818716 and 11.410267 / 23.873513. Better RMSE, worse MAE;
+no new untouched holdout, prospective quality or decision-utility claim.
+
+186 tests pass normally and under `python -O`; M2/M3/frozen M4/M4B replays and
+new independent raw-evidence/fresh/reuse checks pass. All **664 pre-batch data files**
+retain bytes and mtimes. No dependency change, xPts v2, scheduler, commit or merge.
+See [M4C verification](docs/M4C_VERIFICATION.md), [machine evidence](docs/M4C_VERIFICATION.json),
+[discrepancy](docs/M4C_DISCREPANCY.md), [live evidence](docs/M4C_LIVE.json), and
+[preservation](docs/M4C_REGRESSION.json). Historical milestone sections below remain
+frozen records of the earlier batches.
 
 ## What currently works
 
@@ -355,10 +397,12 @@ record for normal/optimized runs, preservation and unchanged metric comparisons.
 
 ## Recommended next step
 
-Start retaining real 2026/27 pre-deadline forecasts and settled scoring evidence.
-Implement chronological expanding-window OOS minutes artifacts before any xPts v2
-stacking, including model-selection cutoffs. Resolve the 2024/25 minutes source
-discrepancy independently. Keep original M4 frozen and use earlier seasons for
-new development; the consumed 2025/26 holdout is not fresh confirmation. Historical
-fixture context and live schema compatibility remain explicitly bounded. Optimisers
-and recommendations still require further predictive and prospective evidence.
+Implement a bounded, leakage-safe xPts v2 experiment consuming only verified OOS
+minutes rows, with a new explicit downstream development/evaluation protocol.
+Only two historical OOS seasons exist under this selection history; do not fabricate
+earlier minutes features or call the already-consumed 2025/26 points holdout fresh.
+Continue manual prospective retention. After GW5 is authoritatively finished and
+checked with finished fixtures, run the exact settlement/score commands in
+`docs/M4C_VERIFICATION.md`; no scheduler or backdating. An unresolved Ferguson cause,
+missing historical fixture predictors, first-live-forecast history warm-up, and
+local rather than externally attested timestamps remain explicit limitations.
