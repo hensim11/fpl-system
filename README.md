@@ -1,6 +1,6 @@
 # FPL AI Platform
 
-Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for the complete 2021/22–2025/26 range. Milestones 2 and 3 are complete: deadline-safe features and chronological non-ML baseline evaluation now build offline from those historical inputs. Milestone 4 now adds reproducible trained regressors and a frozen-model holdout workflow. The selected model improves the frozen next-GW prediction benchmark. M4B now adds independently evidenced playing-time features, a bounded expected-minutes model, and a CLI for immutable prospective forecasts and separate settled scoring. M4C adds annual chronological OOS minutes artifacts with guarded downstream eligibility and a verified real 2026/27 GW5 forecast. Optimisation and recommendations remain future work.
+Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for the complete 2021/22–2025/26 range. Milestones 2 and 3 are complete: deadline-safe features and chronological non-ML baseline evaluation now build offline from those historical inputs. Milestone 4 now adds reproducible trained regressors and a frozen-model holdout workflow. The selected model improves the frozen next-GW prediction benchmark. M4B now adds independently evidenced playing-time features, a bounded expected-minutes model, and a CLI for immutable prospective forecasts and separate settled scoring. M4C adds annual chronological OOS minutes artifacts with guarded downstream eligibility and a verified real 2026/27 GW5 forecast. M4D adds a fixed historical xPts-v2 ablation using verified OOS expected minutes: modest RMSE/MAE gains over its matched control, but weaker top-10 realised points. Optimisation and recommendations remain future work.
 
 ## Quick start
 
@@ -481,7 +481,7 @@ source evidence and protocol. `data/minutes_oos/scores/<identity>/` separately
 contains realised outcomes and diagnostics. No current or frozen M4B artifact is
 rewritten. `load_downstream(Path(OOS_DIR))` verifies this specific artifact family
 and eligibility before returning forecast rows; passing a development freeze fails.
-No xPts stacking implementation is included.
+That batch added no xPts stacking; the separate M4D integration below now consumes this boundary.
 
 Ferguson's 2024/25 GW27 target remains unresolved (34 observed versus 17 canonical).
 Pinned neighbours show a later +17 cumulative change after settlement. One target
@@ -501,3 +501,41 @@ and segment diagnostics, checksums, deterministic rebuild/reuse, 186 normal/opti
 tests, and preservation of all 664 pre-batch data files in both bytes and mtimes.
 The earlier M4/M4B sections above describe their frozen evidence; this new family
 does not retrospectively change the meaning of those development predictions.
+
+
+## M4D: bounded xPts v2 using OOS expected minutes
+
+```bash
+LOKY_MAX_CPU_COUNT=1 .venv/bin/python -m fpl_ai.xpts_v2
+```
+
+This command accepts the exact verified M3/M4C products, joins **56,804** forecasts
+by player/GW plus capture, deadline, snapshot and build provenance, and fits two
+fixed M4 `hist_15` pipelines on the same **27,159 2024/25 rows**. The control uses
+the original 25 inputs; v2 adds only predicted total GW minutes. Both are evaluated
+on the same **29,645 2025/26 rows**. No search or early stopping is performed.
+2025/26 is already-consumed historical evidence, **not a fresh holdout**.
+
+| Model | RMSE | MAE | Mean GW Spearman | Top-10 realised points |
+| --- | ---: | ---: | ---: | ---: |
+| Matched control | 1.925490 | 0.952499 | 0.738961 | 5.050000 |
+| xPts v2 | 1.916745 | 0.932555 | 0.744086 | 4.815789 |
+| Frozen M4 (different fitting population) | 1.916449 | 0.953678 | 0.741470 | 4.721053 |
+
+V2 improves the primary matched-ablation RMSE by 0.008745 (about 0.45%) but worsens
+top-10 realised points by 0.234211. This is mixed historical evidence, not proof of
+transfer or captaincy utility. No earlier OOS minutes are fabricated. Ferguson's
+pre-GW27 forecast is retained because its points target is independently valid;
+no realised minutes or future correction enters the feature table.
+
+`fpl_ai/xpts_v2.py` provides the adapter, fixed models, metrics and verification;
+`scripts/verify_xpts_v2.py` independently reconstructs point evidence and joins,
+replays models, probes invalid artifacts, and checks deterministic rebuild/reuse.
+Predictions/features/models use immutable `data/xpts_v2/<identity>/`; outcomes and
+metrics use separate `data/xpts_v2/scores/<identity>/`. No prior artifact is rewritten.
+Missing forecasts or points stay audited and excluded, never filled with zero.
+
+See [M4D verification](docs/M4D_VERIFICATION.md), [machine evidence](docs/M4D_VERIFICATION.json)
+and [regression/preservation](docs/M4D_REGRESSION.json) for exact identities, feature
+order, all diagnostics, tests and limitations. The prospective GW5 lifecycle remains
+separate; this batch does not provide a current-season xPts adapter or optimiser.

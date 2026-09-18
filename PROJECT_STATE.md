@@ -8,7 +8,36 @@ Milestone 4 — First predictive experiments.
 
 Status: **first substantial Milestone 4 batch complete; current exit criterion satisfied**. A reproducible, validation-selected histogram gradient-boosting model improves next-Gameweek point prediction over all five frozen baselines on the separate 2025/26 holdout. This is evidence for the agreed registered-player target, not downstream FPL decision utility. Milestones 1–3 and their artifacts remain unchanged. The exact 2021/22 GW18 freshness exception remains applicable. No optimiser or recommendations exist.
 
-## Current M4C result
+## Current M4D result
+
+M4D is implemented and verified: the first historical OOS minutes-to-xPts interface. Exactly **56,804**
+verified forecasts join to frozen M3 decision states: **27,159** 2024/25 fitting rows
+and **29,645** 2025/26 evaluation rows. All have independent points labels. Earlier
+80,858 rows remain unavailable; no backwards stacking or minutes-outcome requirement.
+Ferguson GW27 remains eligible for points without resolving its minutes anomaly.
+
+The fixed `hist_15` control/v2 comparison uses the same rows and original 25 inputs,
+with v2 adding only OOS expected total GW minutes. RMSE **1.925490 → 1.916745**,
+MAE **0.952499 → 0.932555**, Spearman **0.738961 → 0.744086**; top-10 realised points
+**5.050000 → 4.815789**. The ranking tradeoff is real. Frozen M4 RMSE is 1.916449,
+slightly better than v2, with a different training population. No model reselection.
+
+Fit labels end **2025-05-26 02:06 UTC**, before first evaluation capture
+**2025-08-15 12:52 UTC**. 2025/26 is consumed historical evidence, not a fresh holdout.
+No prospective or FPL decision-utility claim. Separate immutable prediction/score
+families preserve feature/outcome separation; strict source/state joins and the
+M4C downstream loader reject incompatible or corrupt inputs.
+
+198 tests pass normally and under `python -O`; independent M4D evidence is identical
+in both modes. Fresh builds, saved-state replay, target-mutation isolation, reuse and
+all prior milestone replays pass. All **783 pre-batch files** retain bytes and mtimes.
+M4D is recommended complete; no commit, merge or push has been performed.
+
+See [M4D verification](docs/M4D_VERIFICATION.md), [machine evidence](docs/M4D_VERIFICATION.json)
+and [preservation/regression](docs/M4D_REGRESSION.json). The following M4C section
+is its frozen historical batch record, including the separate pending GW5 lifecycle.
+
+## Prior M4C result
 
 M4C is implemented and verified. **56,804 chronological OOS minutes forecasts** are
 available: **2024/25 GW1–38: 27,159**, **2025/26 GW1–38: 29,645**. Earlier 2021/22–
@@ -397,10 +426,11 @@ record for normal/optimized runs, preservation and unchanged metric comparisons.
 
 ## Recommended next step
 
-Implement a bounded, leakage-safe xPts v2 experiment consuming only verified OOS
-minutes rows, with a new explicit downstream development/evaluation protocol.
-Only two historical OOS seasons exist under this selection history; do not fabricate
-earlier minutes features or call the already-consumed 2025/26 points holdout fresh.
+Review the completed M4D evidence and retain the fixed historical result, including
+its weaker top-10 diagnostic. The next modelling step needs separately specified
+prospective xPts validation/current-season adaptation, not another search on the
+consumed 2025/26 season. Only two historical OOS seasons exist; do not fabricate
+earlier stacking features. No optimiser or multi-GW expansion was implemented.
 Continue manual prospective retention. After GW5 is authoritatively finished and
 checked with finished fixtures, run the exact settlement/score commands in
 `docs/M4C_VERIFICATION.md`; no scheduler or backdating. An unresolved Ferguson cause,

@@ -14,6 +14,8 @@ from fpl_ai.evaluation import BASELINES
 
 
 STAGE_ARTIFACTS = {
+    'xpts-v2': {'protocol.json', 'upstream.json', 'fit.json', 'features.csv', 'row_audit.csv', 'training.csv', 'predictions.csv', 'control.pickle', 'xpts_v2.pickle'},
+    'xpts-v2-score': {'outcomes.csv', 'metrics.json'},
     'minutes-oos': {'protocol.json', 'sources.json', 'folds.json', 'model_2024-25.pickle', 'model_2025-26.pickle', 'predictions.csv', 'features.csv', 'row_audit.csv', 'training.csv'},
     'minutes-oos-score': {'metrics.json', 'outcomes.csv'},
     'playing-time-features': {'contract.json', 'evidence.json', 'sources.json', 'features.csv', 'labels.csv', 'row_audit.csv'},
