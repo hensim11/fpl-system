@@ -100,10 +100,33 @@ Status: **implemented and verified**; see `docs/M4C_VERIFICATION.md`.
 - [x] Full regression suite: 186 tests normally and under optimized Python; M2/M3/M4/M4B replay.
 
 Live outcomes remain pending, so the combined M4B forecast-and-outcomes objective
-is only partly satisfied. Next substantial batch: leakage-safe xPts v2 integration
-using these OOS rows, with an explicit downstream development/evaluation protocol.
+is only partly satisfied. The historical xPts v2 integration is now implemented in
+M4D below, with an explicit fixed downstream fitting/evaluation protocol.
 The consumed 2025/26 holdout cannot be presented as untouched. Continue manual
 prospective retention and score GW5 only after authoritative settlement.
+
+### M4D — Bounded OOS expected-minutes xPts integration
+
+Status: **implemented and verified; recommend acceptance**. 198 tests pass normally
+and under optimized Python. Independent fresh/reuse/mutation checks and all prior
+milestone replays pass; all 783 pre-batch data files retain bytes and mtimes.
+
+- [x] Exact M3/M4C artifact binding and one-to-one decision-state/provenance join.
+- [x] 27,159 2024/25 rows fit both models; 29,645 common 2025/26 rows evaluated.
+- [x] Fixed M4 hist_15; original 25 inputs versus those inputs plus OOS total GW minutes.
+- [x] Separate feature/prediction/outcome products; no early-season fabrication or fallback.
+- [x] Independent points eligibility preserves Ferguson GW27's valid forecast.
+- [x] Fixed RMSE/MAE/Spearman and top-10 diagnostics, paired deltas and frozen M4 references.
+
+Matched RMSE improves **1.925490 → 1.916745**, MAE and Spearman also improve,
+but top-10 realised points worsens **5.050000 → 4.815789**. Frozen M4 remains
+slightly better on RMSE (1.916449) with a different fitting population. This is a
+valid historical integration answer, not prospective confirmation or decision utility.
+No tuning followed the result. See [verification](docs/M4D_VERIFICATION.md).
+
+Before larger decision layers, specify prospective xPts validation separately and
+retain the manual minutes forecast/settlement lifecycle. No new untouched historical
+holdout exists, and the pending GW5 operational check does not block M4D.
 
 ## Later milestones
 

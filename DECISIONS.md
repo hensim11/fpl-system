@@ -823,3 +823,42 @@ A safe pre-GW27 OOS forecast can have a missing post-GW27 minutes target. Do not
 that future target anomaly to retroactively invalidate its pre-deadline inputs.
 The score bundle explicitly records the unavailable outcome; a downstream model
 must separately validate its own target evidence.
+
+
+## 044 — Fixed historical xPts v2 matched ablation using chronological OOS minutes
+
+Bind the exact accepted M3 and M4C OOS identities in `m4d-xpts-v2-v1`. Fit only
+2024/25 independently settled points labels and evaluate once on fixed 2025/26
+historical evidence. This season was already consumed by M4; no new untouched
+holdout exists. Reuse M4 hist_15 configuration/preprocessing without search or early
+stopping. The control uses its original 25 inputs; the predefined v2 candidate adds
+only chronological OOS expected total GW minutes. Never choose the winner as a
+newly selected candidate. All fitting/preprocessing precedes evaluation capture.
+
+Use `minutes_oos.load_downstream`, exact artifact-family/contract/identity validation,
+one-to-one player/GW keys, identical captures/deadlines/snapshot hashes and exact
+historical source/build provenance. Missing minutes forecasts are null and audited
+exclusions without fallback; independent missing points labels are never zeroed.
+Earlier seasons remain unavailable. Features and realised outcomes occupy separate
+products and immutable families. Decisions 014, 042 and 043 remain unchanged:
+no final fixture context and no hindsight Ferguson correction. Its valid GW27
+forecast plus independently available points label makes that row eligible for xPts.
+
+Primary metric RMSE; retain MAE, within-GW Spearman, coverage, GW/position/history/
+missingness segments and paired common-row deltas. Predeclare forecast top 10 per
+GW with ascending element ID for ties, equal mean of realised points across GWs.
+Original M3 baselines remain references; frozen M4 comparison is descriptive because
+it has a different fitting population. No optimiser or captaincy claim follows.
+
+Observed v2/control RMSE: 1.916745/1.925490; MAE: 0.932555/0.952499;
+Spearman: 0.744086/0.738961; top-10: 4.815789/5.050000. Report the worse top-10
+result and tiny RMSE loss to frozen M4 (1.916449) plainly. No subsequent tuning.
+
+Use shared atomic content-addressed publication with closed checksums, exact model
+states and keyed predictions. Serialize trusted local acyclic estimator states with
+pickle protocol 5 memoization disabled, so NumPy dtype/Python reference sharing after
+prior loads cannot change identity. Cycles fail closed. The slightly larger model
+files preserve numerical state, configuration and predictions. Verify fresh builds, post-load rebuilds,
+reuse, target-mutation isolation and optimized-Python checks. Exact evidence and
+limitations are in `docs/M4D_VERIFICATION.md` and its machine-readable companion.
+The prospective GW5 settlement remains a separate operational check.
