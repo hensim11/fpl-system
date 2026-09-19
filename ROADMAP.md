@@ -84,8 +84,8 @@ Status: **implemented and verified**; see `docs/M4B_VERIFICATION.md`.
 
 176 tests pass. No new untouched historical holdout is claimed. Historical fixture
 context remains unavailable; current fixture snapshots have their own prospective
-contract. Expected points is null in the new live freeze until an xPts adapter is
-built. Preserve M4's frozen results and do not retune against reported 2025/26.
+contract. The minutes-only freeze retains null expected points; M4E adds a separate
+control/v2 forecast. Preserve M4's frozen results and do not retune against reported 2025/26.
 
 ### M4C — Chronological OOS and real prospective validation
 
@@ -124,9 +124,21 @@ slightly better on RMSE (1.916449) with a different fitting population. This is 
 valid historical integration answer, not prospective confirmation or decision utility.
 No tuning followed the result. See [verification](docs/M4D_VERIFICATION.md).
 
-Before larger decision layers, specify prospective xPts validation separately and
-retain the manual minutes forecast/settlement lifecycle. No new untouched historical
-holdout exists, and the pending GW5 operational check does not block M4D.
+### M4E — Current-season prospective xPts
+
+Status: implemented with a real pre-deadline GW6 control/v2 forecast; verification
+and operational commands are in [M4E verification](docs/M4E_VERIFICATION.md).
+
+- [x] Fixed 56,804-row prior-season refit, exact fitting keys/cutoffs and saved states.
+- [x] Live 25-input adapter with raw historical parity and settled points history.
+- [x] Strict verified expected-minutes join; identical control/v2 population.
+- [x] Actual-clock forecast publication and separate immutable scoring lifecycle.
+- [x] Real 659-player GW6 forecast; preserve the original GW5 minutes lifecycle.
+- [ ] Retain near-deadline states and authoritatively settled prospective outcomes.
+- [ ] Accumulate prospective evidence before any model-superiority or decision claim.
+
+No new historical holdout or winner selection. Initial history is missing; the
+first GW6 capture is early. Optimisation, transfers and captaincy remain future work.
 
 ## Later milestones
 

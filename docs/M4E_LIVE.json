@@ -1,0 +1,532 @@
+{
+  "checks": {
+    "no_gw5_xpts_forecast": true,
+    "no_settlement_or_score_claimed": true,
+    "no_timestamp_override": true,
+    "verification_preserves_bytes_mtimes": true
+  },
+  "commands_executed": [
+    ".venv/bin/python -m fpl_ai prospective capture --season 2026-27 --gameweek 6",
+    "LOKY_MAX_CPU_COUNT=1 .venv/bin/python -m fpl_ai prospective freeze --snapshot-dir data/prospective_snapshots/debbe980cdb6b8f5cc136949007f0dd0536a057c77c3acedb6cff622194cfa6c --model-dir data/minutes/e8b168652ce16cf238f84186977b329c55a3d754605066b7e50422b7a0bb3ddc --previous-dir data/prospective_snapshots/ffcdc756331c67fa780f2bec92237f28486032416b80a6f843ed6d9161fef0ce",
+    "LOKY_MAX_CPU_COUNT=1 .venv/bin/python -m fpl_ai prospective xpts freeze --snapshot-dir data/prospective_snapshots/debbe980cdb6b8f5cc136949007f0dd0536a057c77c3acedb6cff622194cfa6c --minutes-dir data/prospective_predictions/ac3268702d82cb723dd62220efb4ff7792c20f89e1556eacfb54f698c905e395 --model-dir data/prospective_xpts/models/11aa9eb62174997637edf2e2a7090aa6a197f068526ed981434e869556db9230",
+    "LOKY_MAX_CPU_COUNT=1 .venv/bin/python -m fpl_ai prospective xpts verify --forecast-dir data/prospective_xpts/forecasts/1aebfd57e85b4a1d44904f0669d0ff03a4caf2dfaa6bb40473d828f5c8128527 --model-dir data/prospective_xpts/models/11aa9eb62174997637edf2e2a7090aa6a197f068526ed981434e869556db9230"
+  ],
+  "distribution": {
+    "control": {
+      "max": 5.1420126809614075,
+      "mean": 1.083530820077733,
+      "min": 0.018021430258581553
+    },
+    "xpts_v2": {
+      "max": 4.691581381451549,
+      "mean": 0.9003381907157425,
+      "min": 0.01214608478249945
+    }
+  },
+  "final_independent_verification_completed_at": "2026-09-18T21:08:23.634880Z",
+  "forecast_manifest": {
+    "artifacts": {
+      "evidence.json": "748acf24fa609e188f75244fe78c8217d73667f79c543ed5c72731c9fd76453c",
+      "features.csv": "67bb766533291ca6d7a2c87194883afd7d03c02f9ffa72819c061164a957f3be",
+      "history.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "predictions.csv": "f518aabfd0d70207bb107ab63a4e0196fc539a063f6a38f827bfbfaeb3ebe6b3"
+    },
+    "identity_sha256": "1aebfd57e85b4a1d44904f0669d0ff03a4caf2dfaa6bb40473d828f5c8128527",
+    "metadata": {
+      "computed_at": "2026-09-18T21:07:49.825026Z",
+      "deadline": "2026-10-10T10:00:00Z",
+      "fitting_cutoff": "2026-05-25T10:23:00Z",
+      "kind": "prospective-xpts-forecast",
+      "minutes_identity": "ac3268702d82cb723dd62220efb4ff7792c20f89e1556eacfb54f698c905e395",
+      "model_identities": {
+        "control": "1c69628141cc77f55c991f259ac565bf29af674bf2fda63578ca89c82835dcf4",
+        "xpts_v2": "07c1bca1e7e525278720d8bcb3ca5013106bcc57f50623032a350312e68bb1ea"
+      },
+      "model_identity": "11aa9eb62174997637edf2e2a7090aa6a197f068526ed981434e869556db9230",
+      "model_manifest_sha256": "c37090b7359eed9706156c04c6cbe3060ff7fae28ed34384260b7bf049dfad92",
+      "protocol": {
+        "attestation": "local clock only; not externally witnessed",
+        "first_supported_state": "2026-07-01T00:00:00Z",
+        "fit_counts": {
+          "2024-25": 27159,
+          "2025-26": 29645
+        },
+        "fit_seasons": [
+          "2024-25",
+          "2025-26"
+        ],
+        "historical_protocol": {
+          "candidate": {
+            "categorical_features": null,
+            "configuration": {
+              "family": "hist_gradient_boosting",
+              "max_leaf_nodes": 15
+            },
+            "early_stopping": false,
+            "l2_regularization": 10.0,
+            "learning_rate": 0.05,
+            "loss": "squared_error",
+            "max_iter": 150,
+            "min_samples_leaf": 50,
+            "random_state": 1729
+          },
+          "evaluation_role": "fixed consumed historical evidence; no new untouched holdout or prospective confirmation",
+          "evaluation_season": "2025-26",
+          "extra_preprocessing": "append one numeric input; training median and StandardScaler, same M4 semantics; missing OOS rows excluded before preprocessing, never filled",
+          "feature_order": {
+            "control": [
+              "price",
+              "selected_by_percent",
+              "transfers_in_event",
+              "transfers_out_event",
+              "chance_of_playing_next_round",
+              "previous_points",
+              "points_mean_3",
+              "points_mean_5",
+              "points_count_3",
+              "points_count_5",
+              "season_points_mean",
+              "season_points_count",
+              "deadline_position_id_missing",
+              "price_missing",
+              "selected_by_percent_missing",
+              "transfers_in_event_missing",
+              "transfers_out_event_missing",
+              "status_missing",
+              "chance_of_playing_next_round_missing",
+              "previous_points_missing",
+              "points_mean_3_missing",
+              "points_mean_5_missing",
+              "season_points_mean_missing",
+              "deadline_position_id",
+              "status"
+            ],
+            "xpts_v2": [
+              "price",
+              "selected_by_percent",
+              "transfers_in_event",
+              "transfers_out_event",
+              "chance_of_playing_next_round",
+              "previous_points",
+              "points_mean_3",
+              "points_mean_5",
+              "points_count_3",
+              "points_count_5",
+              "season_points_mean",
+              "season_points_count",
+              "deadline_position_id_missing",
+              "price_missing",
+              "selected_by_percent_missing",
+              "transfers_in_event_missing",
+              "transfers_out_event_missing",
+              "status_missing",
+              "chance_of_playing_next_round_missing",
+              "previous_points_missing",
+              "points_mean_3_missing",
+              "points_mean_5_missing",
+              "season_points_mean_missing",
+              "deadline_position_id",
+              "status",
+              "oos_expected_minutes"
+            ]
+          },
+          "fit": "2024-25 independently evidenced points labels only; all preprocessing and fit evidence strictly before first 2025-26 capture",
+          "fit_season": "2024-25",
+          "frozen_m4_holdout_identity": "21ea26b746acce28a243b749c6facab09e934a5e0fbffc7f163b6355055ca9bd",
+          "join": {
+            "decision_state": [
+              "capture_time_utc",
+              "deadline_time_utc",
+              "snapshot_source_path",
+              "snapshot_sha256",
+              "snapshot_age_minutes",
+              "observed_player_code",
+              "superseded_deadline_exception",
+              "payload_deadline_utc"
+            ],
+            "key": [
+              "season",
+              "target_gameweek",
+              "element"
+            ],
+            "missing": "retain audit and null feature; exclude from both matched populations; no fallback",
+            "source": "exact historical source/build identity and shared consumed table hashes"
+          },
+          "m3_identity": "57c2e4a54faca1328dc77e19471564cedd41eb6b73238b476ff00ab21f194f7a",
+          "minutes_oos_identity": "3550ded6a2aff16fa9f799b9c993b8799726d0243a3b1e643e6249af475867be",
+          "output_transform": "none; no clipping",
+          "point_contract": {
+            "as_of": "accepted snapshot capture (not the later deadline)",
+            "baseline_fit": "only train labels settled by prediction capture; frozen for validation and test",
+            "empty_sum": "zero for a snapshot player without facts in a fixture-bearing GW",
+            "evaluation_version": "baselines-v1",
+            "external_benchmark": "archived FPL ep_next, separate from features; missing remains missing",
+            "fallback": "recent mean3 or player season mean (minimum 3) -> train position mean -> train overall -> 0",
+            "feature_version": "deadline-points-v1",
+            "features": {
+              "chance_of_playing_next_round": {
+                "definition": "Copied only from accepted player_deadline_snapshots.chance_of_playing_next_round",
+                "nullable": true,
+                "type": "integer"
+              },
+              "chance_of_playing_next_round_missing": {
+                "definition": "1 when chance_of_playing_next_round is null, otherwise 0",
+                "nullable": false,
+                "type": "integer"
+              },
+              "deadline_position_id": {
+                "definition": "Copied only from accepted player_deadline_snapshots.deadline_position_id",
+                "nullable": true,
+                "type": "integer"
+              },
+              "deadline_position_id_missing": {
+                "definition": "1 when deadline_position_id is null, otherwise 0",
+                "nullable": false,
+                "type": "integer"
+              },
+              "deadline_team_id": {
+                "definition": "Copied only from accepted player_deadline_snapshots.deadline_team_id",
+                "nullable": true,
+                "type": "integer"
+              },
+              "deadline_team_id_missing": {
+                "definition": "1 when deadline_team_id is null, otherwise 0",
+                "nullable": false,
+                "type": "integer"
+              },
+              "points_count_3": {
+                "definition": "Number of available values in G-3..G-1",
+                "nullable": false,
+                "type": "integer"
+              },
+              "points_count_5": {
+                "definition": "Number of available values in G-5..G-1",
+                "nullable": false,
+                "type": "integer"
+              },
+              "points_mean_3": {
+                "definition": "Mean of available settled points in G-3..G-1",
+                "nullable": true,
+                "type": "number"
+              },
+              "points_mean_3_missing": {
+                "definition": "1 when points_mean_3 is null, otherwise 0",
+                "nullable": false,
+                "type": "integer"
+              },
+              "points_mean_5": {
+                "definition": "Mean of available settled points in G-5..G-1",
+                "nullable": true,
+                "type": "number"
+              },
+              "points_mean_5_missing": {
+                "definition": "1 when points_mean_5 is null, otherwise 0",
+                "nullable": false,
+                "type": "integer"
+              },
+              "previous_points": {
+                "definition": "Settled points in G-1, null if unavailable",
+                "nullable": true,
+                "type": "number"
+              },
+              "previous_points_missing": {
+                "definition": "1 when previous_points is null, otherwise 0",
+                "nullable": false,
+                "type": "integer"
+              },
+              "price": {
+                "definition": "Copied only from accepted player_deadline_snapshots.price",
+                "nullable": true,
+                "type": "integer"
+              },
+              "price_missing": {
+                "definition": "1 when price is null, otherwise 0",
+                "nullable": false,
+                "type": "integer"
+              },
+              "season_points_count": {
+                "definition": "Number of available values in GWs 1..G-1",
+                "nullable": false,
+                "type": "integer"
+              },
+              "season_points_mean": {
+                "definition": "Mean of available settled points in GWs 1..G-1",
+                "nullable": true,
+                "type": "number"
+              },
+              "season_points_mean_missing": {
+                "definition": "1 when season_points_mean is null, otherwise 0",
+                "nullable": false,
+                "type": "integer"
+              },
+              "selected_by_percent": {
+                "definition": "Copied only from accepted player_deadline_snapshots.selected_by_percent",
+                "nullable": true,
+                "type": "number"
+              },
+              "selected_by_percent_missing": {
+                "definition": "1 when selected_by_percent is null, otherwise 0",
+                "nullable": false,
+                "type": "integer"
+              },
+              "status": {
+                "definition": "Copied only from accepted player_deadline_snapshots.status",
+                "nullable": true,
+                "type": "string"
+              },
+              "status_missing": {
+                "definition": "1 when status is null, otherwise 0",
+                "nullable": false,
+                "type": "integer"
+              },
+              "transfers_in_event": {
+                "definition": "Copied only from accepted player_deadline_snapshots.transfers_in_event",
+                "nullable": true,
+                "type": "integer"
+              },
+              "transfers_in_event_missing": {
+                "definition": "1 when transfers_in_event is null, otherwise 0",
+                "nullable": false,
+                "type": "integer"
+              },
+              "transfers_out_event": {
+                "definition": "Copied only from accepted player_deadline_snapshots.transfers_out_event",
+                "nullable": true,
+                "type": "integer"
+              },
+              "transfers_out_event_missing": {
+                "definition": "1 when transfers_out_event is null, otherwise 0",
+                "nullable": false,
+                "type": "integer"
+              }
+            },
+            "fixture_empty_gameweek": "retain features and predictions; null label, excluded from fitting/scoring/history",
+            "grain": [
+              "season",
+              "target_gameweek",
+              "element"
+            ],
+            "history": "strictly earlier GW; points independently observed settled by capture; season-local",
+            "history_no_facts": "zero only when settled archive event_points explicitly equals zero; otherwise missing",
+            "horizon": "one upcoming target Gameweek",
+            "identity": "season-local; never join on person code",
+            "population": "accepted snapshot position IDs 1..4, including non-playing registered players",
+            "ranking": "mean within-season/GW Spearman using average ties; constant groups undefined and counted",
+            "split_version": "five-season-chronological-v1",
+            "splits": {
+              "2021-22": "train",
+              "2022-23": "train",
+              "2023-24": "train",
+              "2024-25": "validation",
+              "2025-26": "test"
+            },
+            "target": "sum of canonical fixture total_points in target GW; all fixtures in doubles",
+            "target_type": "nullable integer; unmultiplied player points, no captain/chip effects",
+            "target_version": "player-gw-points-v1",
+            "windows": "previous 3/5 calendar GWs; mean of available values; counts explicit; no zero imputation"
+          },
+          "preprocessing": {
+            "categorical": [
+              "deadline_position_id",
+              "status"
+            ],
+            "categorical_null": "literal __missing__; does not imply any actual status",
+            "encoding": "training one-hot, all categories retained; unknown all-zero",
+            "indicator_transform": "passthrough; never imputed or scaled",
+            "indicators": [
+              "deadline_position_id_missing",
+              "price_missing",
+              "selected_by_percent_missing",
+              "transfers_in_event_missing",
+              "transfers_out_event_missing",
+              "status_missing",
+              "chance_of_playing_next_round_missing",
+              "previous_points_missing",
+              "points_mean_3_missing",
+              "points_mean_5_missing",
+              "season_points_mean_missing"
+            ],
+            "null_semantics": "Computational fills only; original missingness indicators retain meaning. No null-as-fit interpretation.",
+            "numeric": [
+              "price",
+              "selected_by_percent",
+              "transfers_in_event",
+              "transfers_out_event",
+              "chance_of_playing_next_round",
+              "previous_points",
+              "points_mean_3",
+              "points_mean_5",
+              "points_count_3",
+              "points_count_5",
+              "season_points_mean",
+              "season_points_count"
+            ],
+            "numeric_imputation": "training median; all-null column fallback 0 with indicator retained",
+            "scaling": "training StandardScaler on imputed numeric columns; both families use same projection"
+          },
+          "primary_metric": "RMSE",
+          "ranking": "per GW forecast top min(10,n), descending prediction then ascending element ID; mean realised points per selected player, then equal mean across GWs; only independently labelled common rows",
+          "references": "frozen M4 hist_15 has different fitting population, not a feature ablation; original M3 baselines unchanged; ep_next remains reference only",
+          "segments": "overall; each GW; position 1..4; established history count>=3, low history count<3; any original feature missing; chance missing",
+          "selection": "none; xpts_v2 is the predefined candidate, control is only an ablation",
+          "serialization": "pickle protocol 5 with memoization disabled for these acyclic local estimator states; object alias sharing is not model state; fail on cycles",
+          "threads": 1,
+          "version": "m4d-xpts-v2-v1"
+        },
+        "history": "verified prospective settlement/forecast pairs; strictly earlier same-season GWs; received by target bootstrap request; explicit integer points; blank GW and absent players remain missing",
+        "minutes": "verified prospective-predictions-v1 from the exact frozen M4B model; exact snapshot, bootstrap, deadline, keys and feature contract; no fallback",
+        "minutes_model_identity": "e8b168652ce16cf238f84186977b329c55a3d754605066b7e50422b7a0bb3ddc",
+        "outcomes": "separate immutable score; verified fixture-v2 settlements; common rows and frozen M4D top10 tie rule",
+        "publication": "actual runtime UTC; begin, computation, semantic verification and final published checksum verification before deadline; failure removes new publication; verify reuses without redating",
+        "season": "2026-27",
+        "selection": "none; fixed hist_15 control and v2 coexist; no automatic winner or refit",
+        "state": "bootstrap now_cost in tenths, ownership, transfers, chance, position and status; exact M3 types and history windows; no team or fixture inputs",
+        "version": "m4e-prospective-xpts-v1"
+      },
+      "publication_started_at": "2026-09-18T21:07:49.827967Z",
+      "season": "2026-27",
+      "snapshot_age_minutes": 31012.545426466666,
+      "snapshot_identity": "debbe980cdb6b8f5cc136949007f0dd0536a057c77c3acedb6cff622194cfa6c",
+      "started_at": "2026-09-18T21:07:49.590093Z",
+      "target_gameweek": 6
+    }
+  },
+  "forecast_manifest_sha256": "a1e152488c4ed621146133e582e3bfb81512362fa18bbdffb3848c2022ebcdb9",
+  "history_pairs": 0,
+  "inspection": {
+    "events": [
+      {
+        "average_entry_score": 0,
+        "can_enter": false,
+        "can_manage": false,
+        "chip_plays": [
+          {
+            "chip_name": "bboost",
+            "num_played": 135186
+          },
+          {
+            "chip_name": "freehit",
+            "num_played": 295196
+          },
+          {
+            "chip_name": "wildcard",
+            "num_played": 467900
+          },
+          {
+            "chip_name": "3xc",
+            "num_played": 226208
+          }
+        ],
+        "cup_leagues_created": true,
+        "data_checked": false,
+        "deadline_time": "2026-09-18T17:30:00Z",
+        "deadline_time_epoch": 1789752600,
+        "deadline_time_game_offset": 0,
+        "finished": false,
+        "h2h_ko_matches_created": true,
+        "highest_score": null,
+        "highest_scoring_entry": null,
+        "id": 5,
+        "is_current": true,
+        "is_next": false,
+        "is_previous": false,
+        "most_captained": 411,
+        "most_selected": 411,
+        "most_transferred_in": 480,
+        "most_vice_captained": 426,
+        "name": "Gameweek 5",
+        "overrides": {
+          "element_types": [],
+          "pick_multiplier": null,
+          "rules": {},
+          "scoring": {}
+        },
+        "ranked_count": 0,
+        "release_time": null,
+        "released": true,
+        "top_element": 93,
+        "top_element_info": {
+          "id": 93,
+          "points": 14
+        },
+        "transfers_made": 18907524
+      },
+      {
+        "average_entry_score": 0,
+        "can_enter": true,
+        "can_manage": true,
+        "chip_plays": [],
+        "cup_leagues_created": false,
+        "data_checked": false,
+        "deadline_time": "2026-10-10T10:00:00Z",
+        "deadline_time_epoch": 1791626400,
+        "deadline_time_game_offset": 0,
+        "finished": false,
+        "h2h_ko_matches_created": false,
+        "highest_score": null,
+        "highest_scoring_entry": null,
+        "id": 6,
+        "is_current": false,
+        "is_next": true,
+        "is_previous": false,
+        "most_captained": null,
+        "most_selected": null,
+        "most_transferred_in": null,
+        "most_vice_captained": null,
+        "name": "Gameweek 6",
+        "overrides": {
+          "element_types": [],
+          "pick_multiplier": null,
+          "rules": {},
+          "scoring": {}
+        },
+        "ranked_count": 0,
+        "release_time": null,
+        "released": true,
+        "top_element": null,
+        "top_element_info": null,
+        "transfers_made": 0
+      }
+    ],
+    "request_timing": {
+      "received_at": "2026-09-18T21:04:06.053397Z",
+      "requested_at": "2026-09-18T21:04:05.505157Z"
+    }
+  },
+  "limitations": [
+    "Early GW6 capture, not a near-deadline update",
+    "GWs1-4 have no retained qualifying settlement pairs; GW5 still unsettled",
+    "All points history and recent minutes are missing; availability changes use existing GW5 capture",
+    "No prospective performance or decision utility established"
+  ],
+  "missingness": {
+    "chance_of_playing_next_round": 384,
+    "chance_of_playing_next_round_missing": 0,
+    "deadline_position_id": 0,
+    "deadline_position_id_missing": 0,
+    "oos_expected_minutes": 0,
+    "points_count_3": 0,
+    "points_count_5": 0,
+    "points_mean_3": 659,
+    "points_mean_3_missing": 0,
+    "points_mean_5": 659,
+    "points_mean_5_missing": 0,
+    "previous_points": 659,
+    "previous_points_missing": 0,
+    "price": 0,
+    "price_missing": 0,
+    "season_points_count": 0,
+    "season_points_mean": 659,
+    "season_points_mean_missing": 0,
+    "selected_by_percent": 0,
+    "selected_by_percent_missing": 0,
+    "status": 0,
+    "status_missing": 0,
+    "transfers_in_event": 0,
+    "transfers_in_event_missing": 0,
+    "transfers_out_event": 0,
+    "transfers_out_event_missing": 0
+  },
+  "real_predeadline": true,
+  "rows": 659
+}

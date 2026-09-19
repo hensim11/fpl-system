@@ -105,6 +105,22 @@ def build_parser() -> argparse.ArgumentParser:
     pe.add_argument('--artifact-dir', type=Path, default=Path('data/prospective_scores'))
     pv = ps.add_parser('verify', help='verify/reuse an existing forecast without rewriting or re-dating it')
     pv.add_argument('--prediction-dir', type=Path, required=True)
+    px = ps.add_parser('xpts', help='fixed operational xPts refit, pre-deadline freeze, verification and separate score')
+    xs = px.add_subparsers(dest='xpts_stage', required=True)
+    xt = xs.add_parser('fit')
+    xt.add_argument('--data-dir', type=Path, default=Path('data'))
+    xt.add_argument('--artifact-dir', type=Path, default=Path('data/prospective_xpts/models'))
+    for stage in ('freeze', 'verify', 'score'):
+        xp = xs.add_parser(stage)
+        xp.add_argument('--model-dir', type=Path, required=True)
+        if stage == 'freeze':
+            xp.add_argument('--snapshot-dir', type=Path, required=True)
+            xp.add_argument('--minutes-dir', type=Path, required=True)
+            xp.add_argument('--history-pair', nargs=2, type=Path, action='append', default=[])
+        else:
+            xp.add_argument('--forecast-dir', type=Path, required=True)
+        if stage == 'score': xp.add_argument('--settlement-dir', type=Path, required=True)
+        if stage != 'verify': xp.add_argument('--artifact-dir', type=Path, default=Path('data/prospective_xpts')/('forecasts' if stage=='freeze' else 'scores'))
     return parser
 
 
@@ -128,7 +144,18 @@ def main(argv: Sequence[str] | None = None) -> int:
                     path, reused = run_minutes(args.features_dir, args.artifact_dir)
             else:
                 from fpl_ai.prospective import capture_snapshot, freeze_predictions, capture_settlement, score_predictions, verify_prediction
-                if args.prospective_stage == 'capture':
+                if args.prospective_stage == 'xpts':
+                    from fpl_ai import prospective_xpts as xpts
+                    if args.xpts_stage == 'fit':
+                        path, reused = xpts.fit(args.artifact_dir, args.data_dir)
+                    elif args.xpts_stage == 'freeze':
+                        path, reused = xpts.freeze(args.snapshot_dir, args.minutes_dir, args.model_dir, args.artifact_dir, history_pairs=args.history_pair)
+                    elif args.xpts_stage == 'score':
+                        path, reused = xpts.score(args.forecast_dir, args.settlement_dir, args.model_dir, args.artifact_dir)
+                    else:
+                        xpts.verify_forecast(args.forecast_dir, args.model_dir)
+                        path, reused = args.forecast_dir, True
+                elif args.prospective_stage == 'capture':
                     path, reused = capture_snapshot(args.season, args.gameweek, args.artifact_dir)
                 elif args.prospective_stage == 'freeze':
                     path, reused = freeze_predictions(args.snapshot_dir, args.model_dir, args.artifact_dir,

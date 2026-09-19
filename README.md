@@ -1,5 +1,25 @@
 # FPL AI Platform
 
+## Current-season prospective xPts (M4E)
+
+The CLI now supports `prospective xpts fit`, `freeze`, `verify` and `score`.
+It reuses existing snapshot/minutes capture and settlement commands. Fixed control
+and v2 models use identical prior-season training and live populations; v2 adds
+verified expected minutes. Earlier settled points history is provenance-backed;
+missing history stays missing. Actual computation and final publication verification
+must precede the authoritative deadline, with no timestamp override.
+
+A real 659-player 2026/27 GW6 forecast was published on September 18 at 21:07 UTC,
+before its October 10 10:00 UTC deadline. It is an early forecast with missing
+retained history, not a quality result. GW5's minutes evidence is unchanged and
+has no retrospective xPts forecast. No live xPts score exists yet.
+
+See [M4E verification](docs/M4E_VERIFICATION.md) for exact model identities,
+commands, fitting cutoffs, evidence and limitations. M4D's historical evidence is
+mixed; both models remain available and require new prospective evaluation before
+any claim of better FPL decisions. No optimiser or recommendations exist.
+
+
 Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for the complete 2021/22–2025/26 range. Milestones 2 and 3 are complete: deadline-safe features and chronological non-ML baseline evaluation now build offline from those historical inputs. Milestone 4 now adds reproducible trained regressors and a frozen-model holdout workflow. The selected model improves the frozen next-GW prediction benchmark. M4B now adds independently evidenced playing-time features, a bounded expected-minutes model, and a CLI for immutable prospective forecasts and separate settled scoring. M4C adds annual chronological OOS minutes artifacts with guarded downstream eligibility and a verified real 2026/27 GW5 forecast. M4D adds a fixed historical xPts-v2 ablation using verified OOS expected minutes: modest RMSE/MAE gains over its matched control, but weaker top-10 realised points. Optimisation and recommendations remain future work.
 
 ## Quick start
@@ -437,8 +457,8 @@ Neither 2024/25 nor consumed 2025/26 selects or evaluates the new model. A separ
 `freeze` generates expected minutes with exact source/model provenance; `settle`
 captures settled live per-GW evidence; `score` publishes separate metrics and leaves
 the forecast unchanged. `verify` checks an existing forecast without re-dating it.
-These paths are tested offline; no actual live 2026/27 forecast has been claimed.
-Expected points is explicitly null until a current-season xPts adapter exists.
+M4C subsequently verified a real GW5 minutes forecast. The original minutes-only
+product retains null expected points; M4E publishes control/v2 points separately.
 No in-sample minutes predictions are exported for downstream xPts training.
 
 Modules: `playing_time.py` (evidence/features), `minutes.py` (bounded experiment),
@@ -538,4 +558,4 @@ Missing forecasts or points stay audited and excluded, never filled with zero.
 See [M4D verification](docs/M4D_VERIFICATION.md), [machine evidence](docs/M4D_VERIFICATION.json)
 and [regression/preservation](docs/M4D_REGRESSION.json) for exact identities, feature
 order, all diagnostics, tests and limitations. The prospective GW5 lifecycle remains
-separate; this batch does not provide a current-season xPts adapter or optimiser.
+separate. M4E now provides the current-season adapter described above; no optimiser exists.
