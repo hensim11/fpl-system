@@ -862,3 +862,54 @@ files preserve numerical state, configuration and predictions. Verify fresh buil
 reuse, target-mutation isolation and optimized-Python checks. Exact evidence and
 limitations are in `docs/M4D_VERIFICATION.md` and its machine-readable companion.
 The prospective GW5 settlement remains a separate operational check.
+
+
+## 045 — Fixed operational prospective xPts with separate evidence lifecycles
+
+Status: implemented in M4E; see `docs/M4E_VERIFICATION.md`.
+
+For 2026/27, refit the unchanged M4D control and v2 hist_15 configurations on the
+exact same 56,804 independently points-labelled M4C OOS rows from 2024/25 and
+2025/26. Latest label is 2026-05-25 10:23 UTC; every fitting observation must precede
+2026-07-01 00:00 UTC, the first supported state. These seasons are eligible prior
+information for operation, not an untouched holdout. No current-season labels,
+search, clipping experiment, model reselection or automatic result-driven refit.
+Record all fitting keys, source identities, row hashes, preprocessing, serialized
+model hashes and dependency environment. Preserve both models prospectively.
+
+Use the exact original 25-input ordering/types and M4 preprocessing; v2 adds only
+verified expected total GW minutes. Copy current bootstrap fields through historical
+parsers. Exclude team ID and all fixture/target/final-context predictors. Reuse the
+existing settlement products for points history: earlier same-season GWs, finished
+and data_checked, validated fixture schedule/completion and explicit integer live
+points reconciled to explanations. Settlement must be received by the target
+bootstrap request. Preserve per-observation source/hash/time provenance. Missing
+player/GW history stays missing, explicit zeros stay observed, and initial warm-up
+is exposed. No current aggregate or retrospective history backfill.
+
+Consume minutes through the verified prospective boundary and pin the original
+M4B operational model identity, manifest/artifact hashes, snapshot/bootstrap,
+season/GW/deadline/timing, feature contract and exact player keys. The existing
+minutes v1 contract requires complete values: missing minutes fail closed rather
+than causing unsupported fallback or silently different control/v2 populations.
+The M4B live fit differs from the expanding historical OOS fits; preserve this
+limitation explicitly rather than changing the upstream family in M4E.
+
+Reuse capture and settlement infrastructure. Extend shared content-addressed
+publication with separate xPts model, forecast and score families. Retain exact
+source evidence bytes in forecast bundles and verify them using existing readers;
+replay features/predictions before publication and verify the actual destination
+before the final real-clock deadline gate. A late new publication is removed.
+Computation and publication timestamps are actual runtime, never CLI-overridden.
+Verification reuses existing artifacts without redating. Local clocks are not
+external attestation. Preserve original GW5 minutes; never backdate GW5 xPts.
+
+Later scores require the exact bound minutes settlement, authoritative flags,
+fixture-v2 completion and explicit player points. Missing outcomes fail, blanks
+remain null. Score both models on identical rows with fixed RMSE/MAE/Spearman,
+coverage/distributions, positions/history segments and M4D's top-10 tie rule.
+Scores accumulate evidence; they cannot choose a winner or alter either fit.
+No downstream decision utility is established. Current fixture capture does not
+make historical fixture context available, and M4D's worse top-10 result remains
+part of the evidence. New 2026/27 prospective outcomes are required for stronger
+claims; successful live settlement/scoring awaits its legal stage.

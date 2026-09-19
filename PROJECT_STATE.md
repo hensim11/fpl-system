@@ -8,6 +8,36 @@ Milestone 4 — First predictive experiments.
 
 Status: **first substantial Milestone 4 batch complete; current exit criterion satisfied**. A reproducible, validation-selected histogram gradient-boosting model improves next-Gameweek point prediction over all five frozen baselines on the separate 2025/26 holdout. This is evidence for the agreed registered-player target, not downstream FPL decision utility. Milestones 1–3 and their artifacts remain unchanged. The exact 2021/22 GW18 freshness exception remains applicable. No optimiser or recommendations exist.
 
+## Current M4E result
+
+M4E implements fixed prospective control/v2 xPts for 2026/27. Both models refit on
+exactly **56,804** prior-season downstream-safe rows (27,159 in 2024/25 and 29,645
+in 2025/26); latest label **2026-05-25 10:23 UTC**, supported states from
+**2026-07-01 00:00 UTC**. No new search or current-season fitting target.
+
+The live adapter preserves all 25 original inputs and adds independently frozen
+expected minutes only for v2. Current-season points history uses earlier verified
+settlements received by capture, retaining explicit zeros, missingness and source
+provenance. Exact snapshot/model/key joins and actual-clock publication gates fail
+closed. Outcomes and scoring remain separate immutable products.
+
+A real **659-player GW6** control/v2 forecast completed at **2026-09-18 21:07:49 UTC**
+and independently verified at **21:08:23 UTC**, before the **October 10 10:00 UTC**
+deadline. This is an early state with missing retained points/recent-minutes history,
+not near-deadline confirmation. GW5's original minutes artifacts are unchanged;
+GW5 was still unfinished/unchecked. No live xPts outcome or score is claimed.
+
+M4D's mixed historical result remains unchanged. Both models coexist; new settled
+prospective evidence is necessary before claiming v2 improves real FPL decisions.
+No untouched historical holdout, optimiser, recommendation or product-utility claim.
+210 tests pass normally and under optimized Python; independent evidence matches
+in both modes. All 822 pre-batch data files retain bytes and mtimes.
+See [M4E verification and exact operator commands](docs/M4E_VERIFICATION.md),
+[machine evidence](docs/M4E_VERIFICATION.json), [real live evidence](docs/M4E_LIVE.json)
+and [regression/preservation](docs/M4E_REGRESSION.json).
+
+The sections below preserve the earlier batch records.
+
 ## Current M4D result
 
 M4D is implemented and verified: the first historical OOS minutes-to-xPts interface. Exactly **56,804**
@@ -426,13 +456,15 @@ record for normal/optimized runs, preservation and unchanged metric comparisons.
 
 ## Recommended next step
 
-Review the completed M4D evidence and retain the fixed historical result, including
-its weaker top-10 diagnostic. The next modelling step needs separately specified
-prospective xPts validation/current-season adaptation, not another search on the
-consumed 2025/26 season. Only two historical OOS seasons exist; do not fabricate
-earlier stacking features. No optimiser or multi-GW expansion was implemented.
-Continue manual prospective retention. After GW5 is authoritatively finished and
-checked with finished fixtures, run the exact settlement/score commands in
-`docs/M4C_VERIFICATION.md`; no scheduler or backdating. An unresolved Ferguson cause,
-missing historical fixture predictors, first-live-forecast history warm-up, and
-local rather than externally attested timestamps remain explicit limitations.
+Review M4E's fixed operational protocol and verified real GW6 forecast. Continue
+manual retention, preferably nearer the deadline, and include only history already
+settled before each capture. After GW5 is authoritatively finished/checked with
+finished fixtures, settle and score its unchanged minutes forecast; then it can
+supply history for a later GW6 state. Settle and score GW6 separately when legal.
+Exact commands are in `docs/M4E_VERIFICATION.md`.
+
+Both control and v2 remain available. Accumulate new prospective evidence; do not
+retune on consumed 2025/26 or infer decision value from one early forecast. The
+Ferguson cause, unavailable historical fixture predictors, initial history warm-up,
+local timestamp attestation and optimisation utility remain unresolved. No commit,
+merge or push has been performed for M4E.
