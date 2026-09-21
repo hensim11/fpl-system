@@ -138,13 +138,40 @@ and operational commands are in [M4E verification](docs/M4E_VERIFICATION.md).
 - [ ] Accumulate prospective evidence before any model-superiority or decision claim.
 
 No new historical holdout or winner selection. Initial history is missing; the
-first GW6 capture is early. Optimisation, transfers and captaincy remain future work.
+first GW6 capture is early. M5A now consumes these forecasts for one-GW decisions.
+
+## M5A — Rules-aware current-squad transfer optimiser v1
+
+Status: **accepted/complete after verified structural/semantic tie separation**; evidence in [M5A verification](docs/M5A_VERIFICATION.md).
+
+- [x] Versioned rules and strict current-squad input with exact selling prices.
+- [x] Explicit control/v2 consumption through the frozen M4E verification boundary.
+- [x] Joint squad/XI/captain MILP with budget, club, position and transfer-hit rules.
+- [x] Unique deterministic top-N plans and explicit legal no-transfer baseline.
+- [x] Separate immutable decision artifacts and practical `optimise` CLI.
+- [x] Hand-checkable optima, real GW6 demo, fresh/reuse and preservation checks.
+- [x] Bound boolean selectability: 659 forecast rows, 554 transfer-in eligible;
+  preserve owned unselectable players, reject malformed evidence.
+- [x] Inclusive 1e-6 tie band with exact boundary checks and deterministic priorities.
+- [x] 238 normal/optimized tests (28 focused in both modes); unchanged original demo
+  plans and all 904 prior data files.
+- [x] Reproduce reviewer seeds 1596/top-1 and 26/top-10; remove only the objective
+  row's generic numerical gate while retaining strict structural checks.
+- [x] Exact <=1e-6 tie authority and fail-closed optimality, including presolve retry.
+- [x] 400 positive-xPts seeds × four depths: 1,600 independent exhaustive ranking
+  comparisons; 121 out-of-band rejections, byte-identical normal/optimized evidence.
+
+This is a one-Gameweek objective, not full multi-GW transfer planning or proven
+realised decision utility. Next substantial batch: **multi-Gameweek projections
+and transfer-path optimisation**, to value rolling transfers, future fixtures,
+squad flexibility and uncertainty. M4E prospective retention/scoring continues
+independently, without choosing a model prematurely.
 
 ## Later milestones
 
 Only after the data and evaluation foundations are reliable:
 
-- configurable squad/transfer optimisation;
+- multi-Gameweek projections and transfer-path optimisation;
 - user-specific decision support;
 - scheduled ingestion and monitoring;
 - service or UI layers;

@@ -14,6 +14,7 @@ from fpl_ai.evaluation import BASELINES
 
 
 STAGE_ARTIFACTS = {
+    'one-gw-transfer-decision': {'squad.json', 'population.json', 'source.json', 'decision.json', 'rules.json', 'config.json', 'report.md'},
     'prospective-xpts-model': {'protocol.json', 'fit.json', 'sources.json', 'training.csv', 'control.pickle', 'xpts_v2.pickle'},
     'prospective-xpts-forecast': {'features.csv', 'predictions.csv', 'history.json', 'evidence.json'},
     'prospective-xpts-score': {'outcomes.csv', 'metrics.json'},

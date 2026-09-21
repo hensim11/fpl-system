@@ -1,0 +1,69 @@
+{
+  "bank": 10,
+  "contract": "current-squad-v1",
+  "free_transfers": 1,
+  "players": [
+    {
+      "element": 1,
+      "selling_price": 59
+    },
+    {
+      "element": 2,
+      "selling_price": 48
+    },
+    {
+      "element": 4,
+      "selling_price": 79
+    },
+    {
+      "element": 30,
+      "selling_price": 44
+    },
+    {
+      "element": 32,
+      "selling_price": 43
+    },
+    {
+      "element": 33,
+      "selling_price": 44
+    },
+    {
+      "element": 60,
+      "selling_price": 54
+    },
+    {
+      "element": 21,
+      "selling_price": 48
+    },
+    {
+      "element": 40,
+      "selling_price": 76
+    },
+    {
+      "element": 42,
+      "selling_price": 53
+    },
+    {
+      "element": 43,
+      "selling_price": 57
+    },
+    {
+      "element": 67,
+      "selling_price": 63
+    },
+    {
+      "element": 79,
+      "selling_price": 59
+    },
+    {
+      "element": 106,
+      "selling_price": 77
+    },
+    {
+      "element": 107,
+      "selling_price": 44
+    }
+  ],
+  "season": "2026-27",
+  "target_gameweek": 6
+}

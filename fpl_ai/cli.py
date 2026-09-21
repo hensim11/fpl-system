@@ -121,6 +121,14 @@ def build_parser() -> argparse.ArgumentParser:
             xp.add_argument('--forecast-dir', type=Path, required=True)
         if stage == 'score': xp.add_argument('--settlement-dir', type=Path, required=True)
         if stage != 'verify': xp.add_argument('--artifact-dir', type=Path, default=Path('data/prospective_xpts')/('forecasts' if stage=='freeze' else 'scores'))
+    decision = subparsers.add_parser('optimise', help='one-GW current-squad transfers over a frozen M4E forecast')
+    decision.add_argument('--forecast-dir', type=Path, required=True)
+    decision.add_argument('--model-dir', type=Path, required=True, help='trusted local M4E model bundle used to verify the forecast')
+    decision.add_argument('--model', choices=('control', 'v2'), required=True)
+    decision.add_argument('--squad', type=Path, required=True, help='current-squad-v1 JSON; prices/bank in integer tenths')
+    decision.add_argument('--max-transfers', type=int, default=2)
+    decision.add_argument('--top-n', type=int, default=3)
+    decision.add_argument('--artifact-dir', type=Path, default=Path('data/decisions'))
     return parser
 
 
@@ -128,6 +136,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
+        if args.command == 'optimise':
+            if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
+                parser.error('optimise does not accept current-ingestion options')
+            from fpl_ai.transfer_optimiser import build_decision
+            out, reused = build_decision(args.forecast_dir, args.model_dir, args.model, args.squad,
+                                         args.artifact_dir, max_transfers=args.max_transfers, top_n=args.top_n)
+            print(f"One-GW decision {'reused' if reused else 'completed'}: {out}")
+            print((out / 'report.md').read_text())
+            return 0
         if args.command in ('minutes', 'prospective'):
             if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
                 parser.error('modelling commands do not accept current-ingestion options')

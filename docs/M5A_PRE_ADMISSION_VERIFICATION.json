@@ -1,0 +1,479 @@
+{
+  "demo_only_not_user_team": true,
+  "models": {
+    "control": {
+      "all_XIs_independently_exhaustively_optimal": true,
+      "all_incoming_players_selectable": true,
+      "all_squads_economics_formations_captains_objectives_exact": true,
+      "baseline": {
+        "bench_order": [
+          107,
+          21,
+          30,
+          2
+        ],
+        "captain": 4,
+        "captain_bonus": 4.103148516313518,
+        "gain_vs_no_transfer": 0.0,
+        "gross_xi_points": 26.597058051389123,
+        "net_points": 30.70020656770264,
+        "next_free_transfers": 2,
+        "resulting_bank": 10,
+        "squad": [
+          1,
+          2,
+          4,
+          21,
+          30,
+          32,
+          33,
+          40,
+          42,
+          43,
+          60,
+          67,
+          79,
+          106,
+          107
+        ],
+        "starting_xi": [
+          1,
+          4,
+          32,
+          33,
+          40,
+          42,
+          43,
+          60,
+          67,
+          79,
+          106
+        ],
+        "transfer_count": 0,
+        "transfer_hit": 0,
+        "transfers_in": [],
+        "transfers_out": [],
+        "vice_captain": 1
+      },
+      "baseline_and_all_plans_unchanged_from_pre_hardening": true,
+      "fresh_identity_and_content_equal": true,
+      "identity": "2e80f3ac85697fdaa3cb5853ced7a10fd8e1030afd19aac0ebac648d94ec02fe",
+      "model": "control",
+      "original_winners_selectable": {
+        "124": true,
+        "449": true
+      },
+      "plans": [
+        {
+          "bench_order": [
+            33,
+            107,
+            30,
+            2
+          ],
+          "captain": 124,
+          "captain_bonus": 4.1555284794511165,
+          "gain_vs_no_transfer": 3.390659290542086,
+          "gross_xi_points": 29.935337378793612,
+          "net_points": 34.090865858244726,
+          "next_free_transfers": 1,
+          "resulting_bank": 1,
+          "squad": [
+            1,
+            2,
+            4,
+            30,
+            32,
+            33,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            107,
+            124
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            124
+          ],
+          "transfer_count": 1,
+          "transfer_hit": 0,
+          "transfers_in": [
+            124
+          ],
+          "transfers_out": [
+            21
+          ],
+          "vice_captain": 4
+        },
+        {
+          "bench_order": [
+            107,
+            21,
+            30,
+            2
+          ],
+          "captain": 124,
+          "captain_bonus": 4.1555284794511165,
+          "gain_vs_no_transfer": 3.1851933020341896,
+          "gross_xi_points": 29.729871390285716,
+          "net_points": 33.88539986973683,
+          "next_free_transfers": 1,
+          "resulting_bank": 6,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            30,
+            32,
+            33,
+            40,
+            43,
+            60,
+            67,
+            79,
+            106,
+            107,
+            124
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            33,
+            40,
+            43,
+            60,
+            67,
+            79,
+            106,
+            124
+          ],
+          "transfer_count": 1,
+          "transfer_hit": 0,
+          "transfers_in": [
+            124
+          ],
+          "transfers_out": [
+            42
+          ],
+          "vice_captain": 4
+        },
+        {
+          "bench_order": [
+            107,
+            21,
+            30,
+            2
+          ],
+          "captain": 4,
+          "captain_bonus": 4.103148516313518,
+          "gain_vs_no_transfer": 2.550519475173356,
+          "gross_xi_points": 29.147577526562475,
+          "net_points": 33.250726042875996,
+          "next_free_transfers": 1,
+          "resulting_bank": 5,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            30,
+            32,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            107,
+            115
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            115
+          ],
+          "transfer_count": 1,
+          "transfer_hit": 0,
+          "transfers_in": [
+            115
+          ],
+          "transfers_out": [
+            33
+          ],
+          "vice_captain": 1
+        }
+      ],
+      "population_counts": {
+        "eligible_not_owned": 540,
+        "forecast_population": 659,
+        "optimisation_population": 555,
+        "owned_population": 15,
+        "owned_unselectable": 1,
+        "transfer_in_eligible_population": 554
+      },
+      "reuse_preserves_bytes_mtimes": true
+    },
+    "v2": {
+      "all_XIs_independently_exhaustively_optimal": true,
+      "all_incoming_players_selectable": true,
+      "all_squads_economics_formations_captains_objectives_exact": true,
+      "baseline": {
+        "bench_order": [
+          21,
+          30,
+          107,
+          2
+        ],
+        "captain": 4,
+        "captain_bonus": 3.845427381649816,
+        "gain_vs_no_transfer": 0.0,
+        "gross_xi_points": 24.1686001377181,
+        "net_points": 28.014027519367918,
+        "next_free_transfers": 2,
+        "resulting_bank": 10,
+        "squad": [
+          1,
+          2,
+          4,
+          21,
+          30,
+          32,
+          33,
+          40,
+          42,
+          43,
+          60,
+          67,
+          79,
+          106,
+          107
+        ],
+        "starting_xi": [
+          1,
+          4,
+          32,
+          33,
+          40,
+          42,
+          43,
+          60,
+          67,
+          79,
+          106
+        ],
+        "transfer_count": 0,
+        "transfer_hit": 0,
+        "transfers_in": [],
+        "transfers_out": [],
+        "vice_captain": 40
+      },
+      "baseline_and_all_plans_unchanged_from_pre_hardening": true,
+      "fresh_identity_and_content_equal": true,
+      "identity": "2b6eb9dd29f59eff6518dd1ec59d1e83998c0ed03455df36d1874fff1ae40dd2",
+      "model": "v2",
+      "original_winners_selectable": {
+        "124": true,
+        "449": true
+      },
+      "plans": [
+        {
+          "bench_order": [
+            21,
+            30,
+            107,
+            2
+          ],
+          "captain": 4,
+          "captain_bonus": 3.845427381649816,
+          "gain_vs_no_transfer": 2.6872960872482317,
+          "gross_xi_points": 26.855896224966333,
+          "net_points": 30.70132360661615,
+          "next_free_transfers": 1,
+          "resulting_bank": 2,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            30,
+            32,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            107,
+            449
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            449
+          ],
+          "transfer_count": 1,
+          "transfer_hit": 0,
+          "transfers_in": [
+            449
+          ],
+          "transfers_out": [
+            33
+          ],
+          "vice_captain": 40
+        },
+        {
+          "bench_order": [
+            33,
+            21,
+            107,
+            2
+          ],
+          "captain": 4,
+          "captain_bonus": 3.845427381649816,
+          "gain_vs_no_transfer": 2.6872960872482317,
+          "gross_xi_points": 26.855896224966333,
+          "net_points": 30.70132360661615,
+          "next_free_transfers": 1,
+          "resulting_bank": 2,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            32,
+            33,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            107,
+            449
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            449
+          ],
+          "transfer_count": 1,
+          "transfer_hit": 0,
+          "transfers_in": [
+            449
+          ],
+          "transfers_out": [
+            30
+          ],
+          "vice_captain": 40
+        },
+        {
+          "bench_order": [
+            21,
+            30,
+            107,
+            2
+          ],
+          "captain": 4,
+          "captain_bonus": 3.845427381649816,
+          "gain_vs_no_transfer": 2.561242308580482,
+          "gross_xi_points": 26.729842446298584,
+          "net_points": 30.5752698279484,
+          "next_free_transfers": 1,
+          "resulting_bank": 5,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            30,
+            32,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            107,
+            115
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            115
+          ],
+          "transfer_count": 1,
+          "transfer_hit": 0,
+          "transfers_in": [
+            115
+          ],
+          "transfers_out": [
+            33
+          ],
+          "vice_captain": 40
+        }
+      ],
+      "population_counts": {
+        "eligible_not_owned": 540,
+        "forecast_population": 659,
+        "optimisation_population": 555,
+        "owned_population": 15,
+        "owned_unselectable": 1,
+        "transfer_in_eligible_population": 554
+      },
+      "reuse_preserves_bytes_mtimes": true
+    }
+  },
+  "no_target_outcomes_or_network_required": true,
+  "prior_report_sha256": "b70650ee2352c8422ff6367074dcfab9dc7f93eb5c55f980c5d81ad4b7c21c46"
+}

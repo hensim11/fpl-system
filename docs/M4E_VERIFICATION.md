@@ -174,7 +174,10 @@ Verify the already-published real xPts forecast with:
 
 ## Verification and limits
 
-The independent verifier opens pinned raw bootstrap and settlement captures,
+The verifier is an **independent verification entry point with raw-evidence
+reconstruction**, not a fully independent reimplementation of feature equations.
+It calls production feature, fitting and forecast-verification functions. It
+opens pinned raw bootstrap and settlement captures,
 checks their hashes and flags, reconstructs all 56,804 feature rows using the live
 projection, and compares every ordered value/type/missingness and fitting-row hash
 with M3/M4C. It independently checks integer points labels, keyed populations,
