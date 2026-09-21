@@ -1,12 +1,60 @@
 # Project state
 
-Last updated: 2026-09-18
+Last updated: 2026-09-21
 
 ## Current milestone
 
-Milestone 4 — First predictive experiments.
+**M5A — Rules-aware current-squad transfer optimiser v1** is **verified hardened and complete**. It takes
+an immutable M4E forecast, explicit control/v2 choice and a validated 15-player
+squad with exact selling prices, bank and free transfers. It returns deterministic
+ranked legal transfer plans, optimal XI/captain, hits, bank and gain against the
+best legal no-transfer baseline. Rules and decisions are separately versioned;
+M4E models and all earlier analytical guarantees remain frozen.
 
-Status: **first substantial Milestone 4 batch complete; current exit criterion satisfied**. A reproducible, validation-selected histogram gradient-boosting model improves next-Gameweek point prediction over all five frozen baselines on the separate 2025/26 holdout. This is evidence for the agreed registered-player target, not downstream FPL decision utility. Milestones 1–3 and their artifacts remain unchanged. The exact 2021/22 GW18 freshness exception remains applicable. No optimiser or recommendations exist.
+Run `.venv/bin/python -m fpl_ai optimise --forecast-dir "$FORECAST" --model-dir
+"$MODEL" --model control --squad my-squad.json --max-transfers 2 --top-n 3`.
+Use `--model v2` for an explicitly chosen separate run. See
+[M5A verification](docs/M5A_VERIFICATION.md) for exact real forecast/model paths,
+input format, algorithm, checks and limitations;
+[machine evidence](docs/M5A_VERIFICATION.json) records the synthetic GW6 demo,
+independent arithmetic/XI checks and deterministic fresh/reuse results.
+[Regression evidence](docs/M5A_REGRESSION.json) records full normal/optimized tests
+and prior-artifact byte/mtime preservation. **238 tests pass normally and under
+optimized Python** (236 before this pass plus two new; 28 focused tests in both modes). The demo
+checks both explicit models over 659 forecast rows, **554 transfer-in-eligible**
+players, 540 eligible not owned, and 15 owned (one unselectable but retainable).
+The solver population is 555. Selectability comes only from the bound snapshot's
+strict boolean `can_select`; no later data or status proxy. Tie loss is <=1e-6
+inclusive from each rank's best remaining objective, with exact input-float-sum
+boundary checks before fewer-transfers and lexicographic squad priorities.
+All original demo plan fields remain unchanged, including winners 124 and 449,
+independently confirmed selectable in that snapshot;
+control net is 34.090866 versus baseline 30.700207, and v2
+net is 30.701324 versus baseline 28.014028. These are projected demo objectives,
+not outcome or model-quality evidence. All **904 pre-hardening data files retain
+bytes and nanosecond mtimes**; normal/optimized real-verifier reports match exactly.
+M5A acceptance is restored after separating structural validation from semantic
+tie admission (Decision 049 corrects Decision 048's incomplete conclusion).
+All structural rows remain checked after rounding. The conditioned objective row
+admits candidates directly to the exact Fraction gate; numerical admission never
+implies acceptance within the unchanged inclusive <=1e-6 band. Presolve-disabled
+retry and fail-closed optimality are retained. The reviewer's seeds 1596/top-1 and
+26/top-10 fail against the old guard and pass the new exhaustive regressions.
+A 400-seed positive-xPts sweep at depths 1/3/10/20 verifies 1,600 cases against an
+independent exhaustive oracle, with 121 actual out-of-band rejections; normal and
+optimized sweep reports are byte-identical. No commit, merge or push performed.
+
+This is a **one-Gameweek optimiser v1**, not full multi-Gameweek planning. It cannot
+value rolling transfers, future fixtures, uncertainty, chips or squad flexibility.
+The demo squad is synthetic and is not the user's team. No model quality or
+realised decision-utility improvement is inferred from optimised forecasts.
+
+M4E prospective evaluation continues independently: retain nearer-deadline GW6
+states when the actual clock permits, settle/score only authoritative outcomes,
+and accumulate evidence without premature control/v2 selection. Recommended next
+substantial objective: **multi-Gameweek projections and transfer-path optimisation**.
+
+The following sections preserve earlier milestone evidence and its original scope.
 
 ## Current M4E result
 
@@ -124,7 +172,7 @@ frozen records of the earlier batches.
 - Vaastav fixture-level `total_points` is canonical. Player/Gameweek sums are reconciled against settled `fplcache` `event_points`; all five seasons require 100% eligible-row coverage, and no usable comparison, sub-threshold coverage, or any mismatch is a hard quality failure.
 - Vaastav input shape is selected through the season's `vaastav-2024-25-v1`, `vaastav-2023-24-v1`, `vaastav-2022-23-v1`, `vaastav-2021-22-v1` or `vaastav-2025-26-v1` schema. Its declarative mappings execute at one typed normalisation boundary, after which generic transforms consume only canonical names. Integer, decimal, boolean, string/enumeration, nullability, and UTC timestamp contracts are enforced. Optional-column reporting is category-accurate, quarantine targets are unique, and `xP` remains structurally forbidden.
 - Current and historical CLI option destinations are independent. Conflicting duplicate values before and after `historical` produce an argparse error instead of silent overwriting.
-- Milestone 3 provides offline features and baseline evaluation through `python -m fpl_ai features`. Milestone 4 consumes its frozen products through `python -m fpl_ai experiment validate` and `experiment holdout`; optimisation and FPL decision rules remain future work.
+- Milestone 3 provides offline features and baseline evaluation through `python -m fpl_ai features`. Milestone 4 consumes its frozen products through `python -m fpl_ai experiment validate` and `experiment holdout`; M5A now implements the one-GW rules/decision boundary described above.
 
 ### Verified current-state run
 

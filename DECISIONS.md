@@ -913,3 +913,209 @@ No downstream decision utility is established. Current fixture capture does not
 make historical fixture context available, and M4D's worse top-10 result remains
 part of the evidence. New 2026/27 prospective outcomes are required for stronger
 claims; successful live settlement/scoring awaits its legal stage.
+
+
+## 046 — Versioned one-Gameweek decision boundary over frozen prospective xPts
+
+Status: implemented in M5A; see `docs/M5A_VERIFICATION.md`.
+
+Use a registered immutable season rules contract, a closed current-squad JSON
+contract and a separate content-addressed decision family. User-specific selling
+prices and bank are integer tenths; do not infer account economics from public
+purchase prices. Validate the original squad as well as every resulting squad.
+The forecast boundary calls M4E's existing verifier, restores its bound snapshot,
+and demands exact population, season/GW/deadline, source and model identities.
+Require an explicit control/v2 choice; never select or blend by plan outcomes.
+No live refetch, refit, target settlement or future label enters optimisation.
+
+Use existing SciPy/HiGHS MILP with squad, XI and captain membership, positions,
+club slots, exact-money budget and paid-transfer constraints. Primary objective
+is starting XI base xPts plus the captain's base xPts minus four-point transfer
+hits. Bench points and unused free transfers have no invented objective value.
+Top-N excludes complete prior squads; retain the optimal no-transfer baseline
+separately. Tie resolution uses fewer transfers then ascending squad IDs, with
+explicit 1e-6 numerical tolerance and no prediction rounding/clipping. Reject
+unproven time-limited solves. Recompute each fixed squad's best legal XI/captain.
+
+Publish canonical squad/hash, full candidate predictions, original forecast
+manifest/hash, model/source identities, rules, config, objective, baseline/plans,
+implementation/environment hashes and checksums. Fresh replay is deterministic;
+reuse verifies instead of rewriting. Do not modify accepted upstream products.
+The command supports offline evidence replay after deadlines, without claiming
+current freshness or backdating any forecast. An early synthetic GW6 demonstration
+is verification, not advice for the user's unknown actual team.
+
+This is a one-Gameweek optimiser v1. Future fixtures, transfer rolling option
+value, uncertainty, chip strategy and multi-GW flexibility require a subsequent
+projection/transfer-path contract. M4E prospective retention and settled scoring
+remain separate. Its verifier is an independent verification entry point with
+raw-evidence reconstruction using production feature/fitting/replay functions,
+not an independently implemented feature engine.
+
+
+## 047 — Bound transfer-in selectability and inclusive objective tie tolerance
+
+Status: verified M5A hardening; Decision 046 remains the original design record.
+
+The complete M4E forecast population is not the transferable population. Read
+`elements[].can_select` from the exact checksum-verified bootstrap embedded in
+M4E's snapshot evidence. Require an actual JSON boolean for every forecast row;
+missing, null, numeric/string substitutes or mismatching embedded evidence fail
+closed. `true` permits a new acquisition; `false` forbids one. Do not infer this
+permission from status, predicted points, `can_transact`, `removed`, later data or
+final-season identity. In the retained GW6 snapshot all 659 rows have
+`can_transact=true` and `removed=false`, but only 554 have `can_select=true`.
+The field's selection semantics are also described in the provider's
+[data dictionary](https://github.com/vaastav/Fantasy-Premier-League/blob/master/DATA_DICTIONARY.md#position--status).
+This documentation lookup is not a live-data input to the decision pipeline.
+
+Preserve all 659 rows and their exact selectability flags in the decision's audit
+population. Build MILP variables only for selectable players union existing squad
+members. An owned unselectable player remains eligible for retention, XI and
+captaincy, and can be sold under the existing transfer contract; unselectability
+alone neither invalidates ownership nor forces a transfer. All other original
+squad constraints still apply. Validate incoming flags again when constructing
+plans. No unselectable non-owned player can enter the resulting squad. Both model
+choices use this same boundary, with no refit or change to forecasts.
+
+Report forecast population, selectable/transfer-in-eligible population, eligible
+not-owned players, owned count, owned unselectable count and solver population
+separately. GW6 counts are 659 / 554 / 540 / 15 / 1 / 555 respectively. Independently
+read the bound raw snapshot during verification and confirm elements 124 and 449
+are selectable. All original demo baselines and ranked plans remain unchanged.
+Decision contract advances to `m5a-one-gw-transfers-v2`; new immutable identities
+retain the flags, counts and revised tie policy. Previous decision artifacts and
+all M2–M4E artifacts remain byte/mtime unchanged.
+
+Preserve the 1e-6 tolerance declared by Decision 046. For each top-N rank, first
+solve the best remaining primary net objective, then admit squads whose objective
+loss from that fixed reference is **<= 1e-6 inclusive**. Among admitted squads
+minimise transfers, then select lexicographically smallest sorted squad IDs.
+Do not compare consecutive secondary-stage results and accumulate tolerance.
+The old constraint incorrectly used `TOLERANCE / 10`, i.e. 1e-7.
+
+Predictions are unchanged binary64 input values. Compute exact sums of those
+values with `Fraction`, including XI and captain bonus minus integer hits, for
+boundary comparisons; the threshold is the exact binary64 value represented by
+Python's `1e-6` literal. No prediction rounding, clipping or objective quantisation.
+The fixed-squad XI comparison also uses exact sums, while reported numeric totals
+retain existing float arithmetic. Scale the primary solver objective uniformly
+by 1e6 and the inclusive tie constraint by 1e4 to improve numerical conditioning;
+neither scale changes its mathematical objective. MILP optimality remains subject
+to the underlying numerical solver; zero relative gap and fail-closed solve checks
+remain required.
+
+Solver feasibility tolerances must not enlarge the declared tie band. After each
+secondary solve, independently recompute the squad's best-XI net score. If its
+exact loss exceeds the band, exclude that squad only for this rank and retry.
+Restore those temporary cuts before the next top-N rank, retaining only the final
+selected-squad exclusion. Tests exercise equality, one representable float below,
+at and above 1e-6, clearly larger differences, both tie-break stages and prevention
+of chained tolerance. No materially inferior squad is accepted as a tie.
+
+
+## 048 — Unit-consistent scaled-constraint feasibility validation
+
+Status: verified numerical reliability hardening; supersedes the premature M5A
+acceptance conclusion after Decision 047, without changing its semantic contract.
+
+The primary objective's 1e6 scale and the tie row's 1e4 scale are numerical
+conditioning only. The old post-solve validator compared `A @ rounded_solution`
+against scaled row bounds using an unscaled 1e-6 allowance. It could therefore
+raise `solver constraint violation` on a valid supported input before the exact
+tie check could reject an inadmissible candidate and retry.
+
+Reproduced before changing production code with the existing 17-player fixture:
+all players have base xPts 1; selectable element 16 has `1 + 1.001e-6 / 2`, and
+non-owned element 17 is unselectable. Use maximum one transfer and top three.
+A real HiGHS secondary solve gives a scaled residual approximately 1.00000034e-5,
+equivalent to 1.00000034e-9 objective points. The old validator rejects this before
+semantic verification. The regression reproduces that failure by restoring the
+old all-unit-scale validation while still using real HiGHS solves.
+
+Track a positive scale with each constraint row. Use scale 1 for existing squad,
+budget, membership and discrete tie-fixing constraints, and 1e4 for the conditioned
+objective tie row. Check both lower and upper residuals divided by the row scale
+against separately named `FEASIBILITY_TOLERANCE=1e-6` in original row units.
+Truncate scale metadata together with temporary constraints at every rank boundary.
+This is numerical feasibility checking, not an extra semantic objective allowance.
+
+The final authority remains unchanged: `solve_tied` recomputes the best legal
+fixed-squad XI/captain objective using exact `Fraction` sums of original binary64
+forecasts. A loss greater than the binary64 1e-6 literal is excluded and retried;
+loss <=1e-6 is inclusive. Every secondary stage references the same rank's best
+remaining primary objective. No prediction rounding/clipping/quantisation, wider
+tie band, chained tolerance or relaxed FPL legality.
+
+Nearby valid inputs also exposed HiGHS presolve reporting a secondary model
+infeasible although an in-band witness exists. On that specific status only,
+retry the unchanged secondary model with presolve disabled. Require solver
+optimality, integrality, the same residual checks and the same exact tie gate.
+Unproven or time-limited solves remain failures; an unsuccessful retry fails closed.
+The base-xPts-3 analogue is a separate real-solver regression. Bounds are not
+relaxed and the objective, candidate population and eligibility are unchanged.
+
+Three new tests cover the real old-unit failure and successful legal top-three
+replay with exact objective checks, both sides of scaled numerical feasibility,
+and the nearby presolve retry. Existing inclusive-boundary and non-chaining tests
+remain intact. 26 focused and 236 full tests pass normally and under optimized
+Python. Fresh/reused GW6 decisions and normal/optimized reports are deterministic;
+all plans, objectives and counts match the preserved pre-scaling report. All 888
+pre-batch data files retain bytes and nanosecond mtimes. Corrected implementation
+hashes publish new decision identities, without rewriting previous decisions or
+M2–M4E evidence. M5A acceptance is restored only after these checks.
+
+
+## 049 — Structural feasibility and semantic tie admission are separate authorities
+
+Status: verified correction to Decision 048's incomplete reliability conclusion.
+Decisions 046–048 remain unchanged as historical records.
+
+Normalising the conditioned row residual was insufficient: HiGHS can admit a
+secondary candidate with loss about 2.00000000028e-6 and tie-row residual about
+0.010000000009 scaled units, or 1.00000000093e-6 original units. Decision 048's
+global 1e-6 feasibility guard still aborted before exact rejection/retry. The
+reviewer's supplied `random.Random` generator reproduces this with seed 1596,
+max transfers 2/top-N 1, and seed 26/max transfers 2/top-N 10. Both fail against
+the saved pre-fix implementation and the old guard emulated in regression tests.
+
+Give every row an explicit role: `structural` by default; only the conditioned
+objective band row is `objective_band`. Keep the tie row in the HiGHS model for
+search. After rounding, independently validate all structural residuals in their
+original units with the existing numerical allowance. Squad/position/club counts,
+XI/captain membership, exact-money budget, transfer limits, fixed transfer count,
+lexicographic fixings and no-good cuts are structural. Their integer violations
+cannot hide within the 1e-6 allowance. Additionally require finite values and
+rounded variables within their explicit bounds. Solver optimality and integrality
+remain mandatory. The presolve-disabled retry for secondary false infeasibility
+uses the unchanged model and the same checks.
+
+Do not subject the objective-band row to another generic numerical residual
+cutoff. A solver-successful, integral, structurally valid secondary candidate is
+admitted to `solve_tied` regardless of that row's numerical residual. Numerical
+admission is NOT semantic acceptance. The sole acceptance authority is the existing
+exact `Fraction` best legal XI/captain net score, formed from original binary64
+predictions, compared to the fixed rank-specific best objective. Loss <= the exact
+binary64 1e-6 literal is inclusive; greater loss excludes that complete squad and
+retries. Each secondary stage uses the same reference. Temporary rows, roles and
+scales are restored together between ranks. No enlarged band, prediction rounding,
+clipping, quantisation or chained tolerance; deterministic ranking is unchanged.
+
+Tests reproduce both reviewer failures using the exact supplied generator and
+compare corrected results against a separate exhaustive oracle. The oracle
+enumerates legal small-fixture squads and ALL their legal starting XIs, computes
+exact binary64 objectives independently using integer-scaled weights, and selects
+per rank by objective band, then fewer transfers, then ascending squad IDs.
+It does not call production lineup, plan or rules helpers for its reference.
+Real-solver observation confirms excluded candidates actually reach the exact gate.
+The structural upper/lower residual regressions remain, as do all boundary tests.
+
+`verify_transfer_sweep.py` checks 400 deterministic strictly positive-xPts seeds,
+including 1596 and 26, at depths 1, 3, 10 and 20: 1,600 cases all match the oracle,
+with 121 out-of-band candidate rejections. Normal/optimized sweep reports match
+byte-for-byte. All 28 focused and 238 full tests pass in both modes. Independent
+GW6 fresh/reuse verification is unchanged in every plan, objective, eligibility
+and population count; normal/optimized reports match. All 904 pre-batch data files
+retain original bytes and nanosecond mtimes. Tracked diffs and every nonignored
+untracked M5A text artifact pass whitespace checks. New implementation/config
+hashes create new decision identities without rewriting old analytical evidence.

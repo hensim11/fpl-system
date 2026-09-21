@@ -1,5 +1,39 @@
 # FPL AI Platform
 
+## One-Gameweek transfer optimiser v1 (M5A)
+
+`python -m fpl_ai optimise` consumes an immutable M4E forecast, an explicit
+`--model control|v2`, and your `current-squad-v1` JSON. Supply all 15 element IDs,
+exact selling prices, bank (integer £0.1m units) and available free transfers.
+It returns ranked legal transfer plans, optimal XI/captain, transfer hits, bank
+and gain against an explicit no-transfer baseline. SciPy/HiGHS solves the joint
+squad/XI/captain problem; no dependency or model change is needed. Incoming players
+must have boolean `can_select=true` in the exact frozen forecast snapshot.
+Already-owned unselectable players may remain; missing/malformed flags fail closed.
+Reports distinguish the full forecast population from transfer-in eligibility.
+Verified GW6 counts are 659 forecast rows and 554 selectable players. The exact
+objective tie band remains inclusive <=1e-6 points. Solver scaling is numerical
+conditioning. Structural constraints remain independently checked after rounding;
+objective-row candidates reach the exact Fraction check without an intervening
+numerical residual cutoff. Admission to that check is not acceptance into the tie
+band: out-of-band squads are excluded and retried. Both reviewer cases and 1,600
+exhaustive small-population comparisons pass in normal and optimized Python;
+see Decision 049 and the verification record.
+
+```bash
+.venv/bin/python -m fpl_ai optimise --forecast-dir "$FORECAST" --model-dir "$MODEL" \
+  --model control --squad my-squad.json --max-transfers 2 --top-n 3
+```
+
+See [complete commands, input contract and verification](docs/M5A_VERIFICATION.md)
+and the [synthetic demo input](tests/fixtures/optimiser/demo_gw6_squad.json).
+Outputs are immutable under `data/decisions/<identity>/`, with an inspectable
+`report.md`, complete plans/population, rules and provenance. Identical reruns
+verify/reuse content without rewriting. This single-GW objective is XI points plus
+captain bonus minus hits; it cannot value rolling transfers, future fixtures,
+uncertainty, chips or multi-GW flexibility. M4E prospective evaluation continues
+independently. No demo result is a recommendation for your actual team.
+
 ## Current-season prospective xPts (M4E)
 
 The CLI now supports `prospective xpts fit`, `freeze`, `verify` and `score`.
@@ -17,10 +51,10 @@ has no retrospective xPts forecast. No live xPts score exists yet.
 See [M4E verification](docs/M4E_VERIFICATION.md) for exact model identities,
 commands, fitting cutoffs, evidence and limitations. M4D's historical evidence is
 mixed; both models remain available and require new prospective evaluation before
-any claim of better FPL decisions. No optimiser or recommendations exist.
+any claim of better FPL decisions. M5A now adds the one-Gameweek decision layer described below.
 
 
-Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for the complete 2021/22–2025/26 range. Milestones 2 and 3 are complete: deadline-safe features and chronological non-ML baseline evaluation now build offline from those historical inputs. Milestone 4 now adds reproducible trained regressors and a frozen-model holdout workflow. The selected model improves the frozen next-GW prediction benchmark. M4B now adds independently evidenced playing-time features, a bounded expected-minutes model, and a CLI for immutable prospective forecasts and separate settled scoring. M4C adds annual chronological OOS minutes artifacts with guarded downstream eligibility and a verified real 2026/27 GW5 forecast. M4D adds a fixed historical xPts-v2 ablation using verified OOS expected minutes: modest RMSE/MAE gains over its matched control, but weaker top-10 realised points. Optimisation and recommendations remain future work.
+Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for the complete 2021/22–2025/26 range. Milestones 2 and 3 are complete: deadline-safe features and chronological non-ML baseline evaluation now build offline from those historical inputs. Milestone 4 now adds reproducible trained regressors and a frozen-model holdout workflow. The selected model improves the frozen next-GW prediction benchmark. M4B now adds independently evidenced playing-time features, a bounded expected-minutes model, and a CLI for immutable prospective forecasts and separate settled scoring. M4C adds annual chronological OOS minutes artifacts with guarded downstream eligibility and a verified real 2026/27 GW5 forecast. M4D adds a fixed historical xPts-v2 ablation using verified OOS expected minutes: modest RMSE/MAE gains over its matched control, but weaker top-10 realised points. M5A adds rules-aware one-Gameweek transfer plans; multi-Gameweek planning remains future work.
 
 ## Quick start
 
@@ -336,7 +370,7 @@ A table-quality failure does not update `catalogue.json`. It is retained under `
 - `fplcache` capture filenames are interpreted as UTC because the pinned archive is generated by GitHub Actions' UTC runner.
 - Assistant Manager elements have club-slot rather than stable person identity semantics.
 - CSV is retained for portability and zero dependencies; downstream readers must apply `schemas.json`.
-- There is no retry/backoff, database, scheduler, orchestration framework or optimiser. Offline features and trained experiments are implemented; live model serving is not.
+- There is no retry/backoff, database, scheduler, orchestration framework. Offline features and trained experiments are implemented; live model serving is not.
 - Current endpoint responses are sequential rather than an atomic upstream snapshot.
 - Data use and redistribution require a separate review; see [DATA_NOTICE.md](DATA_NOTICE.md).
 
@@ -558,4 +592,4 @@ Missing forecasts or points stay audited and excluded, never filled with zero.
 See [M4D verification](docs/M4D_VERIFICATION.md), [machine evidence](docs/M4D_VERIFICATION.json)
 and [regression/preservation](docs/M4D_REGRESSION.json) for exact identities, feature
 order, all diagnostics, tests and limitations. The prospective GW5 lifecycle remains
-separate. M4E now provides the current-season adapter described above; no optimiser exists.
+separate. M4E now provides the current-season adapter described above; M5A consumes it for one-Gameweek transfer decisions.
