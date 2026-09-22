@@ -14,6 +14,10 @@ from fpl_ai.evaluation import BASELINES
 
 
 STAGE_ARTIFACTS = {
+    'multi-horizon-model': {'protocol.json', 'fit.json', 'predictions.csv'} | {f'{prefix}h{h}.pickle' for prefix in ('', 'eval_') for h in range(5)},
+    'multi-horizon-score': {'metrics.json', 'outcomes.csv'},
+    'multi-horizon-forecast': {'projections.json', 'h0_comparison.json', 'source.json'},
+    'multi-gw-transfer-path': {'decision.json', 'squad.json', 'source.json', 'report.md'},
     'one-gw-transfer-decision': {'squad.json', 'population.json', 'source.json', 'decision.json', 'rules.json', 'config.json', 'report.md'},
     'prospective-xpts-model': {'protocol.json', 'fit.json', 'sources.json', 'training.csv', 'control.pickle', 'xpts_v2.pickle'},
     'prospective-xpts-forecast': {'features.csv', 'predictions.csv', 'history.json', 'evidence.json'},

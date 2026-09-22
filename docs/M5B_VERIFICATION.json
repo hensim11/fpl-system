@@ -1,0 +1,3162 @@
+{
+  "forecast": {
+    "artifacts": {
+      "h0_comparison.json": "0fd0a014f0554fed7673ced763f5bae96a3dcd19eb71956e734a0108051b4a58",
+      "projections.json": "e81536e23f8945a2d070d18dba0e34ec417ad2ff8223d85f4c84d6649907b10d",
+      "source.json": "c135bade8893e461b73b357ae28b32631dd74ffb2752799a499d173069636b6d"
+    },
+    "identity_sha256": "03a9f348378b8ad61a8eea3c58424fdb7bf689f5c1da46707c03e54c35f1427b",
+    "metadata": {
+      "as_of_gameweek": 6,
+      "capture": "2026-09-18T21:07:27.274412Z",
+      "computed_at": "2026-09-21T22:51:47.767427Z",
+      "deadline": "2026-10-10T10:00:00Z",
+      "forecast_identity": "1aebfd57e85b4a1d44904f0669d0ff03a4caf2dfaa6bb40473d828f5c8128527",
+      "horizon": 5,
+      "kind": "multi-horizon-forecast",
+      "m4e_model_identity": "11aa9eb62174997637edf2e2a7090aa6a197f068526ed981434e869556db9230",
+      "model_identity": "b0e9cf270c6524278ddb6c288c393aef580159c2a36a02b9a01e81cfadf4235b",
+      "protocol": {
+        "eligibility": "strict snapshot can_select frozen across horizon; owned unselectable may remain",
+        "evaluation": "2025-26 is already consumed historical evidence, not an untouched holdout",
+        "features": [
+          "price",
+          "selected_by_percent",
+          "transfers_in_event",
+          "transfers_out_event",
+          "chance_of_playing_next_round",
+          "previous_points",
+          "points_mean_3",
+          "points_mean_5",
+          "points_count_3",
+          "points_count_5",
+          "season_points_mean",
+          "season_points_count",
+          "deadline_position_id_missing",
+          "price_missing",
+          "selected_by_percent_missing",
+          "transfers_in_event_missing",
+          "transfers_out_event_missing",
+          "status_missing",
+          "chance_of_playing_next_round_missing",
+          "previous_points_missing",
+          "points_mean_3_missing",
+          "points_mean_5_missing",
+          "season_points_mean_missing",
+          "deadline_position_id",
+          "status"
+        ],
+        "h0": "distinct all-prior-season direct model; not identical to M4E matched-OOS-population control or v2; both remain frozen",
+        "historical_fit": "2021-22 through 2024-25; fixed design before 2025-26 evaluation; no selection",
+        "horizons": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "model": {
+          "categorical_features": null,
+          "early_stopping": false,
+          "family": "hist_gradient_boosting",
+          "l2_regularization": 10.0,
+          "learning_rate": 0.05,
+          "loss": "squared_error",
+          "max_iter": 150,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 50,
+          "random_state": 1729
+        },
+        "preprocessing": {
+          "categorical": [
+            "deadline_position_id",
+            "status"
+          ],
+          "categorical_null": "literal __missing__; does not imply any actual status",
+          "encoding": "training one-hot, all categories retained; unknown all-zero",
+          "indicator_transform": "passthrough; never imputed or scaled",
+          "indicators": [
+            "deadline_position_id_missing",
+            "price_missing",
+            "selected_by_percent_missing",
+            "transfers_in_event_missing",
+            "transfers_out_event_missing",
+            "status_missing",
+            "chance_of_playing_next_round_missing",
+            "previous_points_missing",
+            "points_mean_3_missing",
+            "points_mean_5_missing",
+            "season_points_mean_missing"
+          ],
+          "null_semantics": "Computational fills only; original missingness indicators retain meaning. No null-as-fit interpretation.",
+          "numeric": [
+            "price",
+            "selected_by_percent",
+            "transfers_in_event",
+            "transfers_out_event",
+            "chance_of_playing_next_round",
+            "previous_points",
+            "points_mean_3",
+            "points_mean_5",
+            "points_count_3",
+            "points_count_5",
+            "season_points_mean",
+            "season_points_count"
+          ],
+          "numeric_imputation": "training median; all-null column fallback 0 with indicator retained",
+          "scaling": "training StandardScaler on imputed numeric columns; both families use same projection"
+        },
+        "prices": "static current purchase prices; exact initial selling prices until sold; repurchased players sell at purchase price",
+        "production_fit": "all five prior seasons; settlements strictly before 2026-07-01",
+        "season_end": "truncate at GW38; no labels beyond season end",
+        "state": "one accepted M3 state at g; no future features, fixtures, minutes or recursive predictions",
+        "target": "individual GW g+h points from verified M3 labels joined by season/element; absent future population or unlabelled GW stays missing",
+        "uncertainty": "descriptive residual quantiles only; no risk penalty",
+        "version": "m5b-direct-points-v1"
+      },
+      "season": "2026-27",
+      "snapshot_age_minutes_at_deadline": 31012.545426466666,
+      "snapshot_identity": "debbe980cdb6b8f5cc136949007f0dd0536a057c77c3acedb6cff622194cfa6c",
+      "started_at": "2026-09-21T22:51:47.440524Z"
+    }
+  },
+  "historical": {
+    "consumed_historical_evaluation": true,
+    "coverage": {
+      "0": {
+        "evaluation_population": 29645,
+        "excluded_missing_labels": 624,
+        "historical_fit": 107393,
+        "horizon_label_join_verified": true,
+        "production_labelled": 137038
+      },
+      "1": {
+        "evaluation_population": 28805,
+        "excluded_missing_labels": 623,
+        "historical_fit": 104241,
+        "horizon_label_join_verified": true,
+        "production_labelled": 133046
+      },
+      "2": {
+        "evaluation_population": 27967,
+        "excluded_missing_labels": 603,
+        "historical_fit": 101122,
+        "horizon_label_join_verified": true,
+        "production_labelled": 129089
+      },
+      "3": {
+        "evaluation_population": 27135,
+        "excluded_missing_labels": 594,
+        "historical_fit": 97998,
+        "horizon_label_join_verified": true,
+        "production_labelled": 125133
+      },
+      "4": {
+        "evaluation_population": 26305,
+        "excluded_missing_labels": 589,
+        "historical_fit": 94877,
+        "horizon_label_join_verified": true,
+        "production_labelled": 121182
+      }
+    },
+    "h0_not_M4E_parity": true,
+    "independent_fit_keys_features_labels_chronology": true,
+    "independent_overall_metrics_match": true,
+    "metrics": {
+      "cumulative": {
+        "3": {
+          "distribution": {
+            "max": 22.964305968765323,
+            "mean": 3.379565013732652,
+            "min": -0.0899355784499791,
+            "quantiles_05_25_50_75_95": [
+              0.003971052564757095,
+              0.11524994745085546,
+              1.5486666250673857,
+              6.332038764591898,
+              10.519151399135612
+            ]
+          },
+          "residual_quantiles_05_25_50_75_95": [
+            -5.144196604598758,
+            -1.2565049101564782,
+            -0.12045340917668265,
+            0.020828730243114883,
+            7.8284218694083245
+          ],
+          "segments": {
+            "overall": {
+              "direct": {
+                "labelled_rows": 27967,
+                "mae": 2.196391078776976,
+                "mean_gameweek_spearman": 0.8118160280755472,
+                "missing_predictions": 0,
+                "population_rows": 27967,
+                "predicted_rows": 27967,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 3.8094687469256585
+              },
+              "position_mean": {
+                "labelled_rows": 27967,
+                "mae": 4.19929735947326,
+                "mean_gameweek_spearman": 0.07820485514701972,
+                "missing_predictions": 0,
+                "population_rows": 27967,
+                "predicted_rows": 27967,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 5.475660219712359
+              },
+              "recent_points": {
+                "labelled_rows": 27967,
+                "mae": 2.6709813772961493,
+                "mean_gameweek_spearman": 0.7602658452517789,
+                "missing_predictions": 0,
+                "population_rows": 27967,
+                "predicted_rows": 27967,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 5.006878569805519
+              }
+            },
+            "position:1": {
+              "direct": {
+                "labelled_rows": 3222,
+                "mae": 1.3864282353110708,
+                "mean_gameweek_spearman": 0.709208726080797,
+                "missing_predictions": 0,
+                "population_rows": 3222,
+                "predicted_rows": 3222,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.7898204386987797
+              },
+              "position_mean": {
+                "labelled_rows": 3222,
+                "mae": 3.629666110881509,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 3222,
+                "predicted_rows": 3222,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 36,
+                "rmse": 4.661751197530586
+              },
+              "recent_points": {
+                "labelled_rows": 3222,
+                "mae": 1.5709615033919315,
+                "mean_gameweek_spearman": 0.8447198975452966,
+                "missing_predictions": 0,
+                "population_rows": 3222,
+                "predicted_rows": 3222,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 3.6774168119066397
+              }
+            },
+            "position:2": {
+              "direct": {
+                "labelled_rows": 9167,
+                "mae": 2.4497511916555927,
+                "mean_gameweek_spearman": 0.7879240603997605,
+                "missing_predictions": 0,
+                "population_rows": 9167,
+                "predicted_rows": 9167,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 4.142540700864238
+              },
+              "position_mean": {
+                "labelled_rows": 9167,
+                "mae": 4.252942771146769,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 9167,
+                "predicted_rows": 9167,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 36,
+                "rmse": 5.6413173442001225
+              },
+              "recent_points": {
+                "labelled_rows": 9167,
+                "mae": 3.0689148606558354,
+                "mean_gameweek_spearman": 0.7212005367611737,
+                "missing_predictions": 0,
+                "population_rows": 9167,
+                "predicted_rows": 9167,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 5.4724819466078625
+              }
+            },
+            "position:3": {
+              "direct": {
+                "labelled_rows": 12498,
+                "mae": 2.187071434179824,
+                "mean_gameweek_spearman": 0.8245188563285694,
+                "missing_predictions": 0,
+                "population_rows": 12498,
+                "predicted_rows": 12498,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 3.7365594113007297
+              },
+              "position_mean": {
+                "labelled_rows": 12498,
+                "mae": 4.249401206135769,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 12498,
+                "predicted_rows": 12498,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 36,
+                "rmse": 5.441590154881459
+              },
+              "recent_points": {
+                "labelled_rows": 12498,
+                "mae": 2.625824101827435,
+                "mean_gameweek_spearman": 0.7901490521458038,
+                "missing_predictions": 0,
+                "population_rows": 12498,
+                "predicted_rows": 12498,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 4.893830072198286
+              }
+            },
+            "position:4": {
+              "direct": {
+                "labelled_rows": 3080,
+                "mae": 2.3274381713302414,
+                "mean_gameweek_spearman": 0.850062694532476,
+                "missing_predictions": 0,
+                "population_rows": 3080,
+                "predicted_rows": 3080,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 3.9875729140653275
+              },
+              "position_mean": {
+                "labelled_rows": 3080,
+                "mae": 4.4322150603055706,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 3080,
+                "predicted_rows": 3080,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 36,
+                "rmse": 5.885772334016119
+              },
+              "recent_points": {
+                "labelled_rows": 3080,
+                "mae": 2.820586383974438,
+                "mean_gameweek_spearman": 0.8199342768703255,
+                "missing_predictions": 0,
+                "population_rows": 3080,
+                "predicted_rows": 3080,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 5.2121256549453125
+              }
+            }
+          }
+        },
+        "5": {
+          "distribution": {
+            "max": 35.34972235235827,
+            "mean": 5.644286971050581,
+            "min": -0.07458266639649613,
+            "quantiles_05_25_50_75_95": [
+              -0.005840826417646689,
+              0.27255049074685567,
+              3.1113096715041655,
+              10.472046655048723,
+              16.87651697256079
+            ]
+          },
+          "residual_quantiles_05_25_50_75_95": [
+            -7.801046158225876,
+            -2.0155822727515,
+            -0.22932128311276875,
+            0.4573272901131681,
+            11.230853173939227
+          ],
+          "segments": {
+            "overall": {
+              "direct": {
+                "labelled_rows": 26305,
+                "mae": 3.355812979815058,
+                "mean_gameweek_spearman": 0.8282315920808005,
+                "missing_predictions": 0,
+                "population_rows": 26305,
+                "predicted_rows": 26305,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 5.541891963126932
+              },
+              "position_mean": {
+                "labelled_rows": 26305,
+                "mae": 6.697027689104642,
+                "mean_gameweek_spearman": 0.07712814913105674,
+                "missing_predictions": 0,
+                "population_rows": 26305,
+                "predicted_rows": 26305,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 8.382345296751424
+              },
+              "recent_points": {
+                "labelled_rows": 26305,
+                "mae": 4.301630603824965,
+                "mean_gameweek_spearman": 0.7619238954651772,
+                "missing_predictions": 0,
+                "population_rows": 26305,
+                "predicted_rows": 26305,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 7.8471200762524544
+              }
+            },
+            "position:1": {
+              "direct": {
+                "labelled_rows": 3029,
+                "mae": 2.1444450867146014,
+                "mean_gameweek_spearman": 0.726303194161859,
+                "missing_predictions": 0,
+                "population_rows": 3029,
+                "predicted_rows": 3029,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 4.111482445549987
+              },
+              "position_mean": {
+                "labelled_rows": 3029,
+                "mae": 5.918245153388339,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 3029,
+                "predicted_rows": 3029,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 34,
+                "rmse": 7.294518839310369
+              },
+              "recent_points": {
+                "labelled_rows": 3029,
+                "mae": 2.617505562206774,
+                "mean_gameweek_spearman": 0.8316672495942483,
+                "missing_predictions": 0,
+                "population_rows": 3029,
+                "predicted_rows": 3029,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 33,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 5.888979789142514
+              }
+            },
+            "position:2": {
+              "direct": {
+                "labelled_rows": 8630,
+                "mae": 3.693726974039611,
+                "mean_gameweek_spearman": 0.8062877913892919,
+                "missing_predictions": 0,
+                "population_rows": 8630,
+                "predicted_rows": 8630,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 5.962160382035868
+              },
+              "position_mean": {
+                "labelled_rows": 8630,
+                "mae": 6.708019077333293,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 8630,
+                "predicted_rows": 8630,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 34,
+                "rmse": 8.523187236935028
+              },
+              "recent_points": {
+                "labelled_rows": 8630,
+                "mae": 4.908340893117961,
+                "mean_gameweek_spearman": 0.7254451083640184,
+                "missing_predictions": 0,
+                "population_rows": 8630,
+                "predicted_rows": 8630,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 33,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 8.50869527930735
+              }
+            },
+            "position:3": {
+              "direct": {
+                "labelled_rows": 11752,
+                "mae": 3.3698190503091037,
+                "mean_gameweek_spearman": 0.8389542214911068,
+                "missing_predictions": 0,
+                "population_rows": 11752,
+                "predicted_rows": 11752,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 5.474297759305215
+              },
+              "position_mean": {
+                "labelled_rows": 11752,
+                "mae": 6.790011476560222,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 11752,
+                "predicted_rows": 11752,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 34,
+                "rmse": 8.366225026852954
+              },
+              "recent_points": {
+                "labelled_rows": 11752,
+                "mae": 4.2286545536502365,
+                "mean_gameweek_spearman": 0.7952858727123877,
+                "missing_predictions": 0,
+                "population_rows": 11752,
+                "predicted_rows": 11752,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 33,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 7.684188733328054
+              }
+            },
+            "position:4": {
+              "direct": {
+                "labelled_rows": 2894,
+                "mae": 3.559142709461697,
+                "mean_gameweek_spearman": 0.8599794584811995,
+                "missing_predictions": 0,
+                "population_rows": 2894,
+                "predicted_rows": 2894,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 5.811306844067167
+              },
+              "position_mean": {
+                "labelled_rows": 2894,
+                "mae": 7.101772385059535,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 2894,
+                "predicted_rows": 2894,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 34,
+                "rmse": 9.061406604927244
+              },
+              "recent_points": {
+                "labelled_rows": 2894,
+                "mae": 4.551430015060748,
+                "mean_gameweek_spearman": 0.8193503199638605,
+                "missing_predictions": 0,
+                "population_rows": 2894,
+                "predicted_rows": 2894,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 33,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 8.230302338274132
+              }
+            }
+          }
+        }
+      },
+      "horizons": {
+        "0": {
+          "distribution": {
+            "max": 10.398024625979247,
+            "mean": 1.1216969085517272,
+            "min": -0.3693782995343,
+            "quantiles_05_25_50_75_95": [
+              -0.0026961228903216393,
+              0.012776489631951134,
+              0.35363772740898847,
+              2.1121382998836653,
+              3.734166052482613
+            ]
+          },
+          "residual_quantiles_05_25_50_75_95": [
+            -2.200975261766477,
+            -0.604983711514425,
+            -0.029696343305176953,
+            0.0007191378705372749,
+            3.770035537779101
+          ],
+          "segments": {
+            "overall": {
+              "direct": {
+                "labelled_rows": 29645,
+                "mae": 0.9481845980649941,
+                "mean_gameweek_spearman": 0.7421632206751749,
+                "missing_predictions": 0,
+                "population_rows": 29645,
+                "predicted_rows": 29645,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 38,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 1.9137559115654177
+              },
+              "position_mean": {
+                "labelled_rows": 29645,
+                "mae": 1.5283911582267398,
+                "mean_gameweek_spearman": 0.08047289300462214,
+                "missing_predictions": 0,
+                "population_rows": 29645,
+                "predicted_rows": 29645,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 38,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.3730046393572035
+              },
+              "recent_points": {
+                "labelled_rows": 29645,
+                "mae": 1.0728567882253104,
+                "mean_gameweek_spearman": 0.7070769950206136,
+                "missing_predictions": 0,
+                "population_rows": 29645,
+                "predicted_rows": 29645,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 38,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.2077058545421786
+              }
+            },
+            "position:1": {
+              "direct": {
+                "labelled_rows": 3416,
+                "mae": 0.5965901461177467,
+                "mean_gameweek_spearman": 0.6764536176824517,
+                "missing_predictions": 0,
+                "population_rows": 3416,
+                "predicted_rows": 3416,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 38,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 1.4102639729030717
+              },
+              "position_mean": {
+                "labelled_rows": 3416,
+                "mae": 1.2612636564881754,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 3416,
+                "predicted_rows": 3416,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 38,
+                "rmse": 1.917037965313243
+              },
+              "recent_points": {
+                "labelled_rows": 3416,
+                "mae": 0.6360173494439353,
+                "mean_gameweek_spearman": 0.8374208108770402,
+                "missing_predictions": 0,
+                "population_rows": 3416,
+                "predicted_rows": 3416,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 37,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 1.6327557894430094
+              }
+            },
+            "position:2": {
+              "direct": {
+                "labelled_rows": 9707,
+                "mae": 1.0741726834370422,
+                "mean_gameweek_spearman": 0.6963917130108037,
+                "missing_predictions": 0,
+                "population_rows": 9707,
+                "predicted_rows": 9707,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 38,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.104102109835604
+              },
+              "position_mean": {
+                "labelled_rows": 9707,
+                "mae": 1.5746250001774973,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 9707,
+                "predicted_rows": 9707,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 38,
+                "rmse": 2.5205340716860496
+              },
+              "recent_points": {
+                "labelled_rows": 9707,
+                "mae": 1.2505042073663004,
+                "mean_gameweek_spearman": 0.6461272303074055,
+                "missing_predictions": 0,
+                "population_rows": 9707,
+                "predicted_rows": 9707,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 37,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.4352907886626594
+              }
+            },
+            "position:3": {
+              "direct": {
+                "labelled_rows": 13255,
+                "mae": 0.9181194775244828,
+                "mean_gameweek_spearman": 0.7625233296830407,
+                "missing_predictions": 0,
+                "population_rows": 13255,
+                "predicted_rows": 13255,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 38,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 1.8461522717515382
+              },
+              "position_mean": {
+                "labelled_rows": 13255,
+                "mae": 1.544869480032374,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 13255,
+                "predicted_rows": 13255,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 38,
+                "rmse": 2.324500441184142
+              },
+              "recent_points": {
+                "labelled_rows": 13255,
+                "mae": 1.0361367118731237,
+                "mean_gameweek_spearman": 0.7402541618817122,
+                "missing_predictions": 0,
+                "population_rows": 13255,
+                "predicted_rows": 13255,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 37,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.1254100008835053
+              }
+            },
+            "position:4": {
+              "direct": {
+                "labelled_rows": 3267,
+                "mae": 1.0634565527358866,
+                "mean_gameweek_spearman": 0.7919097967786196,
+                "missing_predictions": 0,
+                "population_rows": 3267,
+                "predicted_rows": 3267,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 38,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.042386960647777
+              },
+              "position_mean": {
+                "labelled_rows": 3267,
+                "mae": 1.6034739517955345,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 3267,
+                "predicted_rows": 3267,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 38,
+                "rmse": 2.540839838974479
+              },
+              "recent_points": {
+                "labelled_rows": 3267,
+                "mae": 1.1507706655818524,
+                "mean_gameweek_spearman": 0.7707722256670159,
+                "missing_predictions": 0,
+                "population_rows": 3267,
+                "predicted_rows": 3267,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 37,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.343057819447355
+              }
+            }
+          }
+        },
+        "1": {
+          "distribution": {
+            "max": 7.793253187731617,
+            "mean": 1.1274717550530498,
+            "min": -0.04267795527403277,
+            "quantiles_05_25_50_75_95": [
+              0.008740724882108015,
+              0.03282936611040878,
+              0.5122106822944537,
+              2.1301034268610426,
+              3.4912144234084534
+            ]
+          },
+          "residual_quantiles_05_25_50_75_95": [
+            -2.2774699582547133,
+            -0.6977109480885492,
+            -0.05668599676170774,
+            -0.008740724882108015,
+            3.9229668437829885
+          ],
+          "segments": {
+            "overall": {
+              "direct": {
+                "labelled_rows": 28805,
+                "mae": 1.0208588938226626,
+                "mean_gameweek_spearman": 0.6987566600277836,
+                "missing_predictions": 0,
+                "population_rows": 28805,
+                "predicted_rows": 28805,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 37,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 1.988073362273108
+              },
+              "position_mean": {
+                "labelled_rows": 28805,
+                "mae": 1.5278316548480462,
+                "mean_gameweek_spearman": 0.07947814399118491,
+                "missing_predictions": 0,
+                "population_rows": 28805,
+                "predicted_rows": 28805,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 37,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.37233438489777
+              },
+              "recent_points": {
+                "labelled_rows": 28805,
+                "mae": 1.1159094019939098,
+                "mean_gameweek_spearman": 0.6624169649670636,
+                "missing_predictions": 0,
+                "population_rows": 28805,
+                "predicted_rows": 28805,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 37,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.257510951409853
+              }
+            },
+            "position:1": {
+              "direct": {
+                "labelled_rows": 3319,
+                "mae": 0.6343058072009107,
+                "mean_gameweek_spearman": 0.6582346411098355,
+                "missing_predictions": 0,
+                "population_rows": 3319,
+                "predicted_rows": 3319,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 37,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 1.4502674335400463
+              },
+              "position_mean": {
+                "labelled_rows": 3319,
+                "mae": 1.2550555934002063,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 3319,
+                "predicted_rows": 3319,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 37,
+                "rmse": 1.9025229378550061
+              },
+              "recent_points": {
+                "labelled_rows": 3319,
+                "mae": 0.6551563444782527,
+                "mean_gameweek_spearman": 0.799317306418015,
+                "missing_predictions": 0,
+                "population_rows": 3319,
+                "predicted_rows": 3319,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 1.638151239855883
+              }
+            },
+            "position:2": {
+              "direct": {
+                "labelled_rows": 9437,
+                "mae": 1.1604359857947484,
+                "mean_gameweek_spearman": 0.6430545399601287,
+                "missing_predictions": 0,
+                "population_rows": 9437,
+                "predicted_rows": 9437,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 37,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.181788189580738
+              },
+              "position_mean": {
+                "labelled_rows": 9437,
+                "mae": 1.5720395060558756,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 9437,
+                "predicted_rows": 9437,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 37,
+                "rmse": 2.5153891312953585
+              },
+              "recent_points": {
+                "labelled_rows": 9437,
+                "mae": 1.2924853336067061,
+                "mean_gameweek_spearman": 0.5950685474350859,
+                "missing_predictions": 0,
+                "population_rows": 9437,
+                "predicted_rows": 9437,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.472084208060473
+              }
+            },
+            "position:3": {
+              "direct": {
+                "labelled_rows": 12876,
+                "mae": 0.9988903888416767,
+                "mean_gameweek_spearman": 0.7147195594683697,
+                "missing_predictions": 0,
+                "population_rows": 12876,
+                "predicted_rows": 12876,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 37,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 1.9372169051872505
+              },
+              "position_mean": {
+                "labelled_rows": 12876,
+                "mae": 1.5484374881125846,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 12876,
+                "predicted_rows": 12876,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 37,
+                "rmse": 2.333197131093698
+              },
+              "recent_points": {
+                "labelled_rows": 12876,
+                "mae": 1.0942883373832413,
+                "mean_gameweek_spearman": 0.6934006117216656,
+                "missing_predictions": 0,
+                "population_rows": 12876,
+                "predicted_rows": 12876,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.2095008042526145
+              }
+            },
+            "position:4": {
+              "direct": {
+                "labelled_rows": 3173,
+                "mae": 1.0992223188753547,
+                "mean_gameweek_spearman": 0.7560587694832503,
+                "missing_predictions": 0,
+                "population_rows": 3173,
+                "predicted_rows": 3173,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 37,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.0722804509270727
+              },
+              "position_mean": {
+                "labelled_rows": 3173,
+                "mae": 1.59805968730405,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 3173,
+                "predicted_rows": 3173,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 37,
+                "rmse": 2.5291339647805753
+              },
+              "recent_points": {
+                "labelled_rows": 3173,
+                "mae": 1.1604367134315006,
+                "mean_gameweek_spearman": 0.7378267898912301,
+                "missing_predictions": 0,
+                "population_rows": 3173,
+                "predicted_rows": 3173,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.3392670267143214
+              }
+            }
+          }
+        },
+        "2": {
+          "distribution": {
+            "max": 7.156271172994583,
+            "mean": 1.1310034781442193,
+            "min": -0.2042733457416885,
+            "quantiles_05_25_50_75_95": [
+              -0.00514975865301266,
+              0.05446232119390756,
+              0.6466016741533052,
+              2.0863460596451393,
+              3.3420970744849123
+            ]
+          },
+          "residual_quantiles_05_25_50_75_95": [
+            -2.304038142283397,
+            -0.7652430342762675,
+            -0.08129109736234282,
+            0.00514975865301266,
+            4.073689456352177
+          ],
+          "segments": {
+            "overall": {
+              "direct": {
+                "labelled_rows": 27967,
+                "mae": 1.0620554680883165,
+                "mean_gameweek_spearman": 0.6742968324763174,
+                "missing_predictions": 0,
+                "population_rows": 27967,
+                "predicted_rows": 27967,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.0220139610064543
+              },
+              "position_mean": {
+                "labelled_rows": 27967,
+                "mae": 1.5292536992830825,
+                "mean_gameweek_spearman": 0.07863809835389297,
+                "missing_predictions": 0,
+                "population_rows": 27967,
+                "predicted_rows": 27967,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.370613487095896
+              },
+              "recent_points": {
+                "labelled_rows": 27967,
+                "mae": 1.160569580892976,
+                "mean_gameweek_spearman": 0.6265412931178477,
+                "missing_predictions": 0,
+                "population_rows": 27967,
+                "predicted_rows": 27967,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.302047448453212
+              }
+            },
+            "position:1": {
+              "direct": {
+                "labelled_rows": 3222,
+                "mae": 0.6718188852670436,
+                "mean_gameweek_spearman": 0.6449922829449596,
+                "missing_predictions": 0,
+                "population_rows": 3222,
+                "predicted_rows": 3222,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 1.4862213713474095
+              },
+              "position_mean": {
+                "labelled_rows": 3222,
+                "mae": 1.2535756106854508,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 3222,
+                "predicted_rows": 3222,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 36,
+                "rmse": 1.8943492251886196
+              },
+              "recent_points": {
+                "labelled_rows": 3222,
+                "mae": 0.6919145232711895,
+                "mean_gameweek_spearman": 0.7595238699022989,
+                "missing_predictions": 0,
+                "population_rows": 3222,
+                "predicted_rows": 3222,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 1.6881213856596544
+              }
+            },
+            "position:2": {
+              "direct": {
+                "labelled_rows": 9167,
+                "mae": 1.203094008443183,
+                "mean_gameweek_spearman": 0.6148938947818935,
+                "missing_predictions": 0,
+                "population_rows": 9167,
+                "predicted_rows": 9167,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.2098649097977954
+              },
+              "position_mean": {
+                "labelled_rows": 9167,
+                "mae": 1.5715211122613977,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 9167,
+                "predicted_rows": 9167,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 36,
+                "rmse": 2.511596045412336
+              },
+              "recent_points": {
+                "labelled_rows": 9167,
+                "mae": 1.343498836297272,
+                "mean_gameweek_spearman": 0.5543437776297376,
+                "missing_predictions": 0,
+                "population_rows": 9167,
+                "predicted_rows": 9167,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.518730118464901
+              }
+            },
+            "position:3": {
+              "direct": {
+                "labelled_rows": 12498,
+                "mae": 1.0393384107528105,
+                "mean_gameweek_spearman": 0.6891514917062027,
+                "missing_predictions": 0,
+                "population_rows": 12498,
+                "predicted_rows": 12498,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 1.9691704033895412
+              },
+              "position_mean": {
+                "labelled_rows": 12498,
+                "mae": 1.5504705622321362,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 12498,
+                "predicted_rows": 12498,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 36,
+                "rmse": 2.3324457323245014
+              },
+              "recent_points": {
+                "labelled_rows": 12498,
+                "mae": 1.132830523783955,
+                "mean_gameweek_spearman": 0.6591415043058174,
+                "missing_predictions": 0,
+                "population_rows": 12498,
+                "predicted_rows": 12498,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.243324153999634
+              }
+            },
+            "position:4": {
+              "direct": {
+                "labelled_rows": 3080,
+                "mae": 1.142691751528652,
+                "mean_gameweek_spearman": 0.7314097191528592,
+                "missing_predictions": 0,
+                "population_rows": 3080,
+                "predicted_rows": 3080,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 36,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.1318218657825634
+              },
+              "position_mean": {
+                "labelled_rows": 3080,
+                "mae": 1.60574755433246,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 3080,
+                "predicted_rows": 3080,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 36,
+                "rmse": 2.5346588650583906
+              },
+              "recent_points": {
+                "labelled_rows": 3080,
+                "mae": 1.2189386870990644,
+                "mean_gameweek_spearman": 0.706813550797485,
+                "missing_predictions": 0,
+                "population_rows": 3080,
+                "predicted_rows": 3080,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.415813322457486
+              }
+            }
+          }
+        },
+        "3": {
+          "distribution": {
+            "max": 6.412088225233759,
+            "mean": 1.1337269364100424,
+            "min": -0.02207547796665642,
+            "quantiles_05_25_50_75_95": [
+              -0.0033797758494427,
+              0.06596226029178287,
+              0.7234136953099498,
+              2.0768372199052383,
+              3.2966524692359553
+            ]
+          },
+          "residual_quantiles_05_25_50_75_95": [
+            -2.3330245198338795,
+            -0.7960451632318297,
+            -0.09341285198864493,
+            0.0033797758494427,
+            4.101194424320143
+          ],
+          "segments": {
+            "overall": {
+              "direct": {
+                "labelled_rows": 27135,
+                "mae": 1.0858145529397765,
+                "mean_gameweek_spearman": 0.6571684647275766,
+                "missing_predictions": 0,
+                "population_rows": 27135,
+                "predicted_rows": 27135,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.0444437478169397
+              },
+              "position_mean": {
+                "labelled_rows": 27135,
+                "mae": 1.530421047279602,
+                "mean_gameweek_spearman": 0.07819141614960536,
+                "missing_predictions": 0,
+                "population_rows": 27135,
+                "predicted_rows": 27135,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.371731924398566
+              },
+              "recent_points": {
+                "labelled_rows": 27135,
+                "mae": 1.1968805936209075,
+                "mean_gameweek_spearman": 0.5993568314381762,
+                "missing_predictions": 0,
+                "population_rows": 27135,
+                "predicted_rows": 27135,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.3516960150848534
+              }
+            },
+            "position:1": {
+              "direct": {
+                "labelled_rows": 3125,
+                "mae": 0.6825416346364434,
+                "mean_gameweek_spearman": 0.6414536758940877,
+                "missing_predictions": 0,
+                "population_rows": 3125,
+                "predicted_rows": 3125,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 1.4974310309063352
+              },
+              "position_mean": {
+                "labelled_rows": 3125,
+                "mae": 1.2544678598643249,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 3125,
+                "predicted_rows": 3125,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 35,
+                "rmse": 1.8956021063409887
+              },
+              "recent_points": {
+                "labelled_rows": 3125,
+                "mae": 0.7283636688040145,
+                "mean_gameweek_spearman": 0.7358646251689304,
+                "missing_predictions": 0,
+                "population_rows": 3125,
+                "predicted_rows": 3125,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 1.7485930551469773
+              }
+            },
+            "position:2": {
+              "direct": {
+                "labelled_rows": 8898,
+                "mae": 1.2271754607909007,
+                "mean_gameweek_spearman": 0.5964182240182729,
+                "missing_predictions": 0,
+                "population_rows": 8898,
+                "predicted_rows": 8898,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.2282878872508585
+              },
+              "position_mean": {
+                "labelled_rows": 8898,
+                "mae": 1.5728215572050954,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 8898,
+                "predicted_rows": 8898,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 35,
+                "rmse": 2.505980173358234
+              },
+              "recent_points": {
+                "labelled_rows": 8898,
+                "mae": 1.3820627749918024,
+                "mean_gameweek_spearman": 0.5263340129656614,
+                "missing_predictions": 0,
+                "population_rows": 8898,
+                "predicted_rows": 8898,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.5643910259523715
+              }
+            },
+            "position:3": {
+              "direct": {
+                "labelled_rows": 12125,
+                "mae": 1.068659709990484,
+                "mean_gameweek_spearman": 0.669346698287413,
+                "missing_predictions": 0,
+                "population_rows": 12125,
+                "predicted_rows": 12125,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 1.9969533308612217
+              },
+              "position_mean": {
+                "labelled_rows": 12125,
+                "mae": 1.552209734658841,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 12125,
+                "predicted_rows": 12125,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 35,
+                "rmse": 2.3377058056091777
+              },
+              "recent_points": {
+                "labelled_rows": 12125,
+                "mae": 1.1708810986815998,
+                "mean_gameweek_spearman": 0.6329509622979288,
+                "missing_predictions": 0,
+                "population_rows": 12125,
+                "predicted_rows": 12125,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.298785000040946
+              }
+            },
+            "position:4": {
+              "direct": {
+                "labelled_rows": 2987,
+                "mae": 1.1562534489554401,
+                "mean_gameweek_spearman": 0.7140737662493891,
+                "missing_predictions": 0,
+                "population_rows": 2987,
+                "predicted_rows": 2987,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 35,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.155414707791686
+              },
+              "position_mean": {
+                "labelled_rows": 2987,
+                "mae": 1.6043702065974554,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 2987,
+                "predicted_rows": 2987,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 35,
+                "rmse": 2.5398024365593654
+              },
+              "recent_points": {
+                "labelled_rows": 2987,
+                "mae": 1.2409409271842384,
+                "mean_gameweek_spearman": 0.684006836146243,
+                "missing_predictions": 0,
+                "population_rows": 2987,
+                "predicted_rows": 2987,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.4498201197862746
+              }
+            }
+          }
+        },
+        "4": {
+          "distribution": {
+            "max": 6.928257420538041,
+            "mean": 1.131011148035645,
+            "min": -0.22010882221730457,
+            "quantiles_05_25_50_75_95": [
+              -0.006432103132961085,
+              0.07874409968903229,
+              0.7768456413165771,
+              2.049911958104423,
+              3.2079426283292127
+            ]
+          },
+          "residual_quantiles_05_25_50_75_95": [
+            -2.3402775165048544,
+            -0.8375621221351017,
+            -0.10733474400475196,
+            0.006432103132961085,
+            4.176381386032894
+          ],
+          "segments": {
+            "overall": {
+              "direct": {
+                "labelled_rows": 26305,
+                "mae": 1.1038828154806837,
+                "mean_gameweek_spearman": 0.643678316040347,
+                "missing_predictions": 0,
+                "population_rows": 26305,
+                "predicted_rows": 26305,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.0650641883278826
+              },
+              "position_mean": {
+                "labelled_rows": 26305,
+                "mae": 1.5287134495171908,
+                "mean_gameweek_spearman": 0.07920836367203588,
+                "missing_predictions": 0,
+                "population_rows": 26305,
+                "predicted_rows": 26305,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.3705721350138127
+              },
+              "recent_points": {
+                "labelled_rows": 26305,
+                "mae": 1.209883359326624,
+                "mean_gameweek_spearman": 0.5829822088056857,
+                "missing_predictions": 0,
+                "population_rows": 26305,
+                "predicted_rows": 26305,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.3681943811123274
+              }
+            },
+            "position:1": {
+              "direct": {
+                "labelled_rows": 3029,
+                "mae": 0.6929767584142582,
+                "mean_gameweek_spearman": 0.6338470823368364,
+                "missing_predictions": 0,
+                "population_rows": 3029,
+                "predicted_rows": 3029,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 1.5024729499076044
+              },
+              "position_mean": {
+                "labelled_rows": 3029,
+                "mae": 1.24493053994404,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 3029,
+                "predicted_rows": 3029,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 34,
+                "rmse": 1.8788573124729795
+              },
+              "recent_points": {
+                "labelled_rows": 3029,
+                "mae": 0.7165556549270112,
+                "mean_gameweek_spearman": 0.7234037918424847,
+                "missing_predictions": 0,
+                "population_rows": 3029,
+                "predicted_rows": 3029,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 33,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 1.7249948629926686
+              }
+            },
+            "position:2": {
+              "direct": {
+                "labelled_rows": 8630,
+                "mae": 1.2423437242449975,
+                "mean_gameweek_spearman": 0.5813336925671089,
+                "missing_predictions": 0,
+                "population_rows": 8630,
+                "predicted_rows": 8630,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.244031212518917
+              },
+              "position_mean": {
+                "labelled_rows": 8630,
+                "mae": 1.5673102667870464,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 8630,
+                "predicted_rows": 8630,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 34,
+                "rmse": 2.502142062463216
+              },
+              "recent_points": {
+                "labelled_rows": 8630,
+                "mae": 1.3921070276577998,
+                "mean_gameweek_spearman": 0.50972395363732,
+                "missing_predictions": 0,
+                "population_rows": 8630,
+                "predicted_rows": 8630,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 33,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.5710509014592438
+              }
+            },
+            "position:3": {
+              "direct": {
+                "labelled_rows": 11752,
+                "mae": 1.089272636455432,
+                "mean_gameweek_spearman": 0.6540447241837026,
+                "missing_predictions": 0,
+                "population_rows": 11752,
+                "predicted_rows": 11752,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.0193533245647437
+              },
+              "position_mean": {
+                "labelled_rows": 11752,
+                "mae": 1.5543380522530328,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 11752,
+                "predicted_rows": 11752,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 34,
+                "rmse": 2.3394455255386
+              },
+              "recent_points": {
+                "labelled_rows": 11752,
+                "mae": 1.1842858926653106,
+                "mean_gameweek_spearman": 0.6131803962595611,
+                "missing_predictions": 0,
+                "population_rows": 11752,
+                "predicted_rows": 11752,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 33,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.315672630604563
+              }
+            },
+            "position:4": {
+              "direct": {
+                "labelled_rows": 2894,
+                "mae": 1.1803913255438963,
+                "mean_gameweek_spearman": 0.6986281984239309,
+                "missing_predictions": 0,
+                "population_rows": 2894,
+                "predicted_rows": 2894,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 34,
+                "ranking_undefined_gameweeks": 0,
+                "rmse": 2.196279485072124
+              },
+              "position_mean": {
+                "labelled_rows": 2894,
+                "mae": 1.6065806121663282,
+                "mean_gameweek_spearman": null,
+                "missing_predictions": 0,
+                "population_rows": 2894,
+                "predicted_rows": 2894,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 0,
+                "ranking_undefined_gameweeks": 34,
+                "rmse": 2.5475765994640343
+              },
+              "recent_points": {
+                "labelled_rows": 2894,
+                "mae": 1.2867737487986812,
+                "mean_gameweek_spearman": 0.6642769000447067,
+                "missing_predictions": 0,
+                "population_rows": 2894,
+                "predicted_rows": 2894,
+                "prediction_coverage": 1.0,
+                "ranking_defined_gameweeks": 33,
+                "ranking_undefined_gameweeks": 1,
+                "rmse": 2.5248770422453237
+              }
+            }
+          }
+        }
+      }
+    },
+    "model_identity": "b0e9cf270c6524278ddb6c288c393aef580159c2a36a02b9a01e81cfadf4235b",
+    "no_future_features": true,
+    "saved_prediction_replay_exact": true
+  },
+  "plan": {
+    "baseline": {
+      "total_hit_cost": 0,
+      "total_points": 164.0648628435967,
+      "transfer_count": 0,
+      "weeks": [
+        {
+          "bench_order": [
+            107,
+            21,
+            30,
+            2
+          ],
+          "captain": 40,
+          "captain_bonus": 4.370807344036073,
+          "cumulative_points": 31.594876114198453,
+          "free_transfers_before": 1,
+          "free_transfers_rolled": 1,
+          "free_transfers_used": 0,
+          "gameweek": 6,
+          "gross_xi_points": 27.224068770162383,
+          "net_points": 31.594876114198456,
+          "next_free_transfers": 2,
+          "resulting_bank": 10,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            30,
+            32,
+            33,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            107
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            33,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106
+          ],
+          "transfer_count": 0,
+          "transfer_hit": 0,
+          "transfers_in": [],
+          "transfers_out": [],
+          "vice_captain": 4
+        },
+        {
+          "bench_order": [
+            107,
+            21,
+            30,
+            2
+          ],
+          "captain": 40,
+          "captain_bonus": 4.8138221792142755,
+          "cumulative_points": 66.93648572052429,
+          "free_transfers_before": 2,
+          "free_transfers_rolled": 2,
+          "free_transfers_used": 0,
+          "gameweek": 7,
+          "gross_xi_points": 30.527787427111562,
+          "net_points": 35.34160960632584,
+          "next_free_transfers": 3,
+          "resulting_bank": 10,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            30,
+            32,
+            33,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            107
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            33,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106
+          ],
+          "transfer_count": 0,
+          "transfer_hit": 0,
+          "transfers_in": [],
+          "transfers_out": [],
+          "vice_captain": 4
+        },
+        {
+          "bench_order": [
+            107,
+            21,
+            30,
+            2
+          ],
+          "captain": 40,
+          "captain_bonus": 4.39514731464345,
+          "cumulative_points": 99.08487116876735,
+          "free_transfers_before": 3,
+          "free_transfers_rolled": 3,
+          "free_transfers_used": 0,
+          "gameweek": 8,
+          "gross_xi_points": 27.753238133599602,
+          "net_points": 32.148385448243054,
+          "next_free_transfers": 4,
+          "resulting_bank": 10,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            30,
+            32,
+            33,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            107
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            33,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106
+          ],
+          "transfer_count": 0,
+          "transfer_hit": 0,
+          "transfers_in": [],
+          "transfers_out": [],
+          "vice_captain": 4
+        },
+        {
+          "bench_order": [
+            21,
+            107,
+            30,
+            2
+          ],
+          "captain": 1,
+          "captain_bonus": 4.149650014950182,
+          "cumulative_points": 131.81284695149523,
+          "free_transfers_before": 4,
+          "free_transfers_rolled": 4,
+          "free_transfers_used": 0,
+          "gameweek": 9,
+          "gross_xi_points": 28.578325767777695,
+          "net_points": 32.727975782727874,
+          "next_free_transfers": 5,
+          "resulting_bank": 10,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            30,
+            32,
+            33,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            107
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            33,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106
+          ],
+          "transfer_count": 0,
+          "transfer_hit": 0,
+          "transfers_in": [],
+          "transfers_out": [],
+          "vice_captain": 40
+        },
+        {
+          "bench_order": [
+            21,
+            107,
+            30,
+            2
+          ],
+          "captain": 40,
+          "captain_bonus": 4.637181619484152,
+          "cumulative_points": 164.0648628435967,
+          "free_transfers_before": 5,
+          "free_transfers_rolled": 5,
+          "free_transfers_used": 0,
+          "gameweek": 10,
+          "gross_xi_points": 27.614834272617326,
+          "net_points": 32.252015892101475,
+          "next_free_transfers": 5,
+          "resulting_bank": 10,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            30,
+            32,
+            33,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106,
+            107
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            33,
+            40,
+            42,
+            43,
+            60,
+            67,
+            79,
+            106
+          ],
+          "transfer_count": 0,
+          "transfer_hit": 0,
+          "transfers_in": [],
+          "transfers_out": [],
+          "vice_captain": 1
+        }
+      ]
+    },
+    "decision_identity": "0df6760a8e32dd269d381c1a7298769522900520f841e8d3b2e5c848398f1bd8",
+    "greedy": {
+      "total_hit_cost": 0,
+      "total_points": 188.0197798899047,
+      "transfer_count": 5,
+      "weeks": [
+        {
+          "bench_order": [
+            107,
+            21,
+            30,
+            2
+          ],
+          "captain": 40,
+          "captain_bonus": 4.370807344036073,
+          "cumulative_points": 34.2654414547572,
+          "free_transfers_before": 1,
+          "free_transfers_rolled": 0,
+          "free_transfers_used": 1,
+          "gameweek": 6,
+          "gross_xi_points": 29.89463411072113,
+          "net_points": 34.2654414547572,
+          "next_free_transfers": 1,
+          "resulting_bank": 6,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            30,
+            32,
+            33,
+            40,
+            43,
+            60,
+            67,
+            79,
+            106,
+            107,
+            124
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            33,
+            40,
+            43,
+            60,
+            67,
+            79,
+            106,
+            124
+          ],
+          "transfer_count": 1,
+          "transfer_hit": 0,
+          "transfers_in": [
+            124
+          ],
+          "transfers_out": [
+            42
+          ],
+          "vice_captain": 4
+        },
+        {
+          "bench_order": [
+            107,
+            21,
+            30,
+            2
+          ],
+          "captain": 40,
+          "captain_bonus": 4.8138221792142755,
+          "cumulative_points": 73.71528121805802,
+          "free_transfers_before": 1,
+          "free_transfers_rolled": 0,
+          "free_transfers_used": 1,
+          "gameweek": 7,
+          "gross_xi_points": 34.636017584086545,
+          "net_points": 39.44983976330082,
+          "next_free_transfers": 1,
+          "resulting_bank": 0,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            30,
+            32,
+            33,
+            40,
+            43,
+            67,
+            79,
+            106,
+            107,
+            124,
+            200
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            33,
+            40,
+            43,
+            67,
+            79,
+            106,
+            124,
+            200
+          ],
+          "transfer_count": 1,
+          "transfer_hit": 0,
+          "transfers_in": [
+            200
+          ],
+          "transfers_out": [
+            60
+          ],
+          "vice_captain": 4
+        },
+        {
+          "bench_order": [
+            107,
+            21,
+            30,
+            2
+          ],
+          "captain": 40,
+          "captain_bonus": 4.39514731464345,
+          "cumulative_points": 110.50359428739411,
+          "free_transfers_before": 1,
+          "free_transfers_rolled": 0,
+          "free_transfers_used": 1,
+          "gameweek": 8,
+          "gross_xi_points": 32.39316575469264,
+          "net_points": 36.78831306933609,
+          "next_free_transfers": 1,
+          "resulting_bank": 0,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            30,
+            32,
+            33,
+            40,
+            67,
+            79,
+            106,
+            107,
+            124,
+            200,
+            565
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            33,
+            40,
+            67,
+            79,
+            106,
+            124,
+            200,
+            565
+          ],
+          "transfer_count": 1,
+          "transfer_hit": 0,
+          "transfers_in": [
+            565
+          ],
+          "transfers_out": [
+            43
+          ],
+          "vice_captain": 4
+        },
+        {
+          "bench_order": [
+            21,
+            107,
+            30,
+            2
+          ],
+          "captain": 1,
+          "captain_bonus": 4.149650014950182,
+          "cumulative_points": 149.0340068393966,
+          "free_transfers_before": 1,
+          "free_transfers_rolled": 0,
+          "free_transfers_used": 1,
+          "gameweek": 9,
+          "gross_xi_points": 34.380762537052306,
+          "net_points": 38.53041255200249,
+          "next_free_transfers": 1,
+          "resulting_bank": 0,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            30,
+            32,
+            40,
+            67,
+            79,
+            106,
+            107,
+            124,
+            200,
+            423,
+            565
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            40,
+            67,
+            79,
+            106,
+            124,
+            200,
+            423,
+            565
+          ],
+          "transfer_count": 1,
+          "transfer_hit": 0,
+          "transfers_in": [
+            423
+          ],
+          "transfers_out": [
+            33
+          ],
+          "vice_captain": 40
+        },
+        {
+          "bench_order": [
+            21,
+            107,
+            30,
+            2
+          ],
+          "captain": 40,
+          "captain_bonus": 4.637181619484152,
+          "cumulative_points": 188.0197798899047,
+          "free_transfers_before": 1,
+          "free_transfers_rolled": 0,
+          "free_transfers_used": 1,
+          "gameweek": 10,
+          "gross_xi_points": 34.348591431023955,
+          "net_points": 38.98577305050811,
+          "next_free_transfers": 1,
+          "resulting_bank": 2,
+          "squad": [
+            1,
+            2,
+            4,
+            21,
+            30,
+            32,
+            40,
+            68,
+            79,
+            106,
+            107,
+            124,
+            200,
+            423,
+            565
+          ],
+          "starting_xi": [
+            1,
+            4,
+            32,
+            40,
+            68,
+            79,
+            106,
+            124,
+            200,
+            423,
+            565
+          ],
+          "transfer_count": 1,
+          "transfer_hit": 0,
+          "transfers_in": [
+            68
+          ],
+          "transfers_out": [
+            67
+          ],
+          "vice_captain": 1
+        }
+      ]
+    },
+    "independent_XI_economics_FT_and_totals": true,
+    "plans": [
+      {
+        "gain_vs_no_transfer": 30.11327122244174,
+        "total_hit_cost": 8,
+        "total_points": 194.17813406603844,
+        "transfer_count": 7,
+        "weeks": [
+          {
+            "bench_order": [
+              107,
+              21,
+              30,
+              2
+            ],
+            "captain": 40,
+            "captain_bonus": 4.370807344036073,
+            "cumulative_points": 32.505937941905046,
+            "free_transfers_before": 1,
+            "free_transfers_rolled": 0,
+            "free_transfers_used": 1,
+            "gameweek": 6,
+            "gross_xi_points": 32.13513059786898,
+            "net_points": 32.50593794190505,
+            "next_free_transfers": 1,
+            "resulting_bank": 3,
+            "squad": [
+              1,
+              2,
+              4,
+              21,
+              30,
+              32,
+              33,
+              40,
+              43,
+              67,
+              79,
+              106,
+              107,
+              124,
+              391
+            ],
+            "starting_xi": [
+              1,
+              4,
+              32,
+              33,
+              40,
+              43,
+              67,
+              79,
+              106,
+              124,
+              391
+            ],
+            "transfer_count": 2,
+            "transfer_hit": 4,
+            "transfers_in": [
+              124,
+              391
+            ],
+            "transfers_out": [
+              42,
+              60
+            ],
+            "vice_captain": 4
+          },
+          {
+            "bench_order": [
+              33,
+              107,
+              30,
+              2
+            ],
+            "captain": 40,
+            "captain_bonus": 4.8138221792142755,
+            "cumulative_points": 70.71304990333904,
+            "free_transfers_before": 1,
+            "free_transfers_rolled": 0,
+            "free_transfers_used": 1,
+            "gameweek": 7,
+            "gross_xi_points": 37.39328978221971,
+            "net_points": 38.20711196143399,
+            "next_free_transfers": 1,
+            "resulting_bank": 7,
+            "squad": [
+              1,
+              2,
+              4,
+              30,
+              32,
+              33,
+              40,
+              43,
+              67,
+              79,
+              94,
+              107,
+              124,
+              346,
+              391
+            ],
+            "starting_xi": [
+              1,
+              4,
+              32,
+              40,
+              43,
+              67,
+              79,
+              94,
+              124,
+              346,
+              391
+            ],
+            "transfer_count": 2,
+            "transfer_hit": 4,
+            "transfers_in": [
+              94,
+              346
+            ],
+            "transfers_out": [
+              21,
+              106
+            ],
+            "vice_captain": 4
+          },
+          {
+            "bench_order": [
+              33,
+              107,
+              30,
+              2
+            ],
+            "captain": 40,
+            "captain_bonus": 4.39514731464345,
+            "cumulative_points": 109.643398659816,
+            "free_transfers_before": 1,
+            "free_transfers_rolled": 0,
+            "free_transfers_used": 1,
+            "gameweek": 8,
+            "gross_xi_points": 34.53520144183351,
+            "net_points": 38.93034875647696,
+            "next_free_transfers": 1,
+            "resulting_bank": 0,
+            "squad": [
+              1,
+              2,
+              4,
+              30,
+              32,
+              33,
+              40,
+              43,
+              79,
+              94,
+              107,
+              124,
+              346,
+              368,
+              391
+            ],
+            "starting_xi": [
+              1,
+              4,
+              32,
+              40,
+              43,
+              79,
+              94,
+              124,
+              346,
+              368,
+              391
+            ],
+            "transfer_count": 1,
+            "transfer_hit": 0,
+            "transfers_in": [
+              368
+            ],
+            "transfers_out": [
+              67
+            ],
+            "vice_captain": 4
+          },
+          {
+            "bench_order": [
+              33,
+              107,
+              30,
+              2
+            ],
+            "captain": 1,
+            "captain_bonus": 4.149650014950182,
+            "cumulative_points": 150.04930431394237,
+            "free_transfers_before": 1,
+            "free_transfers_rolled": 1,
+            "free_transfers_used": 0,
+            "gameweek": 9,
+            "gross_xi_points": 36.2562556391762,
+            "net_points": 40.405905654126386,
+            "next_free_transfers": 2,
+            "resulting_bank": 0,
+            "squad": [
+              1,
+              2,
+              4,
+              30,
+              32,
+              33,
+              40,
+              43,
+              79,
+              94,
+              107,
+              124,
+              346,
+              368,
+              391
+            ],
+            "starting_xi": [
+              1,
+              4,
+              32,
+              40,
+              43,
+              79,
+              94,
+              124,
+              346,
+              368,
+              391
+            ],
+            "transfer_count": 0,
+            "transfer_hit": 0,
+            "transfers_in": [],
+            "transfers_out": [],
+            "vice_captain": 40
+          },
+          {
+            "bench_order": [
+              33,
+              107,
+              30,
+              2
+            ],
+            "captain": 40,
+            "captain_bonus": 4.637181619484152,
+            "cumulative_points": 194.17813406603844,
+            "free_transfers_before": 2,
+            "free_transfers_rolled": 0,
+            "free_transfers_used": 2,
+            "gameweek": 10,
+            "gross_xi_points": 39.4916481326119,
+            "net_points": 44.12882975209605,
+            "next_free_transfers": 1,
+            "resulting_bank": 0,
+            "squad": [
+              1,
+              2,
+              8,
+              30,
+              32,
+              33,
+              40,
+              79,
+              94,
+              107,
+              124,
+              346,
+              368,
+              391,
+              399
+            ],
+            "starting_xi": [
+              1,
+              8,
+              32,
+              40,
+              79,
+              94,
+              124,
+              346,
+              368,
+              391,
+              399
+            ],
+            "transfer_count": 2,
+            "transfer_hit": 0,
+            "transfers_in": [
+              8,
+              399
+            ],
+            "transfers_out": [
+              4,
+              43
+            ],
+            "vice_captain": 1
+          }
+        ]
+      },
+      {
+        "gain_vs_no_transfer": 29.98069524913359,
+        "total_hit_cost": 8,
+        "total_points": 194.0455580927303,
+        "transfer_count": 7,
+        "weeks": [
+          {
+            "bench_order": [
+              107,
+              21,
+              30,
+              2
+            ],
+            "captain": 40,
+            "captain_bonus": 4.370807344036073,
+            "cumulative_points": 32.505937941905046,
+            "free_transfers_before": 1,
+            "free_transfers_rolled": 0,
+            "free_transfers_used": 1,
+            "gameweek": 6,
+            "gross_xi_points": 32.13513059786898,
+            "net_points": 32.50593794190505,
+            "next_free_transfers": 1,
+            "resulting_bank": 3,
+            "squad": [
+              1,
+              2,
+              4,
+              21,
+              30,
+              32,
+              33,
+              40,
+              43,
+              67,
+              79,
+              106,
+              107,
+              124,
+              391
+            ],
+            "starting_xi": [
+              1,
+              4,
+              32,
+              33,
+              40,
+              43,
+              67,
+              79,
+              106,
+              124,
+              391
+            ],
+            "transfer_count": 2,
+            "transfer_hit": 4,
+            "transfers_in": [
+              124,
+              391
+            ],
+            "transfers_out": [
+              42,
+              60
+            ],
+            "vice_captain": 4
+          },
+          {
+            "bench_order": [
+              33,
+              107,
+              30,
+              2
+            ],
+            "captain": 40,
+            "captain_bonus": 4.8138221792142755,
+            "cumulative_points": 70.71304990333904,
+            "free_transfers_before": 1,
+            "free_transfers_rolled": 0,
+            "free_transfers_used": 1,
+            "gameweek": 7,
+            "gross_xi_points": 37.39328978221971,
+            "net_points": 38.20711196143399,
+            "next_free_transfers": 1,
+            "resulting_bank": 7,
+            "squad": [
+              1,
+              2,
+              4,
+              30,
+              32,
+              33,
+              40,
+              43,
+              67,
+              79,
+              94,
+              107,
+              124,
+              346,
+              391
+            ],
+            "starting_xi": [
+              1,
+              4,
+              32,
+              40,
+              43,
+              67,
+              79,
+              94,
+              124,
+              346,
+              391
+            ],
+            "transfer_count": 2,
+            "transfer_hit": 4,
+            "transfers_in": [
+              94,
+              346
+            ],
+            "transfers_out": [
+              21,
+              106
+            ],
+            "vice_captain": 4
+          },
+          {
+            "bench_order": [
+              33,
+              107,
+              30,
+              2
+            ],
+            "captain": 40,
+            "captain_bonus": 4.39514731464345,
+            "cumulative_points": 109.643398659816,
+            "free_transfers_before": 1,
+            "free_transfers_rolled": 0,
+            "free_transfers_used": 1,
+            "gameweek": 8,
+            "gross_xi_points": 34.53520144183351,
+            "net_points": 38.93034875647696,
+            "next_free_transfers": 1,
+            "resulting_bank": 0,
+            "squad": [
+              1,
+              2,
+              4,
+              30,
+              32,
+              33,
+              40,
+              43,
+              79,
+              94,
+              107,
+              124,
+              346,
+              368,
+              391
+            ],
+            "starting_xi": [
+              1,
+              4,
+              32,
+              40,
+              43,
+              79,
+              94,
+              124,
+              346,
+              368,
+              391
+            ],
+            "transfer_count": 1,
+            "transfer_hit": 0,
+            "transfers_in": [
+              368
+            ],
+            "transfers_out": [
+              67
+            ],
+            "vice_captain": 4
+          },
+          {
+            "bench_order": [
+              33,
+              107,
+              30,
+              2
+            ],
+            "captain": 1,
+            "captain_bonus": 4.149650014950182,
+            "cumulative_points": 149.91672834063422,
+            "free_transfers_before": 1,
+            "free_transfers_rolled": 0,
+            "free_transfers_used": 1,
+            "gameweek": 9,
+            "gross_xi_points": 36.12367966586805,
+            "net_points": 40.273329680818236,
+            "next_free_transfers": 1,
+            "resulting_bank": 21,
+            "squad": [
+              1,
+              2,
+              8,
+              30,
+              32,
+              33,
+              40,
+              43,
+              79,
+              94,
+              107,
+              124,
+              346,
+              368,
+              391
+            ],
+            "starting_xi": [
+              1,
+              8,
+              32,
+              40,
+              43,
+              79,
+              94,
+              124,
+              346,
+              368,
+              391
+            ],
+            "transfer_count": 1,
+            "transfer_hit": 0,
+            "transfers_in": [
+              8
+            ],
+            "transfers_out": [
+              4
+            ],
+            "vice_captain": 40
+          },
+          {
+            "bench_order": [
+              33,
+              107,
+              30,
+              2
+            ],
+            "captain": 40,
+            "captain_bonus": 4.637181619484152,
+            "cumulative_points": 194.0455580927303,
+            "free_transfers_before": 1,
+            "free_transfers_rolled": 0,
+            "free_transfers_used": 1,
+            "gameweek": 10,
+            "gross_xi_points": 39.4916481326119,
+            "net_points": 44.12882975209605,
+            "next_free_transfers": 1,
+            "resulting_bank": 0,
+            "squad": [
+              1,
+              2,
+              8,
+              30,
+              32,
+              33,
+              40,
+              79,
+              94,
+              107,
+              124,
+              346,
+              368,
+              391,
+              399
+            ],
+            "starting_xi": [
+              1,
+              8,
+              32,
+              40,
+              79,
+              94,
+              124,
+              346,
+              368,
+              391,
+              399
+            ],
+            "transfer_count": 1,
+            "transfer_hit": 0,
+            "transfers_in": [
+              399
+            ],
+            "transfers_out": [
+              43
+            ],
+            "vice_captain": 1
+          }
+        ]
+      },
+      {
+        "gain_vs_no_transfer": 29.858863425299944,
+        "total_hit_cost": 8,
+        "total_points": 193.92372626889664,
+        "transfer_count": 7,
+        "weeks": [
+          {
+            "bench_order": [
+              107,
+              21,
+              30,
+              2
+            ],
+            "captain": 40,
+            "captain_bonus": 4.370807344036073,
+            "cumulative_points": 32.505937941905046,
+            "free_transfers_before": 1,
+            "free_transfers_rolled": 0,
+            "free_transfers_used": 1,
+            "gameweek": 6,
+            "gross_xi_points": 32.13513059786898,
+            "net_points": 32.50593794190505,
+            "next_free_transfers": 1,
+            "resulting_bank": 3,
+            "squad": [
+              1,
+              2,
+              4,
+              21,
+              30,
+              32,
+              33,
+              40,
+              43,
+              67,
+              79,
+              106,
+              107,
+              124,
+              391
+            ],
+            "starting_xi": [
+              1,
+              4,
+              32,
+              33,
+              40,
+              43,
+              67,
+              79,
+              106,
+              124,
+              391
+            ],
+            "transfer_count": 2,
+            "transfer_hit": 4,
+            "transfers_in": [
+              124,
+              391
+            ],
+            "transfers_out": [
+              42,
+              60
+            ],
+            "vice_captain": 4
+          },
+          {
+            "bench_order": [
+              33,
+              107,
+              30,
+              2
+            ],
+            "captain": 40,
+            "captain_bonus": 4.8138221792142755,
+            "cumulative_points": 70.71304990333904,
+            "free_transfers_before": 1,
+            "free_transfers_rolled": 0,
+            "free_transfers_used": 1,
+            "gameweek": 7,
+            "gross_xi_points": 37.39328978221971,
+            "net_points": 38.20711196143399,
+            "next_free_transfers": 1,
+            "resulting_bank": 7,
+            "squad": [
+              1,
+              2,
+              4,
+              30,
+              32,
+              33,
+              40,
+              43,
+              67,
+              79,
+              94,
+              107,
+              124,
+              346,
+              391
+            ],
+            "starting_xi": [
+              1,
+              4,
+              32,
+              40,
+              43,
+              67,
+              79,
+              94,
+              124,
+              346,
+              391
+            ],
+            "transfer_count": 2,
+            "transfer_hit": 4,
+            "transfers_in": [
+              94,
+              346
+            ],
+            "transfers_out": [
+              21,
+              106
+            ],
+            "vice_captain": 4
+          },
+          {
+            "bench_order": [
+              33,
+              107,
+              30,
+              2
+            ],
+            "captain": 40,
+            "captain_bonus": 4.39514731464345,
+            "cumulative_points": 109.643398659816,
+            "free_transfers_before": 1,
+            "free_transfers_rolled": 0,
+            "free_transfers_used": 1,
+            "gameweek": 8,
+            "gross_xi_points": 34.53520144183351,
+            "net_points": 38.93034875647696,
+            "next_free_transfers": 1,
+            "resulting_bank": 0,
+            "squad": [
+              1,
+              2,
+              4,
+              30,
+              32,
+              33,
+              40,
+              43,
+              79,
+              94,
+              107,
+              124,
+              346,
+              368,
+              391
+            ],
+            "starting_xi": [
+              1,
+              4,
+              32,
+              40,
+              43,
+              79,
+              94,
+              124,
+              346,
+              368,
+              391
+            ],
+            "transfer_count": 1,
+            "transfer_hit": 0,
+            "transfers_in": [
+              368
+            ],
+            "transfers_out": [
+              67
+            ],
+            "vice_captain": 4
+          },
+          {
+            "bench_order": [
+              33,
+              107,
+              30,
+              2
+            ],
+            "captain": 1,
+            "captain_bonus": 4.149650014950182,
+            "cumulative_points": 150.79768426269715,
+            "free_transfers_before": 1,
+            "free_transfers_rolled": 0,
+            "free_transfers_used": 1,
+            "gameweek": 9,
+            "gross_xi_points": 37.00463558793098,
+            "net_points": 41.15428560288116,
+            "next_free_transfers": 1,
+            "resulting_bank": 0,
+            "squad": [
+              1,
+              2,
+              4,
+              30,
+              32,
+              33,
+              40,
+              79,
+              94,
+              107,
+              124,
+              346,
+              368,
+              391,
+              565
+            ],
+            "starting_xi": [
+              1,
+              4,
+              32,
+              40,
+              79,
+              94,
+              124,
+              346,
+              368,
+              391,
+              565
+            ],
+            "transfer_count": 1,
+            "transfer_hit": 0,
+            "transfers_in": [
+              565
+            ],
+            "transfers_out": [
+              43
+            ],
+            "vice_captain": 40
+          },
+          {
+            "bench_order": [
+              33,
+              107,
+              30,
+              2
+            ],
+            "captain": 40,
+            "captain_bonus": 4.637181619484152,
+            "cumulative_points": 193.92372626889664,
+            "free_transfers_before": 1,
+            "free_transfers_rolled": 0,
+            "free_transfers_used": 1,
+            "gameweek": 10,
+            "gross_xi_points": 38.488860386715345,
+            "net_points": 43.1260420061995,
+            "next_free_transfers": 1,
+            "resulting_bank": 3,
+            "squad": [
+              1,
+              2,
+              4,
+              30,
+              32,
+              33,
+              40,
+              94,
+              107,
+              124,
+              249,
+              346,
+              368,
+              391,
+              565
+            ],
+            "starting_xi": [
+              1,
+              4,
+              32,
+              40,
+              94,
+              124,
+              249,
+              346,
+              368,
+              391,
+              565
+            ],
+            "transfer_count": 1,
+            "transfer_hit": 0,
+            "transfers_in": [
+              249
+            ],
+            "transfers_out": [
+              79
+            ],
+            "vice_captain": 1
+          }
+        ]
+      }
+    ],
+    "synthetic_squad_not_user_team": true
+  },
+  "rebuild": {},
+  "semantic_corruptions_rejected": [
+    "points",
+    "population",
+    "model_identity",
+    "snapshot_identity",
+    "horizon",
+    "timing",
+    "h0_comparison",
+    "wrong_model_bundle"
+  ]
+}

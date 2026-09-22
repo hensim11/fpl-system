@@ -161,17 +161,41 @@ Status: **accepted/complete after verified structural/semantic tie separation**;
 - [x] 400 positive-xPts seeds × four depths: 1,600 independent exhaustive ranking
   comparisons; 121 out-of-band rejections, byte-identical normal/optimized evidence.
 
-This is a one-Gameweek objective, not full multi-GW transfer planning or proven
-realised decision utility. Next substantial batch: **multi-Gameweek projections
-and transfer-path optimisation**, to value rolling transfers, future fixtures,
-squad flexibility and uncertainty. M4E prospective retention/scoring continues
-independently, without choosing a model prematurely.
+M5A retains its one-Gameweek objective. M5B below now supplies separate multi-GW
+planning with rolling transfers and squad evolution. Future fixture predictors
+and uncertainty remain unavailable. M4E prospective retention/scoring continues
+independently, without choosing a model prematurely or claiming realised utility.
+
+## M5B — Multi-Gameweek projections and transfer-path optimiser v1
+
+Status: **verified/complete; recommend acceptance**. Evidence in [M5B verification](docs/M5B_VERIFICATION.md): 261 normal/optimized tests, 82 feasible ranked paths across 22 oracle cases (15 return five; seven return only one because no transfer is affordable; top-N is a maximum), exact fresh/reuse identities and all 920 prior data files preserved.
+
+- [x] Separate versioned direct GW+0..4 target/model family from one frozen state.
+- [x] Chronological fixed-model historical evaluation, per-horizon/position metrics,
+  distributions and cumulative three/five-GW diagnostics; consumed holdout disclosed.
+- [x] Production prior-season refits and actual-clock current projection publication.
+- [x] Multi-period squad, bank, initial selling rights, FT rolling/cap and hits.
+- [x] Legal XI/captain every GW; explicit static-price/selectability contracts.
+- [x] Deterministic complete-path ranking, no-transfer and sequential greedy baselines.
+- [x] Independent exhaustive paths/XIs, numerical tie checks and fail-closed solving.
+- [x] Offline CLI and immutable evidence; preserve M4E, M5A and earlier artifacts.
+
+No realised decision-utility claim. See Decisions 050–052 for contracts and
+verification for the real early-state demo, runtime limits and completed checks.
+
+## Next substantial objective — M5C
+
+Prospective multi-GW outcome scoring and uncertainty calibration: retain useful
+pre-deadline states, settle individual target GWs separately, evaluate horizon
+coverage/errors and calibrate uncertainty without retrospective reselection.
+Profile full-population planning runtime and preserve exact ranking/proof semantics.
+Risk-aware simulation can follow once those calibration contracts are validated.
 
 ## Later milestones
 
 Only after the data and evaluation foundations are reliable:
 
-- multi-Gameweek projections and transfer-path optimisation;
+- calibrated uncertainty and risk-aware multi-Gameweek planning;
 - user-specific decision support;
 - scheduled ingestion and monitoring;
 - service or UI layers;

@@ -1119,3 +1119,100 @@ and population count; normal/optimized reports match. All 904 pre-batch data fil
 retain original bytes and nanosecond mtimes. Tracked diffs and every nonignored
 untracked M5A text artifact pass whitespace checks. New implementation/config
 hashes create new decision identities without rewriting old analytical evidence.
+
+## 050 — Direct individual-Gameweek multi-horizon points contract
+
+M5B freezes `m5b-direct-points-v1`: separate fixed hist_15 models for offsets
+0–4 from one accepted as-of state. Features and preprocessing are M4's exact
+25-input allowlist; no future fixtures, state, minutes, labels or recursive
+predictions enter the feature matrix. Each label is the verified M3 individual-GW
+points value at `(season, as_of GW + offset, element)`. Doubles retain their full
+sum; explicit registered-player zeros remain zeros. Missing future registration,
+missing settlement evidence and the historically unlabelled genuine blank remain
+missing. Season-end states truncate at GW38. Decision 014 and the pinned 2021/22
+GW18 freshness exception remain unchanged. This contract does not infer fixture
+availability at a past deadline from the final schedule.
+
+Design is fixed before evaluation: no search, per-horizon tuning or model
+selection. Historical fits use 2021/22–2024/25; labels must settle before the
+first 2025/26 capture. 2025/26 is consumed evaluation evidence, NOT an untouched
+holdout. Production fits use all permitted prior-season labels strictly before
+2026-07-01, with single-threaded deterministic hist_15 preprocessing and fitting.
+Horizon-specific populations, fitting hashes/cutoffs, models, predictions and
+separate outcomes/metrics are retained. Cumulative three/five-GW diagnostics sum
+individual forecasts and require complete individual labels. Residual quantiles
+are descriptive, not calibrated prediction intervals or an optimiser risk term.
+
+GW+0 is a distinct direct model, not an M4E alias: it uses the larger M3 fitting
+population rather than M4E's matched OOS-minutes population. Operational artifacts
+explicitly compare it with both frozen M4E outputs. No control/v2 winner is chosen.
+Live inputs are replayed from an accepted M4E forecast and its embedded evidence;
+M4E minutes remain a provenance prerequisite, never a new direct-model feature.
+New publication must start, compute and pass final verification before the actual
+current deadline. Offline replay preserves original runtime timestamps. Historical
+models and projection forecasts/scores occupy separate immutable namespaces.
+
+## 051 — Multi-period transfer state, prices and eligibility
+
+`m5b-transfer-path-v1` is a separate sparse SciPy/HiGHS MILP, leaving M5A's
+formulation unchanged. Default horizon is five GWs, shortened at season end;
+maximum transfers is an explicit per-GW constraint (default two). Binary variables
+encode holdings, XI, captain, buys, sells and surviving initial selling-price
+rights. Integer bank balances evolve each GW. One-hot state arcs encode exact
+`(FT before, transfer count, FT after, paid count)` transitions using the existing
+versioned Rules: `min(cap, max(0, FT - transfers) + weekly accrual)` and
+`hit_cost * max(0, transfers - FT)`. No same-week buy/sell round trips.
+
+Prices are a static planning assumption, not a price forecast. Initial exact sale
+rights survive while continuously held; first sale consumes those rights. Players
+bought during the path, including repurchases, subsequently sell at their static
+purchase price. The state replay and MILP use the same explicit policy, which a
+later version may replace. Strict boolean snapshot can_select remains frozen over
+the horizon. Owned unselectable players may stay; once sold they cannot be bought
+back. This is not a future-news/availability prediction. Projection rows carry
+per-GW eligibility but v1 deliberately rejects changing it across GWs.
+
+Objective: equal-weight sum of optimal XI points plus captain bonus minus hits.
+No bench EV, terminal bonus, chips, risk adjustment or speculative prices. A
+no-transfer baseline and sequential greedy comparison use these same projections,
+prices, eligibility, formation and captain rules. Outputs are projected objectives,
+not evidence of realised decision improvement.
+
+## 052 — Complete-path ranking and verification boundary
+
+Rank unique GW-ordered complete squad paths. For each rank find the best remaining
+primary objective, admit only exact binary64 Fraction-sum loss <=1e-6 inclusive,
+then minimise paid transfers, total transfers, and finally GW-ordered sorted squad
+IDs. XI/captain are independently selected at every GW with exact unrounded points
+then IDs. Fix each binary lexicographic block without epsilon perturbations.
+Temporary exclusions of out-of-band candidates are discarded between ranks; only
+the chosen complete path's no-good cut persists. No chained tolerance.
+
+Numerical conditioning uses M5A's objective/band scales. Structural constraints,
+integer bank and FT arcs are independently checked after rounding and replayed
+semantically. The conditioned objective-band row is a search hint; only the exact
+Fraction gate admits a tie. Infeasible secondary presolve results get the unchanged
+presolve-disabled retry. Every solve must prove optimality at zero relative gap;
+time limits, nonintegral outputs and failed checks produce no published decision.
+The configurable time limit applies to each MILP solve, not the whole ranking run.
+
+Publication binds projection/model identities, versioned rules, initial squad,
+search limits and implementation checksum. Optimisation is offline and never
+refetches evidence. Independent small-population exhaustive paths and every legal
+XI verify scores and ranking, including near ties; independent historical joins
+and saved-model replay verify the projection layer. Full-population runtime is a
+v1 limitation, not permission to prune candidates or publish an unproven incumbent.
+
+Full-population testing exposed slow HiGHS secondary feasibility search inside the
+narrow objective band. Discrete paid/total priorities are therefore proved with
+primary-objective solves under progressively smaller integer count bounds. An
+exact in-band witness updates the count; a proven best remaining objective outside
+the band (or proven infeasibility, with presolve-disabled retry) proves the current
+count minimal. Zero is a known lower bound and needs no redundant solve.
+
+After those counts are fixed, enumerate up to 32 alternatives using primary solves
+without the numerical band row. If that exhausts the exact admissible tie set,
+choose its lexicographic minimum. On overflow restore every temporary cut and use
+the full binary-block lexicographic proof. This is a performance shortcut, not a
+candidate restriction or approximate ranking. Both routes are checked against the
+independent oracle; forced fallback must reproduce the same complete plans.

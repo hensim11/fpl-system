@@ -129,6 +129,29 @@ def build_parser() -> argparse.ArgumentParser:
     decision.add_argument('--max-transfers', type=int, default=2)
     decision.add_argument('--top-n', type=int, default=3)
     decision.add_argument('--artifact-dir', type=Path, default=Path('data/decisions'))
+    projection = subparsers.add_parser('project', help='direct multi-Gameweek projections')
+    stages = projection.add_subparsers(dest='projection_stage', required=True)
+    fit = stages.add_parser('fit')
+    fit.add_argument('--m3-dir', type=Path, required=True)
+    fit.add_argument('--artifact-dir', type=Path, default=Path('data/multi_projection/models'))
+    for stage in ('freeze', 'verify'):
+        command = stages.add_parser(stage)
+        command.add_argument('--model-dir', type=Path, required=True)
+        command.add_argument('--m4e-model-dir', type=Path, required=True)
+        if stage == 'freeze':
+            command.add_argument('--forecast-dir', type=Path, required=True)
+            command.add_argument('--horizon', type=int, default=5)
+            command.add_argument('--artifact-dir', type=Path, default=Path('data/multi_projection/forecasts'))
+        else:
+            command.add_argument('--projections-dir', type=Path, required=True)
+    plan = subparsers.add_parser('plan', help='offline multi-Gameweek transfer paths')
+    for name in ('projections-dir', 'model-dir', 'm4e-model-dir', 'squad'):
+        plan.add_argument('--'+name, type=Path, required=True)
+    plan.add_argument('--horizon', type=int, default=5)
+    plan.add_argument('--max-transfers', type=int, default=2)
+    plan.add_argument('--top-n', type=int, default=3)
+    plan.add_argument('--time-limit', type=float, default=120)
+    plan.add_argument('--artifact-dir', type=Path, default=Path('data/transfer_paths'))
     return parser
 
 
@@ -136,6 +159,25 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
+        if args.command in ('project', 'plan'):
+            if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
+                parser.error('planning commands do not accept current-ingestion options')
+            from fpl_ai import multi_projection as mp
+            if args.command == 'plan':
+                from fpl_ai.transfer_path import build_plan
+                out, reused = build_plan(args.projections_dir, args.model_dir, args.m4e_model_dir,
+                                         args.squad, args.artifact_dir, horizon=args.horizon,
+                                         max_transfers=args.max_transfers, top_n=args.top_n, time_limit=args.time_limit)
+                print(f"Plan {'reused' if reused else 'completed'}: {out}")
+                print((out/'report.md').read_text())
+            elif args.projection_stage == 'fit':
+                print(mp.build_models(args.m3_dir, args.artifact_dir))
+            elif args.projection_stage == 'freeze':
+                print(mp.freeze(args.forecast_dir, args.m4e_model_dir, args.model_dir, args.artifact_dir, horizon=args.horizon))
+            else:
+                _, manifest = mp.verify_projection(args.projections_dir, args.model_dir, args.m4e_model_dir)
+                print('Verified '+manifest['identity_sha256'])
+            return 0
         if args.command == 'optimise':
             if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
                 parser.error('optimise does not accept current-ingestion options')

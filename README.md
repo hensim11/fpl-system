@@ -1,5 +1,36 @@
 # FPL AI Platform
 
+## Multi-Gameweek projections and transfer paths (M5B)
+
+`project fit`, `project freeze` and `project verify` provide five direct,
+horizon-specific points models from one frozen deadline state. `plan` evolves
+your squad, exact selling prices, bank, free transfers and hits across those GWs,
+selecting the best legal XI/captain each week. It returns deterministic complete
+paths, a no-transfer baseline and a sequential greedy comparison.
+
+```bash
+.venv/bin/python -m fpl_ai plan --projections-dir "$PROJECTIONS" \
+  --model-dir "$MULTI_MODEL" --m4e-model-dir "$M4E_MODEL" \
+  --squad my-squad.json --horizon 5 --max-transfers 2 --top-n 3
+```
+
+`--max-transfers` is a per-GW search limit. Planning is offline; `project freeze`
+requires the actual clock to precede the target deadline. Prices and strict
+snapshot selectability stay static across the horizon. Initial selling prices
+remain exact; purchased players later sell at their static purchase price.
+There are no chips, fixture predictors, speculative prices or risk penalties.
+
+GW+0 is explicitly distinct from M4E because the direct family uses a larger
+historical fitting population. Later forecasts are separate trained targets,
+never copies/scalings of the M4E forecast. Both M4E models remain frozen.
+2025/26 evaluation is consumed historical evidence, not a new untouched holdout.
+Projected plan gains do not establish realised FPL improvement.
+
+See [M5B verification, results and exact commands](docs/M5B_VERIFICATION.md),
+[independent oracle evidence](docs/M5B_ORACLE.json), and Decisions 050–052.
+New immutable products live under `data/multi_projection/` and
+`data/transfer_paths/`; existing M4E and M5A products retain their contracts.
+
 ## One-Gameweek transfer optimiser v1 (M5A)
 
 `python -m fpl_ai optimise` consumes an immutable M4E forecast, an explicit
@@ -54,7 +85,7 @@ mixed; both models remain available and require new prospective evaluation befor
 any claim of better FPL decisions. M5A now adds the one-Gameweek decision layer described below.
 
 
-Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for the complete 2021/22–2025/26 range. Milestones 2 and 3 are complete: deadline-safe features and chronological non-ML baseline evaluation now build offline from those historical inputs. Milestone 4 now adds reproducible trained regressors and a frozen-model holdout workflow. The selected model improves the frozen next-GW prediction benchmark. M4B now adds independently evidenced playing-time features, a bounded expected-minutes model, and a CLI for immutable prospective forecasts and separate settled scoring. M4C adds annual chronological OOS minutes artifacts with guarded downstream eligibility and a verified real 2026/27 GW5 forecast. M4D adds a fixed historical xPts-v2 ablation using verified OOS expected minutes: modest RMSE/MAE gains over its matched control, but weaker top-10 realised points. M5A adds rules-aware one-Gameweek transfer plans; multi-Gameweek planning remains future work.
+Data foundation for an AI-powered Fantasy Premier League analytics platform. Milestone 1 downloads current public FPL data; Milestone 2 builds reproducible, leakage-classified historical tables for the complete 2021/22–2025/26 range. Milestones 2 and 3 are complete: deadline-safe features and chronological non-ML baseline evaluation now build offline from those historical inputs. Milestone 4 now adds reproducible trained regressors and a frozen-model holdout workflow. The selected model improves the frozen next-GW prediction benchmark. M4B now adds independently evidenced playing-time features, a bounded expected-minutes model, and a CLI for immutable prospective forecasts and separate settled scoring. M4C adds annual chronological OOS minutes artifacts with guarded downstream eligibility and a verified real 2026/27 GW5 forecast. M4D adds a fixed historical xPts-v2 ablation using verified OOS expected minutes: modest RMSE/MAE gains over its matched control, but weaker top-10 realised points. M5A adds rules-aware one-Gameweek transfer plans; M5B adds separately trained multi-horizon forecasts and legal multi-Gameweek transfer paths.
 
 ## Quick start
 
