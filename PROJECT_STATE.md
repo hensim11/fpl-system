@@ -1,8 +1,51 @@
 # Project state
 
-Last updated: 2026-09-21
+Last updated: 2026-09-22
 
 ## Current milestone
+
+**M5B — Multi-Gameweek Projections and Transfer-Path Optimiser v1** is verified
+and complete; recommend acceptance. Five direct hist_15 models forecast
+individual GW offsets 0–4 from one frozen state. Historical fits use
+2021/22–2024/25, evaluated on consumed 2025/26; production refits use all valid
+prior-season evidence. GW+0 has a distinct fitting population from frozen M4E;
+both control/v2 remain unchanged and explicit comparisons are retained.
+
+The separate sparse MILP evolves legal squads, integer bank, original selling
+rights, free transfers and hits, selecting XI/captain every GW. It ranks complete
+paths with exact tie semantics, no-transfer and sequential greedy comparisons.
+Prices/selectability are static assumptions; no chips, fixture features, price
+forecasts, risk penalties or realised utility improvement is claimed.
+
+Use `python -m fpl_ai project fit|freeze|verify` and `python -m fpl_ai plan`.
+See [M5B verification and exact commands](docs/M5B_VERIFICATION.md),
+[machine evidence](docs/M5B_VERIFICATION.json),
+[independent exhaustive oracle](docs/M5B_ORACLE.json), and
+[regression/preservation](docs/M5B_REGRESSION.json). The real GW6–10 projection
+uses the retained September 18 state with actual September 21 UTC computation;
+it is early evidence, not near-deadline confirmation. Demonstration squads are
+synthetic, not the user's team.
+
+**261 tests pass normally and under optimized Python.** The independent sweep
+checks 22 cases / 82 feasible ranked paths: 15 cases return five and seven
+return only the no-transfer path because no transfer is affordable. Top-N is a
+maximum, not a guaranteed count; all returned paths pass the oracle checks.
+Normal/optimized verification and oracle reports are byte-identical. Two focused
+regressions guard the top-N and emitted-count reporting contracts; see the
+[evidence correction](docs/M5B_EVIDENCE_CORRECTION.json). Fresh models, separate scores and full top-three
+plans reproduce their identities; reuse preserves bytes/mtimes. All **920**
+pre-batch data files retain bytes and nanosecond mtimes. The full-population
+five-GW demo scores **194.178** after eight hit points versus **164.065** with no
+transfers and **188.020** sequential greedy. It rolls in GW9 and uses two FTs in
+GW10. These are projected objectives on a synthetic squad, not realised gains.
+The final top-three run took approximately 110 seconds locally. No commit,
+merge or push was performed.
+
+Next substantial objective: **M5C — Prospective multi-GW outcome scoring and
+uncertainty calibration**, while continuing manual nearer-deadline retention and
+settled M4E evidence. No control/v2 reselection or retrospective performance claim.
+
+## Prior M5A result
 
 **M5A — Rules-aware current-squad transfer optimiser v1** is **verified hardened and complete**. It takes
 an immutable M4E forecast, explicit control/v2 choice and a validated 15-player

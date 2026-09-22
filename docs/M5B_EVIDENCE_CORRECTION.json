@@ -1,0 +1,132 @@
+{
+  "acceptance": "M5B ready for final acceptance and progression to M5C; M5C not started",
+  "checks": {
+    "compileall": true,
+    "optimise_help": true,
+    "plan_help": true,
+    "project_help": true,
+    "repository_search_no_stale_oracle_claim": true,
+    "tracked_whitespace": true
+  },
+  "deterministic_reports": {
+    "historical_forecast_plan": {
+      "normal_and_optimized_byte_identical_to_existing": true,
+      "sha256": "4891cd334b67eec9a4ba696c89ac81e6a2245ff6c49868c10557b7dec4eed35c",
+      "source": "docs/M5B_VERIFICATION.json"
+    },
+    "oracle": {
+      "normal_and_optimized_byte_identical_to_existing": true,
+      "sha256": "d99c27f092c48ae9496dbbf5792cab2acb9ad8d4602b4a2ff8e9047388c881c6",
+      "source": "docs/M5B_ORACLE.json"
+    }
+  },
+  "files_changed": [
+    "PROJECT_STATE.md",
+    "ROADMAP.md",
+    "docs/M5B_EVIDENCE_CORRECTION.json",
+    "docs/M5B_VERIFICATION.md",
+    "tests/test_transfer_path.py"
+  ],
+  "oracle": {
+    "case_count": 22,
+    "five_path_cases": 15,
+    "generator_already_sums_actual_emitted_counts": true,
+    "one_path_cases": [
+      {
+        "bank": 2,
+        "feasible_complete_paths": 1,
+        "free_transfers": 0,
+        "minimum_first_transfer_cost": 6,
+        "seed": 2
+      },
+      {
+        "bank": 2,
+        "feasible_complete_paths": 1,
+        "free_transfers": 4,
+        "minimum_first_transfer_cost": 6,
+        "seed": 6
+      },
+      {
+        "bank": 4,
+        "feasible_complete_paths": 1,
+        "free_transfers": 2,
+        "minimum_first_transfer_cost": 6,
+        "seed": 7
+      },
+      {
+        "bank": 1,
+        "feasible_complete_paths": 1,
+        "free_transfers": 4,
+        "minimum_first_transfer_cost": 6,
+        "seed": 10
+      },
+      {
+        "bank": 0,
+        "feasible_complete_paths": 1,
+        "free_transfers": 1,
+        "minimum_first_transfer_cost": 6,
+        "seed": 15
+      },
+      {
+        "bank": 3,
+        "feasible_complete_paths": 1,
+        "free_transfers": 1,
+        "minimum_first_transfer_cost": 6,
+        "seed": 18
+      },
+      {
+        "bank": 1,
+        "feasible_complete_paths": 1,
+        "free_transfers": 5,
+        "minimum_first_transfer_cost": 6,
+        "seed": 19
+      }
+    ],
+    "ranked_paths_checked": 82,
+    "reason": "No first transfer is affordable in these cases; static prices and unchanged bank on rolling make the no-transfer path uniquely feasible across both GWs.",
+    "requested_maximum_per_case": 5
+  },
+  "pre_existing_M5B_working_tree_preserved": true,
+  "preservation": {
+    "all_bytes_and_nanosecond_mtimes_unchanged": true,
+    "current_data_files": 951,
+    "original_pre_batch_files": 920
+  },
+  "production_and_verifier_source_unchanged": true,
+  "regressions_added": [
+    "test_top_n_is_maximum_when_only_roll_path_is_feasible",
+    "test_oracle_report_counts_emitted_paths_not_requested_maximum"
+  ],
+  "remaining_110_references": [
+    {
+      "file": "PROJECT_STATE.md",
+      "line": 41,
+      "meaning": "unchanged runtime observation",
+      "text": "The final top-three run took approximately 110 seconds locally. No commit,"
+    },
+    {
+      "file": "docs/M5B_VERIFICATION.md",
+      "line": 185,
+      "meaning": "unchanged runtime observation",
+      "text": "completed in approximately 110 seconds on this machine; the stricter top-one run"
+    }
+  ],
+  "scope": "M5B oracle evidence/reporting correction only; no M5C work",
+  "tests": {
+    "focused": {
+      "count": 23,
+      "log": "test_boundary_and_input_rejection (tests.test_transfer_path.PathTests.test_boundary_and_input_rejection) ... ok\ntest_club_limit_blocks_high_scoring_incoming (tests.test_transfer_path.PathTests.test_club_limit_blocks_high_scoring_incoming) ... ok\ntest_exact_tie_boundary_and_negative_scores (tests.test_transfer_path.PathTests.test_exact_tie_boundary_and_negative_scores) ... ok\ntest_greedy_first_move_loses (tests.test_transfer_path.PathTests.test_greedy_first_move_loses) ... ok\ntest_immediate_hit_pays_over_horizon (tests.test_transfer_path.PathTests.test_immediate_hit_pays_over_horizon) ... ok\ntest_oracle_report_counts_emitted_paths_not_requested_maximum (tests.test_transfer_path.PathTests.test_oracle_report_counts_emitted_paths_not_requested_maximum) ... ok\ntest_order_determinism (tests.test_transfer_path.PathTests.test_order_determinism) ... ok\ntest_random_signed_and_near_tie_paths (tests.test_transfer_path.PathTests.test_random_signed_and_near_tie_paths) ... ok\ntest_roll_then_use_two_free_transfers (tests.test_transfer_path.PathTests.test_roll_then_use_two_free_transfers) ... ok\ntest_sale_repurchase_rights_bank_and_cap (tests.test_transfer_path.PathTests.test_sale_repurchase_rights_bank_and_cap) ... ok\ntest_small_gain_hit_not_worthwhile (tests.test_transfer_path.PathTests.test_small_gain_hit_not_worthwhile) ... ok\ntest_three_week_path_with_squad_retention (tests.test_transfer_path.PathTests.test_three_week_path_with_squad_retention) ... ok\ntest_top_n_is_maximum_when_only_roll_path_is_feasible (tests.test_transfer_path.PathTests.test_top_n_is_maximum_when_only_roll_path_is_feasible) ... ok\ntest_unproven_solver_fails_closed (tests.test_transfer_path.PathTests.test_unproven_solver_fails_closed) ... ok\ntest_unselectable_owned_retained_and_incoming_rejected (tests.test_transfer_path.PathTests.test_unselectable_owned_retained_and_incoming_rejected) ... ok\ntest_artifact_closed_set_and_checksum (tests.test_multi_projection.ProjectionTests.test_artifact_closed_set_and_checksum) ... ok\ntest_duplicate_invalid_settlement_and_horizon_rejected (tests.test_multi_projection.ProjectionTests.test_duplicate_invalid_settlement_and_horizon_rejected) ... ok\ntest_freeze_rejects_actual_clock_at_deadline_without_publication (tests.test_multi_projection.ProjectionTests.test_freeze_rejects_actual_clock_at_deadline_without_publication) ... ok\ntest_later_labels_never_future_features (tests.test_multi_projection.ProjectionTests.test_later_labels_never_future_features) ... ok\ntest_live_matrix_has_historical_preprocessing_parity (tests.test_multi_projection.ProjectionTests.test_live_matrix_has_historical_preprocessing_parity) ... ok\ntest_missing_blank_zero_double_and_season_end (tests.test_multi_projection.ProjectionTests.test_missing_blank_zero_double_and_season_end) ... ok\ntest_missing_future_registration_stays_missing (tests.test_multi_projection.ProjectionTests.test_missing_future_registration_stays_missing) ... ok\ntest_training_cutoff_and_preprocessing_population (tests.test_multi_projection.ProjectionTests.test_training_cutoff_and_preprocessing_population) ... ok\n\n----------------------------------------------------------------------\nRan 23 tests in 8.212s\n\nOK\n",
+      "passed": true
+    },
+    "normal": {
+      "count": 261,
+      "log": ".....................................................................................................................................................................................................................................................................\n----------------------------------------------------------------------\nRan 261 tests in 21.671s\n\nOK\n",
+      "passed": true
+    },
+    "optimized": {
+      "count": 261,
+      "log": ".....................................................................................................................................................................................................................................................................\n----------------------------------------------------------------------\nRan 261 tests in 21.357s\n\nOK\n",
+      "passed": true
+    }
+  }
+}
