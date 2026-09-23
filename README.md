@@ -1,5 +1,52 @@
 # FPL AI Platform
 
+## Joint scenarios and plan comparisons (M5D)
+
+M5B forecasts expected points and constructs legal paths → M5C describes marginal
+empirical uncertainty → M5D produces joint scenarios and compares those paths.
+The joint model samples a shared historical as-of block and whole player residual
+trajectories. A matched independent null shows how the dependence assumptions
+change risk. Neither point models, marginal calibration nor the optimiser objective
+change. These diagnostics have not demonstrated realised decision value.
+
+```bash
+# Source variables and exact retained identities: docs/M5D_VERIFICATION.md
+.venv/bin/python -m fpl_ai simulate freeze --uncertainty-dir "$UNCERTAINTY" \
+  --calibration-dir "$CALIBRATION" --m4e-model-dir "$M4E_MODEL" \
+  --count 16384 --seed 1729
+.venv/bin/python -m fpl_ai simulate verify --simulation-dir "$SIMULATION" \
+  --uncertainty-dir "$UNCERTAINTY" --calibration-dir "$CALIBRATION" \
+  --m4e-model-dir "$M4E_MODEL"
+.venv/bin/python -m fpl_ai simulate evaluate --simulation-dir "$SIMULATION" \
+  --plan-dir "$PLAN" --uncertainty-dir "$UNCERTAINTY" \
+  --calibration-dir "$CALIBRATION" --m4e-model-dir "$M4E_MODEL"
+.venv/bin/python -m fpl_ai simulate verify-evaluation --evaluation-dir "$EVALUATION" \
+  --simulation-dir "$SIMULATION" --plan-dir "$PLAN" --uncertainty-dir "$UNCERTAINTY" \
+  --calibration-dir "$CALIBRATION" --m4e-model-dir "$M4E_MODEL"
+# Copy the verified original attestation without redating, including after deadline:
+.venv/bin/python -m fpl_ai simulate replay --simulation-dir "$SIMULATION" \
+  --uncertainty-dir "$UNCERTAINTY" --calibration-dir "$CALIBRATION" \
+  --m4e-model-dir "$M4E_MODEL" --artifact-dir /tmp/simulation-replay
+```
+
+New freezes must complete actual-clock verification before the original first
+target deadline. Repeating a configuration in the same root verifies/reuses it.
+Artifacts live separately under `data/simulations/` and
+`data/simulation_evaluations/`; compact hashes and retained inputs reproduce every
+scenario without storing raw cubes. All candidates share scenarios and retain their
+forecast-selected XIs/captains and transfer hits. Reports keep expectation,
+downside, upside and paired probabilities visible separately.
+
+The default 16,384 scenarios supports broad comparisons, not fine ordering of
+nearly identical plans. Historical donor exchangeability, overlapping windows,
+no specific team/match dependence and no independent prospective validation remain
+material limitations. See [the precise joint contract](docs/M5D_DESIGN.md),
+[verification and demonstration](docs/M5D_VERIFICATION.md), and Decisions 057–060.
+
+**299 full tests pass normally and under optimized Python.** Independent scenario
+and plan reconstruction, fresh/reuse/replay and unchanged upstream evidence are
+recorded in the [M5D acceptance summary](docs/M5D_ACCEPTANCE.json).
+
 ## Frozen uncertainty and prospective scoring (M5C)
 
 M5C adds fixed empirical 50%, 80% and 90% prediction intervals to the unchanged

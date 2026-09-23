@@ -1,0 +1,258 @@
+{
+  "as_of_blocks": 34,
+  "complete_donors": 26305,
+  "evaluation_identity": "36a266e775e124a6d36bfb813e0aedf364c200a394a82d9b25e0b48a75902c3f",
+  "historical": {
+    "calibration_reuse_coverage_is_not_independent_validation": true,
+    "cumulative_exclusions": {
+      "3": {
+        "season_end": 1678
+      },
+      "5": {
+        "season_end": 3340
+      }
+    },
+    "historical_residuals_and_quantiles_independently_reconstructed": true,
+    "pools": {
+      "c3": {
+        "as_of_gameweeks": 36,
+        "levels": {
+          "50": {
+            "calibration_reuse_coverage_not_validation": 0.5009833017484893,
+            "lower_residual": -1.2565607365385816,
+            "upper_residual": 0.020828730243114883,
+            "width": 1.2773894667816965
+          },
+          "80": {
+            "calibration_reuse_coverage_not_validation": 0.8001215718525405,
+            "lower_residual": -3.653668066776664,
+            "upper_residual": 4.551634512296701,
+            "width": 8.205302579073365
+          },
+          "90": {
+            "calibration_reuse_coverage_not_validation": 0.900096542353488,
+            "lower_residual": -5.1523048459111305,
+            "upper_residual": 7.833649035339992,
+            "width": 12.985953881251122
+          }
+        },
+        "position_counts": {
+          "1": 3222,
+          "2": 9167,
+          "3": 12498,
+          "4": 3080
+        },
+        "rows": 27967
+      },
+      "c5": {
+        "as_of_gameweeks": 34,
+        "levels": {
+          "50": {
+            "calibration_reuse_coverage_not_validation": 0.5000950389659761,
+            "lower_residual": -2.0163051988329563,
+            "upper_residual": 0.4588050508065836,
+            "width": 2.47511024963954
+          },
+          "80": {
+            "calibration_reuse_coverage_not_validation": 0.8001140467591713,
+            "lower_residual": -5.445910348290798,
+            "upper_residual": 7.155482990216509,
+            "width": 12.601393338507307
+          },
+          "90": {
+            "calibration_reuse_coverage_not_validation": 0.9000950389659761,
+            "lower_residual": -7.802839396173663,
+            "upper_residual": 11.23437615487146,
+            "width": 19.037215551045122
+          }
+        },
+        "position_counts": {
+          "1": 3029,
+          "2": 8630,
+          "3": 11752,
+          "4": 2894
+        },
+        "rows": 26305
+      },
+      "h0": {
+        "as_of_gameweeks": 38,
+        "levels": {
+          "50": {
+            "calibration_reuse_coverage_not_validation": 0.5108112666554225,
+            "lower_residual": -0.605114799745964,
+            "upper_residual": 0.0007191378705372749,
+            "width": 0.6058339376165013
+          },
+          "80": {
+            "calibration_reuse_coverage_not_validation": 0.8001011975037949,
+            "lower_residual": -1.6106824615318769,
+            "upper_residual": 1.3451702950528657,
+            "width": 2.9558527565847426
+          },
+          "90": {
+            "calibration_reuse_coverage_not_validation": 0.9000843312531625,
+            "lower_residual": -2.2010691004474428,
+            "upper_residual": 3.7746517043911703,
+            "width": 5.975720804838613
+          }
+        },
+        "position_counts": {
+          "1": 3416,
+          "2": 9707,
+          "3": 13255,
+          "4": 3267
+        },
+        "rows": 29645
+      },
+      "h1": {
+        "as_of_gameweeks": 37,
+        "levels": {
+          "50": {
+            "calibration_reuse_coverage_not_validation": 0.5211942371116126,
+            "lower_residual": -0.698416068514522,
+            "upper_residual": -0.008740724882108015,
+            "width": 0.689675343632414
+          },
+          "80": {
+            "calibration_reuse_coverage_not_validation": 0.8001041485853151,
+            "lower_residual": -1.6730407152692788,
+            "upper_residual": 1.5888553634483271,
+            "width": 3.261896078717606
+          },
+          "90": {
+            "calibration_reuse_coverage_not_validation": 0.9000867904877625,
+            "lower_residual": -2.277759442211895,
+            "upper_residual": 3.925163932318864,
+            "width": 6.202923374530759
+          }
+        },
+        "position_counts": {
+          "1": 3319,
+          "2": 9437,
+          "3": 12876,
+          "4": 3173
+        },
+        "rows": 28805
+      },
+      "h2": {
+        "as_of_gameweeks": 36,
+        "levels": {
+          "50": {
+            "calibration_reuse_coverage_not_validation": 0.5213287088354132,
+            "lower_residual": -0.7653283385661982,
+            "upper_residual": 0.00514975865301266,
+            "width": 0.7704780972192109
+          },
+          "80": {
+            "calibration_reuse_coverage_not_validation": 0.8001215718525405,
+            "lower_residual": -1.7122527190045163,
+            "upper_residual": 1.6884997527660397,
+            "width": 3.4007524717705557
+          },
+          "90": {
+            "calibration_reuse_coverage_not_validation": 0.900096542353488,
+            "lower_residual": -2.304199950440683,
+            "upper_residual": 4.081917865305375,
+            "width": 6.386117815746058
+          }
+        },
+        "position_counts": {
+          "1": 3222,
+          "2": 9167,
+          "3": 12498,
+          "4": 3080
+        },
+        "rows": 27967
+      },
+      "h3": {
+        "as_of_gameweeks": 35,
+        "levels": {
+          "50": {
+            "calibration_reuse_coverage_not_validation": 0.5254468398747005,
+            "lower_residual": -0.7960537008886084,
+            "upper_residual": 0.0033797758494427,
+            "width": 0.7994334767380511
+          },
+          "80": {
+            "calibration_reuse_coverage_not_validation": 0.8001105583195135,
+            "lower_residual": -1.7241553837801995,
+            "upper_residual": 1.7372478085931093,
+            "width": 3.461403192373309
+          },
+          "90": {
+            "calibration_reuse_coverage_not_validation": 0.9001289847060991,
+            "lower_residual": -2.334298326362959,
+            "upper_residual": 4.103075056196978,
+            "width": 6.437373382559937
+          }
+        },
+        "position_counts": {
+          "1": 3125,
+          "2": 8898,
+          "3": 12125,
+          "4": 2987
+        },
+        "rows": 27135
+      },
+      "h4": {
+        "as_of_gameweeks": 34,
+        "levels": {
+          "50": {
+            "calibration_reuse_coverage_not_validation": 0.5137046188937464,
+            "lower_residual": -0.839369650184878,
+            "upper_residual": 0.006432103132961085,
+            "width": 0.845801753317839
+          },
+          "80": {
+            "calibration_reuse_coverage_not_validation": 0.8001140467591713,
+            "lower_residual": -1.7377584787223623,
+            "upper_residual": 1.7854710191771073,
+            "width": 3.52322949789947
+          },
+          "90": {
+            "calibration_reuse_coverage_not_validation": 0.9000950389659761,
+            "lower_residual": -2.340923970360054,
+            "upper_residual": 4.179644806724276,
+            "width": 6.52056877708433
+          }
+        },
+        "position_counts": {
+          "1": 3029,
+          "2": 8630,
+          "3": 11752,
+          "4": 2894
+        },
+        "rows": 26305
+      }
+    },
+    "residual_rows": 139857,
+    "source_identities": {
+      "m3": "57c2e4a54faca1328dc77e19471564cedd41eb6b73238b476ff00ab21f194f7a",
+      "model": "b0e9cf270c6524278ddb6c288c393aef580159c2a36a02b9a01e81cfadf4235b",
+      "score": "15330198b278c5b82eca1b756d46236ac998a573ce755022957c89d0c7394c4f"
+    }
+  },
+  "models": {
+    "as-of-block-trajectories-v1": {
+      "all_plan_metrics_and_convergence_prefixes_independently_verified": true,
+      "all_scalar_plan_returns_exact": true,
+      "all_scenario_and_trace_hashes_exact": true,
+      "marginal_interval_negative_and_dependence_diagnostics_verified": true
+    },
+    "independent-residual-null-v1": {
+      "all_plan_metrics_and_convergence_prefixes_independently_verified": true,
+      "all_scalar_plan_returns_exact": true,
+      "all_scenario_and_trace_hashes_exact": true,
+      "marginal_interval_negative_and_dependence_diagnostics_verified": true
+    }
+  },
+  "scenario_count": 16384,
+  "seed": 1729,
+  "simulation_identity": "0a4dceb30cd0fba3c4ef50c8f09b4c89e74eeb3a4b3704dc70baa69ac5029a62",
+  "simulation_key": "355559e361d9721b598900f2507ccf73a71c7bb40fdf9dc551235de235e9b1dd",
+  "source_sha256": {
+    "fpl_ai/joint_simulation.py": "2f27b41bb82026b524e6d55e51d40fc80b311f0290ed5c94ce15ddc19cf5929e",
+    "fpl_ai/simulation_plans.py": "571523f9444a2dafdc93e981c18063e35ef3a6bb5fff3fe214697632d8772f56",
+    "scripts/verify_joint_simulation.py": "548917b464d3387fd86b876e43dd618c6b5936bf21ba77da710208fbbd3c4cf2"
+  }
+}

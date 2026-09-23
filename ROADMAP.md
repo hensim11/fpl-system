@@ -204,13 +204,34 @@ No prospective calibration-quality claim yet. The operational calibration remain
 frozen; no automatic model/quantile/segmentation selection follows new outcomes.
 The final unchecked item awaits authoritative future results, not implementation.
 
+## M5D — Joint Monte Carlo simulation and risk-aware plan evaluation v1
+
+Status: **complete and verified; recommend acceptance within the declared scope**.
+[Acceptance evidence](docs/M5D_ACCEPTANCE.json): 299 normal/optimized tests,
+independent scenario/plan arithmetic, unchanged prior audits and 1,015 preserved files.
+
+- [x] Freeze `joint-simulation-v1`: complete donor trajectories within shared empirical as-of blocks.
+- [x] Reconstruct exact M5C evidence; preserve M5B models, forecasts and expected-points objective.
+- [x] Deterministic seeded scenarios, explicit unsupported dependencies, matched independent null.
+- [x] Separate immutable simulation/evaluation artifacts, actual-clock publication and offline reuse/replay.
+- [x] Common-scenario no-transfer, greedy and exact top-N evaluation with separate expectation/downside/upside.
+- [x] Known-dependence fixtures, scalar return/metric checks and three-seed scenario-count convergence.
+- [x] Publish a real retained 659-player GW6–10 simulation using the original synthetic demonstration squad.
+- [x] Complete normal/optimized and independent regression/preservation verification.
+- [ ] Observe genuine prospective simulation calibration and decision-quality evidence as outcomes accrue.
+
+The final prospective item awaits authoritative outcomes. It is not a claim of
+realised benefit, and no consumed historical comparison selects a dependency model.
+See [design](docs/M5D_DESIGN.md) and [verification](docs/M5D_VERIFICATION.md).
+
 ## Next substantial objective
 
-Continue prospective retention and settlement under the fixed contracts. A later
-Monte Carlo/risk-aware planning batch can use the keyed residual evidence, but must
-specify joint player/GW dependencies and evaluate uncertainty and decision utility.
-Intervals alone do not define a joint distribution or justify a risk-adjusted
-optimiser objective. M5B continues to optimise expected points exactly as accepted.
+Build the personalised FPL decision workflow: explicit user squad, exact sale rights,
+bank and free transfers, retained forecast state, legal paths and explainable paired
+simulation comparisons. Keep the M5B objective unchanged while prospective evidence
+accrues. Risk-aware optimisation needs an explicit utility contract and stronger
+validation of the simulation law; historical reuse does not justify choosing a
+manager's risk preference or production risk penalty.
 
 ## Later milestones
 

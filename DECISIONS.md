@@ -1324,3 +1324,86 @@ admission, full populations, tie tolerance and all proof semantics remain unchan
 M5C intervals are not planner penalties. Future simulation needs a defensible joint
 player/GW dependence model; the keyed residual evidence is input evidence, not an
 independent sampling licence or an expected-utility claim.
+
+## 057 — Complete-trajectory empirical as-of block simulation
+
+M5D freezes `joint-simulation-v1` / `as-of-block-trajectories-v1` over the exact
+reconstructed M5C residual evidence. First select an as-of block with probability
+proportional to its complete-window donor count; then sample each current player's
+whole residual trajectory uniformly with replacement within that common block.
+This preserves the empirical donor cross-horizon law and induces common target-GW
+effects through block means. It requires no Gaussian approximation, fitted
+covariance, added fixture features, residual centering or alteration of M5C pools.
+
+Current players are exchangeable with donors, independently conditional on the
+shared block. This is an explicit limitation: specific player/position/team/match
+relationships, opponent anticorrelation and conditional rotation risk are not
+modelled. Same-GW cross-player covariance is the nonnegative variance of block
+means. Negative cross-horizon dependence is supported. Complete-window selection
+excludes season ends and missing labels with keyed reasons; fewer than 100 donors
+fails closed. Selected and full M5C marginal populations are both reported.
+
+The independent null samples each player/horizon separately from the identical
+complete-donor marginals. It is a diagnostic comparison, never the production joint
+law and never a model-selection exercise on consumed 2025/26 evidence. One season,
+dependent players, overlapping windows and a different production refit prevent
+claims of independent validation or conditional calibration. Detailed mathematical
+semantics and unsupported structure: `docs/M5D_DESIGN.md`.
+
+## 058 — Deterministic simulation and prospective publication boundaries
+
+Use the existing NumPy dependency with explicit Generator(PCG64(seed)), ascending
+current IDs, sorted (as-of GW, element) donors and fixed scenario-major int64 draw
+calls. Prefixes are stable as count increases. Bind software versions, implementation
+hash, source manifests/artifacts, residual population, horizon, players, seed and
+count. No global random state or future-state recursion enters the computation.
+
+Separate immutable `data/simulations/<identity>/` artifacts contain the versioned
+contract, manifest, exact projection rows, complete donor keys/exclusions, both
+models' diagnostics and SHA-256 hashes of all residual/point scenarios and donor
+index traces. Reconstruct raw cubes instead of storing large opaque scenario files.
+Canonical hash encodings are little-endian float64/int64 with documented axes.
+The operational default is 16,384, checked against 32,768 at three fixed seeds for
+numerical precision and runtime. This does not select a dependency model.
+
+A deterministic simulation key excludes runtime attestation; publication identity
+includes it. New computation and final verification use the actual clock and must
+precede the first target deadline bound upstream. No timestamp override exists.
+Same-configuration reuse verifies without rewriting or redating. Explicit offline
+replay preserves the original attestation and identity after publication. A fresh
+publication at another actual time can share a simulation key and every output
+hash while having a different timestamped publication identity.
+
+## 059 — Common-scenario evaluation of committed legal paths
+
+M5D evaluates no-transfer, sequential greedy and every supplied exact M5B top-N
+path against the same scenarios. It replays existing legality, economics, forecast
+XI/captain and hits. Existing accepted path identities retain their independent
+ranking evidence; any other identity must reproduce the unchanged exact optimiser
+and greedy calculation. It never substitutes simulated hindsight XIs, captains,
+transfers or risk objectives. Autosubs, vice-captain substitutions and chips remain
+outside this static-path contract, consistent with M5B's scoring structure.
+
+Separate `data/simulation_evaluations/<identity>/` products bind simulation and
+path manifests. Report original forecast objective, analytical simulation
+expectation, Monte Carlo mean/median/SD, downside/upside quantiles, paired gain
+and strict win/tie/loss probabilities, highest-return probabilities and a defined
+10% lower-tail mean. The latter integrates exactly 10% mass with a fractional
+boundary observation. Highest-return ties split unit credit across tied supplied
+entries; inclusive and sole-win probabilities and duplicate entries are explicit.
+These simulation ties do not alter M5A/M5B exact optimiser tie semantics.
+
+## 060 — Simulation uncertainty does not justify changing the objective
+
+M5B continues to optimise expected points exactly. M5C calibration and every
+accepted artifact retain their original bytes and mtimes. M5D introduces no risk
+score, risk-attitude selection, CVaR objective, retraining or recalibration. Raw
+residual bias remains visible as a difference between forecast and simulation mean.
+Monte Carlo precision is conditional on the declared law and does not include its
+empirical/model uncertainty. The real GW6–10 demonstration uses the original
+synthetic squad, not the user's actual team, and makes no realised-benefit claim.
+
+Next develop a personalised decision workflow over these verified boundaries while
+retaining and settling genuinely prospective evidence. Risk-aware optimisation
+requires an explicit utility contract and stronger simulation validation; descriptive
+historical reuse alone does not justify changing the production objective.
