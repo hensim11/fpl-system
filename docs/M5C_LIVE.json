@@ -1,0 +1,542 @@
+{
+  "actual_clock": "2026-09-23T09:01:36.708437Z",
+  "bootstrap_timing": {
+    "received_at": "2026-09-23T09:01:36.223301Z",
+    "requested_at": "2026-09-23T09:01:35.133950Z"
+  },
+  "calibration_identity": "782bf10333f482f4ff2a1e19a2c438c4bc9d04b27b237779b1e71dbb8bc6d699",
+  "earliest_retained_deadline": "2026-10-10T10:00:00Z",
+  "events": [
+    {
+      "average_entry_score": 48,
+      "can_enter": false,
+      "can_manage": false,
+      "chip_plays": [
+        {
+          "chip_name": "bboost",
+          "num_played": 135186
+        },
+        {
+          "chip_name": "freehit",
+          "num_played": 295196
+        },
+        {
+          "chip_name": "wildcard",
+          "num_played": 467900
+        },
+        {
+          "chip_name": "3xc",
+          "num_played": 226208
+        }
+      ],
+      "cup_leagues_created": true,
+      "data_checked": true,
+      "deadline_time": "2026-09-18T17:30:00Z",
+      "deadline_time_epoch": 1789752600,
+      "deadline_time_game_offset": 0,
+      "finished": true,
+      "h2h_ko_matches_created": true,
+      "highest_score": 126,
+      "highest_scoring_entry": 2727735,
+      "id": 5,
+      "is_current": true,
+      "is_next": false,
+      "is_previous": false,
+      "most_captained": 411,
+      "most_selected": 411,
+      "most_transferred_in": 480,
+      "most_vice_captained": 426,
+      "name": "Gameweek 5",
+      "overrides": {
+        "element_types": [],
+        "pick_multiplier": null,
+        "rules": {},
+        "scoring": {}
+      },
+      "ranked_count": 10833606,
+      "release_time": null,
+      "released": true,
+      "top_element": 552,
+      "top_element_info": {
+        "id": 552,
+        "points": 17
+      },
+      "transfers_made": 18907524
+    },
+    {
+      "average_entry_score": 0,
+      "can_enter": true,
+      "can_manage": true,
+      "chip_plays": [
+        {
+          "chip_name": "bboost",
+          "num_played": 43906
+        },
+        {
+          "chip_name": "freehit",
+          "num_played": 41611
+        },
+        {
+          "chip_name": "wildcard",
+          "num_played": 198822
+        },
+        {
+          "chip_name": "3xc",
+          "num_played": 33070
+        }
+      ],
+      "cup_leagues_created": true,
+      "data_checked": false,
+      "deadline_time": "2026-10-10T10:00:00Z",
+      "deadline_time_epoch": 1791626400,
+      "deadline_time_game_offset": 0,
+      "finished": false,
+      "h2h_ko_matches_created": true,
+      "highest_score": null,
+      "highest_scoring_entry": null,
+      "id": 6,
+      "is_current": false,
+      "is_next": true,
+      "is_previous": false,
+      "most_captained": null,
+      "most_selected": null,
+      "most_transferred_in": null,
+      "most_vice_captained": null,
+      "name": "Gameweek 6",
+      "overrides": {
+        "element_types": [],
+        "pick_multiplier": null,
+        "rules": {},
+        "scoring": {}
+      },
+      "ranked_count": 0,
+      "release_time": null,
+      "released": true,
+      "top_element": null,
+      "top_element_info": null,
+      "transfers_made": 4611571
+    },
+    {
+      "average_entry_score": 0,
+      "can_enter": false,
+      "can_manage": false,
+      "chip_plays": [],
+      "cup_leagues_created": false,
+      "data_checked": false,
+      "deadline_time": "2026-10-17T10:00:00Z",
+      "deadline_time_epoch": 1792231200,
+      "deadline_time_game_offset": 0,
+      "finished": false,
+      "h2h_ko_matches_created": false,
+      "highest_score": null,
+      "highest_scoring_entry": null,
+      "id": 7,
+      "is_current": false,
+      "is_next": false,
+      "is_previous": false,
+      "most_captained": null,
+      "most_selected": null,
+      "most_transferred_in": null,
+      "most_vice_captained": null,
+      "name": "Gameweek 7",
+      "overrides": {
+        "element_types": [],
+        "pick_multiplier": null,
+        "rules": {},
+        "scoring": {}
+      },
+      "ranked_count": 0,
+      "release_time": null,
+      "released": true,
+      "top_element": null,
+      "top_element_info": null,
+      "transfers_made": 0
+    },
+    {
+      "average_entry_score": 0,
+      "can_enter": false,
+      "can_manage": false,
+      "chip_plays": [],
+      "cup_leagues_created": false,
+      "data_checked": false,
+      "deadline_time": "2026-10-23T17:30:00Z",
+      "deadline_time_epoch": 1792776600,
+      "deadline_time_game_offset": 0,
+      "finished": false,
+      "h2h_ko_matches_created": false,
+      "highest_score": null,
+      "highest_scoring_entry": null,
+      "id": 8,
+      "is_current": false,
+      "is_next": false,
+      "is_previous": false,
+      "most_captained": null,
+      "most_selected": null,
+      "most_transferred_in": null,
+      "most_vice_captained": null,
+      "name": "Gameweek 8",
+      "overrides": {
+        "element_types": [],
+        "pick_multiplier": null,
+        "rules": {},
+        "scoring": {}
+      },
+      "ranked_count": 0,
+      "release_time": null,
+      "released": true,
+      "top_element": null,
+      "top_element_info": null,
+      "transfers_made": 0
+    },
+    {
+      "average_entry_score": 0,
+      "can_enter": false,
+      "can_manage": false,
+      "chip_plays": [],
+      "cup_leagues_created": false,
+      "data_checked": false,
+      "deadline_time": "2026-10-31T11:00:00Z",
+      "deadline_time_epoch": 1793444400,
+      "deadline_time_game_offset": 0,
+      "finished": false,
+      "h2h_ko_matches_created": false,
+      "highest_score": null,
+      "highest_scoring_entry": null,
+      "id": 9,
+      "is_current": false,
+      "is_next": false,
+      "is_previous": false,
+      "most_captained": null,
+      "most_selected": null,
+      "most_transferred_in": null,
+      "most_vice_captained": null,
+      "name": "Gameweek 9",
+      "overrides": {
+        "element_types": [],
+        "pick_multiplier": null,
+        "rules": {},
+        "scoring": {}
+      },
+      "ranked_count": 0,
+      "release_time": null,
+      "released": true,
+      "top_element": null,
+      "top_element_info": null,
+      "transfers_made": 0
+    },
+    {
+      "average_entry_score": 0,
+      "can_enter": false,
+      "can_manage": false,
+      "chip_plays": [],
+      "cup_leagues_created": false,
+      "data_checked": false,
+      "deadline_time": "2026-11-06T18:30:00Z",
+      "deadline_time_epoch": 1793989800,
+      "deadline_time_game_offset": 0,
+      "finished": false,
+      "h2h_ko_matches_created": false,
+      "highest_score": null,
+      "highest_scoring_entry": null,
+      "id": 10,
+      "is_current": false,
+      "is_next": false,
+      "is_previous": false,
+      "most_captained": null,
+      "most_selected": null,
+      "most_transferred_in": null,
+      "most_vice_captained": null,
+      "name": "Gameweek 10",
+      "overrides": {
+        "element_types": [],
+        "pick_multiplier": null,
+        "rules": {},
+        "scoring": {}
+      },
+      "ranked_count": 0,
+      "release_time": null,
+      "released": true,
+      "top_element": null,
+      "top_element_info": null,
+      "transfers_made": 0
+    }
+  ],
+  "evidence_dir": "data/multi_uncertainty/live_inspection/4eb31389092e889b733872bc84e4519343925c7c6f4c3a38a40c36a5459c603d",
+  "fixtures_timing": {
+    "received_at": "2026-09-23T09:01:36.648142Z",
+    "requested_at": "2026-09-23T09:01:36.223332Z"
+  },
+  "hashes": {
+    "bootstrap.json": "a82f38c478b67439480bb992aa61597bc056901c9be799fe485dd286eecd43c8",
+    "fixtures.json": "6a032549a272a588285e8d6ade6ac186d2edd9ba33a49aafd9b631b8c84933b4"
+  },
+  "next_legal_stage": "uncertainty settle --gameweek 6 with original uncertainty/calibration/M4E model paths, only after finished/data_checked and all target fixtures finished",
+  "pending_score_identity": "502730c1d0de9f5b29c3786e58e2d058134e8e70e19cc937d3d50b6cb49a6053",
+  "premature_settlement_rejected": "Ingestion failed: target deadline has not passed",
+  "projection_identity": "03a9f348378b8ad61a8eea3c58424fdb7bf689f5c1da46707c03e54c35f1427b",
+  "real_scored_player_rows": 0,
+  "real_settled_m5c_targets": 0,
+  "target_fixtures": {
+    "10": [
+      {
+        "finished": false,
+        "id": 94,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 97,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 91,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 95,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 99,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 92,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 93,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 96,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 100,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 98,
+        "started": false
+      }
+    ],
+    "6": [
+      {
+        "finished": false,
+        "id": 51,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 52,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 53,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 57,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 60,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 59,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 55,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 56,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 58,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 54,
+        "started": false
+      }
+    ],
+    "7": [
+      {
+        "finished": false,
+        "id": 64,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 62,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 65,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 67,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 68,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 61,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 63,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 66,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 69,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 70,
+        "started": false
+      }
+    ],
+    "8": [
+      {
+        "finished": false,
+        "id": 77,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 72,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 71,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 74,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 73,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 75,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 76,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 78,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 79,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 80,
+        "started": false
+      }
+    ],
+    "9": [
+      {
+        "finished": false,
+        "id": 84,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 82,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 83,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 85,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 86,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 88,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 90,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 81,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 87,
+        "started": false
+      },
+      {
+        "finished": false,
+        "id": 89,
+        "started": false
+      }
+    ]
+  },
+  "uncertainty_identity": "c0a759479365bb0ee8676b355926ab2fdbd4a84bdca0d496d41c07189a471f2d"
+}

@@ -1,0 +1,304 @@
+{
+  "all_decision_bytes_identical": true,
+  "calls": [
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 5,
+      "presolve": true,
+      "scope": "top_three",
+      "seconds": 5.568742250092328,
+      "stage": "primary_search",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 25,
+      "presolve": true,
+      "scope": "top_three",
+      "seconds": 18.43136820802465,
+      "stage": "count_proof",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "top_three",
+      "seconds": 1.8168487502261996,
+      "stage": "count_proof",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 5,
+      "presolve": true,
+      "scope": "top_three",
+      "seconds": 5.620994667056948,
+      "stage": "tie_enumeration",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 5,
+      "presolve": true,
+      "scope": "top_three",
+      "seconds": 7.65485845785588,
+      "stage": "primary_search",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 56,
+      "presolve": true,
+      "scope": "top_three",
+      "seconds": 19.66354649979621,
+      "stage": "count_proof",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "top_three",
+      "seconds": 1.906414416152984,
+      "stage": "count_proof",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 13,
+      "presolve": true,
+      "scope": "top_three",
+      "seconds": 7.538960667327046,
+      "stage": "tie_enumeration",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 11,
+      "presolve": true,
+      "scope": "top_three",
+      "seconds": 7.752265749964863,
+      "stage": "primary_search",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 66,
+      "presolve": true,
+      "scope": "top_three",
+      "seconds": 20.478561042342335,
+      "stage": "count_proof",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 0,
+      "presolve": true,
+      "scope": "top_three",
+      "seconds": 1.0040731667540967,
+      "stage": "count_proof",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 12,
+      "presolve": true,
+      "scope": "top_three",
+      "seconds": 9.45166949974373,
+      "stage": "tie_enumeration",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.06808845791965723,
+      "stage": "primary_search",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.008935083169490099,
+      "stage": "count_proof",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.31731333304196596,
+      "stage": "tie_enumeration",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.47767670871689916,
+      "stage": "tie_enumeration",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.05131158325821161,
+      "stage": "primary_search",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.008863958064466715,
+      "stage": "count_proof",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.3736132918857038,
+      "stage": "tie_enumeration",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.04142754198983312,
+      "stage": "primary_search",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.00893558282405138,
+      "stage": "count_proof",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.3533009593375027,
+      "stage": "tie_enumeration",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.07004091702401638,
+      "stage": "primary_search",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.00886145792901516,
+      "stage": "count_proof",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 0,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.40505308331921697,
+      "stage": "tie_enumeration",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 0,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.4723172076046467,
+      "stage": "tie_enumeration",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.08371120877563953,
+      "stage": "primary_search",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.009011707734316587,
+      "stage": "count_proof",
+      "status": 0
+    },
+    {
+      "mip_rel_gap": 0.0,
+      "nodes": 1,
+      "presolve": true,
+      "scope": "greedy",
+      "seconds": 0.36956570809707046,
+      "stage": "tie_enumeration",
+      "status": 0
+    }
+  ],
+  "decision_identity": "0df6760a8e32dd269d381c1a7298769522900520f841e8d3b2e5c848398f1bd8",
+  "groups": {
+    "greedy:count_proof": {
+      "calls": 5,
+      "seconds": 0.04460778972133994
+    },
+    "greedy:primary_search": {
+      "calls": 5,
+      "seconds": 0.3145797089673579
+    },
+    "greedy:tie_enumeration": {
+      "calls": 7,
+      "seconds": 2.7688402920030057
+    },
+    "top_three:count_proof": {
+      "calls": 6,
+      "seconds": 63.30081208329648
+    },
+    "top_three:primary_search": {
+      "calls": 3,
+      "seconds": 20.97586645791307
+    },
+    "top_three:tie_enumeration": {
+      "calls": 3,
+      "seconds": 22.611624834127724
+    }
+  },
+  "horizon": 5,
+  "max_transfers_per_gw": 2,
+  "milp_seconds": 110.01633116602898,
+  "population": 659,
+  "production_planner_changed": false,
+  "selectable": 554,
+  "solve_count": 29,
+  "solver_candidates": 555,
+  "timing_note": "one local instrumented run; wall time includes validation/publication/greedy; MILP times exclude Python matrix/replay overhead",
+  "top_n": 3,
+  "wall_seconds": 110.83967791637406
+}

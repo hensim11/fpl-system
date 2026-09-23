@@ -14,6 +14,10 @@ from fpl_ai.evaluation import BASELINES
 
 
 STAGE_ARTIFACTS = {
+    'multi-uncertainty-calibration': {'contract.json', 'sources.json', 'residuals.json', 'calibration.json'},
+    'multi-uncertainty-forecast': {'uncertainty.json', 'projection.json'},
+    'multi-target-settlement': {'bootstrap.json', 'fixtures.json', 'live.json'},
+    'multi-uncertainty-score': {'rows.json', 'cumulative.json', 'metrics.json'},
     'multi-horizon-model': {'protocol.json', 'fit.json', 'predictions.csv'} | {f'{prefix}h{h}.pickle' for prefix in ('', 'eval_') for h in range(5)},
     'multi-horizon-score': {'metrics.json', 'outcomes.csv'},
     'multi-horizon-forecast': {'projections.json', 'h0_comparison.json', 'source.json'},

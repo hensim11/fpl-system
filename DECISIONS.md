@@ -1216,3 +1216,111 @@ choose its lexicographic minimum. On overflow restore every temporary cut and us
 the full binary-block lexicographic proof. This is a performance shortcut, not a
 candidate restriction or approximate ranking. Both routes are checked against the
 independent oracle; forced fallback must reproduce the same complete plans.
+
+## 053 — Fixed prior-season empirical prediction intervals
+
+M5C fixes `m5c-residual-intervals-v1` before prospective scoring. Inputs are the
+accepted M5B model bundle `b0e9cf270c6524278ddb6c288c393aef580159c2a36a02b9a01e81cfadf4235b`,
+its separate historical score `15330198b278c5b82eca1b756d46236ac998a573ce755022957c89d0c7394c4f`,
+and accepted M3 `57c2e4a54faca1328dc77e19471564cedd41eb6b73238b476ff00ab21f194f7a`.
+Reconstruct every 2025/26 prediction/label join and settlement cutoff before
+calibration. Those predictions use the unchanged 2021/22–2024/25 historical fits;
+operational predictions use the unchanged five-season production refits. No fitting,
+preprocessing, point-target, search or saved-state change occurs in M5C.
+
+For each direct horizon, sort signed residuals `realised points - forecast`.
+For nominal level L, expressed as a fraction, use 1-based order statistics
+`floor((n+1)*(1-L)/2)` and `ceil((n+1)*(1+L)/2)`. Add these offsets to the exact
+point forecast. Levels are fixed at 50%, 80%, 90%; rational rank arithmetic avoids
+floating-point rank-boundary mistakes. Bounds are inclusive, not interpolated,
+rounded or clipped. They are empirical equal-tailed intervals for realised FPL
+points, not coefficient confidence intervals. Asymmetry may put the point estimate
+outside a central interval, and lower bounds may be negative.
+
+Use horizon-only pools. Position counts are audited and are numerically sufficient
+(2,894–13,255 rows across the operational pools), but these are dependent player
+observations across only 34–38 as-of GWs. Position segmentation was considered and
+not selected: v1 prioritises one inspectable baseline without coverage-driven
+bucket selection. All positions use the declared broader pool; fallback is null,
+not a hidden position-specific estimate. A pool with fewer than 100 labelled rows
+is explicitly unavailable, with no cross-horizon substitution. This does not yet
+distinguish two equally projected players at the same horizon by rotation risk.
+
+2025/26 is consumed calibration evidence, never independent validation of the
+intervals. Historical coverage on those same residuals is labelled calibration
+reuse. Player dependence, overlapping windows, season drift and the operational
+refit prevent a finite-sample or conditional-coverage guarantee. No Gaussian
+assumption is made. Genuine calibration-quality evidence must accrue prospectively.
+
+## 054 — Direct cumulative residuals and immutable uncertainty products
+
+Calibrate cumulative three/five-GW uncertainty on `sum(outcomes)-sum(forecasts)`
+from the same original as-of row and complete offsets 0..2 / 0..4. Preserve the
+within-window dependence; never sum standard deviations or marginal endpoints.
+Missing future registrations/labels exclude that window. Season-end exclusions,
+counts and residual keys remain machine-readable. Operational shorter horizons
+and season-end windows have null cumulative intervals with explicit reasons.
+
+Separate closed artifact families under `data/multi_uncertainty/` contain the
+calibration, current uncertainty, target settlements and scores. Calibration is
+content-addressed and deterministically reconstructible from the exact pinned
+sources. Every load rechecks that reconstruction, including quantiles and residuals;
+a merely rehashed altered calibration is rejected. It cannot consume 2026/27
+outcomes. A new season, segmentation, level set or recalibration needs an explicit
+new contract/version/batch, not a score-time option or mutable latest pointer.
+
+A current uncertainty artifact embeds the exact original projection bytes and
+binds its manifest, model, as-of state and the exact calibration manifest. Full
+M5B saved-state replay remains authoritative. New publication must compute and
+pass the final actual-clock gate before the original first target deadline.
+There is no CLI clock override. As with M5B, a new runtime freeze has a new
+attestation/identity; deterministic bounds and exact offline replay do not imply
+backdating. `uncertainty verify` checks an existing artifact without rewriting it.
+All publication uses the existing atomic publisher and verified reuse contract.
+
+## 055 — Independent target settlement and fixed accumulated diagnostics
+
+`m5c-target-settlement-v1` adapts projection identity plus one target event to the
+existing M4E/M4B `prospective-settlement-v2` validator. A target's deadline comes
+from the original embedded bootstrap event. A revised deadline fails closed for
+explicit investigation; no silent rescheduling migration. Each settlement records
+original projection/state, target GW, horizon, sequential actual request/receipt
+times and raw bootstrap/fixtures/live hashes. Outcomes remain outside forecasts.
+
+A passed deadline alone is insufficient: bootstrap finished/data_checked and all
+target fixtures finished remain mandatory. Raw live totals must reconcile with
+per-fixture explanations. Doubles retain full sums; explicit player zeros remain
+zeros. Missing projected-player evidence rejects the target. A positively evidenced
+season-wide blank has null outcomes and cannot score; empty schedules fail.
+A later target does not block settlement or scoring of an earlier completed target.
+
+Scores consume an explicit evidence set and never mutate calibration. Identical
+repeated projection/target/settlement evidence is deduplicated; competing settlement
+or uncertainty versions for one projection fail. Different projections of the
+same actual target remain distinct forecast rows, with separate distinct-target
+counts and conflicting realised values rejected. They are not independent samples.
+No automatic choice among revisions is made.
+
+Fixed diagnostics include MAE/RMSE, within-projection/GW/horizon Spearman, prediction
+and outcome distributions, missingness, each interval's inclusive coverage/width
+and deviation from nominal. Reports expose individual targets, horizons, positions,
+horizon-position groups and aggregate rows. Cumulative metrics require all outcomes
+in the same original projection's window. Fewer than 100 scored rows or five
+labelled target GWs is flagged as a small sample; crossing that descriptive threshold
+does not prove calibration. Empty prospective reports explicitly list pending targets.
+
+## 056 — Profile exact planning without changing its semantics
+
+M5C makes no production planner change. A script-only timer observes existing MILP
+calls and verifies every byte of the rebuilt full-population top-three decision
+against M5B. The measured 110.84-second local run uses 29 solves including greedy:
+three top-three primary solves take 20.98s, six count-proof solves 63.30s, and three
+tie-enumeration solves 22.61s. Greedy uses 17 more solves / 3.13s. No binary-block
+lexicographic fallback was needed in this run. These are observations, not bounds.
+
+Count proof dominates this case; no safe implementation optimisation was established
+that warrants changing accepted ranking code. Zero relative gap, exact Fraction
+admission, full populations, tie tolerance and all proof semantics remain unchanged.
+M5C intervals are not planner penalties. Future simulation needs a defensible joint
+player/GW dependence model; the keyed residual evidence is input evidence, not an
+independent sampling licence or an expected-utility claim.

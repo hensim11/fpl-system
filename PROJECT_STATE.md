@@ -1,8 +1,60 @@
 # Project state
 
-Last updated: 2026-09-22
+Last updated: 2026-09-23
 
 ## Current milestone
+
+**M5C — Prospective multi-Gameweek outcome scoring and uncertainty calibration**
+is implemented and verified; recommend acceptance within its empirical-interval
+scope. Fixed prior-season signed residual pools attach 50/80/90% intervals to
+unchanged M5B GW+0..4 points. Separate three/five-GW pools calibrate complete
+cumulative residuals directly, without assuming independent Gameweeks.
+
+Calibration uses exactly 139,857 consumed 2025/26 historical OOS prediction rows
+from the accepted M5B/M3 identities. Latest label is May 25, 2026; the information
+cutoff is July 1. Historical coverage on that same evidence is not validation.
+Horizon-only pools are fixed for 2026/27; scoring cannot tune them, change point
+models or alter expected-points optimiser semantics. Player-specific/conditional
+coverage and a joint Monte Carlo distribution are not claimed.
+
+`python -m fpl_ai uncertainty calibrate|freeze|verify|settle|score` exposes four
+separate immutable artifact families under `data/multi_uncertainty/`. Every target
+GW can settle independently through the existing authoritative FPL validator.
+Reports accumulate deduplicated point-error/interval evidence by target, horizon
+and position; cumulative scores require all corresponding outcomes. Missing
+players reject settlement, explicit zeros remain zeros and genuine blanks stay null.
+
+The real retained 659-player GW6–10 projection now has an uncertainty artifact,
+published September 23 at 08:57:50 UTC. An actual official API check at 09:01 UTC
+confirms GW6–10 unfinished/unchecked; GW6's deadline is October 10 at 10:00 UTC.
+Premature settlement fails closed. The real report has zero settled targets and
+all five pending; full settlement/scoring is proven with deterministic synthetic
+fixtures, not fabricated current outcomes. GW5 is now observed settled, but its
+separate original M4C lifecycle artifacts remain unchanged.
+
+**279 tests pass normally and under optimized Python**, including 18 focused
+M5C tests. Independent M5C reports match across both modes; M5B's existing
+historical/model/plan audit and 22-case/82-path oracle reproduce accepted bytes.
+All **951 pre-batch data files retain bytes and nanosecond mtimes**. No accepted
+historical/model artifact, dependency or planner implementation changed.
+
+The representative unchanged full-population top-three planner run took 110.84s:
+29 MILP calls including greedy, with top-three count proofs consuming 63.30s.
+Its rebuilt decision is byte-identical to M5B. Profiling did not justify a safe
+production optimisation, and exact ranking remains intact.
+
+See [M5C verification and operator commands](docs/M5C_VERIFICATION.md),
+[machine evidence](docs/M5C_VERIFICATION.json), [live status](docs/M5C_LIVE.json),
+[regression/preservation](docs/M5C_REGRESSION.json), and
+[runtime profile](docs/M5C_PROFILE.json). Decisions 053–056 record the fixed contract.
+No commit, merge or push was performed in M5C.
+
+Next: retain useful nearer-deadline states when the actual clock permits; settle
+and accumulate genuine GW6–10 evidence after authoritative completion. A later
+Monte Carlo/risk-aware planning batch must define joint dependencies and test
+utility; M5C does not authorise automatic recalibration or a risk penalty.
+
+## Prior M5B result
 
 **M5B — Multi-Gameweek Projections and Transfer-Path Optimiser v1** is verified
 and complete; recommend acceptance. Five direct hist_15 models forecast
@@ -41,9 +93,9 @@ GW10. These are projected objectives on a synthetic squad, not realised gains.
 The final top-three run took approximately 110 seconds locally. No commit,
 merge or push was performed.
 
-Next substantial objective: **M5C — Prospective multi-GW outcome scoring and
-uncertainty calibration**, while continuing manual nearer-deadline retention and
-settled M4E evidence. No control/v2 reselection or retrospective performance claim.
+The subsequent M5C result is recorded above. Continue manual nearer-deadline
+retention and settled M4E evidence without control/v2 reselection or retrospective
+performance claims.
 
 ## Prior M5A result
 
