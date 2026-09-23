@@ -1,0 +1,467 @@
+{
+  "actions": [
+    {
+      "action": "existing_full_replay",
+      "completed_at": "2026-09-23T10:23:00.683984Z",
+      "passed": true,
+      "seconds": 80.0781324999407
+    },
+    {
+      "action": "default_count_plan_computation_only",
+      "completed_at": "2026-09-23T10:23:05.671748Z",
+      "passed": true,
+      "seconds": 4.883577416650951
+    },
+    {
+      "action": "evaluate_accepted_top_three",
+      "completed_at": "2026-09-23T10:23:56.232658Z",
+      "passed": true,
+      "seconds": 50.560297042131424
+    },
+    {
+      "action": "evaluation_reuse",
+      "completed_at": "2026-09-23T10:24:47.230077Z",
+      "passed": true,
+      "seconds": 50.99680458428338
+    },
+    {
+      "action": "evaluation_verifier",
+      "completed_at": "2026-09-23T10:26:51.618047Z",
+      "passed": true,
+      "seconds": 124.38405295787379
+    },
+    {
+      "action": "simulation_reuse",
+      "completed_at": "2026-09-23T10:29:53.265455Z",
+      "passed": true,
+      "seconds": 181.6451593749225
+    },
+    {
+      "action": "fresh_actual_clock_publication",
+      "completed_at": "2026-09-23T10:30:38.091611Z",
+      "passed": true,
+      "seconds": 44.81958308396861
+    },
+    {
+      "action": "offline_attestation_replay",
+      "completed_at": "2026-09-23T10:32:35.428238Z",
+      "passed": true,
+      "seconds": 117.3089835839346
+    },
+    {
+      "action": "real_rehashed_seed_key_stale_scenarios_rejected",
+      "completed_at": "2026-09-23T10:34:12.501359Z",
+      "passed": true,
+      "seconds": 97.00940833427012
+    }
+  ],
+  "evaluation_identity": "36a266e775e124a6d36bfb813e0aedf364c200a394a82d9b25e0b48a75902c3f",
+  "fresh_publication": {
+    "artifacts": {
+      "contract.json": "2e8f5f1f073ca2e5bd34f53f27e14396f352a4e64ea5d82bfee0b9dc4c9cf142",
+      "diagnostics.json": "381f8c02b847ad860621d47888e6c30043fd5e3d7bce68826754bf03f87e8a19",
+      "population.json": "28ecf15b45a3263ab1b7f4ac65f2d3f9c2686a81bd6cedc7355a7e39d2f4c932",
+      "projections.json": "e81536e23f8945a2d070d18dba0e34ec417ad2ff8223d85f4c84d6649907b10d",
+      "scenario_hashes.json": "fa673d5058120a3f7438f8451696c6a298d5ea7e7599b5bf417d03ec8b2568df"
+    },
+    "identity_sha256": "92d0f90a2a8fbd753d61e019bc305fcfc2e0f780353ab5d8503e40b32d9fd800",
+    "metadata": {
+      "binding": {
+        "calibration": {
+          "artifacts": {
+            "calibration.json": "1dd3a58e9aa0faa663111c110a468a00cd3789d73e7dd0ecd197477d26786774",
+            "contract.json": "60fb006f5ac8dca5bcb9164981688cadaf470974893c309d7f0f2232cea36992",
+            "residuals.json": "c8c25735e7e3c8a933caa870def7d77809a14d6927a4f4f0a3e89df9f6e63164",
+            "sources.json": "730ec41e5faecfd2e59c93a2a46f1612ae5d491f61794d0eed4e557e9ed876a1"
+          },
+          "identity": "782bf10333f482f4ff2a1e19a2c438c4bc9d04b27b237779b1e71dbb8bc6d699",
+          "manifest_sha256": "f95a48f2bc7108316a8d2571f4be1b6130009a88e30f60deebbec8436f621812"
+        },
+        "environment": {
+          "libraries": {
+            "joblib": "1.5.2",
+            "numpy": "2.3.3",
+            "scikit-learn": "1.7.2",
+            "scipy": "1.16.2",
+            "threadpoolctl": "3.6.0"
+          },
+          "machine": "arm64",
+          "python": "3.14.0",
+          "system": "Darwin"
+        },
+        "implementation_sha256": "2f27b41bb82026b524e6d55e51d40fc80b311f0290ed5c94ce15ddc19cf5929e",
+        "numpy_version": "2.3.3",
+        "projection": {
+          "artifacts": {
+            "h0_comparison.json": "0fd0a014f0554fed7673ced763f5bae96a3dcd19eb71956e734a0108051b4a58",
+            "projections.json": "e81536e23f8945a2d070d18dba0e34ec417ad2ff8223d85f4c84d6649907b10d",
+            "source.json": "c135bade8893e461b73b357ae28b32631dd74ffb2752799a499d173069636b6d"
+          },
+          "identity": "03a9f348378b8ad61a8eea3c58424fdb7bf689f5c1da46707c03e54c35f1427b",
+          "manifest_sha256": "d0e40f47ca05f031c1e5008c1690840c37b08fa6c6787c261bab142898f4439c"
+        },
+        "projection_population_sha256": "e81536e23f8945a2d070d18dba0e34ec417ad2ff8223d85f4c84d6649907b10d",
+        "residual_population_sha256": "c8c25735e7e3c8a933caa870def7d77809a14d6927a4f4f0a3e89df9f6e63164",
+        "state": {
+          "as_of_gameweek": 6,
+          "capture": "2026-09-18T21:07:27.274412Z",
+          "computed_at": "2026-09-21T22:51:47.767427Z",
+          "deadline": "2026-10-10T10:00:00Z",
+          "forecast_identity": "1aebfd57e85b4a1d44904f0669d0ff03a4caf2dfaa6bb40473d828f5c8128527",
+          "horizon": 5,
+          "kind": "multi-horizon-forecast",
+          "m4e_model_identity": "11aa9eb62174997637edf2e2a7090aa6a197f068526ed981434e869556db9230",
+          "model_identity": "b0e9cf270c6524278ddb6c288c393aef580159c2a36a02b9a01e81cfadf4235b",
+          "protocol": {
+            "eligibility": "strict snapshot can_select frozen across horizon; owned unselectable may remain",
+            "evaluation": "2025-26 is already consumed historical evidence, not an untouched holdout",
+            "features": [
+              "price",
+              "selected_by_percent",
+              "transfers_in_event",
+              "transfers_out_event",
+              "chance_of_playing_next_round",
+              "previous_points",
+              "points_mean_3",
+              "points_mean_5",
+              "points_count_3",
+              "points_count_5",
+              "season_points_mean",
+              "season_points_count",
+              "deadline_position_id_missing",
+              "price_missing",
+              "selected_by_percent_missing",
+              "transfers_in_event_missing",
+              "transfers_out_event_missing",
+              "status_missing",
+              "chance_of_playing_next_round_missing",
+              "previous_points_missing",
+              "points_mean_3_missing",
+              "points_mean_5_missing",
+              "season_points_mean_missing",
+              "deadline_position_id",
+              "status"
+            ],
+            "h0": "distinct all-prior-season direct model; not identical to M4E matched-OOS-population control or v2; both remain frozen",
+            "historical_fit": "2021-22 through 2024-25; fixed design before 2025-26 evaluation; no selection",
+            "horizons": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "model": {
+              "categorical_features": null,
+              "early_stopping": false,
+              "family": "hist_gradient_boosting",
+              "l2_regularization": 10.0,
+              "learning_rate": 0.05,
+              "loss": "squared_error",
+              "max_iter": 150,
+              "max_leaf_nodes": 15,
+              "min_samples_leaf": 50,
+              "random_state": 1729
+            },
+            "preprocessing": {
+              "categorical": [
+                "deadline_position_id",
+                "status"
+              ],
+              "categorical_null": "literal __missing__; does not imply any actual status",
+              "encoding": "training one-hot, all categories retained; unknown all-zero",
+              "indicator_transform": "passthrough; never imputed or scaled",
+              "indicators": [
+                "deadline_position_id_missing",
+                "price_missing",
+                "selected_by_percent_missing",
+                "transfers_in_event_missing",
+                "transfers_out_event_missing",
+                "status_missing",
+                "chance_of_playing_next_round_missing",
+                "previous_points_missing",
+                "points_mean_3_missing",
+                "points_mean_5_missing",
+                "season_points_mean_missing"
+              ],
+              "null_semantics": "Computational fills only; original missingness indicators retain meaning. No null-as-fit interpretation.",
+              "numeric": [
+                "price",
+                "selected_by_percent",
+                "transfers_in_event",
+                "transfers_out_event",
+                "chance_of_playing_next_round",
+                "previous_points",
+                "points_mean_3",
+                "points_mean_5",
+                "points_count_3",
+                "points_count_5",
+                "season_points_mean",
+                "season_points_count"
+              ],
+              "numeric_imputation": "training median; all-null column fallback 0 with indicator retained",
+              "scaling": "training StandardScaler on imputed numeric columns; both families use same projection"
+            },
+            "prices": "static current purchase prices; exact initial selling prices until sold; repurchased players sell at purchase price",
+            "production_fit": "all five prior seasons; settlements strictly before 2026-07-01",
+            "season_end": "truncate at GW38; no labels beyond season end",
+            "state": "one accepted M3 state at g; no future features, fixtures, minutes or recursive predictions",
+            "target": "individual GW g+h points from verified M3 labels joined by season/element; absent future population or unlabelled GW stays missing",
+            "uncertainty": "descriptive residual quantiles only; no risk penalty",
+            "version": "m5b-direct-points-v1"
+          },
+          "season": "2026-27",
+          "snapshot_age_minutes_at_deadline": 31012.545426466666,
+          "snapshot_identity": "debbe980cdb6b8f5cc136949007f0dd0536a057c77c3acedb6cff622194cfa6c",
+          "started_at": "2026-09-21T22:51:47.440524Z"
+        },
+        "uncertainty": {
+          "artifacts": {
+            "projection.json": "b8a20e23c2f736f7167800d0fa7ce8e78f006184ac94138e7701f3b7e0441be5",
+            "uncertainty.json": "d33f70b7d37da808301dddf2d0132b7c78486f5729d8db19132234e9a75632cb"
+          },
+          "identity": "c0a759479365bb0ee8676b355926ab2fdbd4a84bdca0d496d41c07189a471f2d",
+          "manifest_sha256": "a131ed74c7b677ed4f5009a711cac685ff1af3e14faa2d9bb43eaff920b9babb"
+        },
+        "uncertainty_computed_at": "2026-09-23T08:57:50.871098Z"
+      },
+      "computed_at": "2026-09-23T10:30:07.794542Z",
+      "config": {
+        "scenario_count": 16384,
+        "seed": 1729
+      },
+      "contract": {
+        "default_count": 16384,
+        "dependence": "within-player donor trajectory; common historical as-of block induces cross-player covariance of block means across target offsets; conditional on block, donor trajectories are independent",
+        "dependency_model": "as-of-block-trajectories-v1",
+        "eligibility": "complete offsets 0..H-1 at one original as-of/player; season-end and missing labels excluded explicitly",
+        "exchangeability": "current players exchangeable with complete historical donors; overlaps and one consumed season are not independent validation",
+        "information_cutoff": "2026-07-01T00:00:00Z",
+        "interpretation": "projected simulation diagnostics, not realised benefit, conditional calibration or model selection",
+        "joint_law": "uniform anchor among sorted complete trajectories selects as-of block (probability block size / total); each current player independently draws one donor uniformly WITH replacement within that block and keeps all H residuals",
+        "null_law": "each player/horizon independently samples the corresponding component of a uniform complete donor; same marginal population as joint, deliberately removes both dependencies",
+        "null_model": "independent-residual-null-v1",
+        "points": "original binary64 forecast plus raw signed residual; no centering, clipping, rounding, retraining or recursive state",
+        "rng": "NumPy Generator(PCG64(seed)); sorted (as_of_gameweek, element) donors and ascending current IDs; scenario-major calls: joint integers(N) anchor then integers(block_size,size=P); null integers(N,size=(H,P)); int64 draws; separate RNG restarted with same seed for each model; count extensions preserve prefixes",
+        "source": "exact reconstructed M5C calibration; 2025-26 residual y-p only; no prospective outcomes",
+        "statistics": "population SD ddof=0; linear percentiles; inclusive M5C interval coverage; negative points retained; covariance uses population denominator",
+        "storage": "no raw cube; exact little-endian float64 C-order (scenario,horizon,ascending element) SHA256 of residual and points plus donor-index trace SHA256; reconstruct from bound sources/seed/software",
+        "supported_horizons": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "unsupported": "specific current player identity, position, club, opponent, match, pairwise competition and conditional rotation risk; no cross-publication scenario coupling",
+        "version": "joint-simulation-v1"
+      },
+      "kind": "joint-simulation",
+      "simulation_key": "355559e361d9721b598900f2507ccf73a71c7bb40fdf9dc551235de235e9b1dd",
+      "started_at": "2026-09-23T10:29:53.272213Z"
+    }
+  },
+  "fresh_same_key_and_all_product_hashes": true,
+  "offline_replay_same_identity": true,
+  "publication": {
+    "binding": {
+      "calibration": {
+        "artifacts": {
+          "calibration.json": "1dd3a58e9aa0faa663111c110a468a00cd3789d73e7dd0ecd197477d26786774",
+          "contract.json": "60fb006f5ac8dca5bcb9164981688cadaf470974893c309d7f0f2232cea36992",
+          "residuals.json": "c8c25735e7e3c8a933caa870def7d77809a14d6927a4f4f0a3e89df9f6e63164",
+          "sources.json": "730ec41e5faecfd2e59c93a2a46f1612ae5d491f61794d0eed4e557e9ed876a1"
+        },
+        "identity": "782bf10333f482f4ff2a1e19a2c438c4bc9d04b27b237779b1e71dbb8bc6d699",
+        "manifest_sha256": "f95a48f2bc7108316a8d2571f4be1b6130009a88e30f60deebbec8436f621812"
+      },
+      "environment": {
+        "libraries": {
+          "joblib": "1.5.2",
+          "numpy": "2.3.3",
+          "scikit-learn": "1.7.2",
+          "scipy": "1.16.2",
+          "threadpoolctl": "3.6.0"
+        },
+        "machine": "arm64",
+        "python": "3.14.0",
+        "system": "Darwin"
+      },
+      "implementation_sha256": "2f27b41bb82026b524e6d55e51d40fc80b311f0290ed5c94ce15ddc19cf5929e",
+      "numpy_version": "2.3.3",
+      "projection": {
+        "artifacts": {
+          "h0_comparison.json": "0fd0a014f0554fed7673ced763f5bae96a3dcd19eb71956e734a0108051b4a58",
+          "projections.json": "e81536e23f8945a2d070d18dba0e34ec417ad2ff8223d85f4c84d6649907b10d",
+          "source.json": "c135bade8893e461b73b357ae28b32631dd74ffb2752799a499d173069636b6d"
+        },
+        "identity": "03a9f348378b8ad61a8eea3c58424fdb7bf689f5c1da46707c03e54c35f1427b",
+        "manifest_sha256": "d0e40f47ca05f031c1e5008c1690840c37b08fa6c6787c261bab142898f4439c"
+      },
+      "projection_population_sha256": "e81536e23f8945a2d070d18dba0e34ec417ad2ff8223d85f4c84d6649907b10d",
+      "residual_population_sha256": "c8c25735e7e3c8a933caa870def7d77809a14d6927a4f4f0a3e89df9f6e63164",
+      "state": {
+        "as_of_gameweek": 6,
+        "capture": "2026-09-18T21:07:27.274412Z",
+        "computed_at": "2026-09-21T22:51:47.767427Z",
+        "deadline": "2026-10-10T10:00:00Z",
+        "forecast_identity": "1aebfd57e85b4a1d44904f0669d0ff03a4caf2dfaa6bb40473d828f5c8128527",
+        "horizon": 5,
+        "kind": "multi-horizon-forecast",
+        "m4e_model_identity": "11aa9eb62174997637edf2e2a7090aa6a197f068526ed981434e869556db9230",
+        "model_identity": "b0e9cf270c6524278ddb6c288c393aef580159c2a36a02b9a01e81cfadf4235b",
+        "protocol": {
+          "eligibility": "strict snapshot can_select frozen across horizon; owned unselectable may remain",
+          "evaluation": "2025-26 is already consumed historical evidence, not an untouched holdout",
+          "features": [
+            "price",
+            "selected_by_percent",
+            "transfers_in_event",
+            "transfers_out_event",
+            "chance_of_playing_next_round",
+            "previous_points",
+            "points_mean_3",
+            "points_mean_5",
+            "points_count_3",
+            "points_count_5",
+            "season_points_mean",
+            "season_points_count",
+            "deadline_position_id_missing",
+            "price_missing",
+            "selected_by_percent_missing",
+            "transfers_in_event_missing",
+            "transfers_out_event_missing",
+            "status_missing",
+            "chance_of_playing_next_round_missing",
+            "previous_points_missing",
+            "points_mean_3_missing",
+            "points_mean_5_missing",
+            "season_points_mean_missing",
+            "deadline_position_id",
+            "status"
+          ],
+          "h0": "distinct all-prior-season direct model; not identical to M4E matched-OOS-population control or v2; both remain frozen",
+          "historical_fit": "2021-22 through 2024-25; fixed design before 2025-26 evaluation; no selection",
+          "horizons": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "model": {
+            "categorical_features": null,
+            "early_stopping": false,
+            "family": "hist_gradient_boosting",
+            "l2_regularization": 10.0,
+            "learning_rate": 0.05,
+            "loss": "squared_error",
+            "max_iter": 150,
+            "max_leaf_nodes": 15,
+            "min_samples_leaf": 50,
+            "random_state": 1729
+          },
+          "preprocessing": {
+            "categorical": [
+              "deadline_position_id",
+              "status"
+            ],
+            "categorical_null": "literal __missing__; does not imply any actual status",
+            "encoding": "training one-hot, all categories retained; unknown all-zero",
+            "indicator_transform": "passthrough; never imputed or scaled",
+            "indicators": [
+              "deadline_position_id_missing",
+              "price_missing",
+              "selected_by_percent_missing",
+              "transfers_in_event_missing",
+              "transfers_out_event_missing",
+              "status_missing",
+              "chance_of_playing_next_round_missing",
+              "previous_points_missing",
+              "points_mean_3_missing",
+              "points_mean_5_missing",
+              "season_points_mean_missing"
+            ],
+            "null_semantics": "Computational fills only; original missingness indicators retain meaning. No null-as-fit interpretation.",
+            "numeric": [
+              "price",
+              "selected_by_percent",
+              "transfers_in_event",
+              "transfers_out_event",
+              "chance_of_playing_next_round",
+              "previous_points",
+              "points_mean_3",
+              "points_mean_5",
+              "points_count_3",
+              "points_count_5",
+              "season_points_mean",
+              "season_points_count"
+            ],
+            "numeric_imputation": "training median; all-null column fallback 0 with indicator retained",
+            "scaling": "training StandardScaler on imputed numeric columns; both families use same projection"
+          },
+          "prices": "static current purchase prices; exact initial selling prices until sold; repurchased players sell at purchase price",
+          "production_fit": "all five prior seasons; settlements strictly before 2026-07-01",
+          "season_end": "truncate at GW38; no labels beyond season end",
+          "state": "one accepted M3 state at g; no future features, fixtures, minutes or recursive predictions",
+          "target": "individual GW g+h points from verified M3 labels joined by season/element; absent future population or unlabelled GW stays missing",
+          "uncertainty": "descriptive residual quantiles only; no risk penalty",
+          "version": "m5b-direct-points-v1"
+        },
+        "season": "2026-27",
+        "snapshot_age_minutes_at_deadline": 31012.545426466666,
+        "snapshot_identity": "debbe980cdb6b8f5cc136949007f0dd0536a057c77c3acedb6cff622194cfa6c",
+        "started_at": "2026-09-21T22:51:47.440524Z"
+      },
+      "uncertainty": {
+        "artifacts": {
+          "projection.json": "b8a20e23c2f736f7167800d0fa7ce8e78f006184ac94138e7701f3b7e0441be5",
+          "uncertainty.json": "d33f70b7d37da808301dddf2d0132b7c78486f5729d8db19132234e9a75632cb"
+        },
+        "identity": "c0a759479365bb0ee8676b355926ab2fdbd4a84bdca0d496d41c07189a471f2d",
+        "manifest_sha256": "a131ed74c7b677ed4f5009a711cac685ff1af3e14faa2d9bb43eaff920b9babb"
+      },
+      "uncertainty_computed_at": "2026-09-23T08:57:50.871098Z"
+    },
+    "computed_at": "2026-09-23T10:18:25.273024Z",
+    "config": {
+      "scenario_count": 16384,
+      "seed": 1729
+    },
+    "contract": {
+      "default_count": 16384,
+      "dependence": "within-player donor trajectory; common historical as-of block induces cross-player covariance of block means across target offsets; conditional on block, donor trajectories are independent",
+      "dependency_model": "as-of-block-trajectories-v1",
+      "eligibility": "complete offsets 0..H-1 at one original as-of/player; season-end and missing labels excluded explicitly",
+      "exchangeability": "current players exchangeable with complete historical donors; overlaps and one consumed season are not independent validation",
+      "information_cutoff": "2026-07-01T00:00:00Z",
+      "interpretation": "projected simulation diagnostics, not realised benefit, conditional calibration or model selection",
+      "joint_law": "uniform anchor among sorted complete trajectories selects as-of block (probability block size / total); each current player independently draws one donor uniformly WITH replacement within that block and keeps all H residuals",
+      "null_law": "each player/horizon independently samples the corresponding component of a uniform complete donor; same marginal population as joint, deliberately removes both dependencies",
+      "null_model": "independent-residual-null-v1",
+      "points": "original binary64 forecast plus raw signed residual; no centering, clipping, rounding, retraining or recursive state",
+      "rng": "NumPy Generator(PCG64(seed)); sorted (as_of_gameweek, element) donors and ascending current IDs; scenario-major calls: joint integers(N) anchor then integers(block_size,size=P); null integers(N,size=(H,P)); int64 draws; separate RNG restarted with same seed for each model; count extensions preserve prefixes",
+      "source": "exact reconstructed M5C calibration; 2025-26 residual y-p only; no prospective outcomes",
+      "statistics": "population SD ddof=0; linear percentiles; inclusive M5C interval coverage; negative points retained; covariance uses population denominator",
+      "storage": "no raw cube; exact little-endian float64 C-order (scenario,horizon,ascending element) SHA256 of residual and points plus donor-index trace SHA256; reconstruct from bound sources/seed/software",
+      "supported_horizons": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unsupported": "specific current player identity, position, club, opponent, match, pairwise competition and conditional rotation risk; no cross-publication scenario coupling",
+      "version": "joint-simulation-v1"
+    },
+    "kind": "joint-simulation",
+    "simulation_key": "355559e361d9721b598900f2507ccf73a71c7bb40fdf9dc551235de235e9b1dd",
+    "started_at": "2026-09-23T10:15:48.340036Z"
+  },
+  "real_rehashed_corruption_rejection": "simulation deterministic replay mismatch",
+  "realised_outcomes_consumed": 0,
+  "reuse_bytes_and_mtimes_unchanged": true,
+  "simulation_identity": "0a4dceb30cd0fba3c4ef50c8f09b4c89e74eeb3a4b3704dc70baa69ac5029a62",
+  "simulation_key": "355559e361d9721b598900f2507ccf73a71c7bb40fdf9dc551235de235e9b1dd",
+  "synthetic_squad_not_user_team": true
+}

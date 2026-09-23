@@ -4,6 +4,52 @@ Last updated: 2026-09-23
 
 ## Current milestone
 
+**M5D — Joint Monte Carlo Simulation and Risk-Aware Plan Evaluation v1** is
+implemented and verified; **recommend acceptance**. `joint-simulation-v1`
+uses a size-weighted shared as-of block and complete donor player trajectories.
+M5C residuals and M5B forecasts/expected-points optimisation remain unchanged.
+The matched independent null is diagnostic only. No team/match or current-player
+conditional dependence, calibration-quality or realised decision-value claim.
+
+The real 659-player GW6–10 simulation uses **16,384 scenarios, seed 1729** and
+26,305 complete prior-season trajectories across 34 blocks. All 3,340 excluded
+windows are explicit season-end truncations. Three-seed doubling to 32,768 changes
+means by at most 0.166 points, tail quantiles by 0.684 points and paired win
+probabilities by 0.006. This numerical precision does not resolve tiny top-N gaps
+or account for model uncertainty.
+
+Simulation: `0a4dceb30cd0fba3c4ef50c8f09b4c89e74eeb3a4b3704dc70baa69ac5029a62`.
+Deterministic simulation key: `355559e361d9721b598900f2507ccf73a71c7bb40fdf9dc551235de235e9b1dd`.
+Evaluation: `36a266e775e124a6d36bfb813e0aedf364c200a394a82d9b25e0b48a75902c3f`.
+The retained September 18 state was computed by M5B on September 21. M5D started
+at September 23 10:15:48 UTC and computed its product at 10:18:25 UTC; publication
+passed actual-clock final verification before the bound **October 10 10:00 UTC**
+deadline. No newer information was fetched.
+
+The demonstration squad is synthetic, not the user's team. Joint simulated means
+are 165.75 no-transfer, 189.77 greedy, and 195.99/195.85/195.74 for exact paths 1–3.
+Path 1's P10/P90 is 171.58/222.74, with 96.53% beating no-transfer and 67.40%
+beating greedy. The independent null gives lower SD (16.90 versus 20.36 for path
+1), illustrating sensitivity to dependence assumptions, not model superiority.
+Raw residual bias explains simulation means differing from unchanged M5B objectives.
+
+**299 full tests and 20 focused tests pass normally and under optimized Python.**
+Independent M5D reports are byte-identical across modes. M5B's 22-case/82-path
+oracle and M5B/M5C audits reproduce accepted bytes in both modes; M2/M3/M4E
+audits also pass. All **1,015 pre-batch evidence files (965 data files)** preserve
+bytes and nanosecond mtimes. Fresh/reuse/replay and real rehashed-corruption
+probes pass. Default both-law plan computation took 4.88s; a fully verified fresh
+publication took 44.82s; contended replay operations took 50–182s.
+
+See [the exact design](docs/M5D_DESIGN.md), [verification and commands](docs/M5D_VERIFICATION.md),
+[convergence evidence](docs/M5D_CONVERGENCE.json),
+[acceptance summary](docs/M5D_ACCEPTANCE.json), and Decisions 057–060.
+Next: personalised squad/state capture and an explainable comparison workflow;
+continue prospective retention/settlement and evaluate the fixed simulator before
+considering a new risk-aware optimisation objective. No commit, merge or push.
+
+## Prior M5C result
+
 **M5C — Prospective multi-Gameweek outcome scoring and uncertainty calibration**
 is implemented and verified; recommend acceptance within its empirical-interval
 scope. Fixed prior-season signed residual pools attach 50/80/90% intervals to

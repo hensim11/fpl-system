@@ -172,6 +172,25 @@ def build_parser() -> argparse.ArgumentParser:
         if stage != 'verify':
             family = {'calibrate': 'calibrations', 'freeze': 'forecasts', 'settle': 'settlements', 'score': 'scores'}[stage]
             command.add_argument('--artifact-dir', type=Path, default=Path('data/multi_uncertainty')/family)
+    simulation = subparsers.add_parser('simulate', help='joint empirical scenarios and paired M5B plan diagnostics')
+    ss = simulation.add_subparsers(dest='simulation_stage', required=True)
+    for stage in ('freeze', 'verify', 'replay', 'evaluate', 'verify-evaluation'):
+        command = ss.add_parser(stage)
+        for name in ('uncertainty-dir', 'calibration-dir', 'm4e-model-dir'):
+            command.add_argument('--'+name, type=Path, required=True)
+        for name in ('model-dir', 'history-dir', 'm3-dir'):
+            command.add_argument('--'+name, type=Path)
+        if stage == 'freeze':
+            command.add_argument('--count', type=int, default=16384)
+            command.add_argument('--seed', type=int, default=1729)
+        else:
+            command.add_argument('--simulation-dir', type=Path, required=True)
+        if stage in ('evaluate', 'verify-evaluation'):
+            command.add_argument('--plan-dir', type=Path, required=True)
+        if stage == 'verify-evaluation':
+            command.add_argument('--evaluation-dir', type=Path, required=True)
+        if stage in ('freeze', 'replay', 'evaluate'):
+            command.add_argument('--artifact-dir', type=Path, default=Path('data/simulation_evaluations' if stage == 'evaluate' else 'data/simulations'))
     return parser
 
 
@@ -179,6 +198,25 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
+        if args.command == 'simulate':
+            if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
+                parser.error('simulation commands do not accept current-ingestion options')
+            from fpl_ai import joint_simulation as js, simulation_plans as sp
+            sources = {'history_dir': args.history_dir or js.uc.HISTORY, 'm3_dir': args.m3_dir or js.uc.M3}
+            common = (args.uncertainty_dir, args.calibration_dir, args.model_dir or js.uc.MODEL, args.m4e_model_dir)
+            if args.simulation_stage == 'freeze':
+                result = js.freeze(*common, args.artifact_dir, count=args.count, seed=args.seed, **sources)
+            elif args.simulation_stage == 'verify':
+                _, manifest = js.verify(args.simulation_dir, *common, **sources)
+                result = 'Verified '+manifest['identity_sha256']
+            elif args.simulation_stage == 'replay':
+                result = js.replay(args.simulation_dir, *common, args.artifact_dir, **sources)
+            elif args.simulation_stage == 'evaluate':
+                result = sp.evaluate(args.simulation_dir, args.plan_dir, *common, args.artifact_dir, **sources)
+            else:
+                result = 'Verified '+sp.verify(args.evaluation_dir, args.simulation_dir, args.plan_dir, *common, **sources)['identity_sha256']
+            print(result)
+            return 0
         if args.command == 'uncertainty':
             if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
                 parser.error('uncertainty commands do not accept current-ingestion options')

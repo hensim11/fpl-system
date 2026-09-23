@@ -40,3 +40,6 @@ data/multi_projection/
 data/transfer_paths/
 
 data/multi_uncertainty/
+
+data/simulations/
+data/simulation_evaluations/

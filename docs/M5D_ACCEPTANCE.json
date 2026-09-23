@@ -1,0 +1,48 @@
+{
+  "M2_M3_M4E_audits_passed": true,
+  "batch": "M5D",
+  "bytes_and_nanosecond_mtimes_unchanged": true,
+  "completed_at": "2026-09-23T10:49:12.057137Z",
+  "convergence_max_changes_default_to_double": {
+    "max_highest_probability_change": 0.007080078125,
+    "max_lower_tail_mean_change": 0.3679881213603835,
+    "max_mean_change": 0.16508311194402836,
+    "max_p05_p10_p90_p95_change": 0.6834600800357009,
+    "max_paired_win_probability_change": 0.00592041015625
+  },
+  "evaluation_identity": "36a266e775e124a6d36bfb813e0aedf364c200a394a82d9b25e0b48a75902c3f",
+  "evidence_sha256": {
+    "docs/M5D_CONVERGENCE.json": "d6f5e76c2bbee82d6e63bfe433792d73a1bfa3ef77937754eea4b14ed7d045f4",
+    "docs/M5D_LIFECYCLE.json": "6508b546dbceb2bdb8c848b7295c9af0ab5c1906325def2b4ac95c1ec5c32cc8",
+    "docs/M5D_REGRESSION.json": "7cbdeb44981244b2e156058b2e3ce94179d64685c68dc4353c21c83f1c5c8c33",
+    "docs/M5D_VERIFICATION.json": "8d92dd2cc3324687eda28843374c277325c053ad544de15424b9cbf552e52a62"
+  },
+  "fresh_actual_clock_publication_identity": "92d0f90a2a8fbd753d61e019bc305fcfc2e0f780353ab5d8503e40b32d9fd800",
+  "implementation_acceptance_criteria_satisfied": true,
+  "independent_normal_optimized_byte_identical": true,
+  "new_prospective_outcomes_consumed": 0,
+  "new_text_whitespace_passed": true,
+  "next_batch": "personalised FPL decision workflow with continued fixed-contract prospective retention and settlement",
+  "no_commit_merge_or_push": true,
+  "no_new_dependency_or_M5B_objective_or_M5C_calibration_change": true,
+  "pre_batch_data_files_preserved": 965,
+  "pre_batch_files_preserved": 1015,
+  "prior_accepted_M5B_M5C_normal_optimized_byte_identical": true,
+  "prospective_quality_and_decision_utility_validation_pending": true,
+  "publication_final_verification_before_bound_deadline": true,
+  "recommendation": "accept within joint-simulation-v1 scope",
+  "simulation_identity": "0a4dceb30cd0fba3c4ef50c8f09b4c89e74eeb3a4b3704dc70baa69ac5029a62",
+  "simulation_key": "355559e361d9721b598900f2507ccf73a71c7bb40fdf9dc551235de235e9b1dd",
+  "source_sha256": {
+    "fpl_ai/joint_simulation.py": "2f27b41bb82026b524e6d55e51d40fc80b311f0290ed5c94ce15ddc19cf5929e",
+    "fpl_ai/simulation_plans.py": "571523f9444a2dafdc93e981c18063e35ef3a6bb5fff3fe214697632d8772f56",
+    "scripts/verify_simulation_lifecycle.py": "2697e6963b2f432061d7b37d6fe1a671e45d0ea8caed29ec79d650685e2731e0"
+  },
+  "synthetic_demonstration_squad_not_user_team": true,
+  "tests": {
+    "focused-normal": 20,
+    "focused-optimized": 20,
+    "normal": 299,
+    "optimized": 299
+  }
+}
