@@ -1,5 +1,45 @@
 # FPL AI Platform
 
+## Frozen uncertainty and prospective scoring (M5C)
+
+M5C adds fixed empirical 50%, 80% and 90% prediction intervals to the unchanged
+M5B GW+0..4 forecasts. Separate complete-window residual pools supply cumulative
+three/five-GW intervals. Calibration uses consumed 2025/26 historical evidence;
+its quality must be assessed prospectively, and scoring never refits it.
+
+```bash
+.venv/bin/python -m fpl_ai uncertainty calibrate
+.venv/bin/python -m fpl_ai uncertainty freeze --projections-dir "$PROJECTIONS" \
+  --calibration-dir "$CALIBRATION" --m4e-model-dir "$M4E_MODEL"
+.venv/bin/python -m fpl_ai uncertainty verify --uncertainty-dir "$UNCERTAINTY" \
+  --calibration-dir "$CALIBRATION" --m4e-model-dir "$M4E_MODEL"
+# Only after this target GW is authoritatively complete and checked:
+.venv/bin/python -m fpl_ai uncertainty settle --uncertainty-dir "$UNCERTAINTY" \
+  --calibration-dir "$CALIBRATION" --m4e-model-dir "$M4E_MODEL" --gameweek 6
+.venv/bin/python -m fpl_ai uncertainty score --calibration-dir "$CALIBRATION" \
+  --m4e-model-dir "$M4E_MODEL" --settlement-pair "$UNCERTAINTY" "$SETTLEMENT"
+```
+
+Add repeated `--settlement-pair` arguments as targets complete, including across
+projections. Reports expose each target, horizon, position and aggregate errors,
+interval coverage/widths, missingness and small-sample flags. Complete-window
+cumulative scoring waits for all relevant outcomes; single targets do not.
+Use `score --uncertainty-dir ...` without settlement pairs for a pending report.
+Repeated evidence is deduplicated; conflicting versions fail for explicit review.
+
+New families live under `data/multi_uncertainty/`, separately from original point
+forecasts and outcomes. New freezes use actual clocks; `verify` reuses existing
+attestations without redating. Calibration is fixed for 2026/27; point models and
+the expected-points optimiser remain unchanged. Broad horizon-only intervals do
+not provide player-conditional guarantees or a joint Monte Carlo distribution.
+
+**279 tests pass normally and under optimized Python.** The real GW6–10 projection
+has verified uncertainty, but its targets remain unfinished/unchecked as of the
+September 23 API observation. No real coverage score is claimed. The full-population
+planner profile reproduces the accepted top-three decision in 110.84s; no heuristic
+or ranking change was made. See [exact commands, identities and evidence](docs/M5C_VERIFICATION.md)
+and Decisions 053–056.
+
 ## Multi-Gameweek projections and transfer paths (M5B)
 
 `project fit`, `project freeze` and `project verify` provide five direct,

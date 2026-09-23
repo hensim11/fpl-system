@@ -152,6 +152,26 @@ def build_parser() -> argparse.ArgumentParser:
     plan.add_argument('--top-n', type=int, default=3)
     plan.add_argument('--time-limit', type=float, default=120)
     plan.add_argument('--artifact-dir', type=Path, default=Path('data/transfer_paths'))
+    uncertainty = subparsers.add_parser('uncertainty', help='fixed M5C calibration and prospective target-GW evidence')
+    us = uncertainty.add_subparsers(dest='uncertainty_stage', required=True)
+    for stage in ('calibrate', 'freeze', 'verify', 'settle', 'score'):
+        command = us.add_parser(stage)
+        command.add_argument('--model-dir', type=Path, help='defaults to the pinned accepted M5B model')
+        command.add_argument('--history-dir', type=Path, help='defaults to pinned M5B historical scores')
+        command.add_argument('--m3-dir', type=Path, help='defaults to the pinned accepted M3 product')
+        if stage != 'calibrate':
+            command.add_argument('--calibration-dir', type=Path, required=True)
+            command.add_argument('--m4e-model-dir', type=Path, required=True)
+        if stage == 'freeze': command.add_argument('--projections-dir', type=Path, required=True)
+        if stage in ('verify', 'settle'): command.add_argument('--uncertainty-dir', type=Path, required=True)
+        if stage == 'settle': command.add_argument('--gameweek', type=int, required=True)
+        if stage == 'score':
+            command.add_argument('--uncertainty-dir', type=Path, action='append', default=[])
+            command.add_argument('--settlement-pair', type=Path, nargs=2, action='append', default=[],
+                                 metavar=('UNCERTAINTY_DIR', 'SETTLEMENT_DIR'))
+        if stage != 'verify':
+            family = {'calibrate': 'calibrations', 'freeze': 'forecasts', 'settle': 'settlements', 'score': 'scores'}[stage]
+            command.add_argument('--artifact-dir', type=Path, default=Path('data/multi_uncertainty')/family)
     return parser
 
 
@@ -159,6 +179,27 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
+        if args.command == 'uncertainty':
+            if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
+                parser.error('uncertainty commands do not accept current-ingestion options')
+            from fpl_ai import multi_uncertainty as uc, multi_outcomes as outcome
+            sources = {'history_dir': args.history_dir or uc.HISTORY, 'm3_dir': args.m3_dir or uc.M3}
+            model_dir = args.model_dir or uc.MODEL
+            if args.uncertainty_stage == 'calibrate':
+                result = uc.build_calibration(args.artifact_dir, model_dir=model_dir, **sources)
+            else:
+                common = (args.calibration_dir, model_dir, args.m4e_model_dir)
+                if args.uncertainty_stage == 'freeze':
+                    result = uc.freeze(args.projections_dir, *common, args.artifact_dir, **sources)
+                elif args.uncertainty_stage == 'verify':
+                    _, manifest = uc.verify_uncertainty(args.uncertainty_dir, *common, **sources)
+                    result = 'Verified '+manifest['identity_sha256']
+                elif args.uncertainty_stage == 'settle':
+                    result = outcome.capture_settlement(args.uncertainty_dir, *common, args.gameweek, args.artifact_dir, **sources)
+                else:
+                    result = outcome.score(args.uncertainty_dir, args.settlement_pair, *common, args.artifact_dir, **sources)
+            print(result)
+            return 0
         if args.command in ('project', 'plan'):
             if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
                 parser.error('planning commands do not accept current-ingestion options')

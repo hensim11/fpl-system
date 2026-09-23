@@ -163,7 +163,7 @@ Status: **accepted/complete after verified structural/semantic tie separation**;
 
 M5A retains its one-Gameweek objective. M5B below now supplies separate multi-GW
 planning with rolling transfers and squad evolution. Future fixture predictors
-and uncertainty remain unavailable. M4E prospective retention/scoring continues
+remain unavailable; M5C adds separate uncertainty below. M4E retention/scoring continues
 independently, without choosing a model prematurely or claiming realised utility.
 
 ## M5B — Multi-Gameweek projections and transfer-path optimiser v1
@@ -183,19 +183,40 @@ Status: **verified/complete; recommend acceptance**. Evidence in [M5B verificati
 No realised decision-utility claim. See Decisions 050–052 for contracts and
 verification for the real early-state demo, runtime limits and completed checks.
 
-## Next substantial objective — M5C
+## M5C — Prospective multi-GW scoring and uncertainty calibration
 
-Prospective multi-GW outcome scoring and uncertainty calibration: retain useful
-pre-deadline states, settle individual target GWs separately, evaluate horizon
-coverage/errors and calibrate uncertainty without retrospective reselection.
-Profile full-population planning runtime and preserve exact ranking/proof semantics.
-Risk-aware simulation can follow once those calibration contracts are validated.
+Status: **implemented and verified; recommend acceptance**. See
+[M5C verification](docs/M5C_VERIFICATION.md): 279 normal/optimized tests, independent
+residual/order-statistic/settlement/metric reconstruction, unchanged M5B audit/oracle,
+and all 951 prior data files preserved.
+
+- [x] Fixed horizon-only empirical 50/80/90% residual intervals over consumed prior evidence.
+- [x] Direct complete-window three/five-GW calibration with explicit exclusions.
+- [x] Exact original projection binding, actual-clock uncertainty publication and replay.
+- [x] Independent target-GW settlement reusing existing authoritative FPL contracts.
+- [x] Immutable accumulated point-error/coverage/width evidence with duplicate guards.
+- [x] Partial, blank, double, missing, corruption and complete-window lifecycle tests.
+- [x] Real retained GW6–10 uncertainty artifact and premature-settlement rejection.
+- [x] Profile unchanged full-population exact planner; reproduce accepted decision bytes.
+- [ ] Observe real GW6–10 settlement and accumulate prospective coverage evidence.
+
+No prospective calibration-quality claim yet. The operational calibration remains
+frozen; no automatic model/quantile/segmentation selection follows new outcomes.
+The final unchecked item awaits authoritative future results, not implementation.
+
+## Next substantial objective
+
+Continue prospective retention and settlement under the fixed contracts. A later
+Monte Carlo/risk-aware planning batch can use the keyed residual evidence, but must
+specify joint player/GW dependencies and evaluate uncertainty and decision utility.
+Intervals alone do not define a joint distribution or justify a risk-adjusted
+optimiser objective. M5B continues to optimise expected points exactly as accepted.
 
 ## Later milestones
 
 Only after the data and evaluation foundations are reliable:
 
-- calibrated uncertainty and risk-aware multi-Gameweek planning;
+- prospective calibration assessment and risk-aware multi-Gameweek planning;
 - user-specific decision support;
 - scheduled ingestion and monitoring;
 - service or UI layers;
