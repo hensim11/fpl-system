@@ -60,6 +60,15 @@ squad, personal and effective-config JSON files are byte-identical. In particula
 the path remains `6051dbbe4da465a8f7f0ae1574ed7548ed85ca2d0d3013679d0e9aff4a29bf56`
 and evaluation remains `a8a5e125b5caff8f15ad1fe47d5d7aab10f911a0692ecc619fd9cacf42ebc339`.
 
+The commands below record the acceptance run; the published records alone are
+**not a clean-checkout replay recipe**. Repeating the preservation check requires
+the original pre-edit inventory (`local/m5e-attestation/before.json`), the original
+files it inventories, and the raw test/run/stale-input logs under ignored
+`local/m5e-attestation/`. The local finalizer, configs, bundle pointer, prior-bundle
+result and optimized audit output are also required; they are not supplied by the
+published JSON records. An inventory recreated after editing cannot establish the
+original preservation claim. Retain these local inputs and logs before finalizing.
+
 Exact commands from the repository root (log redirections omitted here):
 
 ```sh
@@ -73,8 +82,10 @@ PYTHONPATH=. LOKY_MAX_CPU_COUNT=4 .venv/bin/python scripts/verify_personal_lifec
 PYTHONPATH=. LOKY_MAX_CPU_COUNT=4 .venv/bin/python scripts/verify_personal_decision.py --bundle "$BUNDLE" --report docs/M5E_ATTESTATION_AUDIT.json
 PYTHONPATH=. LOKY_MAX_CPU_COUNT=4 .venv/bin/python -O scripts/verify_personal_decision.py --bundle "$BUNDLE" --report local/m5e-attestation/audit-optimized.json
 .venv/bin/python -m fpl_ai decision verify --bundle data/personal_decisions/a4ef6e6949af0b45962ed6a5a99c46c0adea571587484f455cb106f9301f9468
+# Run the stale-input check first; retain its expected rejection in stale-predeadline-run.log.
 LOKY_MAX_CPU_COUNT=4 .venv/bin/python -m fpl_ai decision run --config local/m5e-attestation/stale-predeadline-config.json
 git diff --check
+# Finalization reads that log and the original pre-edit inventory and raw logs.
 PYTHONPATH=. .venv/bin/python local/m5e-attestation/finalize.py
 ```
 

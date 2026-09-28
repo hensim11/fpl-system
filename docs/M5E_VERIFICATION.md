@@ -79,6 +79,13 @@ initial acceptance bundle. The original `a4ef6e…` bundle is preserved, but doe
 not pass the current semantic reader because the implementation/contract changed.
 Its generic artifact hashes remain valid. No mutable latest alias is used.
 
+**Historical commands — not a runnable verification recipe with the current
+semantic reader.** The block below records the initial `a4ef6e…` acceptance;
+its verification commands no longer succeed with the current implementation.
+Use the current synthetic bundle
+`1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5`
+and its [verification instructions and local prerequisites](M5E_ATTESTATION_VERIFICATION.md#acceptance-results).
+
 ```bash
 BUNDLE=data/personal_decisions/a4ef6e6949af0b45962ed6a5a99c46c0adea571587484f455cb106f9301f9468
 .venv/bin/python -m fpl_ai decision run --config local/synthetic-demo.json
