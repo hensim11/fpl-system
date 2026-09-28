@@ -43,3 +43,7 @@ data/multi_uncertainty/
 
 data/simulations/
 data/simulation_evaluations/
+
+# Personal decision inputs and reports (never commit actual account evidence).
+local/
+data/personal_decisions/

@@ -1,0 +1,91 @@
+{
+  "actions": [
+    {
+      "action": "decision-validate",
+      "cli_arguments": [
+        "decision",
+        "validate",
+        "--config",
+        "local/synthetic-demo.json"
+      ],
+      "exit_code": 0,
+      "log_sha256": "a413089f1de31124ea293a32dfee4c5041aea7e7156b4cc7adc24c17f5b48da6",
+      "network_audit_hook_enabled": true,
+      "seconds": 147.69984720787033
+    },
+    {
+      "action": "decision-verify",
+      "cli_arguments": [
+        "decision",
+        "verify",
+        "--bundle",
+        "data/personal_decisions/1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5"
+      ],
+      "exit_code": 0,
+      "log_sha256": "74874602fa0d86a5a129b53f97e4b9b82e7008724261f724da3a46e9e0733b4f",
+      "network_audit_hook_enabled": true,
+      "seconds": 129.29463466675952
+    },
+    {
+      "action": "decision-reuse",
+      "cli_arguments": [
+        "decision",
+        "run",
+        "--config",
+        "local/synthetic-demo.json"
+      ],
+      "exit_code": 0,
+      "log_sha256": "4b1fa4d9fe03d509cbf858cb449c16933767ac66382ea6515f5e4ad1956c6583",
+      "network_audit_hook_enabled": true,
+      "seconds": 281.46022175019607
+    },
+    {
+      "action": "decision-replay",
+      "cli_arguments": [
+        "decision",
+        "replay",
+        "--bundle",
+        "data/personal_decisions/1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5",
+        "--artifact-dir",
+        "local/m5e-attestation/lifecycle/replay"
+      ],
+      "exit_code": 0,
+      "log_sha256": "bebc63d334b0fade77a875abaa3b15e422939073019539eb8c64acf3b97297fd",
+      "network_audit_hook_enabled": true,
+      "seconds": 139.42116129165515
+    },
+    {
+      "action": "decision-real-rehashed-summary-rejected",
+      "cli_arguments": [
+        "decision",
+        "verify",
+        "--bundle",
+        "/var/folders/vq/7wt_pkdd3m176lmlq3n3999c0000gn/T/tmpqku_u460/rehashed/342328ddff126e98f1a45967a28936a1808c0d8d76f8b2b92d8877f2539e86ae"
+      ],
+      "exit_code": 1,
+      "log_sha256": "6586c3a06eeff9a2077057a6919333091b8a7d671db58168156541a508dbb151",
+      "network_audit_hook_enabled": true,
+      "seconds": 143.85777816688642
+    },
+    {
+      "action": "decision-real-rehashed-attestation-rejected",
+      "cli_arguments": [
+        "decision",
+        "verify",
+        "--bundle",
+        "/var/folders/vq/7wt_pkdd3m176lmlq3n3999c0000gn/T/tmpcmcbx3mi/rehashed/2f98ef8913e268cbff5121766739f894d19692023a6c5ae0d36b00f771b48cd1"
+      ],
+      "exit_code": 1,
+      "log_sha256": "caeeedc1f967e173c9be2ff376b66504b918ac95de1464fb2189f7a2d893503e",
+      "network_audit_hook_enabled": true,
+      "seconds": 1.040361207909882
+    }
+  ],
+  "all_cli_operations_network_forbidden": true,
+  "bundle_identity": "1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5",
+  "original_bytes_and_nanosecond_mtimes_unchanged": true,
+  "real_rehashed_false_attestation_rejected": true,
+  "real_rehashed_false_summary_rejected": true,
+  "replay_bytes_identity_and_attestation_preserved": true,
+  "synthetic_not_user_advice": true
+}

@@ -1,0 +1,71 @@
+{
+  "M2_M3_M4E_regressions_passed": true,
+  "M5B_M5C_M5D_laws_and_artifacts_unchanged": true,
+  "baseline_tests": {
+    "normal": 299,
+    "optimized": 299
+  },
+  "batch": "M5E",
+  "browser_screenshot_QA_completed": false,
+  "bundle": "data/personal_decisions/a4ef6e6949af0b45962ed6a5a99c46c0adea571587484f455cb106f9301f9468",
+  "bundle_identity": "a4ef6e6949af0b45962ed6a5a99c46c0adea571587484f455cb106f9301f9468",
+  "completed_at": "2026-09-23T15:43:20.253149Z",
+  "evidence_sha256": {
+    "docs/M5E_LIFECYCLE.json": "b8a22b03a2b53009de800a2653e0a0df66644ce867fcbcacc0c7815d587ae0d5",
+    "docs/M5E_PROFILE.json": "eba886bf19b889b01fd94d4b4e0ad79c1daa2ceabeea8568128e321b247e82ae",
+    "docs/M5E_REGRESSION.json": "d77ddaac97f66985496b468d4c3c10b8061c10885b271c876c11ff4708f702b2",
+    "docs/M5E_VERIFICATION.json": "03a00a93edf39274426b89d7e2550c09c3ceebdce5aee2702773fdef1fb2e2d2"
+  },
+  "final_tests": {
+    "focused_normal": 31,
+    "focused_optimized": 31,
+    "full_normal": 330,
+    "full_optimized": 330
+  },
+  "implementation_sha256": {
+    "renderer": "990f645ca7d7247b0e59197eed017d5e6bbfc298917046f18ff4afe0701cc489",
+    "workflow": "f7e0abfcd2e302569ddadd714eb6dc6e2ed04e95ec1a68c2386d95c6da08bfda"
+  },
+  "independent": {
+    "all_baseline_decompositions_reconcile": true,
+    "candidate_entries": 5,
+    "candidate_gameweeks": 25,
+    "equivalent_existing_M5B_decision_bytes": true,
+    "equivalent_existing_M5D_evaluation_bytes": true,
+    "exact_paths": 3,
+    "per_gw_baseline_decompositions": 50
+  },
+  "independent_normal_optimized_byte_identical": true,
+  "lifecycle": {
+    "all_cli_operations_network_forbidden": true,
+    "original_bytes_and_nanosecond_mtimes_unchanged": true,
+    "real_rehashed_false_summary_rejected": true,
+    "replay_bytes_identity_and_attestation_preserved": true
+  },
+  "new_evaluation_identity": "a8a5e125b5caff8f15ad1fe47d5d7aab10f911a0692ecc619fd9cacf42ebc339",
+  "new_path_identity": "6051dbbe4da465a8f7f0ae1574ed7548ed85ca2d0d3013679d0e9aff4a29bf56",
+  "new_path_uses_exact_optimiser_greedy_replay_not_demo_whitelist": true,
+  "new_prospective_outcomes_consumed": 0,
+  "next_batch": "prospective decision retention and outcome review; confirmed manager actions separate from hypothetical paths",
+  "no_commit_merge_or_push": true,
+  "oracle": {
+    "cases": 22,
+    "paths": 82
+  },
+  "planning_horizon": 5,
+  "population": 659,
+  "preservation": {
+    "bytes_and_nanosecond_mtimes_unchanged": true,
+    "data_files": 973,
+    "pre_batch_files": 1030
+  },
+  "recommendation": "accept within personal-decision-v1 scope",
+  "runtime_seconds": {
+    "final_with_verified_path_reuse": 299.94174633314833,
+    "full_build": 432.5938544580713
+  },
+  "scenario_count": 16384,
+  "scope": "strict personal state, exact pinned M5B/M5D workflow, immutable reconstructed JSON/Markdown/HTML, offline and gated pre-deadline modes",
+  "seed": 1729,
+  "synthetic_not_user_advice": true
+}

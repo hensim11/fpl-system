@@ -224,21 +224,45 @@ The final prospective item awaits authoritative outcomes. It is not a claim of
 realised benefit, and no consumed historical comparison selects a dependency model.
 See [design](docs/M5D_DESIGN.md) and [verification](docs/M5D_VERIFICATION.md).
 
+## M5E — Personalised decision workflow and explainable reports v1
+
+Current attestation hardening: **35 focused / 334 full tests**, normal and optimized;
+real CLI lifecycle and independent audit pass. See [acceptance and limits](docs/M5E_ATTESTATION_VERIFICATION.md).
+The following counts describe the preserved initial acceptance.
+
+Status: **complete and verified within the declared personal-workflow scope**.
+31 focused / 330 full normal and optimized tests; three exact synthetic paths;
+1,030 preserved prior evidence files. Exact checks and demonstration results are
+recorded in [M5E verification](docs/M5E_VERIFICATION.md) and the
+[compact acceptance record](docs/M5E_ACCEPTANCE.json).
+
+- [x] Strict personal-state wrapper and visibly incomplete initialization template.
+- [x] One explicit simulation anchor with exact, unambiguous dependency resolution.
+- [x] Canonical user squad/economics, legal M5B paths and unchanged exact replay.
+- [x] Common-scenario baseline/greedy/top-N comparisons without a new ranking.
+- [x] Snapshot versus actual-clock pre-deadline recording and separate source ages.
+- [x] Immutable reconstructed JSON, Markdown and standalone read-only HTML reports.
+- [x] Per-GW/horizon XI, captain and hit arithmetic against both baselines.
+- [x] Focused failure/lifecycle tests and end-to-end explicitly synthetic CLI demo.
+
+This is user-specific decision support, not demonstrated realised decision value.
+No chips, news predictor, risk penalty, ownership model or account access was added.
+
 ## Next substantial objective
 
-Build the personalised FPL decision workflow: explicit user squad, exact sale rights,
-bank and free transfers, retained forecast state, legal paths and explainable paired
-simulation comparisons. Keep the M5B objective unchanged while prospective evidence
-accrues. Risk-aware optimisation needs an explicit utility contract and stronger
-validation of the simulation law; historical reuse does not justify choosing a
-manager's risk preference or production risk penalty.
+Build prospective decision retention and outcome review: record explicit manager
+action confirmations separately from hypothetical optimiser paths; join only
+verified authoritative settlements; report predeclared forecast/simulation and
+comparison diagnostics, including unobserved or unsupported outcomes. Preserve
+original decisions and avoid hindsight candidate selection or automatic recalibration.
+Continue manual useful pre-deadline captures and genuine target settlement now.
+Risk-aware optimisation needs explicit utility and stronger simulator validation.
 
 ## Later milestones
 
 Only after the data and evaluation foundations are reliable:
 
 - prospective calibration assessment and risk-aware multi-Gameweek planning;
-- user-specific decision support;
 - scheduled ingestion and monitoring;
 - service or UI layers;
 - deployment and operational controls.

@@ -1,0 +1,64 @@
+{
+  "actions": [
+    {
+      "action": "decision-verify",
+      "cli_arguments": [
+        "decision",
+        "verify",
+        "--bundle",
+        "data/personal_decisions/a4ef6e6949af0b45962ed6a5a99c46c0adea571587484f455cb106f9301f9468"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c0fe645a8a3099087b2c10f209f6e9a88f39261210057b7e2d0a24bf8b7d3f34",
+      "network_audit_hook_enabled": true,
+      "seconds": 125.93274966720492
+    },
+    {
+      "action": "decision-reuse",
+      "cli_arguments": [
+        "decision",
+        "run",
+        "--config",
+        "local/synthetic-demo.json"
+      ],
+      "exit_code": 0,
+      "log_sha256": "9298b1b522b42fb64916821f1465493be7de8cdca376b46617142451f430e3e2",
+      "network_audit_hook_enabled": true,
+      "seconds": 250.51396783301607
+    },
+    {
+      "action": "decision-replay",
+      "cli_arguments": [
+        "decision",
+        "replay",
+        "--bundle",
+        "data/personal_decisions/a4ef6e6949af0b45962ed6a5a99c46c0adea571587484f455cb106f9301f9468",
+        "--artifact-dir",
+        "local/m5e-replay"
+      ],
+      "exit_code": 0,
+      "log_sha256": "0693a6027e59fbdc6f711da90b2635be9f1535cdab3212a5395bd06435d2fa0b",
+      "network_audit_hook_enabled": true,
+      "seconds": 132.08295570826158
+    },
+    {
+      "action": "decision-real-rehashed-summary-rejected",
+      "cli_arguments": [
+        "decision",
+        "verify",
+        "--bundle",
+        "/var/folders/vq/7wt_pkdd3m176lmlq3n3999c0000gn/T/tmp3evql43s/rehashed/f79da19b02fa237dbc3f496ceb0a77844e78c6db1f09b7aca870ce30495b5768"
+      ],
+      "exit_code": 1,
+      "log_sha256": "6586c3a06eeff9a2077057a6919333091b8a7d671db58168156541a508dbb151",
+      "network_audit_hook_enabled": true,
+      "seconds": 137.26888254238293
+    }
+  ],
+  "all_cli_operations_network_forbidden": true,
+  "bundle_identity": "a4ef6e6949af0b45962ed6a5a99c46c0adea571587484f455cb106f9301f9468",
+  "original_bytes_and_nanosecond_mtimes_unchanged": true,
+  "real_rehashed_false_summary_rejected": true,
+  "replay_bytes_identity_and_attestation_preserved": true,
+  "synthetic_not_user_advice": true
+}

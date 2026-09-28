@@ -191,6 +191,19 @@ def build_parser() -> argparse.ArgumentParser:
             command.add_argument('--evaluation-dir', type=Path, required=True)
         if stage in ('freeze', 'replay', 'evaluate'):
             command.add_argument('--artifact-dir', type=Path, default=Path('data/simulation_evaluations' if stage == 'evaluate' else 'data/simulations'))
+    decision = subparsers.add_parser('decision', help='local personal state and explainable verified decision reports')
+    ds = decision.add_subparsers(dest='decision_stage', required=True)
+    for stage in ('init', 'players', 'validate', 'run', 'verify', 'replay'):
+        command = ds.add_parser(stage)
+        if stage in ('init', 'validate', 'run'):
+            command.add_argument('--config', type=Path, required=True)
+        if stage in ('init', 'players'):
+            command.add_argument('--simulation-dir', type=Path, required=True)
+        if stage in ('init', 'players', 'verify', 'replay'):
+            command.add_argument('--evidence-root', type=Path, action='append', help='repeat for exact-identity lookup; defaults to data')
+        if stage == 'players': command.add_argument('--query', default='')
+        if stage in ('verify', 'replay'): command.add_argument('--bundle', type=Path, required=True)
+        if stage == 'replay': command.add_argument('--artifact-dir', type=Path, required=True)
     return parser
 
 
@@ -198,6 +211,34 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
+        if args.command == 'decision':
+            if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
+                parser.error('decision commands do not accept current-ingestion options')
+            from fpl_ai import personal_decision as pd
+            import json
+            roots = getattr(args, 'evidence_root', None) or [Path('data')]
+            if args.decision_stage == 'init':
+                paths = pd.init(args.config, args.simulation_dir, roots)
+                print('Created incomplete config/state/player catalog: '+', '.join(map(str, paths)))
+                print('Fill all 15 IDs and exact sale prices, bank, available FTs, observation/source and account-state confirmations before validation.')
+            elif args.decision_stage == 'players':
+                print(json.dumps(pd.catalog(args.simulation_dir, roots, args.query), indent=2))
+            elif args.decision_stage == 'validate':
+                value = pd.validate(args.config)
+                print(f"Valid {value['personal']['provenance']['kind']} state; {value['population_count']} bound players; {value['config']}")
+            elif args.decision_stage == 'run':
+                out, reused, summary, profile = pd.run(args.config)
+                print(pd.decision_report.terminal(summary, out, reused))
+                print('Observed stage runtime (seconds): '+json.dumps(profile, sort_keys=True))
+            elif args.decision_stage == 'verify':
+                manifest, summary = pd.verify(args.bundle, roots)
+                print('Verified '+manifest['identity_sha256'])
+                print(pd.decision_report.terminal(summary, args.bundle, True))
+            else:
+                out, reused, summary = pd.replay(args.bundle, roots, args.artifact_dir)
+                print(pd.decision_report.terminal(summary, out, reused))
+                print('Replay preserved the original import/creation attestation.')
+            return 0
         if args.command == 'simulate':
             if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
                 parser.error('simulation commands do not accept current-ingestion options')
