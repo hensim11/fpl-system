@@ -91,10 +91,13 @@ The architecture and scoring definitions remain unchanged.
 
 Use the existing `Rules` contract. All non-null hits are non-negative integer
 multiples of `hit_cost`. When transfers and hits are both explicit, require the
-hit to belong to `{Rules.hit(n, f): f in 0..free_transfer_cap}`. This is a necessary
-feasibility check, not an estimate of the later usable FT balance. In particular,
-zero transfers imply zero hits; paid transfers cannot exceed n or be fewer than
-max(0, n-cap). First-target exact reconciliation with original usable FTs remains.
+later-GW hit to belong to `{Rules.hit(n, f): f in Rules.next_free(0, 0)..free_transfer_cap}`.
+The existing transition guarantees weekly accrual capped by the FT cap; the
+minimum is currently one. This is a necessary feasibility check, not an estimate
+of the exact later usable FT balance. Paid transfers range from max(0,n-cap)
+through max(0,n-minimum), inclusive. Thus one transfer permits only zero hit; two
+permit zero or one hit-cost, never two. First-target exact reconciliation with
+original usable FTs remains (including a known zero FT state).
 Null transfer lists or null hits retain their prior partial/unknown semantics.
 
 Every asserted out/in pair must have equal positions in the exact frozen
@@ -115,3 +118,10 @@ reinterpreted or rewritten. New retention binds the unchanged M5E bundle and
 records its actual new time. Use a separate output root for this deliberate new
 retention; same-request reuse of an old contract correctly fails. M2–M5E identities
 and computations remain untouched.
+
+Final correction (Decision 070), specified before implementation: the previous
+0..cap range confused initial squad states with subsequent-GW entry states. Reuse
+`Rules.next_free(0, 0)` without changing planner transitions; amend the content-bound
+hit invariant and preserve all earlier bundles. Independently derive the lower
+bound from archived weekly accrual/cap in audits. Require complete-confirmation
+and real subprocess rejection evidence plus fresh normal/optimized regressions.

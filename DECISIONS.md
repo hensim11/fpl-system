@@ -1583,3 +1583,28 @@ and publish new actual-time M5F records under a separate root. M2–M5E and the
 original 1,191-file preservation inventory remain unchanged. Hardening results,
 actual new counts and identities are recorded in M5F_VERIFICATION.md and acceptance
 JSON. Initial counts are historical, not evidence for the hardened reader.
+
+## 070 — Correct M5F subsequent-GW free-transfer lower bound
+
+Decision 069 used the initial squad FT domain 0..cap for later target windows.
+That was insufficient: a complete target-GW transfer list starts after weekly
+accrual. The planner's unchanged `Rules.next_free` transition yields a minimum
+of `Rules.next_free(0, 0)`, i.e. min(cap, weekly_free_transfers), currently one.
+Reuse that existing helper without changing the rules or M5B transition.
+
+For later targets enumerate hit feasibility over this minimum through cap. One
+transfer admits zero hit only; two admit zero or one hit-cost, never two. The
+exact later balance, bank, prices and intervening actions remain unknown. First-GW
+exact reconciliation and partial/null evidence semantics are unchanged. Preserve
+per-pair frozen positions, complete exclusion headlines and fixed-lineup scope.
+
+Amend the existing content-bound hit invariant, retaining v1 family names. Both
+older contract variants fail closed; no old record is reinterpreted or overwritten.
+Fresh actual-time retention uses `data/decision_reviews/final/retentions`.
+Independent audits derive the bound directly from archived cap/accrual and publish
+the one/two-transfer boundary probes, without calling production hit helpers.
+Fresh focused/full normal/optimized runs, a public subprocess rejection/valid
+neighbour, immutable reuse/replay and original preservation inventories are
+required before recommending acceptance. Final counts, identities and results
+are recorded in M5F_VERIFICATION.md and M5F_ACCEPTANCE.json. Prior 20/354 logs
+did not validate this edge and remain historical evidence.

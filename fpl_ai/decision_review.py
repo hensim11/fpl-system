@@ -23,7 +23,7 @@ CONTRACT = {
     'extension': 'fill unknown fields only; conflicting heads fail; no silent correction',
     'action_validation': {'rules': Rules().as_dict(),
                           'pairs': 'each asserted out/in pair preserves frozen position',
-                          'hits': 'explicit count/hit must be possible for at least one valid FT state 0..cap; first target reconciles exact original FTs'},
+                          'hits': 'complete target-GW count/hit must be possible for a later FT state Rules.next_free(0, 0)..cap; first target reconciles exact original FTs'},
     'review_exclusions': 'sorted unique union of retention and all attached confirmation exclusions, including predecessors',
     'settlement': mo.CONTRACT,
 }
@@ -221,7 +221,8 @@ def validate_assertion(a, retained, imported):
             require(pop[str(pair['out'])]['position'] == pop[str(pair['in'])]['position'],
                     'asserted transfer pair has incompatible frozen positions')
         if actions['transfer_hit'] is not None:
-            possible = {rules.hit(len(actions['transfers']), free) for free in range(rules.free_transfer_cap+1)}
+            minimum = 0 if a['target_gameweek'] == s['personal']['squad']['target_gameweek'] else rules.next_free(0, 0)
+            possible = {rules.hit(len(actions['transfers']), free) for free in range(minimum, rules.free_transfer_cap+1)}
             require(actions['transfer_hit'] in possible, 'transfers contradict hit points under every valid FT state')
         # Only the first GW has a verified starting squad/economics. Later transfer
         # sequences are retained assertions without invented intervening account history.

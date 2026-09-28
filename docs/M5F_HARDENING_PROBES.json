@@ -1,49 +1,43 @@
 {
-  "contract_sha256": "3273e103fba316c79081fd59a63db1d3ddd307aeeb6d6f02cff06cb326b8eed1",
-  "decision_identity": "1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5",
-  "probes": [
+  "complete_confirmation_rehashed_tampering_regression": "tests.test_decision_review.ReviewTests.test_complete_later_one_transfer_boundary_and_old_range_contract",
+  "contract_sha256": "6f157a8424a7dbb4974cc4ee3a990e3c798a55b86e6fd44783b3ea9aa6f658cf",
+  "independent_boundary_probes": [
     {
-      "accepted": true,
-      "case": "correct_real_population_pairs",
-      "expected": true,
-      "rejection": null
+      "feasible": true,
+      "hit": 0,
+      "transfers": 0
     },
     {
-      "accepted": false,
-      "case": "swapped_same_sets",
-      "expected": false,
-      "rejection": "asserted transfer pair has incompatible frozen positions"
+      "feasible": false,
+      "hit": 4,
+      "transfers": 0
     },
     {
-      "accepted": false,
-      "case": "later_zero_transfers_four_hit",
-      "expected": false,
-      "rejection": "transfers contradict hit points under every valid FT state"
+      "feasible": true,
+      "hit": 0,
+      "transfers": 1
     },
     {
-      "accepted": true,
-      "case": "later_zero_transfers_zero_hit",
-      "expected": true,
-      "rejection": null
+      "feasible": false,
+      "hit": 4,
+      "transfers": 1
     },
     {
-      "accepted": false,
-      "case": "later_one_transfer_eight_hit",
-      "expected": false,
-      "rejection": "transfers contradict hit points under every valid FT state"
+      "feasible": true,
+      "hit": 0,
+      "transfers": 2
     },
     {
-      "accepted": true,
-      "case": "later_one_transfer_four_hit",
-      "expected": true,
-      "rejection": null
+      "feasible": true,
+      "hit": 4,
+      "transfers": 2
     },
     {
-      "accepted": true,
-      "case": "later_one_transfer_zero_hit",
-      "expected": true,
-      "rejection": null
+      "feasible": false,
+      "hit": 8,
+      "transfers": 2
     }
   ],
-  "synthetic_validation_only": true
+  "minimum_later_free_transfers": 1,
+  "synthetic_only": true
 }

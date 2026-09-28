@@ -54,6 +54,20 @@ def lifecycle(retention, root):
        'declared_at':declared,'confirmed':True},'choice':{'selected':'exact_1','rejected':['greedy']},
        'actions':{k:copy.deepcopy(w[k]) for k in ('squad','starting_xi','captain','transfer_hit')}}
     a['actions'].update(chip='none',transfers=[{'out':o,'in':i} for position in range(1,5) for o,i in zip([e for e in w['transfers_out'] if s['population'][str(e)]['position']==position], [e for e in w['transfers_in'] if s['population'][str(e)]['position']==position])])
+    # Public command regression: a complete, legal later-GW one-transfer assertion.
+    # It is isolated from the GW6-only review so future adherence remains unknown.
+    boundary=copy.deepcopy(a); boundary['target_gameweek']=weeks[1]['gameweek']
+    boundary['actions']['transfers']=a['actions']['transfers'][:1]
+    if len(boundary['actions']['transfers'])!=1: raise ValueError('boundary fixture needs one legal pair')
+    boundary['actions']['transfer_hit']=dr.Rules().hit_cost
+    boundary_path=root/'later-one-transfer.json'; atomic_write_json(boundary_path,boundary)
+    boundary_args=['review','confirm','--retention',str(retention),'--assertion',str(boundary_path),
+                   '--artifact-dir',str(root/'boundary-confirmations')]
+    failure=run('later-one-transfer-hit-rejected',boundary_args,expected=1)
+    if 'every valid FT state' not in failure: raise ValueError('wrong CLI rejection')
+    if list((root/'boundary-confirmations').glob('*/manifest.json')): raise ValueError('invalid assertion was published')
+    boundary['actions']['transfer_hit']=0; atomic_write_json(boundary_path,boundary)
+    boundary_action=output(run('later-one-transfer-zero-accepted',boundary_args))
     assertion=root/'synthetic-assertion.json';atomic_write_json(assertion,a)
     args=['review','confirm','--retention',str(retention),'--assertion',str(assertion),'--artifact-dir',str(root/'synthetic-confirmations')]
     action=output(run('confirm',args)); actions.append(action)
@@ -93,7 +107,7 @@ def lifecycle(retention, root):
     audited=audit(full,[Path('data'),root/'synthetic-confirmations',root/'synthetic-settlements'])
     pending_audit=audit(pending,[Path('data')])
     result={'synthetic_not_live_actions_or_results':True,'retention':str(retention),'pending_review':str(pending),
-            'synthetic_review':str(full),'synthetic_confirmation':str(action),'commands':commands,'audit':audited,'pending_audit':pending_audit}
+            'synthetic_review':str(full),'synthetic_confirmation':str(action),'boundary_confirmation':str(boundary_action),'partial_review':str(partial),'commands':commands,'audit':audited,'pending_audit':pending_audit}
     atomic_write_json(root/'lifecycle.json',result)
     return result
 

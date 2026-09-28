@@ -271,7 +271,7 @@ class ReviewTests(unittest.TestCase):
         same_position=next((x,y) for x in range(1,18) for y in range(x+1,18)
             if self.summary['population'][str(x)]['position']==self.summary['population'][str(y)]['position'])
         for count in (0,1,2,rules.free_transfer_cap+1):
-            expected={rules.hit(count,free) for free in range(rules.free_transfer_cap+1)}
+            expected={rules.hit(count,free) for free in range(rules.next_free(0,0),rules.free_transfer_cap+1)}
             for hit in range(0,(count+2)*rules.hit_cost,rules.hit_cost):
                 partial=self.action(gw=7)
                 x,y=same_position
@@ -288,6 +288,34 @@ class ReviewTests(unittest.TestCase):
             m['request_key']=dr.confirmation_metadata(m['retention'],m['previous'],v['record.json']['assertion'],m['attestation'])['request_key']
         bad=tamper(valid,self.root/'bad-hit',impossible)
         with self.assertRaisesRegex(ValueError,'every valid FT state'): self.review([bad],[self.settle(7)])
+
+    def test_complete_later_one_transfer_boundary_and_old_range_contract(self):
+        a=self.action(True,gw=7,candidate='no_transfer')
+        held=set(a['actions']['squad']); pop=self.summary['population']
+        outgoing,incoming=next((o,int(i)) for o in sorted(held) for i in pop
+            if int(i) not in held and pop[str(o)]['position']==pop[i]['position'])
+        a['actions']['transfers']=[{'out':outgoing,'in':incoming}]
+        for key in ('squad','starting_xi'):
+            a['actions'][key]=[incoming if e==outgoing else e for e in a['actions'][key]]
+        if a['actions']['captain']==outgoing: a['actions']['captain']=incoming
+        a['actions']['transfer_hit']=0
+        valid=self.confirm(a)[0]
+        self.assertEqual(self.review([valid],[self.settle(7)])[2]['confirmed'][1]['status'],'scored')
+        a['actions']['transfer_hit']=dr.Rules().hit_cost
+        with self.assertRaisesRegex(ValueError,'every valid FT state'): self.confirm(a)
+        def bad_hit(m,v):
+            v['record.json']['assertion']=copy.deepcopy(a)
+            m['request_key']=dr.confirmation_metadata(m['retention'],m['previous'],a,m['attestation'])['request_key']
+        bad=tamper(valid,self.root/'bad-one-transfer',bad_hit)
+        with self.assertRaisesRegex(ValueError,'every valid FT state'): self.review([bad],[self.settle(7)])
+        def old_range(m,v):
+            m['contract']['action_validation']['hits']='explicit count/hit must be possible for at least one valid FT state 0..cap; first target reconciles exact original FTs'
+        old=tamper(self.retention,self.root/'old-range',old_range)
+        with self.assertRaisesRegex(ValueError,'M5F contract mismatch'): dr.verify(old,[self.root])
+        from scripts.verify_decision_review import later_hit_boundary
+        minimum,probes=later_hit_boundary(dr.Rules().as_dict())
+        self.assertEqual(minimum,dr.Rules().next_free(0,0))
+        self.assertEqual([p['feasible'] for p in probes],[True,False,True,False,True,True,False])
 
     def test_swapped_cross_position_pairs_rejected_with_identical_sets(self):
         a=self.action(True)

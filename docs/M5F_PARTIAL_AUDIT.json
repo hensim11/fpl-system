@@ -5,13 +5,51 @@
   "confirmed_records_checked": 1,
   "decision_identity": "1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5",
   "fixed_lineup_arithmetic_and_identities_pass": true,
+  "later_hit_boundary": [
+    {
+      "feasible": true,
+      "hit": 0,
+      "transfers": 0
+    },
+    {
+      "feasible": false,
+      "hit": 4,
+      "transfers": 0
+    },
+    {
+      "feasible": true,
+      "hit": 0,
+      "transfers": 1
+    },
+    {
+      "feasible": false,
+      "hit": 4,
+      "transfers": 1
+    },
+    {
+      "feasible": true,
+      "hit": 0,
+      "transfers": 2
+    },
+    {
+      "feasible": true,
+      "hit": 4,
+      "transfers": 2
+    },
+    {
+      "feasible": false,
+      "hit": 8,
+      "transfers": 2
+    }
+  ],
+  "minimum_later_free_transfers": 1,
   "pending_targets": [
     7,
     8,
     9,
     10
   ],
-  "review_identity": "dde07260f280b1c69869d853682a49984dc5f300108576be997b1d105c9c475e",
+  "review_identity": "d3ce6abff519317e3e18129f00a3a92e92ca0f6a1609c1642553a1a803880671",
   "settled_targets": [
     6
   ]

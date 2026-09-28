@@ -4,8 +4,9 @@ Last updated: 2026-09-28
 
 ## Current M5F result — prospective retention and outcome review
 
-Focused hardening fixes all three review findings (Decision 069). All required
-verification passed; acceptance is recommended for the documented limited v1 scope.
+Decision 070 corrects the later-GW FT lower bound left by Decision 069.
+All fresh verification passed; acceptance is recommended within the documented
+limited v1 scope.
 
 M5F adds `review retain|confirm|outcomes|verify|replay` over unchanged M5E and M5C
 semantic readers. Three separate immutable artifact families freeze the original
@@ -14,11 +15,11 @@ reviews. Candidate order, forecasts, simulation statistics and original timestam
 are copied without reranking. Manual facts are not verified account history.
 
 Later-GW hits must be possible for the declared transfer count under some valid
-FT state in the existing rules; exact later economics remain unknown. Every asserted
-transfer pair preserves its frozen position. The review headline now includes a
+FT state from `Rules.next_free(0, 0)` (currently one) through cap; exact later
+economics remain unknown. Every asserted transfer pair preserves its frozen position. The review headline now includes a
 sorted unique union of retention and all attached confirmation exclusions.
 The amended content-bound v1 contract rejects old M5F bundles without rewriting
-or reinterpreting them; use the separate hardened retention root.
+or reinterpreting them; use `data/decision_reviews/final/retentions`.
 
 A selected candidate is intention only. Nullable transfers/squad/XI/captain/hits/
 chip fields distinguish unknown, partial, divergent and fully declared matches.
@@ -33,12 +34,14 @@ errors and no-transfer/greedy deltas are descriptive arithmetic, never official 
 scores or executable future-path counterfactuals. No autosubs, vice captain, chips,
 current account inference, later price verification or causal decision-value claim.
 
-**20 focused and 354 full tests pass normally and under optimized Python.**
+**21 focused and 355 full tests pass in fresh normal and optimized runs.**
+The prior 20/354 logs predate the final FT correction.
 All 1,191 original upstream evidence files retain bytes and nanosecond mtimes.
-An additional 60 pre-hardening M5F files remain unchanged. All eight fresh CLI
-lifecycle steps passed with networking forbidden (1,017.006 seconds); replay
-reproduced all five bundle files byte-for-byte. Independent pending/partial/full
-audits pass and are byte-identical in normal and optimized Python.
+An additional 60 older M5F files and 77 preceding-hardening files remain unchanged.
+All ten fresh CLI steps returned expected results with networking forbidden,
+including invalid later-hit rejection and valid-neighbour acceptance. Independent
+pending/partial/complete audits are byte-identical across Python modes; replay
+reproduced all five bundle files byte-for-byte.
 See the [compact acceptance record](docs/M5F_ACCEPTANCE.json).
 
 Contract: [M5F design](docs/M5F_DESIGN.md). Operator commands and exact assertion
@@ -47,7 +50,7 @@ Acceptance, independent audit, CLI demonstrations and limitations:
 [M5F verification](docs/M5F_VERIFICATION.md).
 The real-data M5E demonstration remains a synthetic squad/snapshot: GW6–10 are
 pending and no live manager action or outcome has been invented. Synthetic settled
-fixtures are isolated under ignored `local/m5f-hardening/lifecycle/`.
+fixtures are isolated under ignored `local/m5f-final/lifecycle/`.
 
 Next handoff: deliberately obtain a fresh pre-deadline M5E decision, retain it,
 record actual manager assertions promptly, and append genuine M5C target evidence

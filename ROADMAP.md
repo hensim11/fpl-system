@@ -251,11 +251,12 @@ No chips, news predictor, risk penalty, ownership model or account access was ad
 ## M5F — Prospective decision retention and outcome review
 
 Status: implemented with fixed contract and separate immutable evidence families;
-20 focused / 354 full tests pass in normal and optimized Python. Focused hardening
+21 focused / 355 full tests pass in fresh normal and optimized runs. Prior 20/354
+evidence predates the final lower-bound correction (Decision 070). Focused hardening
 adds rule-derived hit feasibility, per-pair positions and complete exclusion
-headlines. Eight fresh CLI steps, byte-identical replay, independent audits in both
-Python modes and preservation of all 1,191 original files plus 60 old M5F files
-pass. Acceptance is recommended within the documented limited v1 scope;
+headlines. Later-GW FT states begin at `Rules.next_free(0, 0)` (currently one),
+not zero. All ten fresh CLI steps, independent audits in both modes, byte-identical replay
+and preservation checks pass. Acceptance is recommended within the limited v1 scope;
 see [verification](docs/M5F_VERIFICATION.md) and [design](docs/M5F_DESIGN.md).
 
 - [x] Freeze exact verified M5E candidate order, baselines, forecasts, simulation and timestamps.

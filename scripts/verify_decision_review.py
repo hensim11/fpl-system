@@ -14,6 +14,22 @@ def check(ok, message):
     if not ok: raise ValueError(message)
 
 
+def later_hit_boundary(rules):
+    # Independent of Rules.next_free/hit and the production action validator.
+    minimum = min(rules['free_transfer_cap'], rules['weekly_free_transfers'])
+    def feasible(n, hit):
+        return hit in {rules['hit_cost'] * max(0, n-f)
+                       for f in range(minimum, rules['free_transfer_cap']+1)}
+    cases = [(0,0,True),(0,1,False),(1,0,True),(1,1,False),
+             (2,0,True),(2,1,True),(2,2,False)]
+    probes = []
+    for n, units, expected in cases:
+        hit = units * rules['hit_cost']; result = feasible(n, hit)
+        check(result == expected, 'later-GW boundary mismatch')
+        probes.append({'transfers':n,'hit':hit,'feasible':result})
+    return minimum, probes
+
+
 def audit(folder, roots):
     def locate(ref):
         matches={p.parent.resolve() for root in roots for p in Path(root).rglob(ref['identity']+'/manifest.json')}
@@ -75,6 +91,8 @@ def audit(folder, roots):
     for c in r['candidates']:
         for base in names[:2]: equal(c['horizon_vs_baselines'][base],delta(computed[c['candidate']],computed[base]))
     confirmations={}; action_exclusions=set(); rules=s['rules']
+    minimum, boundary = later_hit_boundary(rules)
+    check('Rules.next_free(0, 0)..cap' in m['metadata']['contract']['action_validation']['hits'], 'obsolete FT lower-bound contract')
     for ref in m['metadata']['confirmations']:
         path,cm=locate(ref)
         check(cm['metadata']['retention']==m['metadata']['retention'],'action retention mismatch')
@@ -88,7 +106,9 @@ def audit(folder, roots):
                 check(s['population'][str(pair['out'])]['position']==s['population'][str(pair['in'])]['position'], 'cross-position asserted pair')
             if hit is not None:
                 paid=hit//rules['hit_cost']; n=len(moves)
-                check(max(0,n-rules['free_transfer_cap'])<=paid<=n,'impossible transfer-count/hit combination')
+                first = a['target_gameweek']==s['personal']['squad']['target_gameweek']
+                lower = 0 if first else minimum
+                check(max(0,n-rules['free_transfer_cap'])<=paid<=max(0,n-lower),'impossible transfer-count/hit combination')
                 if a['target_gameweek']==s['personal']['squad']['target_gameweek']:
                     check(paid==max(0,n-s['personal']['squad']['free_transfers']),'first-GW hit mismatch')
         reasons=set(retained['prospective_exclusions'])
@@ -117,7 +137,8 @@ def audit(folder, roots):
             'candidate_count':len(names),'candidate_gameweeks_checked':count,
             'settled_targets':sorted(outcomes),'pending_targets':r['pending_targets'],
             'confirmed_records_checked':len(confirmations),'fixed_lineup_arithmetic_and_identities_pass':True,
-            'action_hit_pair_and_headline_checks_pass':True}
+            'action_hit_pair_and_headline_checks_pass':True,
+            'minimum_later_free_transfers':minimum,'later_hit_boundary':boundary}
 
 
 if __name__=='__main__':

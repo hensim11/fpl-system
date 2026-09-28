@@ -6,8 +6,46 @@
     "confirmed_records_checked": 1,
     "decision_identity": "1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5",
     "fixed_lineup_arithmetic_and_identities_pass": true,
+    "later_hit_boundary": [
+      {
+        "feasible": true,
+        "hit": 0,
+        "transfers": 0
+      },
+      {
+        "feasible": false,
+        "hit": 4,
+        "transfers": 0
+      },
+      {
+        "feasible": true,
+        "hit": 0,
+        "transfers": 1
+      },
+      {
+        "feasible": false,
+        "hit": 4,
+        "transfers": 1
+      },
+      {
+        "feasible": true,
+        "hit": 0,
+        "transfers": 2
+      },
+      {
+        "feasible": true,
+        "hit": 4,
+        "transfers": 2
+      },
+      {
+        "feasible": false,
+        "hit": 8,
+        "transfers": 2
+      }
+    ],
+    "minimum_later_free_transfers": 1,
     "pending_targets": [],
-    "review_identity": "5fa048a4be78dad44d9a2f474fb3d4f93e1ddd8c9ee1b7e4e6cf3a597d859cc6",
+    "review_identity": "f754f05a4e48306ffb0c7d74a62f739bb535f9a1c4a37e4a4fd7ad92330d2142",
     "settled_targets": [
       6,
       7,
@@ -16,194 +54,238 @@
       10
     ]
   },
+  "boundary_confirmation": "local/m5f-final/lifecycle/boundary-confirmations/481f874d4ccd555792c995bed195190b75b47917af90778101628c8f49ffe8a2",
   "commands": [
     {
       "argv": [
         "review",
         "outcomes",
         "--retention",
-        "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+        "data/decision_reviews/final/retentions/b08bf724a3dc20ad9b3716f95dba95092b475b8ba54cf56f1e8b292869cccfc2",
         "--artifact-dir",
-        "local/m5f-hardening/lifecycle/real-pending",
+        "local/m5f-final/lifecycle/real-pending",
         "--evidence-root",
         "data",
         "--evidence-root",
-        "local/m5f-hardening/lifecycle"
+        "local/m5f-final/lifecycle"
       ],
       "exit_code": 0,
-      "log_sha256": "bb33e9a7e1b7b0726555c3db88f2b562013eecd2a50d805698ec095d86bf24de",
+      "log_sha256": "95f09f552b0ef360d520a846cf2d9d8d7c8067c571da9ffdab1a6d5e90c6b0fd",
       "name": "real-pending",
       "network_forbidden": true,
-      "seconds": 141.153
+      "seconds": 124.705
     },
     {
       "argv": [
         "review",
         "confirm",
         "--retention",
-        "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+        "data/decision_reviews/final/retentions/b08bf724a3dc20ad9b3716f95dba95092b475b8ba54cf56f1e8b292869cccfc2",
         "--assertion",
-        "local/m5f-hardening/lifecycle/synthetic-assertion.json",
+        "local/m5f-final/lifecycle/later-one-transfer.json",
         "--artifact-dir",
-        "local/m5f-hardening/lifecycle/synthetic-confirmations",
+        "local/m5f-final/lifecycle/boundary-confirmations",
         "--evidence-root",
         "data",
         "--evidence-root",
-        "local/m5f-hardening/lifecycle"
+        "local/m5f-final/lifecycle"
+      ],
+      "exit_code": 1,
+      "log_sha256": "57936aa761d71b367a0f009609d5775fc460b32fb963933e0743eb98010bde05",
+      "name": "later-one-transfer-hit-rejected",
+      "network_forbidden": true,
+      "seconds": 124.606
+    },
+    {
+      "argv": [
+        "review",
+        "confirm",
+        "--retention",
+        "data/decision_reviews/final/retentions/b08bf724a3dc20ad9b3716f95dba95092b475b8ba54cf56f1e8b292869cccfc2",
+        "--assertion",
+        "local/m5f-final/lifecycle/later-one-transfer.json",
+        "--artifact-dir",
+        "local/m5f-final/lifecycle/boundary-confirmations",
+        "--evidence-root",
+        "data",
+        "--evidence-root",
+        "local/m5f-final/lifecycle"
       ],
       "exit_code": 0,
-      "log_sha256": "d9fc41e66fc5fa5301d5d9cd6d1c984d85fd28f73db97a908d6b92ab51e25a78",
+      "log_sha256": "9f9feb49fd1b11c4d2b75707732f241b4619127d20b8fde3190b164741ba99d1",
+      "name": "later-one-transfer-zero-accepted",
+      "network_forbidden": true,
+      "seconds": 124.157
+    },
+    {
+      "argv": [
+        "review",
+        "confirm",
+        "--retention",
+        "data/decision_reviews/final/retentions/b08bf724a3dc20ad9b3716f95dba95092b475b8ba54cf56f1e8b292869cccfc2",
+        "--assertion",
+        "local/m5f-final/lifecycle/synthetic-assertion.json",
+        "--artifact-dir",
+        "local/m5f-final/lifecycle/synthetic-confirmations",
+        "--evidence-root",
+        "data",
+        "--evidence-root",
+        "local/m5f-final/lifecycle"
+      ],
+      "exit_code": 0,
+      "log_sha256": "a1768cfa6bf94d95d159dedab4a03fc0810a356c2c862ae5db9c492360b7573b",
       "name": "confirm",
       "network_forbidden": true,
-      "seconds": 124.943
+      "seconds": 123.983
     },
     {
       "argv": [
         "review",
         "confirm",
         "--retention",
-        "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+        "data/decision_reviews/final/retentions/b08bf724a3dc20ad9b3716f95dba95092b475b8ba54cf56f1e8b292869cccfc2",
         "--assertion",
-        "local/m5f-hardening/lifecycle/synthetic-assertion.json",
+        "local/m5f-final/lifecycle/synthetic-assertion.json",
         "--artifact-dir",
-        "local/m5f-hardening/lifecycle/synthetic-confirmations",
+        "local/m5f-final/lifecycle/synthetic-confirmations",
         "--evidence-root",
         "data",
         "--evidence-root",
-        "local/m5f-hardening/lifecycle"
+        "local/m5f-final/lifecycle"
       ],
       "exit_code": 0,
-      "log_sha256": "f33899cad7dc56c6ec23fcc9e4f83cecc5ba43eefbef25d7e1a12bc0e4d65e54",
+      "log_sha256": "9b52fa5b17a61d3a47aaff63c5f4dccb63d93af52afb01eeb491aefd5a56e6b2",
       "name": "confirm-reuse",
       "network_forbidden": true,
-      "seconds": 124.801
+      "seconds": 124.097
     },
     {
       "argv": [
         "review",
         "outcomes",
         "--retention",
-        "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+        "data/decision_reviews/final/retentions/b08bf724a3dc20ad9b3716f95dba95092b475b8ba54cf56f1e8b292869cccfc2",
         "--confirmation",
-        "local/m5f-hardening/lifecycle/synthetic-confirmations/b58e4a9b5d5587edfa660063630375fd311ccdafab85a6db6f3fdf694e1deb2c",
+        "local/m5f-final/lifecycle/synthetic-confirmations/f4657f408466025066b1f453094d681f3b0cb61c3b1fa43ca355f77ff4e9a66e",
         "--artifact-dir",
-        "local/m5f-hardening/lifecycle/synthetic-reviews",
+        "local/m5f-final/lifecycle/synthetic-reviews",
         "--settlement",
-        "local/m5f-hardening/lifecycle/synthetic-settlements/6bd73a4fdd74f85e8f43abf655a1689b598b69c969facd67d40736fe8e794fec",
+        "local/m5f-final/lifecycle/synthetic-settlements/6bd73a4fdd74f85e8f43abf655a1689b598b69c969facd67d40736fe8e794fec",
         "--evidence-root",
         "data",
         "--evidence-root",
-        "local/m5f-hardening/lifecycle"
+        "local/m5f-final/lifecycle"
       ],
       "exit_code": 0,
-      "log_sha256": "d08c483f0d9d3cf1f6d755719dc5966423bd1f961d62900bc9bb6fd2cde3cae5",
+      "log_sha256": "efbe5541d9f51f91bc5e45685edbe37889f8601428f4f43ce7c35e5b6c78938e",
       "name": "partial",
       "network_forbidden": true,
-      "seconds": 124.347
+      "seconds": 124.366
     },
     {
       "argv": [
         "review",
         "outcomes",
         "--retention",
-        "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+        "data/decision_reviews/final/retentions/b08bf724a3dc20ad9b3716f95dba95092b475b8ba54cf56f1e8b292869cccfc2",
         "--confirmation",
-        "local/m5f-hardening/lifecycle/synthetic-confirmations/b58e4a9b5d5587edfa660063630375fd311ccdafab85a6db6f3fdf694e1deb2c",
+        "local/m5f-final/lifecycle/synthetic-confirmations/f4657f408466025066b1f453094d681f3b0cb61c3b1fa43ca355f77ff4e9a66e",
         "--artifact-dir",
-        "local/m5f-hardening/lifecycle/synthetic-reviews",
+        "local/m5f-final/lifecycle/synthetic-reviews",
         "--previous",
-        "local/m5f-hardening/lifecycle/synthetic-reviews/dde07260f280b1c69869d853682a49984dc5f300108576be997b1d105c9c475e",
+        "local/m5f-final/lifecycle/synthetic-reviews/d3ce6abff519317e3e18129f00a3a92e92ca0f6a1609c1642553a1a803880671",
         "--settlement",
-        "local/m5f-hardening/lifecycle/synthetic-settlements/6bd73a4fdd74f85e8f43abf655a1689b598b69c969facd67d40736fe8e794fec",
+        "local/m5f-final/lifecycle/synthetic-settlements/6bd73a4fdd74f85e8f43abf655a1689b598b69c969facd67d40736fe8e794fec",
         "--settlement",
-        "local/m5f-hardening/lifecycle/synthetic-settlements/22486b04f2cb16b8d35a4b3bf8b67b2a729acab6eb78532ec42f49758afffe89",
+        "local/m5f-final/lifecycle/synthetic-settlements/22486b04f2cb16b8d35a4b3bf8b67b2a729acab6eb78532ec42f49758afffe89",
         "--settlement",
-        "local/m5f-hardening/lifecycle/synthetic-settlements/0f30d417ca0be500d9990da4888842e3d819f28eae80f65ebc0c8c050cb0505e",
+        "local/m5f-final/lifecycle/synthetic-settlements/0f30d417ca0be500d9990da4888842e3d819f28eae80f65ebc0c8c050cb0505e",
         "--settlement",
-        "local/m5f-hardening/lifecycle/synthetic-settlements/991b7a9f614661e79055f921f9ea1442598ce7154b5ea5b0ce8728754f4fa2ed",
+        "local/m5f-final/lifecycle/synthetic-settlements/991b7a9f614661e79055f921f9ea1442598ce7154b5ea5b0ce8728754f4fa2ed",
         "--settlement",
-        "local/m5f-hardening/lifecycle/synthetic-settlements/249cc35529679888a34f040d4db79bd09d0ac98828252593c06a0b20c7eb2264",
+        "local/m5f-final/lifecycle/synthetic-settlements/249cc35529679888a34f040d4db79bd09d0ac98828252593c06a0b20c7eb2264",
         "--evidence-root",
         "data",
         "--evidence-root",
-        "local/m5f-hardening/lifecycle"
+        "local/m5f-final/lifecycle"
       ],
       "exit_code": 0,
-      "log_sha256": "a085d322038e7c1288f36a35a73ee20e0feabd53816da82ebe9fcb4dddc11c2d",
+      "log_sha256": "c88ba97884f57d1d774d8608497f0ad63e9a552b89c328577e34f1c945efa372",
       "name": "complete",
       "network_forbidden": true,
-      "seconds": 125.184
+      "seconds": 124.941
     },
     {
       "argv": [
         "review",
         "outcomes",
         "--retention",
-        "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+        "data/decision_reviews/final/retentions/b08bf724a3dc20ad9b3716f95dba95092b475b8ba54cf56f1e8b292869cccfc2",
         "--confirmation",
-        "local/m5f-hardening/lifecycle/synthetic-confirmations/b58e4a9b5d5587edfa660063630375fd311ccdafab85a6db6f3fdf694e1deb2c",
+        "local/m5f-final/lifecycle/synthetic-confirmations/f4657f408466025066b1f453094d681f3b0cb61c3b1fa43ca355f77ff4e9a66e",
         "--artifact-dir",
-        "local/m5f-hardening/lifecycle/synthetic-reviews",
+        "local/m5f-final/lifecycle/synthetic-reviews",
         "--previous",
-        "local/m5f-hardening/lifecycle/synthetic-reviews/dde07260f280b1c69869d853682a49984dc5f300108576be997b1d105c9c475e",
+        "local/m5f-final/lifecycle/synthetic-reviews/d3ce6abff519317e3e18129f00a3a92e92ca0f6a1609c1642553a1a803880671",
         "--settlement",
-        "local/m5f-hardening/lifecycle/synthetic-settlements/6bd73a4fdd74f85e8f43abf655a1689b598b69c969facd67d40736fe8e794fec",
+        "local/m5f-final/lifecycle/synthetic-settlements/6bd73a4fdd74f85e8f43abf655a1689b598b69c969facd67d40736fe8e794fec",
         "--settlement",
-        "local/m5f-hardening/lifecycle/synthetic-settlements/22486b04f2cb16b8d35a4b3bf8b67b2a729acab6eb78532ec42f49758afffe89",
+        "local/m5f-final/lifecycle/synthetic-settlements/22486b04f2cb16b8d35a4b3bf8b67b2a729acab6eb78532ec42f49758afffe89",
         "--settlement",
-        "local/m5f-hardening/lifecycle/synthetic-settlements/0f30d417ca0be500d9990da4888842e3d819f28eae80f65ebc0c8c050cb0505e",
+        "local/m5f-final/lifecycle/synthetic-settlements/0f30d417ca0be500d9990da4888842e3d819f28eae80f65ebc0c8c050cb0505e",
         "--settlement",
-        "local/m5f-hardening/lifecycle/synthetic-settlements/991b7a9f614661e79055f921f9ea1442598ce7154b5ea5b0ce8728754f4fa2ed",
+        "local/m5f-final/lifecycle/synthetic-settlements/991b7a9f614661e79055f921f9ea1442598ce7154b5ea5b0ce8728754f4fa2ed",
         "--settlement",
-        "local/m5f-hardening/lifecycle/synthetic-settlements/249cc35529679888a34f040d4db79bd09d0ac98828252593c06a0b20c7eb2264",
+        "local/m5f-final/lifecycle/synthetic-settlements/249cc35529679888a34f040d4db79bd09d0ac98828252593c06a0b20c7eb2264",
         "--evidence-root",
         "data",
         "--evidence-root",
-        "local/m5f-hardening/lifecycle"
+        "local/m5f-final/lifecycle"
       ],
       "exit_code": 0,
-      "log_sha256": "adfd948bce5d5ac4eb920150125f5089a27b7e3bde78f13a1267cda4ddd79ee5",
+      "log_sha256": "5579eb0285198271e495a693233a3db7af129944c1cfd0d5eb45c519b7b8a3b7",
       "name": "complete-reuse",
       "network_forbidden": true,
-      "seconds": 125.276
+      "seconds": 124.954
     },
     {
       "argv": [
         "review",
         "verify",
         "--bundle",
-        "local/m5f-hardening/lifecycle/synthetic-reviews/5fa048a4be78dad44d9a2f474fb3d4f93e1ddd8c9ee1b7e4e6cf3a597d859cc6",
+        "local/m5f-final/lifecycle/synthetic-reviews/f754f05a4e48306ffb0c7d74a62f739bb535f9a1c4a37e4a4fd7ad92330d2142",
         "--evidence-root",
         "data",
         "--evidence-root",
-        "local/m5f-hardening/lifecycle"
+        "local/m5f-final/lifecycle"
       ],
       "exit_code": 0,
-      "log_sha256": "704dc4efb81bc359eaeb4062f7e15fe6418695fb24fc00f709b541e570796928",
+      "log_sha256": "68887b36212187f63c54ca28122f8625f23ed424e252e604221e0d7090c44f28",
       "name": "verify",
       "network_forbidden": true,
-      "seconds": 124.83
+      "seconds": 124.825
     },
     {
       "argv": [
         "review",
         "replay",
         "--bundle",
-        "local/m5f-hardening/lifecycle/synthetic-reviews/5fa048a4be78dad44d9a2f474fb3d4f93e1ddd8c9ee1b7e4e6cf3a597d859cc6",
+        "local/m5f-final/lifecycle/synthetic-reviews/f754f05a4e48306ffb0c7d74a62f739bb535f9a1c4a37e4a4fd7ad92330d2142",
         "--artifact-dir",
-        "local/m5f-hardening/lifecycle/replay",
+        "local/m5f-final/lifecycle/replay",
         "--evidence-root",
         "data",
         "--evidence-root",
-        "local/m5f-hardening/lifecycle"
+        "local/m5f-final/lifecycle"
       ],
       "exit_code": 0,
-      "log_sha256": "ff6dabbec80c241fed66b5490f422c6782c3f85dab7f86cb40425a7772bbdeae",
+      "log_sha256": "e5910d5bb9846ecb50c5b989ee879cee07b68de368463f7aa2b55382064c20d0",
       "name": "replay",
       "network_forbidden": true,
-      "seconds": 126.472
+      "seconds": 124.798
     }
   ],
+  "partial_review": "local/m5f-final/lifecycle/synthetic-reviews/d3ce6abff519317e3e18129f00a3a92e92ca0f6a1609c1642553a1a803880671",
   "pending_audit": {
     "action_hit_pair_and_headline_checks_pass": true,
     "candidate_count": 5,
@@ -211,6 +293,44 @@
     "confirmed_records_checked": 0,
     "decision_identity": "1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5",
     "fixed_lineup_arithmetic_and_identities_pass": true,
+    "later_hit_boundary": [
+      {
+        "feasible": true,
+        "hit": 0,
+        "transfers": 0
+      },
+      {
+        "feasible": false,
+        "hit": 4,
+        "transfers": 0
+      },
+      {
+        "feasible": true,
+        "hit": 0,
+        "transfers": 1
+      },
+      {
+        "feasible": false,
+        "hit": 4,
+        "transfers": 1
+      },
+      {
+        "feasible": true,
+        "hit": 0,
+        "transfers": 2
+      },
+      {
+        "feasible": true,
+        "hit": 4,
+        "transfers": 2
+      },
+      {
+        "feasible": false,
+        "hit": 8,
+        "transfers": 2
+      }
+    ],
+    "minimum_later_free_transfers": 1,
     "pending_targets": [
       6,
       7,
@@ -218,12 +338,12 @@
       9,
       10
     ],
-    "review_identity": "c366c17d64121b3d1d53ff1edbcd43d2584e8226d99e1805b8d94cf4833a33d2",
+    "review_identity": "85452cf9f91258bb51dfa24288096624420a97440844a76ced0df0b323d2c50c",
     "settled_targets": []
   },
-  "pending_review": "local/m5f-hardening/lifecycle/real-pending/c366c17d64121b3d1d53ff1edbcd43d2584e8226d99e1805b8d94cf4833a33d2",
-  "retention": "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
-  "synthetic_confirmation": "local/m5f-hardening/lifecycle/synthetic-confirmations/b58e4a9b5d5587edfa660063630375fd311ccdafab85a6db6f3fdf694e1deb2c",
+  "pending_review": "local/m5f-final/lifecycle/real-pending/85452cf9f91258bb51dfa24288096624420a97440844a76ced0df0b323d2c50c",
+  "retention": "data/decision_reviews/final/retentions/b08bf724a3dc20ad9b3716f95dba95092b475b8ba54cf56f1e8b292869cccfc2",
+  "synthetic_confirmation": "local/m5f-final/lifecycle/synthetic-confirmations/f4657f408466025066b1f453094d681f3b0cb61c3b1fa43ca355f77ff4e9a66e",
   "synthetic_not_live_actions_or_results": true,
-  "synthetic_review": "local/m5f-hardening/lifecycle/synthetic-reviews/5fa048a4be78dad44d9a2f474fb3d4f93e1ddd8c9ee1b7e4e6cf3a597d859cc6"
+  "synthetic_review": "local/m5f-final/lifecycle/synthetic-reviews/f754f05a4e48306ffb0c7d74a62f739bb535f9a1c4a37e4a4fd7ad92330d2142"
 }

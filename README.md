@@ -80,17 +80,18 @@ Unknown new players and lineups unsupported by the frozen population fail closed
 Each asserted transfer pair must preserve position according to the bound frozen
 population; overall in/out sets cannot excuse a cross-position pair. Hit units come
 from the versioned rules. With both count and hits explicit, the hit must be
-possible for some valid FT balance from zero through the rules cap: zero transfers
-means zero hits, and excessive or too-small hits for a large transfer count fail.
-The first target still uses exact original FTs; later FT balances remain unknown.
+possible for some later FT balance from `Rules.next_free(0, 0)` through the rules
+cap. Weekly accrual guarantees a minimum of one under the current contract: one
+transfer permits zero hit; two permit zero or four points, never eight. Exact later
+FT balances remain unknown. The first target still uses exact original FTs.
 
 The review's `prospective_exclusions` headline includes retention **and all attached
 confirmation** exclusions, with deterministic deduplication. Component fields remain
 available in JSON; late or synthetic actions cannot hide behind an eligible retention.
 
-Pre-hardening M5F bundles are incompatible with the amended contract and are kept
+Both earlier M5F contract variants (including the invalid `0..cap` range) are incompatible with the amended contract and are kept
 unchanged. For the same M5E decision, deliberately create new retention with
-`review retain --decision "$DECISION" --artifact-dir data/decision_reviews/hardened/retentions`.
+`review retain --decision "$DECISION" --artifact-dir data/decision_reviews/final/retentions`.
 Use that new retention identity for confirmations/reviews. There is no silent migration.
 
 To fill unknown fields, write a new assertion retaining all confirmed facts and use
