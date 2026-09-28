@@ -1,0 +1,114 @@
+{
+  "acceptance_status": "recommended_for_documented_limited_v1_scope_after_hardening",
+  "all_cli_steps_passed_network_forbidden": true,
+  "candidate_gameweeks_independently_checked": 25,
+  "cli_steps": 8,
+  "cli_total_seconds": 1017.006,
+  "compatibility": "Existing exact content-bound v1 contract; old M5F retention, confirmation and review reject with M5F contract mismatch; preserved, not reinterpreted.",
+  "contract_defined_before_implementation": "docs/M5F_DESIGN.md",
+  "contract_sha256": "3273e103fba316c79081fd59a63db1d3ddd307aeeb6d6f02cff06cb326b8eed1",
+  "diff_whitespace_check_passed": true,
+  "focused_tests_each_mode": 20,
+  "fresh_retention_cli": {
+    "log_sha256": "20c6a1d8d0e67bcea5212b5ebe7e7e41686eeb8b29072092d06b7b78d02d61a2",
+    "passed": true
+  },
+  "full_tests_each_mode": 354,
+  "fully_declared_two_gw_horizon_independently_audited_in_tests": true,
+  "hardening_findings_resolved": [
+    "rule-derived transfer count/hit feasibility without inferred later FT balance",
+    "each asserted pair preserves frozen position",
+    "sorted unique retention and all attached confirmation exclusion union"
+  ],
+  "independent_audits": [
+    "pending",
+    "partial",
+    "complete"
+  ],
+  "independent_audits_normal_optimized_identical": true,
+  "limitations": [
+    "manual assertions and local timestamps are not independently witnessed",
+    "fixed-lineup arithmetic is not official FPL scoring",
+    "no vice-captain, autosubs or chips",
+    "frozen future transfers have unsupported later market feasibility",
+    "confirmation extensions only fill unknown fields; revisions need investigation",
+    "no demonstrated causal decision value or model/simulation tuning"
+  ],
+  "live_manager_actions_or_results_invented": false,
+  "m5b_m5e_computation_and_workflow_modules_unchanged": true,
+  "merged_m5e_ancestor_verified": true,
+  "milestone": "M5F",
+  "no_commit_push_merge": true,
+  "original_candidate_order_retained": true,
+  "pending_review": "local/m5f-hardening/lifecycle/real-pending/c366c17d64121b3d1d53ff1edbcd43d2584e8226d99e1805b8d94cf4833a33d2",
+  "pre_hardening_m5f_files_preserved": 60,
+  "preservation": [
+    {
+      "bytes_and_nanosecond_mtimes_unchanged": true,
+      "files": 1191,
+      "inventory": "local/m5f/prior-evidence.json",
+      "sha256": "477acf3e16a715fcdc9eb05df656760d38b10774460c0105d3051da647871c80"
+    },
+    {
+      "bytes_and_nanosecond_mtimes_unchanged": true,
+      "files": 60,
+      "inventory": "local/m5f-hardening/old-m5f-inventory.json",
+      "sha256": "f0b7e98ed029d84820d48825cb1bbe54118d2fe7ffb1d4d7d0d74d70838e97d9"
+    }
+  ],
+  "prior_bytes_and_nanosecond_mtimes_unchanged": true,
+  "prior_evidence_files_preserved": 1191,
+  "real_pending_targets": [
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "replay_all_bytes_identical": true,
+  "replay_identical_files": 5,
+  "retention": "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+  "starting_branch": "m5f-prospective-decision-review",
+  "starting_commit": "06cf0069eb5ee50d1a69f1115ae5e5525199b0e1",
+  "synthetic_confirmation": "local/m5f-hardening/lifecycle/synthetic-confirmations/b58e4a9b5d5587edfa660063630375fd311ccdafab85a6db6f3fdf694e1deb2c",
+  "synthetic_confirmed_gw6_fixed_lineup_points": 56,
+  "synthetic_confirmed_horizon_points": null,
+  "synthetic_fixture_candidate_horizon_points": {
+    "exact_1": 300,
+    "exact_2": 308,
+    "exact_3": 304,
+    "greedy": 314,
+    "no_transfer": 316
+  },
+  "synthetic_review": "local/m5f-hardening/lifecycle/synthetic-reviews/5fa048a4be78dad44d9a2f474fb3d4f93e1ddd8c9ee1b7e4e6cf3a597d859cc6",
+  "tests": [
+    {
+      "command": ".venv/bin/python -m unittest tests.test_decision_review",
+      "log_sha256": "7c681bd602b54d5c65e06be0eef889c5b5c69d9a03e830ecaac9babd6cf59554",
+      "passed": true,
+      "seconds": 69.62,
+      "tests": 20
+    },
+    {
+      "command": ".venv/bin/python -O -m unittest tests.test_decision_review",
+      "log_sha256": "ce742b034d057b11afdc3fc3f9dc69a9821826a4311200169bfecb3da1f1cb5f",
+      "passed": true,
+      "seconds": 82.934,
+      "tests": 20
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests",
+      "log_sha256": "f7b9890d970404ae23de0081de768c9d1f063a15bf1bf128a11b2bb9ef1481ea",
+      "passed": true,
+      "seconds": 135.543,
+      "tests": 354
+    },
+    {
+      "command": ".venv/bin/python -O -m unittest discover -s tests",
+      "log_sha256": "32bf7c48977aaf255d8a08871fab46cba6f7918946bbf7e19f1f7f617c495aff",
+      "passed": true,
+      "seconds": 135.567,
+      "tests": 354
+    }
+  ]
+}

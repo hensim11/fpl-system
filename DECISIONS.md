@@ -1511,3 +1511,75 @@ Implementation/contract binding makes prior M5E bundles incompatible with the
 current semantic reader; historical bytes/evidence remain untouched.
 Real personal inputs belong in ignored `local/`, reports in ignored
 `data/personal_decisions/`; `data/` as a whole is not ignored.
+
+## 066 — Freeze prospective comparison before outcome review (M5F)
+
+`decision-review-v1` is predeclared in [M5F_DESIGN.md](docs/M5F_DESIGN.md). Retention
+binds exact verified M5E bytes and copies its full summary, original ordered
+candidate/baseline set, forecast and simulation definitions, assumptions and times.
+Target deadlines come from the original verified M5C archive. Runtime recording
+attestation is separate. Snapshot decisions or late retention are excluded from
+prospective claims; synthetic evidence remains visibly synthetic. Existing M5B–E
+artifacts, objective, calibration and simulation law are unchanged.
+
+## 067 — Explicit assertions, partial execution and immutable extension
+
+`manager-confirmation-v1` binds one retention/M5E identity, season and target GW.
+Choice/rejection is intention only. Actual transfers, squad, XI, captain, hit points
+and no-chip status require independent explicit fields; null never means zero or
+execution. First-target transfers reconcile with the original squad and usable
+FTs when the corresponding fields are present. Later account economics are not
+inferred. Frozen-population lineup legality is checked, but assertions are not
+independently verified account history or contemporary market validation.
+
+One explicit predecessor may be extended by filling unknown facts, without changing
+confirmed facts/intention. Reviews retain ancestry and reject competing heads.
+User-declared action time, actual import and publication-check time stay separate;
+a late extension cannot upgrade earlier late evidence. No CLI clock override,
+backdating, automatic correction or external time-witness claim. Consistently
+forged standalone assertions cannot be disproved by local hashes/timestamps alone.
+
+## 068 — Limited fixed-lineup outcomes, complete horizons and honest pending state
+
+Use the unchanged M5C settlement reader and authoritative event/fixture/points
+reconciliation. Each GW may arrive independently. Identical identities deduplicate;
+competing identities fail even when totals agree. Blank nulls remain unscorable;
+missing projected players reject settlement. No implicit zero or partial-horizon
+sum is permitted. Reviews are immutable explicit evidence sets; `--previous`
+accumulates a verified report's evidence without rewriting it.
+
+Every frozen candidate uses its original XI/captain/hits with settled player totals;
+doubles count once via the verified aggregate. Predeclared diagnostics are settled
+minus forecast, fixed-lineup scores and deltas versus no-transfer/greedy. Confirmed
+scores require explicit squad/XI/captain/hits/no-chip evidence and do not establish
+adherence when transfers are unknown. Complete confirmed and candidate horizon
+figures require all target evidence. Reports never call these official FPL scores:
+vice captain, automatic substitution and chips are not implemented. Planned future
+transfers remain hypothetical, with later prices/availability unsupported. These
+numbers do not prove causal benefit, account performance or executable counterfactual
+utility, and do not tune models, uncertainty, simulation or M5B ranking.
+
+## 069 — M5F action consistency and complete exclusion headlines
+
+The initial M5F pass was not accepted: review found impossible later-GW transfer
+hits, cross-position asserted pairs admitted by set comparison, and retention-only
+headline exclusions. Harden the existing architecture; do not change M5B–E.
+
+For explicit transfer count n and hit points, enumerate `Rules.hit(n, f)` over
+registered valid FT states 0..cap and reject values outside that set. Hit units
+also use `Rules.hit_cost`. Keep exact first-GW reconciliation; do not infer later
+FT state. Require every asserted pair to preserve frozen position before comparing
+aggregate transfer sets or scoring. Fixtures must author valid pairs explicitly.
+
+The review headline becomes the sorted unique union of retention and every attached
+confirmation exclusion, including predecessors. Keep component fields for inspection.
+All rendered/CLI surfaces consume that single overall field. Extend the independent
+audit with separate hit-bound, pair-position and headline-union calculations.
+
+M5F binds the complete contract by content, not a source implementation hash. Add
+substantive action-validation and exclusion-definition fields without a broad new
+milestone/version. Old M5F artifacts fail the contract check; retain their bytes
+and publish new actual-time M5F records under a separate root. M2–M5E and the
+original 1,191-file preservation inventory remain unchanged. Hardening results,
+actual new counts and identities are recorded in M5F_VERIFICATION.md and acceptance
+JSON. Initial counts are historical, not evidence for the hardened reader.

@@ -1,0 +1,229 @@
+{
+  "audit": {
+    "action_hit_pair_and_headline_checks_pass": true,
+    "candidate_count": 5,
+    "candidate_gameweeks_checked": 25,
+    "confirmed_records_checked": 1,
+    "decision_identity": "1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5",
+    "fixed_lineup_arithmetic_and_identities_pass": true,
+    "pending_targets": [],
+    "review_identity": "5fa048a4be78dad44d9a2f474fb3d4f93e1ddd8c9ee1b7e4e6cf3a597d859cc6",
+    "settled_targets": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
+  },
+  "commands": [
+    {
+      "argv": [
+        "review",
+        "outcomes",
+        "--retention",
+        "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+        "--artifact-dir",
+        "local/m5f-hardening/lifecycle/real-pending",
+        "--evidence-root",
+        "data",
+        "--evidence-root",
+        "local/m5f-hardening/lifecycle"
+      ],
+      "exit_code": 0,
+      "log_sha256": "bb33e9a7e1b7b0726555c3db88f2b562013eecd2a50d805698ec095d86bf24de",
+      "name": "real-pending",
+      "network_forbidden": true,
+      "seconds": 141.153
+    },
+    {
+      "argv": [
+        "review",
+        "confirm",
+        "--retention",
+        "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+        "--assertion",
+        "local/m5f-hardening/lifecycle/synthetic-assertion.json",
+        "--artifact-dir",
+        "local/m5f-hardening/lifecycle/synthetic-confirmations",
+        "--evidence-root",
+        "data",
+        "--evidence-root",
+        "local/m5f-hardening/lifecycle"
+      ],
+      "exit_code": 0,
+      "log_sha256": "d9fc41e66fc5fa5301d5d9cd6d1c984d85fd28f73db97a908d6b92ab51e25a78",
+      "name": "confirm",
+      "network_forbidden": true,
+      "seconds": 124.943
+    },
+    {
+      "argv": [
+        "review",
+        "confirm",
+        "--retention",
+        "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+        "--assertion",
+        "local/m5f-hardening/lifecycle/synthetic-assertion.json",
+        "--artifact-dir",
+        "local/m5f-hardening/lifecycle/synthetic-confirmations",
+        "--evidence-root",
+        "data",
+        "--evidence-root",
+        "local/m5f-hardening/lifecycle"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f33899cad7dc56c6ec23fcc9e4f83cecc5ba43eefbef25d7e1a12bc0e4d65e54",
+      "name": "confirm-reuse",
+      "network_forbidden": true,
+      "seconds": 124.801
+    },
+    {
+      "argv": [
+        "review",
+        "outcomes",
+        "--retention",
+        "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+        "--confirmation",
+        "local/m5f-hardening/lifecycle/synthetic-confirmations/b58e4a9b5d5587edfa660063630375fd311ccdafab85a6db6f3fdf694e1deb2c",
+        "--artifact-dir",
+        "local/m5f-hardening/lifecycle/synthetic-reviews",
+        "--settlement",
+        "local/m5f-hardening/lifecycle/synthetic-settlements/6bd73a4fdd74f85e8f43abf655a1689b598b69c969facd67d40736fe8e794fec",
+        "--evidence-root",
+        "data",
+        "--evidence-root",
+        "local/m5f-hardening/lifecycle"
+      ],
+      "exit_code": 0,
+      "log_sha256": "d08c483f0d9d3cf1f6d755719dc5966423bd1f961d62900bc9bb6fd2cde3cae5",
+      "name": "partial",
+      "network_forbidden": true,
+      "seconds": 124.347
+    },
+    {
+      "argv": [
+        "review",
+        "outcomes",
+        "--retention",
+        "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+        "--confirmation",
+        "local/m5f-hardening/lifecycle/synthetic-confirmations/b58e4a9b5d5587edfa660063630375fd311ccdafab85a6db6f3fdf694e1deb2c",
+        "--artifact-dir",
+        "local/m5f-hardening/lifecycle/synthetic-reviews",
+        "--previous",
+        "local/m5f-hardening/lifecycle/synthetic-reviews/dde07260f280b1c69869d853682a49984dc5f300108576be997b1d105c9c475e",
+        "--settlement",
+        "local/m5f-hardening/lifecycle/synthetic-settlements/6bd73a4fdd74f85e8f43abf655a1689b598b69c969facd67d40736fe8e794fec",
+        "--settlement",
+        "local/m5f-hardening/lifecycle/synthetic-settlements/22486b04f2cb16b8d35a4b3bf8b67b2a729acab6eb78532ec42f49758afffe89",
+        "--settlement",
+        "local/m5f-hardening/lifecycle/synthetic-settlements/0f30d417ca0be500d9990da4888842e3d819f28eae80f65ebc0c8c050cb0505e",
+        "--settlement",
+        "local/m5f-hardening/lifecycle/synthetic-settlements/991b7a9f614661e79055f921f9ea1442598ce7154b5ea5b0ce8728754f4fa2ed",
+        "--settlement",
+        "local/m5f-hardening/lifecycle/synthetic-settlements/249cc35529679888a34f040d4db79bd09d0ac98828252593c06a0b20c7eb2264",
+        "--evidence-root",
+        "data",
+        "--evidence-root",
+        "local/m5f-hardening/lifecycle"
+      ],
+      "exit_code": 0,
+      "log_sha256": "a085d322038e7c1288f36a35a73ee20e0feabd53816da82ebe9fcb4dddc11c2d",
+      "name": "complete",
+      "network_forbidden": true,
+      "seconds": 125.184
+    },
+    {
+      "argv": [
+        "review",
+        "outcomes",
+        "--retention",
+        "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+        "--confirmation",
+        "local/m5f-hardening/lifecycle/synthetic-confirmations/b58e4a9b5d5587edfa660063630375fd311ccdafab85a6db6f3fdf694e1deb2c",
+        "--artifact-dir",
+        "local/m5f-hardening/lifecycle/synthetic-reviews",
+        "--previous",
+        "local/m5f-hardening/lifecycle/synthetic-reviews/dde07260f280b1c69869d853682a49984dc5f300108576be997b1d105c9c475e",
+        "--settlement",
+        "local/m5f-hardening/lifecycle/synthetic-settlements/6bd73a4fdd74f85e8f43abf655a1689b598b69c969facd67d40736fe8e794fec",
+        "--settlement",
+        "local/m5f-hardening/lifecycle/synthetic-settlements/22486b04f2cb16b8d35a4b3bf8b67b2a729acab6eb78532ec42f49758afffe89",
+        "--settlement",
+        "local/m5f-hardening/lifecycle/synthetic-settlements/0f30d417ca0be500d9990da4888842e3d819f28eae80f65ebc0c8c050cb0505e",
+        "--settlement",
+        "local/m5f-hardening/lifecycle/synthetic-settlements/991b7a9f614661e79055f921f9ea1442598ce7154b5ea5b0ce8728754f4fa2ed",
+        "--settlement",
+        "local/m5f-hardening/lifecycle/synthetic-settlements/249cc35529679888a34f040d4db79bd09d0ac98828252593c06a0b20c7eb2264",
+        "--evidence-root",
+        "data",
+        "--evidence-root",
+        "local/m5f-hardening/lifecycle"
+      ],
+      "exit_code": 0,
+      "log_sha256": "adfd948bce5d5ac4eb920150125f5089a27b7e3bde78f13a1267cda4ddd79ee5",
+      "name": "complete-reuse",
+      "network_forbidden": true,
+      "seconds": 125.276
+    },
+    {
+      "argv": [
+        "review",
+        "verify",
+        "--bundle",
+        "local/m5f-hardening/lifecycle/synthetic-reviews/5fa048a4be78dad44d9a2f474fb3d4f93e1ddd8c9ee1b7e4e6cf3a597d859cc6",
+        "--evidence-root",
+        "data",
+        "--evidence-root",
+        "local/m5f-hardening/lifecycle"
+      ],
+      "exit_code": 0,
+      "log_sha256": "704dc4efb81bc359eaeb4062f7e15fe6418695fb24fc00f709b541e570796928",
+      "name": "verify",
+      "network_forbidden": true,
+      "seconds": 124.83
+    },
+    {
+      "argv": [
+        "review",
+        "replay",
+        "--bundle",
+        "local/m5f-hardening/lifecycle/synthetic-reviews/5fa048a4be78dad44d9a2f474fb3d4f93e1ddd8c9ee1b7e4e6cf3a597d859cc6",
+        "--artifact-dir",
+        "local/m5f-hardening/lifecycle/replay",
+        "--evidence-root",
+        "data",
+        "--evidence-root",
+        "local/m5f-hardening/lifecycle"
+      ],
+      "exit_code": 0,
+      "log_sha256": "ff6dabbec80c241fed66b5490f422c6782c3f85dab7f86cb40425a7772bbdeae",
+      "name": "replay",
+      "network_forbidden": true,
+      "seconds": 126.472
+    }
+  ],
+  "pending_audit": {
+    "action_hit_pair_and_headline_checks_pass": true,
+    "candidate_count": 5,
+    "candidate_gameweeks_checked": 25,
+    "confirmed_records_checked": 0,
+    "decision_identity": "1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5",
+    "fixed_lineup_arithmetic_and_identities_pass": true,
+    "pending_targets": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "review_identity": "c366c17d64121b3d1d53ff1edbcd43d2584e8226d99e1805b8d94cf4833a33d2",
+    "settled_targets": []
+  },
+  "pending_review": "local/m5f-hardening/lifecycle/real-pending/c366c17d64121b3d1d53ff1edbcd43d2584e8226d99e1805b8d94cf4833a33d2",
+  "retention": "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+  "synthetic_confirmation": "local/m5f-hardening/lifecycle/synthetic-confirmations/b58e4a9b5d5587edfa660063630375fd311ccdafab85a6db6f3fdf694e1deb2c",
+  "synthetic_not_live_actions_or_results": true,
+  "synthetic_review": "local/m5f-hardening/lifecycle/synthetic-reviews/5fa048a4be78dad44d9a2f474fb3d4f93e1ddd8c9ee1b7e4e6cf3a597d859cc6"
+}

@@ -1,0 +1,49 @@
+{
+  "contract_sha256": "3273e103fba316c79081fd59a63db1d3ddd307aeeb6d6f02cff06cb326b8eed1",
+  "decision_identity": "1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5",
+  "probes": [
+    {
+      "accepted": true,
+      "case": "correct_real_population_pairs",
+      "expected": true,
+      "rejection": null
+    },
+    {
+      "accepted": false,
+      "case": "swapped_same_sets",
+      "expected": false,
+      "rejection": "asserted transfer pair has incompatible frozen positions"
+    },
+    {
+      "accepted": false,
+      "case": "later_zero_transfers_four_hit",
+      "expected": false,
+      "rejection": "transfers contradict hit points under every valid FT state"
+    },
+    {
+      "accepted": true,
+      "case": "later_zero_transfers_zero_hit",
+      "expected": true,
+      "rejection": null
+    },
+    {
+      "accepted": false,
+      "case": "later_one_transfer_eight_hit",
+      "expected": false,
+      "rejection": "transfers contradict hit points under every valid FT state"
+    },
+    {
+      "accepted": true,
+      "case": "later_one_transfer_four_hit",
+      "expected": true,
+      "rejection": null
+    },
+    {
+      "accepted": true,
+      "case": "later_one_transfer_zero_hit",
+      "expected": true,
+      "rejection": null
+    }
+  ],
+  "synthetic_validation_only": true
+}

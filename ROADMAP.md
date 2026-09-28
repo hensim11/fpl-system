@@ -248,15 +248,39 @@ recorded in [M5E verification](docs/M5E_VERIFICATION.md) and the
 This is user-specific decision support, not demonstrated realised decision value.
 No chips, news predictor, risk penalty, ownership model or account access was added.
 
-## Next substantial objective
+## M5F — Prospective decision retention and outcome review
 
-Build prospective decision retention and outcome review: record explicit manager
-action confirmations separately from hypothetical optimiser paths; join only
-verified authoritative settlements; report predeclared forecast/simulation and
-comparison diagnostics, including unobserved or unsupported outcomes. Preserve
-original decisions and avoid hindsight candidate selection or automatic recalibration.
-Continue manual useful pre-deadline captures and genuine target settlement now.
-Risk-aware optimisation needs explicit utility and stronger simulator validation.
+Status: implemented with fixed contract and separate immutable evidence families;
+20 focused / 354 full tests pass in normal and optimized Python. Focused hardening
+adds rule-derived hit feasibility, per-pair positions and complete exclusion
+headlines. Eight fresh CLI steps, byte-identical replay, independent audits in both
+Python modes and preservation of all 1,191 original files plus 60 old M5F files
+pass. Acceptance is recommended within the documented limited v1 scope;
+see [verification](docs/M5F_VERIFICATION.md) and [design](docs/M5F_DESIGN.md).
+
+- [x] Freeze exact verified M5E candidate order, baselines, forecasts, simulation and timestamps.
+- [x] Retain manual/synthetic intentions and explicit partial/divergent actions separately.
+- [x] Actual recording-time eligibility and snapshot/late/synthetic exclusions.
+- [x] Immutable monotone extensions, exact reuse/replay and conflict rejection.
+- [x] Reuse authoritative M5C independent target settlements, duplicate and identity guards.
+- [x] Fixed-lineup forecast errors and baseline deltas; explicit pending/blank/unscorable states.
+- [x] Require complete target and player evidence for all cumulative figures.
+- [x] Local Markdown/HTML reports, ignored private defaults and documented CLI/schema.
+- [x] Normal/optimized tests, independent scalar audit and synthetic CLI lifecycle.
+- [ ] Accumulate genuine manager confirmations and authoritative GW6–10 outcomes.
+
+The unchecked item is prospective use, not an implementation blocker. No official
+FPL score, realised utility improvement or execution of future optimiser transfers
+is claimed. Corrections/retractions, vice captain/autosubs/chips, later market
+feasibility and account attestation need separate contracts.
+
+## Next operational handoff
+
+Use fresh pre-deadline M5E evidence, retain comparisons before outcomes, record
+explicit actual assertions, then accumulate genuine M5C settlements independently.
+Review descriptive errors and comparisons without selecting a better past plan,
+refitting models, recalibrating uncertainty or tuning the simulator. A future
+risk-aware objective requires explicit utility and stronger prospective evidence.
 
 ## Later milestones
 
