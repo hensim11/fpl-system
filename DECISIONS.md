@@ -1407,3 +1407,107 @@ Next develop a personalised decision workflow over these verified boundaries whi
 retaining and settling genuinely prospective evidence. Risk-aware optimisation
 requires an explicit utility contract and stronger simulation validation; descriptive
 historical reuse alone does not justify changing the production objective.
+
+## 061 — Explicit personal state wraps the unchanged planner contract
+
+M5E adds `personal-state-v1` around `current-squad-v1`; it does not change that
+accepted squad schema. Exact season-qualified IDs, sale rights, bank and available
+FTs remain mandatory integers where applicable; booleans do not substitute for
+integers. Manual/synthetic provenance, source description, observation assertion
+and explicit confirmation are separate from actual runtime import time. Templates
+have null economics/IDs and unconfirmed account state, so cannot pass validation.
+Names, clubs, positions, prices and strict selectability come only from the bound
+snapshot; name lookup returns all matches and never selects an ID silently.
+
+Available FTs includes the target GW's accrual and precedes any transfer for that
+GW. V1 rejects already-made target-GW transfers, incurred hits and active chips.
+It does not subtract sunk hits or invent within-GW transfer accounting. Public team
+IDs/picks do not establish private selling prices or present ownership. Real inputs
+and generated reports default to ignored local/data directories. No login, session
+cookie, password or account-changing request is needed or implemented.
+
+## 062 — One exact simulation anchor resolves the offline decision dependency graph
+
+`personal-decision-config-v1` pins one explicit simulation location. Its verified
+manifest supplies exact uncertainty, projection and calibration references; the
+projection and fixed calibration contract supply model, historical-score and M3
+identities. Resolve only those identities under configured evidence roots. Missing
+and ambiguous matches fail, with explicit directory overrides for disambiguation.
+No mutable latest selection, automatic training, fresh capture or model fitting.
+Locations stay out of semantic identity; references retain identity, manifest hash
+and all artifact hashes. Existing semantic readers remain authoritative.
+
+The workflow produces M5B paths for the canonical supplied state or verifies an
+explicit compatible path artifact. It evaluates no-transfer, sequential greedy
+and every returned exact path under the bound M5D scenarios. New identities must
+reproduce exact optimiser/greedy replay; no new accepted-demo whitelist entry.
+Default planning remains five GWs, two transfers/GW, top three maximum, truncated
+at season end, with M5D's normal 16,384/1729 scenario settings. Smaller retained
+horizons initialize explicitly; incompatible requested settings fail.
+M5B objectives, inclusive 1e-6 admission, secondary priorities, eligible populations,
+solver checks and M5C/M5D laws are unchanged. Simulation never chooses a new winner.
+
+## 063 — Personal recording time and source freshness are distinct
+
+Snapshot mode supports offline and after-deadline what-if inspection, always
+labelled as such. A newly recorded pre-deadline decision additionally requires
+import and publication checks before the bound first deadline, upstream computation
+before personal import, observation between market capture and import, and both
+market/personal observations at most 24 hours old at each check. This is a
+conservative workflow policy, not proof of synchronized source captures. There is
+no CLI clock override, public-account inference or retroactive personal attestation.
+
+Record personal observation/import, original source request/receipt, forecast and
+projection computation, simulation start/computation attestations and report creation
+separately. M5D has a final publication gate but no separately saved final-publication
+time; expose that absence instead of using file mtime or treating computation as
+publication. Source ages and mixed-age limitations remain visible, including in
+newly created reports. Deliberate refresh uses existing frozen-model commands and
+preserves upstream actual-clock gates; no scheduler is introduced.
+
+## 064 — Reconstructible immutable personal reports and faithful arithmetic
+
+`personal-decision-v1` is a separate closed artifact family using the existing atomic
+publisher. It includes canonical personal/squad metadata, effective config, exact
+dependency references, versioned contract, summary.json and deterministic Markdown/
+standalone escaped HTML. Implementation/environment and runtime attestation are
+bound in the manifest. A deterministic request key excludes local paths and runtime
+attestation; same-key reuse verifies the original bundle without rewriting/redating.
+Explicit replay preserves the original bytes/attestation. Multiple matches fail.
+
+Semantic verification replays the upstream simulation/evaluation/path contracts and
+reconstructs the summary/renderings. Canonical JSON digests distinguish booleans from
+integers in saved summaries, canonical squads and effective configurations; Python
+dictionary equality alone would admit `true` for `1`. Recomputed content, not just
+checksums, is authoritative; recomputed checksums alone cannot admit false
+arithmetic, another squad's state or changed evidence. All expensive dependency
+checks precede atomic report publication; failure leaves no successful personal
+bundle. Successfully published separate paths/evaluations can remain after a later
+failure. Verification/replay never rewrites an accepted upstream artifact.
+
+Reports explain per-GW and horizon gains against both baselines by exact binary64
+XI contribution, captain bonus and hit differences, with full bank/FT consequences.
+They do not attribute gains merely to the players transferred or invent causal
+fixture/injury/role explanations. Forecast objective, analytical simulation
+expectation, Monte Carlo estimates and empirical player intervals remain separate.
+Raw residual bias, limited simulation dependence, fixed XI/captain scoring, no
+substitutions/chips and no demonstrated realised decision improvement stay explicit.
+Highest-return probabilities retain duplicate-entry/tie semantics and apply only
+to the supplied candidate set. No risk score, significance or rank/league-win claim.
+
+
+### 065 — M5E retained publication-check attestation
+
+The hardening pass retains `publication_checked_at` after initial report rendering
+and before sealing, separately from `created_at` (creation start). A final
+unretained guard runs after the manifest is written and before atomic rename;
+clock regression or deadline/freshness failure removes staging. Semantic
+verification checks the retained event, not creation time as a substitute.
+Neither a local timestamp nor a content hash is an independent time witness.
+An exact atomic-publication timestamp is not embedded; scheduling and clock
+changes after the final guard remain outside the retained claim. Reuse and replay
+preserve the original attestation. No general historical verifier is added.
+Implementation/contract binding makes prior M5E bundles incompatible with the
+current semantic reader; historical bytes/evidence remain untouched.
+Real personal inputs belong in ignored `local/`, reports in ignored
+`data/personal_decisions/`; `data/` as a whole is not ignored.

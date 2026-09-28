@@ -1,5 +1,163 @@
 # FPL AI Platform
 
+## Personal decision workflow (M5E)
+
+Bring your own exact squad/account state to one local configuration. The workflow
+verifies retained M5B projections and M5D scenarios, produces legal exact paths,
+and writes an immutable JSON summary, Markdown report and standalone HTML report.
+It never logs in, changes your team, fetches live data, fits models or recalibrates.
+No actual user squad is supplied in this repository; the demonstration is synthetic.
+Current M5E bundle, exact verification commands and local-clock limits:
+[attestation hardening acceptance](docs/M5E_ATTESTATION_VERIFICATION.md).
+
+Run from the repository root. This explicit retained simulation is an **old snapshot
+for offline inspection**, not a promise of current account or market freshness:
+
+```bash
+SIMULATION=data/simulations/0a4dceb30cd0fba3c4ef50c8f09b4c89e74eeb3a4b3704dc70baa69ac5029a62
+.venv/bin/python -m fpl_ai decision init --config local/my-decision.json \
+  --simulation-dir "$SIMULATION"
+# Edit local/my-decision-state.json; the generated template is intentionally invalid.
+# local/my-decision-players.json lists exact bound IDs, names, clubs, positions,
+# purchase prices and boolean selectability. Name searches return ALL matches:
+.venv/bin/python -m fpl_ai decision players --simulation-dir "$SIMULATION" --query Salah
+.venv/bin/python -m fpl_ai decision validate --config local/my-decision.json
+.venv/bin/python -m fpl_ai decision run --config local/my-decision.json
+```
+
+Supply all 15 element IDs (qualified by the squad's season), each **exact selling
+price**, exact bank and available free transfers. Money is integer tenths of £1m:
+`49` means £4.9m. Use the values you can confirm from your account; do not substitute
+public purchase prices for selling values. Supply provenance `kind: "manual"`, a
+source description, a timezone-aware `observed_at` such as `2026-09-23T12:00:00Z`,
+and `confirmed: true` only after checking the actual values. Do not copy that
+example timestamp as your observation. Runtime import time is recorded separately.
+A team ID, old public picks or this repository's synthetic squad cannot establish
+private account economics.
+
+Available FTs means **usable before any transfer for the target GW, with that GW's
+accrual already included**. Confirm `transfers_already_made: 0`,
+`hits_already_incurred: 0` and `active_chip: null`. This version rejects already-made
+transfers, incurred hits and active chips; never falsify those fields to bypass the
+check. Use a supported later state instead. Owned unselectable players can be
+retained or sold; unselectable non-owned players cannot be bought. Existing squad,
+club, formation and budget constraints remain authoritative. Later selling values
+that conflict with old frozen purchase prices require compatible refreshed evidence.
+
+The config defaults to snapshot mode, five GWs (or the selected evidence's shorter
+horizon), two transfers per GW and at most three complete exact paths. It inherits
+scenario count/seed from the explicit simulation, normally 16,384/1729. Supported
+limits are horizon 1–5 with season-end truncation, transfers 0–15 and top N 1–20.
+A shorter planning horizon uses a prefix of the selected simulation with its original
+donor population, matching M5D's existing semantics; all compared plans share that
+horizon. Solver calls retain M5B's 120-second limit and fail if optimality cannot be proven.
+There is no total workflow latency guarantee. The full eligible population and
+exact ranking are unchanged. Simulated risk statistics do not reorder the plans.
+
+All config locations resolve relative to the config file. `evidence_roots` defaults
+to this checkout's `data/`; exact dependency IDs are resolved from verified
+manifests. Missing/ambiguous copies fail, with optional `dependencies` entries
+(`projection`, `model`, `m4e_model`, `uncertainty`, `calibration`, `history`, `m3`)
+to identify explicit directories. No mutable latest is selected. `plan_dir: null`
+builds paths for your canonical state; an explicit path must match that state and
+settings and pass M5D's exact replay. If an existing decision pins a different
+explicit path identity, reuse fails; verify the original or use a separate
+`output_dir`. Do not point it at another squad's result.
+
+The terminal prints the exact bundle path under ignored `data/personal_decisions/`.
+Open its `report.html` directly in your browser; no server or internet is needed.
+It includes your initial state, every GW's XI/captain/bench/transfers, exact economics,
+both baselines, arithmetic explanations, paired simulation diagnostics and source
+ages. `summary.json` retains full precision and separate empirical player intervals.
+Keep real personal inputs, configs and source descriptions under ignored `local/`,
+and reports under ignored `data/personal_decisions/`. The general `data/` directory
+is not ignored; do not place private inputs elsewhere under it.
+
+```bash
+# Set BUNDLE to the exact path printed by decision run (not a latest-directory lookup).
+BUNDLE=data/personal_decisions/PASTE_RETURNED_ID
+.venv/bin/python -m fpl_ai decision verify --bundle "$BUNDLE"
+# Repeating run verifies/reuses the original accepted decision, without redating it.
+.venv/bin/python -m fpl_ai decision run --config local/my-decision.json
+# Replay copies verified report bytes and the original attestation to a new root:
+.venv/bin/python -m fpl_ai decision replay --bundle "$BUNDLE" \
+  --artifact-dir local/decision-replay
+# A replay stored outside data needs the original data dependencies when verified:
+.venv/bin/python -m fpl_ai decision verify --bundle local/decision-replay/PASTE_RETURNED_ID \
+  --evidence-root data
+```
+
+Verification requires the recorded implementation/software environment; changing
+Python, numerical-library versions or platform is not silently migrated. It replays
+the semantic dependencies, including the exact optimiser for new path IDs, and reconstructs summary arithmetic and renderings. Rehashing false
+content is insufficient. Reuse/replay retains original observation/import/creation
+and publication-check times, even after deadline; it never becomes a newly recorded decision. Final
+publication failures leave no successful personal report bundle. Valid separate
+M5B paths/evaluations may remain available after a later report failure.
+
+Snapshot mode permits after-deadline what-if inspection and prominently shows
+mixed/stale inputs. For a **new** pre-deadline record set `mode: "pre-deadline"`:
+the import and both publication checks must precede the bound deadline, personal observation
+must fall between snapshot capture and actual import, and market/personal
+observations must be no more than 24 hours old at each check. This is a conservative
+workflow freshness policy, not a claim of synchronized captures or independently
+verified account facts. `created_at` is report creation start;
+`publication_checked_at` is the retained check after initial rendering, before
+sealing. A later unretained guard checks again immediately before atomic rename.
+Verification checks the retained event, not an exact publication time. Scheduling
+or clock changes between the last guard and rename remain possible. The local
+clock is not an independent or external witness. No CLI clock override exists. Simulation metadata records
+start/computation and a publication gate, not an exact final-publication timestamp.
+
+### Deliberately refresh using the frozen models
+
+Ordinary `decision` commands are offline. To obtain a new state, explicitly run the
+existing chain below before the **actual bound deadline**. Set `SEASON` and `GW`
+to the intended official upcoming target; the capture command checks official
+responses. These are operator steps, not an automatically running scheduler.
+Each `RETURNED_...` is the exact output path printed by the preceding command.
+Retain earlier verified settlement/history pairs where available; absent history
+stays missing. Do not use later market facts with an earlier projection.
+
+```bash
+PY=.venv/bin/python
+MINUTES_MODEL=data/minutes/e8b168652ce16cf238f84186977b329c55a3d754605066b7e50422b7a0bb3ddc
+M4E_MODEL=data/prospective_xpts/models/11aa9eb62174997637edf2e2a7090aa6a197f068526ed981434e869556db9230
+MULTI_MODEL=data/multi_projection/models/b0e9cf270c6524278ddb6c288c393aef580159c2a36a02b9a01e81cfadf4235b
+CALIBRATION=data/multi_uncertainty/calibrations/782bf10333f482f4ff2a1e19a2c438c4bc9d04b27b237779b1e71dbb8bc6d699
+$PY -m fpl_ai prospective capture --season "$SEASON" --gameweek "$GW"
+SNAPSHOT=RETURNED_SNAPSHOT_DIR
+$PY -m fpl_ai prospective freeze --snapshot-dir "$SNAPSHOT" --model-dir "$MINUTES_MODEL"
+MINUTES=RETURNED_MINUTES_DIR
+$PY -m fpl_ai prospective xpts freeze --snapshot-dir "$SNAPSHOT" \
+  --minutes-dir "$MINUTES" --model-dir "$M4E_MODEL"
+FORECAST=RETURNED_XPTS_FORECAST_DIR
+$PY -m fpl_ai project freeze --forecast-dir "$FORECAST" \
+  --m4e-model-dir "$M4E_MODEL" --model-dir "$MULTI_MODEL" --horizon 5
+PROJECTIONS=RETURNED_PROJECTION_DIR
+$PY -m fpl_ai uncertainty freeze --projections-dir "$PROJECTIONS" \
+  --calibration-dir "$CALIBRATION" --m4e-model-dir "$M4E_MODEL"
+UNCERTAINTY=RETURNED_UNCERTAINTY_DIR
+$PY -m fpl_ai simulate freeze --uncertainty-dir "$UNCERTAINTY" \
+  --calibration-dir "$CALIBRATION" --m4e-model-dir "$M4E_MODEL" --count 16384 --seed 1729
+SIMULATION=RETURNED_SIMULATION_DIR
+$PY -m fpl_ai decision init --config local/new-decision.json --simulation-dir "$SIMULATION"
+```
+
+For retained history use the existing `--previous-dir` and repeated
+`--history-pair PREDICTION_DIR SETTLEMENT_DIR` options, as documented in
+[M4E's operational sequence](docs/M4E_VERIFICATION.md). If frozen model/calibration
+prerequisites are missing, restore the pinned artifacts or follow their explicit
+setup (`minutes train`, `prospective xpts fit`, `project fit`, `uncertainty calibrate`)
+in the earlier milestone docs; a normal decision run never performs that work.
+
+Continue `uncertainty settle` and `uncertainty score` below only after authoritative
+completion. Reports neither fabricate outcomes nor automatically recalibrate.
+Unsupported: chips, news/fixture predictors, future prices/selectability, risk-aware
+optimisation, adaptive scenario-dependent actions, autosubs and demonstrated
+realised decision improvement. See [M5E design](docs/M5E_DESIGN.md) and
+[verification/demonstration](docs/M5E_VERIFICATION.md).
+
 ## Joint scenarios and plan comparisons (M5D)
 
 M5B forecasts expected points and constructs legal paths → M5C describes marginal

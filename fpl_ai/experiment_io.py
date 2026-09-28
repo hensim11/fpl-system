@@ -14,6 +14,7 @@ from fpl_ai.evaluation import BASELINES
 
 
 STAGE_ARTIFACTS = {
+    'personal-decision': {'contract.json', 'squad.json', 'personal.json', 'config.json', 'dependencies.json', 'summary.json', 'report.md', 'report.html'},
     'joint-simulation': {'contract.json', 'population.json', 'projections.json', 'diagnostics.json', 'scenario_hashes.json'},
     'simulation-plan-evaluation': {'evaluation.json'},
     'multi-uncertainty-calibration': {'contract.json', 'sources.json', 'residuals.json', 'calibration.json'},

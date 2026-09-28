@@ -1,0 +1,33 @@
+{
+  "concurrent_verification": true,
+  "earlier_complete_cli_run": {
+    "evaluation_and_path_replay_seconds": 136.16455904208124,
+    "final_verification_and_publication_seconds": 155.65651187486947,
+    "planning_seconds": 109.01587616698816,
+    "total_seconds": 414.8288222919218,
+    "upstream_verification_seconds": 13.991867208853364
+  },
+  "final_cli_run_with_verified_path_reuse": {
+    "evaluation_and_path_replay_seconds": 157.50544925034046,
+    "final_verification_and_publication_seconds": 125.68538354104385,
+    "planning_seconds": 0.0008193328976631165,
+    "total_seconds": 299.94174633314833,
+    "upstream_verification_seconds": 16.750089792069048
+  },
+  "full_build_cli_run": {
+    "evaluation_and_path_replay_seconds": 135.39322270825505,
+    "final_verification_and_publication_seconds": 135.91594395786524,
+    "planning_seconds": 136.83518962468952,
+    "total_seconds": 432.5938544580713,
+    "upstream_verification_seconds": 24.44949358329177
+  },
+  "latency_guarantee": false,
+  "new_paths_keep_exact_optimiser_and_greedy_replay": true,
+  "pre_final_cli_run_with_verified_path_reuse": {
+    "evaluation_and_path_replay_seconds": 133.6272893748246,
+    "final_verification_and_publication_seconds": 125.1050357078202,
+    "planning_seconds": 0.0007805000059306622,
+    "total_seconds": 273.3565081669949,
+    "upstream_verification_seconds": 14.62339979223907
+  }
+}

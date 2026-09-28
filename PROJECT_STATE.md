@@ -2,7 +2,64 @@
 
 Last updated: 2026-09-23
 
+Current attestation hardening: **35 focused / 334 full tests pass normally and under
+`python -O`**, with successful real CLI lifecycle and independent audit. See
+[exact commands, results and limits](docs/M5E_ATTESTATION_VERIFICATION.md) and
+[current acceptance](docs/M5E_ATTESTATION_ACCEPTANCE.json). The current synthetic
+bundle is `1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5`.
+It retains a publication-check timestamp, distinct from creation and exact rename
+time. Ready for pre-deadline use under the documented local-clock policy, with no
+external time-witness claim. All 1,123 prior files retain bytes/nanosecond mtimes.
+The initial acceptance counts and timings below are historical; the earlier bundle
+is preserved but does not pass the current implementation-bound semantic reader.
+
 ## Current milestone
+
+**M5E — Personalised Decision Workflow and Explainable Reports v1** implements
+`decision init|players|validate|run|verify|replay`. A separate personal-state wrapper
+preserves `current-squad-v1`, exact selling rights/bank/FTs, manual provenance and
+actual import time. One explicit simulation anchor resolves/pins verified upstream
+identities. Missing/ambiguous inputs fail; no capture, fitting, calibration or account
+access occurs in the ordinary workflow. New personal path identities retain M5D's
+exact optimiser/greedy replay requirement.
+
+Separate immutable personal bundles contain canonical state/config/dependencies,
+full precision summary, Markdown and standalone escaped HTML. Every candidate
+retains M5B's expected-points order. XI/captain/hit decompositions reconcile gains
+against no-transfer and greedy; forecast, analytical simulation expectation,
+Monte Carlo estimates and empirical player intervals stay separate. Reports expose
+frozen prices/selectability, mixed source ages and all material model limitations.
+
+Snapshot mode is explicitly offline what-if. A new pre-deadline record requires
+actual deadline gates and market/personal observations at most 24 hours old, with
+personal observation between capture and import. Reuse/replay preserves original
+attestation after deadline and never backdates later personal evidence. Already-made
+target-GW transfers, incurred hits and active chips are rejected with guidance.
+
+**31 focused tests and 330 full tests pass normally and under optimized Python**.
+The actual baseline rerun passed 299 in each mode. Independent checks cover three
+exact paths, five candidate entries, 25 candidate-GW plans and 50 per-GW baseline
+decompositions. Existing M5B/C/D audits and the 22-case/82-path oracle reproduce
+accepted bytes in both modes; M2/M3/M4E checks pass. All 1,030 pre-batch evidence
+files (973 data files) retain bytes and nanosecond mtimes. The full-build CLI demo took
+432.59 seconds; final publication with verified path reuse took 299.94 seconds; exact planner replays dominate.
+
+Verification status and synthetic demonstration: see [M5E verification](docs/M5E_VERIFICATION.md),
+[design](docs/M5E_DESIGN.md), [independent evidence](docs/M5E_VERIFICATION.json) and
+[regression evidence](docs/M5E_REGRESSION.json), and
+[compact acceptance record](docs/M5E_ACCEPTANCE.json). The README begins with the real-input
+quick start, exact supported values, verify/replay and deliberate refresh sequence.
+No actual manager squad was supplied; the demonstration is explicitly synthetic.
+M5B's objective, M5C calibration and M5D law remain unchanged.
+
+Next substantial batch: **prospective decision retention and outcome review**—bind
+manager-confirmed actions separately from hypothetical plans, accumulate genuine
+settled outcomes and predeclared comparison diagnostics without retrospective
+selection or recalibration. Do not claim realised utility from this demonstration
+or make implementation completion depend on future Gameweeks. No commit, merge or
+push in this batch.
+
+## Prior M5D result
 
 **M5D — Joint Monte Carlo Simulation and Risk-Aware Plan Evaluation v1** is
 implemented and verified; **recommend acceptance**. `joint-simulation-v1`

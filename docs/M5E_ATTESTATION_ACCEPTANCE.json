@@ -1,0 +1,90 @@
+{
+  "actual_demo_mode": "snapshot",
+  "all_non_timing_summary_fields_identical": true,
+  "attestation": {
+    "created_at": "2026-09-23T16:29:00.750982Z",
+    "imported_at": "2026-09-23T16:23:46.713336Z",
+    "publication_checked_at": "2026-09-23T16:29:00.837030Z"
+  },
+  "batch": "M5E attestation hardening",
+  "bundle": "data/personal_decisions/1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5",
+  "bundle_identity": "1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5",
+  "cli_run_exit_code": 0,
+  "commands": [
+    ".venv/bin/python -m unittest tests.test_personal_decision",
+    ".venv/bin/python -O -m unittest tests.test_personal_decision",
+    ".venv/bin/python -m unittest discover -s tests",
+    ".venv/bin/python -O -m unittest discover -s tests",
+    ".venv/bin/python -m fpl_ai decision run --config local/synthetic-demo.json",
+    "PYTHONPATH=. LOKY_MAX_CPU_COUNT=4 .venv/bin/python scripts/verify_personal_lifecycle.py --bundle data/personal_decisions/1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5 --config local/synthetic-demo.json --work-dir local/m5e-attestation/lifecycle --report docs/M5E_ATTESTATION_LIFECYCLE.json",
+    "PYTHONPATH=. LOKY_MAX_CPU_COUNT=4 .venv/bin/python scripts/verify_personal_decision.py --bundle data/personal_decisions/1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5 --report docs/M5E_ATTESTATION_AUDIT.json",
+    "PYTHONPATH=. LOKY_MAX_CPU_COUNT=4 .venv/bin/python -O scripts/verify_personal_decision.py --bundle data/personal_decisions/1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5 --report local/m5e-attestation/audit-optimized.json",
+    ".venv/bin/python -m fpl_ai decision verify --bundle data/personal_decisions/a4ef6e6949af0b45962ed6a5a99c46c0adea571587484f455cb106f9301f9468",
+    "git diff --check",
+    "PYTHONPATH=. .venv/bin/python local/m5e-attestation/finalize.py",
+    "LOKY_MAX_CPU_COUNT=4 .venv/bin/python -m fpl_ai decision run --config local/m5e-attestation/stale-predeadline-config.json"
+  ],
+  "dependencies_squad_personal_config_bytes_identical": true,
+  "evidence_sha256": {
+    "docs/M5E_ATTESTATION_AUDIT.json": "0bade47181d78753d5173edfa68db4f7585108da26b4b1458fc7b5db00a4388d",
+    "docs/M5E_ATTESTATION_LIFECYCLE.json": "0b8c0388ef6b31cb6e9831a7c42c7c4926db1b7a7ad1236bb94aa4812a31c694"
+  },
+  "implementation_sha256": {
+    "renderer": "2a068a3e8e9ddcc3f9f1d694083a5931b6a3f9d390713e475c641e59daf8a84b",
+    "workflow": "136e17eeedc9ca811b899a49142002fe37b28f407a5e07068f093a0af24a6dff"
+  },
+  "independent_normal_optimized_byte_identical": true,
+  "limits": [
+    "Retained check precedes sealing; final guard before rename is unretained.",
+    "Scheduling or clock changes between final guard and rename remain possible.",
+    "Local clock is not an independent or external witness; coherent timestamp forgery cannot be disproved.",
+    "Real retained market snapshot is stale; actual CLI demonstration is snapshot mode; pre-deadline boundary lifecycle is tested on synthetic fixtures."
+  ],
+  "no_commit_merge_push": true,
+  "no_new_dependency_identities": true,
+  "preservation": {
+    "bytes_and_nanosecond_mtimes_unchanged": true,
+    "data_files": 1016,
+    "files": 1123,
+    "inventory_sha256": "fb0d8e3f809e3105316624d2a51c209a2dac59faff5e878117ba9e8eee5dc6a5"
+  },
+  "previous_bundle_cli_exit_code": 1,
+  "previous_bundle_identity": "a4ef6e6949af0b45962ed6a5a99c46c0adea571587484f455cb106f9301f9468",
+  "previous_current_semantic_verification": false,
+  "previous_generic_hash_verification": true,
+  "previous_semantic_rejection": "personal decision implementation/environment/contract mismatch",
+  "recommendation": "Accept for pre-deadline use within the documented local-clock check policy, not as proof of exact atomic publication time or external time/account truth.",
+  "run_log_sha256": "077aff5e44a60e8f97c22cf03046278dfc7a30a08289d8671d48ef0a90d9aef3",
+  "run_profile_seconds": {
+    "evaluation_and_path_replay_seconds": 154.57636841665953,
+    "final_verification_and_publication_seconds": 143.661151249893,
+    "planning_seconds": 0.0006215833127498627,
+    "total_seconds": 314.15166404191405,
+    "upstream_verification_seconds": 15.913519499823451
+  },
+  "stale_predeadline_cli_exit_code": 1,
+  "stale_predeadline_cli_no_bundle_or_staging": true,
+  "synthetic_not_personal_advice": true,
+  "tests": {
+    "focused-normal": {
+      "count": 35,
+      "log_sha256": "3c09367b09a518c24d2052ae4865b29d5e90f57bdad1dd0e8f6662b5044a9269",
+      "seconds": 29.394
+    },
+    "focused-optimized": {
+      "count": 35,
+      "log_sha256": "6caf55d04109da02e33db6f62288136e1278282d3e121bd8adcb7a97dfea4d28",
+      "seconds": 32.98
+    },
+    "full-normal": {
+      "count": 334,
+      "log_sha256": "d9a4460dd42c2b337f83fd2b8a942c2a7bb612a1a2e4ccc7f64931e40c448f01",
+      "seconds": 52.145
+    },
+    "full-optimized": {
+      "count": 334,
+      "log_sha256": "6ea279b0f379fe8793cf64191df233b651119f688111a3c3691f320b2e5e50b1",
+      "seconds": 56.162
+    }
+  }
+}

@@ -1,0 +1,467 @@
+{
+  "baseline": {
+    "normal": {
+      "log_sha256": "df5352537d621cb5daaf14c3717231d324e43944f8d56432c14bd1cd7093eddd",
+      "seconds": 18.46,
+      "tests": 299
+    },
+    "optimized": {
+      "log_sha256": "e8655b5717406b1ba0ca88824206a461d155bd5c74fdc21b6eebc73cc09064fa",
+      "seconds": 18.467,
+      "tests": 299
+    }
+  },
+  "checks": [
+    {
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "-m",
+        "compileall",
+        "-q",
+        "fpl_ai",
+        "scripts",
+        "tests"
+      ],
+      "passed": true
+    },
+    {
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "-m",
+        "pip",
+        "--disable-pip-version-check",
+        "--no-cache-dir",
+        "check"
+      ],
+      "passed": true
+    },
+    {
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "-S",
+        "-m",
+        "fpl_ai",
+        "--help"
+      ],
+      "passed": true
+    },
+    {
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "-m",
+        "fpl_ai",
+        "decision",
+        "--help"
+      ],
+      "passed": true
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "passed": true
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "--",
+        "pyproject.toml",
+        "fpl_ai/multi_projection.py",
+        "fpl_ai/multi_uncertainty.py",
+        "fpl_ai/multi_outcomes.py",
+        "fpl_ai/transfer_path.py",
+        "fpl_ai/transfer_optimiser.py",
+        "fpl_ai/fpl_rules.py",
+        "fpl_ai/joint_simulation.py",
+        "fpl_ai/simulation_plans.py"
+      ],
+      "passed": true
+    }
+  ],
+  "executed": [
+    {
+      "accepted_bytes_identical": null,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_personal_decision"
+      ],
+      "log_sha256": "2fd90351af57e63e481de806b681a6622ca34be50c289e0d9c045dbf49b98493",
+      "name": "focused-normal",
+      "passed": true,
+      "report_sha256": null,
+      "seconds": 14.347698541823775,
+      "tests": 29
+    },
+    {
+      "accepted_bytes_identical": null,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover"
+      ],
+      "log_sha256": "bd71f06208c1d6243b55839d60ee15f9982ee893c3f088c3879c1c6919ba164b",
+      "name": "full-normal",
+      "passed": true,
+      "report_sha256": null,
+      "seconds": 35.81234366586432,
+      "tests": 328
+    },
+    {
+      "accepted_bytes_identical": true,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "scripts/verify_multi_gameweek.py",
+        "--projections-dir",
+        "data/multi_projection/forecasts/03a9f348378b8ad61a8eea3c58424fdb7bf689f5c1da46707c03e54c35f1427b",
+        "--plan-dir",
+        "data/transfer_paths/0df6760a8e32dd269d381c1a7298769522900520f841e8d3b2e5c848398f1bd8",
+        "--report",
+        "local/m5e-checks/m5b-normal.json"
+      ],
+      "log_sha256": "7c9bfd4a958c117b37feb3c2583ae4a3eb78376167f51f9082b0a5411fbf8987",
+      "name": "m5b-normal",
+      "passed": true,
+      "report_sha256": "4891cd334b67eec9a4ba696c89ac81e6a2245ff6c49868c10557b7dec4eed35c",
+      "seconds": 17.835904334206134,
+      "tests": null
+    },
+    {
+      "accepted_bytes_identical": true,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "scripts/verify_multi_oracle.py",
+        "--report",
+        "local/m5e-checks/m5b-oracle-normal.json"
+      ],
+      "log_sha256": "2d1039e767f588cecadb89f72a3590498fc9167cb0ae3c7ef50e7e3aefc6ca4e",
+      "name": "m5b-oracle-normal",
+      "passed": true,
+      "report_sha256": "d99c27f092c48ae9496dbbf5792cab2acb9ad8d4602b4a2ff8e9047388c881c6",
+      "seconds": 12.075612457934767,
+      "tests": null
+    },
+    {
+      "accepted_bytes_identical": true,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "scripts/verify_multi_uncertainty.py",
+        "--calibration-dir",
+        "data/multi_uncertainty/calibrations/782bf10333f482f4ff2a1e19a2c438c4bc9d04b27b237779b1e71dbb8bc6d699",
+        "--uncertainty-dir",
+        "data/multi_uncertainty/forecasts/c0a759479365bb0ee8676b355926ab2fdbd4a84bdca0d496d41c07189a471f2d",
+        "--report",
+        "local/m5e-checks/m5c-normal.json"
+      ],
+      "log_sha256": "aef8f5454ee6240d53a16fd4c2fe06ec4fd197d2f7baf57c633cb1603a58283e",
+      "name": "m5c-normal",
+      "passed": true,
+      "report_sha256": "9fb437de979a5ee787537cd14c22ea615e263e6a4f111947ceb7c2fdb8cdd88b",
+      "seconds": 30.40382087463513,
+      "tests": null
+    },
+    {
+      "accepted_bytes_identical": true,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "scripts/verify_joint_simulation.py",
+        "--simulation-dir",
+        "data/simulations/0a4dceb30cd0fba3c4ef50c8f09b4c89e74eeb3a4b3704dc70baa69ac5029a62",
+        "--evaluation-dir",
+        "data/simulation_evaluations/36a266e775e124a6d36bfb813e0aedf364c200a394a82d9b25e0b48a75902c3f",
+        "--report",
+        "local/m5e-checks/m5d-normal.json"
+      ],
+      "log_sha256": "ddeb330bfeb0ed5d283cca2e76274f125260d0a3c3a0af8c68b5395b44d32726",
+      "name": "m5d-normal",
+      "passed": true,
+      "report_sha256": "8d92dd2cc3324687eda28843374c277325c053ad544de15424b9cbf552e52a62",
+      "seconds": 39.74692979129031,
+      "tests": null
+    },
+    {
+      "accepted_bytes_identical": null,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "-O",
+        "-m",
+        "unittest",
+        "tests.test_personal_decision"
+      ],
+      "log_sha256": "1995d460ebebcdefc1923582b1c6ed697ab4834ed9a1ef6d4d9998efe1dcdc5f",
+      "name": "focused-optimized",
+      "passed": true,
+      "report_sha256": null,
+      "seconds": 16.884032791946083,
+      "tests": 29
+    },
+    {
+      "accepted_bytes_identical": null,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "-O",
+        "-m",
+        "unittest",
+        "discover"
+      ],
+      "log_sha256": "a5f0d42716b122c72ba102ce24ef47635f2e4c1ad5cf8326ffc4e877b2100f1a",
+      "name": "full-optimized",
+      "passed": true,
+      "report_sha256": null,
+      "seconds": 41.5436413330026,
+      "tests": 328
+    },
+    {
+      "accepted_bytes_identical": true,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "-O",
+        "scripts/verify_multi_gameweek.py",
+        "--projections-dir",
+        "data/multi_projection/forecasts/03a9f348378b8ad61a8eea3c58424fdb7bf689f5c1da46707c03e54c35f1427b",
+        "--plan-dir",
+        "data/transfer_paths/0df6760a8e32dd269d381c1a7298769522900520f841e8d3b2e5c848398f1bd8",
+        "--report",
+        "local/m5e-checks/m5b-optimized.json"
+      ],
+      "log_sha256": "e2d938f91be637020a482dbc262be2cb330af89b4561630796293ffad23faece",
+      "name": "m5b-optimized",
+      "passed": true,
+      "report_sha256": "4891cd334b67eec9a4ba696c89ac81e6a2245ff6c49868c10557b7dec4eed35c",
+      "seconds": 21.365151249803603,
+      "tests": null
+    },
+    {
+      "accepted_bytes_identical": true,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "-O",
+        "scripts/verify_multi_oracle.py",
+        "--report",
+        "local/m5e-checks/m5b-oracle-optimized.json"
+      ],
+      "log_sha256": "17b98c6e18b0ee2bba4d77bac1343f76ce21974542518cf6d2a6043ed9d591e8",
+      "name": "m5b-oracle-optimized",
+      "passed": true,
+      "report_sha256": "d99c27f092c48ae9496dbbf5792cab2acb9ad8d4602b4a2ff8e9047388c881c6",
+      "seconds": 13.485142499674112,
+      "tests": null
+    },
+    {
+      "accepted_bytes_identical": true,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "-O",
+        "scripts/verify_multi_uncertainty.py",
+        "--calibration-dir",
+        "data/multi_uncertainty/calibrations/782bf10333f482f4ff2a1e19a2c438c4bc9d04b27b237779b1e71dbb8bc6d699",
+        "--uncertainty-dir",
+        "data/multi_uncertainty/forecasts/c0a759479365bb0ee8676b355926ab2fdbd4a84bdca0d496d41c07189a471f2d",
+        "--report",
+        "local/m5e-checks/m5c-optimized.json"
+      ],
+      "log_sha256": "ff8436b2f72fff414b132640b6abd4d586db0478c1afd509ecf44898810e003d",
+      "name": "m5c-optimized",
+      "passed": true,
+      "report_sha256": "9fb437de979a5ee787537cd14c22ea615e263e6a4f111947ceb7c2fdb8cdd88b",
+      "seconds": 31.033361125271767,
+      "tests": null
+    },
+    {
+      "accepted_bytes_identical": true,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "-O",
+        "scripts/verify_joint_simulation.py",
+        "--simulation-dir",
+        "data/simulations/0a4dceb30cd0fba3c4ef50c8f09b4c89e74eeb3a4b3704dc70baa69ac5029a62",
+        "--evaluation-dir",
+        "data/simulation_evaluations/36a266e775e124a6d36bfb813e0aedf364c200a394a82d9b25e0b48a75902c3f",
+        "--report",
+        "local/m5e-checks/m5d-optimized.json"
+      ],
+      "log_sha256": "f240898aee8b7affad4ecd701b1590534d02d010bfc1fc7b4320c14fee34c60f",
+      "name": "m5d-optimized",
+      "passed": true,
+      "report_sha256": "8d92dd2cc3324687eda28843374c277325c053ad544de15424b9cbf552e52a62",
+      "seconds": 36.210078000091016,
+      "tests": null
+    },
+    {
+      "accepted_bytes_identical": null,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "scripts/verify_historical_seasons.py",
+        "--report",
+        "local/m5e-checks/m2.json"
+      ],
+      "log_sha256": "5442dda479dffdeda1fe118b99a3a4ebf9014817586bbf3018474ea7c17de187",
+      "name": "m2",
+      "passed": true,
+      "report_sha256": "99459b5620698cbf270c974b438e26368cb702e1c13a5ff339ecc01efdc314d7",
+      "seconds": 29.59929695772007,
+      "tests": null
+    },
+    {
+      "accepted_bytes_identical": null,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "scripts/verify_modelling.py",
+        "--report",
+        "local/m5e-checks/m3.json"
+      ],
+      "log_sha256": "1c62ca26db4253a81f4ba7f00e4c2e1e6227a8513e772c66ca1865ba571a6c7d",
+      "name": "m3",
+      "passed": true,
+      "report_sha256": "df0df4c491202d313c99726515d89ce0cbb4fe3ef656b957b3dbb1531bd88cce",
+      "seconds": 72.66381637519225,
+      "tests": null
+    },
+    {
+      "accepted_bytes_identical": null,
+      "command": [
+        "/Users/hensimorina/Desktop/Personal Projects/fpl-system/.venv/bin/python",
+        "scripts/verify_prospective_xpts.py",
+        "--model-dir",
+        "data/prospective_xpts/models/11aa9eb62174997637edf2e2a7090aa6a197f068526ed981434e869556db9230",
+        "--forecast-dir",
+        "data/prospective_xpts/forecasts/1aebfd57e85b4a1d44904f0669d0ff03a4caf2dfaa6bb40473d828f5c8128527",
+        "--report",
+        "local/m5e-checks/m4e.json"
+      ],
+      "log_sha256": "2dcdaa055ebbbe6cd23b47ecec233faf0d9610e17ec9ee9df183307e37a36904",
+      "name": "m4e",
+      "passed": true,
+      "report_sha256": "8a019489894ea991e56790a6cacfa05a02cda975fe49ecedde87381c0661d564",
+      "seconds": 65.69642895786092,
+      "tests": null
+    }
+  ],
+  "final_runs": [
+    {
+      "log_sha256": "5ae47463fc32a2982b7b67717988b455389d1318715a9385ecdbea70b5d5cf8a",
+      "mode": "normal",
+      "passed": true,
+      "seconds": 19.018,
+      "suite": "focused",
+      "tests": 31
+    },
+    {
+      "log_sha256": "1095a03fa184b3e0c7bd05e82bad50678d89d238615d71bb246fa2f8da22e208",
+      "mode": "optimized",
+      "passed": true,
+      "seconds": 20.338,
+      "suite": "focused",
+      "tests": 31
+    },
+    {
+      "log_sha256": "972aa5a7dc775b0af51e9f340101a83eab52eadba821b371e43fc6e7b92ea76e",
+      "mode": "normal",
+      "passed": true,
+      "seconds": 46.819,
+      "suite": "full",
+      "tests": 330
+    },
+    {
+      "log_sha256": "9f0afefe52311526af2e442302ff786006cea3775ca2ab4a0c13781cf6f47b74",
+      "mode": "optimized",
+      "passed": true,
+      "seconds": 48.011,
+      "suite": "full",
+      "tests": 330
+    }
+  ],
+  "new_text_whitespace_passed": true,
+  "no_commit_merge_or_push": true,
+  "pre_explicit_identity_fix_runs": [
+    {
+      "log_sha256": "704f1ac9562d95e02941d09d5a6759181543a365cae8857a88a7310e1076ec3c",
+      "mode": "normal",
+      "passed": true,
+      "seconds": 14.88,
+      "suite": "focused",
+      "tests": 30
+    },
+    {
+      "log_sha256": "2056ca0cb5c247e2ac9b0c02969fd7280bafdd04ce020e6dc9c4bd11386f6f92",
+      "mode": "optimized",
+      "passed": true,
+      "seconds": 15.439,
+      "suite": "focused",
+      "tests": 30
+    },
+    {
+      "log_sha256": "3f691396b2b9ac5ff2973cb4dd48fe5e9fdb0f7aacdf173a92949389d020b480",
+      "mode": "normal",
+      "passed": true,
+      "seconds": 36.367,
+      "suite": "full",
+      "tests": 329
+    },
+    {
+      "log_sha256": "5ed46803a909aa0990d92c885fb7fa8eb37e9c98b9754ea141655cea105ba04d",
+      "mode": "optimized",
+      "passed": true,
+      "seconds": 36.735,
+      "suite": "full",
+      "tests": 329
+    }
+  ],
+  "pre_type_hardening_focused_runs": [
+    {
+      "log_sha256": "32e191b75a22ed414d0d13fd7fb73181ed062d2f2e64c0df4496f06271eb3d05",
+      "mode": "normal",
+      "passed": true,
+      "seconds": 22.781,
+      "tests": 29
+    },
+    {
+      "log_sha256": "d19babc5e1c48534179d2f8bc4bdb158990e6e3629b541091c071628d68fbe83",
+      "mode": "optimized",
+      "passed": true,
+      "seconds": 13.437,
+      "tests": 29
+    }
+  ],
+  "pre_type_hardening_full_runs": [
+    {
+      "log_sha256": "e33e8e69c72bc8b4c399a4bb346ed80faeb47cdfb5943428bda03843faa3631f",
+      "mode": "normal",
+      "passed": true,
+      "seconds": 37.671,
+      "tests": 328
+    },
+    {
+      "log_sha256": "37a9b9e5cea6e3be53b0d99002aab616b540d1f6f30e491460255d5832d2f687",
+      "mode": "optimized",
+      "passed": true,
+      "seconds": 33.627,
+      "tests": 328
+    }
+  ],
+  "preservation": {
+    "all_bytes_and_nanosecond_mtimes_unchanged": true,
+    "data_files": 973,
+    "files": 1030,
+    "final_checked_at": "2026-09-23T15:43:20.251122Z",
+    "inventory_sha256": "1de1c84f0cba1632ec24dc187befd52db0f95db8265eecd34f31a4094d3aaa67"
+  },
+  "source_sha256": {
+    "fpl_ai/cli.py": "0837a89cc9b072296a252e5cd10a6d8056e10af0c9cb2185578ccb8de5979d2e",
+    "fpl_ai/decision_report.py": "990f645ca7d7247b0e59197eed017d5e6bbfc298917046f18ff4afe0701cc489",
+    "fpl_ai/experiment_io.py": "05f7faab5acaaa9aa4a61627c0f2edd662febb07b579b5b6cf44b7a35df24124",
+    "fpl_ai/personal_decision.py": "f7e0abfcd2e302569ddadd714eb6dc6e2ed04e95ec1a68c2386d95c6da08bfda",
+    "tests/test_personal_decision.py": "ac8081f54e5738d5a62a852ad8c02bca6639d0d79c9bd6ec6a8ba2af7dfa7284"
+  },
+  "verification_script_sha256": {
+    "scripts/verify_personal_decision.py": "b50b87af7cfa6ad50fd0a6cde8c76fa501bb6aa88570c61ce09173ef8e25c9d0",
+    "scripts/verify_personal_lifecycle.py": "bb5a35cce0cfe83648d402b2b27937fceda99b4f374a0ca98ff0093a1a62aeeb",
+    "scripts/verify_personal_regression.py": "9ae1ff21cca210b9ec0fdb794d0cb20df570ecb922859e1bfcf72d7ba8f8b4cc"
+  }
+}
