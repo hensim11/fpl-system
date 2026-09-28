@@ -1,0 +1,43 @@
+{
+  "complete_confirmation_rehashed_tampering_regression": "tests.test_decision_review.ReviewTests.test_complete_later_one_transfer_boundary_and_old_range_contract",
+  "contract_sha256": "6f157a8424a7dbb4974cc4ee3a990e3c798a55b86e6fd44783b3ea9aa6f658cf",
+  "independent_boundary_probes": [
+    {
+      "feasible": true,
+      "hit": 0,
+      "transfers": 0
+    },
+    {
+      "feasible": false,
+      "hit": 4,
+      "transfers": 0
+    },
+    {
+      "feasible": true,
+      "hit": 0,
+      "transfers": 1
+    },
+    {
+      "feasible": false,
+      "hit": 4,
+      "transfers": 1
+    },
+    {
+      "feasible": true,
+      "hit": 0,
+      "transfers": 2
+    },
+    {
+      "feasible": true,
+      "hit": 4,
+      "transfers": 2
+    },
+    {
+      "feasible": false,
+      "hit": 8,
+      "transfers": 2
+    }
+  ],
+  "minimum_later_free_transfers": 1,
+  "synthetic_only": true
+}

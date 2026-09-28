@@ -1,0 +1,60 @@
+{
+  "audit_sha256": {
+    "docs/M5F_AUDIT.json": "ffe0d4a006782993e59903e869d518e72af4680e02eb8a932eb4368cba6041e2",
+    "docs/M5F_PARTIAL_AUDIT.json": "6826f2591eb13fbc4f260be58db48ac87621150d5df1cef49b7205ae57ae8762",
+    "docs/M5F_PENDING_AUDIT.json": "998a911dd32a28f59c339141f792b89775be1d8155f2bef33cd9912c0a176a55"
+  },
+  "normal_optimized_audits_identical": true,
+  "pass": "final_ft_lower_bound_correction",
+  "preservation": [
+    {
+      "bytes_and_nanosecond_mtimes_unchanged": true,
+      "files": 1191,
+      "inventory": "local/m5f/prior-evidence.json",
+      "sha256": "477acf3e16a715fcdc9eb05df656760d38b10774460c0105d3051da647871c80"
+    },
+    {
+      "bytes_and_nanosecond_mtimes_unchanged": true,
+      "files": 60,
+      "inventory": "local/m5f-hardening/old-m5f-inventory.json",
+      "sha256": "f0b7e98ed029d84820d48825cb1bbe54118d2fe7ffb1d4d7d0d74d70838e97d9"
+    },
+    {
+      "bytes_and_nanosecond_mtimes_unchanged": true,
+      "files": 77,
+      "inventory": "local/m5f-final/previous-hardening-inventory.json",
+      "sha256": "00f5a4200f76b4dbbe6a4d3b1164d5d7acd8c6174b3ee9c67aceb57a6b03d5fa"
+    }
+  ],
+  "prior_inventory_unchanged_not_rebased": true,
+  "tests": [
+    {
+      "command": ".venv/bin/python -m unittest tests.test_decision_review",
+      "log_sha256": "0c8e95b444e267916b5362a427fb354980d6a81b1c3e256d629cd5c8f6821665",
+      "passed": true,
+      "seconds": 75.155,
+      "tests": 21
+    },
+    {
+      "command": ".venv/bin/python -O -m unittest tests.test_decision_review",
+      "log_sha256": "c0a065b1574ac47a1168a09b9ed1160b7bdb7ab86607fbbfad69bf68363ecf96",
+      "passed": true,
+      "seconds": 92.986,
+      "tests": 21
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests",
+      "log_sha256": "456c15f91ea6c637fd7bde4ca6afa960772f5a582a1fad51aade91dfeffc7ec3",
+      "passed": true,
+      "seconds": 140.296,
+      "tests": 355
+    },
+    {
+      "command": ".venv/bin/python -O -m unittest discover -s tests",
+      "log_sha256": "469b219291d4821c5e632447f2179b3e5cefaebcb917255bcd6286298250c6b6",
+      "passed": true,
+      "seconds": 139.749,
+      "tests": 355
+    }
+  ]
+}

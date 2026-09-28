@@ -204,6 +204,22 @@ def build_parser() -> argparse.ArgumentParser:
         if stage == 'players': command.add_argument('--query', default='')
         if stage in ('verify', 'replay'): command.add_argument('--bundle', type=Path, required=True)
         if stage == 'replay': command.add_argument('--artifact-dir', type=Path, required=True)
+    review = subparsers.add_parser('review', help='M5F immutable retention, explicit confirmations and fixed-lineup outcome review')
+    rs = review.add_subparsers(dest='review_stage', required=True)
+    for stage in ('retain', 'confirm', 'outcomes', 'verify', 'replay'):
+        command = rs.add_parser(stage)
+        command.add_argument('--evidence-root', type=Path, action='append', help='repeat exact-identity roots; defaults to data')
+        if stage == 'retain': command.add_argument('--decision', type=Path, required=True)
+        if stage in ('confirm', 'outcomes'): command.add_argument('--retention', type=Path, required=True)
+        if stage == 'confirm': command.add_argument('--assertion', type=Path, required=True)
+        if stage in ('confirm', 'outcomes'): command.add_argument('--previous', type=Path)
+        if stage == 'outcomes':
+            command.add_argument('--confirmation', type=Path, action='append', default=[])
+            command.add_argument('--settlement', type=Path, action='append', default=[])
+        if stage in ('verify', 'replay'): command.add_argument('--bundle', type=Path, required=True)
+        if stage != 'verify':
+            command.add_argument('--artifact-dir', type=Path, required=stage == 'replay',
+                default=Path('data/decision_reviews')/{'retain':'retentions','confirm':'confirmations','outcomes':'reviews','replay':'replays'}[stage])
     return parser
 
 
@@ -211,6 +227,32 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     try:
+        if args.command == 'review':
+            if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
+                parser.error('review commands do not accept current-ingestion options')
+            from fpl_ai import decision_review as dr
+            roots = args.evidence_root or [Path('data')]
+            if args.review_stage == 'verify':
+                manifest, product = dr.verify(args.bundle, roots)
+                print('Verified '+manifest['identity_sha256'])
+                print('Prospective exclusions: '+str(product['prospective_exclusions']))
+                return 0
+            if args.review_stage == 'retain':
+                result = dr.retain(args.decision, roots, args.artifact_dir)
+            elif args.review_stage == 'confirm':
+                result = dr.confirm(args.retention, args.assertion, roots, args.artifact_dir, args.previous)
+            elif args.review_stage == 'outcomes':
+                result = dr.review(args.retention, roots, args.confirmation, args.settlement, args.artifact_dir, args.previous)
+            else:
+                result = dr.replay(args.bundle, roots, args.artifact_dir)
+            out, reused, product = result
+            print(('Reused ' if reused else 'Published ')+str(out))
+            print('Report: '+str(out/'report.md'))
+            print('Prospective exclusions: '+str(product['prospective_exclusions']))
+            if 'pending_targets' in product:
+                print('Pending targets: '+str(product['pending_targets']))
+                print('Confirmed fixed-lineup horizon: '+str(product['confirmed_horizon_points']))
+            return 0
         if args.command == 'decision':
             if any(v is not None for v in (args.current_output_dir, args.current_base_url, args.current_timeout)):
                 parser.error('decision commands do not accept current-ingestion options')

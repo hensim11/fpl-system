@@ -1,5 +1,118 @@
 # FPL AI Platform
 
+## Decision retention and outcome review (M5F)
+
+M5F records explicit manager assertions separately from M5E plans and reviews them
+against verified M5C settlements. Read the [contract](docs/M5F_DESIGN.md) and
+[verification evidence](docs/M5F_VERIFICATION.md). Real inputs and reports belong
+under ignored `local/` or `data/decision_reviews/`; `data/` is not wholly private.
+
+```bash
+# Use the exact bundle printed by decision run; never select a newer/better plan.
+DECISION='data/personal_decisions/<identity>'
+.venv/bin/python -m fpl_ai review retain --decision "$DECISION"
+RETENTION='data/decision_reviews/retentions/<printed-identity>'
+.venv/bin/python -m fpl_ai review confirm --retention "$RETENTION" \
+  --assertion local/my-confirmation.json
+CONFIRMATION='data/decision_reviews/confirmations/<printed-identity>'
+# An honest pending report needs no confirmation or settlement at all.
+.venv/bin/python -m fpl_ai review outcomes --retention "$RETENTION"
+# Add each independently verified M5C target settlement as it becomes available.
+.venv/bin/python -m fpl_ai review outcomes --retention "$RETENTION" \
+  --confirmation "$CONFIRMATION" --settlement 'data/multi_uncertainty/settlements/<identity>'
+REVIEW='data/decision_reviews/reviews/<printed-identity>'
+.venv/bin/python -m fpl_ai review verify --bundle "$REVIEW"
+.venv/bin/python -m fpl_ai review replay --bundle "$REVIEW" --artifact-dir local/review-replay
+```
+
+Every output includes `record.json`, `contract.json`, `report.md`, `report.html` and
+an immutable manifest. Verify/replay accepts any of the three M5F artifact families.
+Use repeatable `--evidence-root` for prerequisites outside `data/`. Identity lookup
+rejects ambiguous copies; keep replay copies outside normal evidence roots. Repeating
+a confirmation reuses its original import/publication timestamps. A new outcome set
+creates a new review. Pass `outcomes --previous "$REVIEW"` to preserve its evidence
+and add further `--settlement`/`--confirmation` arguments. Duplicates do not count
+twice; competing settlement identities or unrelated confirmation heads fail closed.
+
+`local/my-confirmation.json` has this shape (placeholders are deliberately invalid;
+fill only what you can explicitly confirm):
+
+```json
+{
+  "contract": "manager-confirmation-v1",
+  "decision_identity": "<exact M5E identity, not retention identity>",
+  "season": "2026-27",
+  "target_gameweek": 6,
+  "provenance": {
+    "kind": "manual",
+    "source": "<how you checked your actions>",
+    "declared_at": "<timezone-aware time of your assertion/actions>",
+    "confirmed": false
+  },
+  "choice": {"selected": "exact_1", "rejected": []},
+  "actions": {
+    "transfers": null,
+    "squad": null,
+    "starting_xi": null,
+    "captain": null,
+    "transfer_hit": null,
+    "chip": null
+  }
+}
+```
+
+Set `confirmed` to true only after checking the assertion. `choice` may be null,
+select one frozen candidate, or use `selected: null` with a nonempty rejected list.
+Candidate names are `no_transfer`, `greedy`, `exact_1` through the returned count.
+Selecting a plan is an **intention**, never confirmation of its future transfers.
+Use `kind: "synthetic"` for tests; no example is your real account history.
+
+For actual actions, `transfers` is an ordered list of `{"out": 42, "in": 124}` pairs
+for the entire target GW; `[]` explicitly confirms no transfers. `squad` contains
+15 bound element IDs, `starting_xi` 11 legal IDs, `captain` one XI ID,
+`transfer_hit` the total hit **points** (0, 4, 8, …), and `chip: "none"` explicitly
+confirms no active chip. Null means unknown. No chips are supported. A limited
+score requires squad, XI, captain, hits and chip status; transfers can remain
+unknown, in which case the score cannot establish adherence. Later GWs use only
+explicit assertions, with no inferred account transitions, prices or selling rights.
+Unknown new players and lineups unsupported by the frozen population fail closed.
+
+Each asserted transfer pair must preserve position according to the bound frozen
+population; overall in/out sets cannot excuse a cross-position pair. Hit units come
+from the versioned rules. With both count and hits explicit, the hit must be
+possible for some later FT balance from `Rules.next_free(0, 0)` through the rules
+cap. Weekly accrual guarantees a minimum of one under the current contract: one
+transfer permits zero hit; two permit zero or four points, never eight. Exact later
+FT balances remain unknown. The first target still uses exact original FTs.
+
+The review's `prospective_exclusions` headline includes retention **and all attached
+confirmation** exclusions, with deterministic deduplication. Component fields remain
+available in JSON; late or synthetic actions cannot hide behind an eligible retention.
+
+Both earlier M5F contract variants (including the invalid `0..cap` range) are incompatible with the amended contract and are kept
+unchanged. For the same M5E decision, deliberately create new retention with
+`review retain --decision "$DECISION" --artifact-dir data/decision_reviews/final/retentions`.
+Use that new retention identity for confirmations/reviews. There is no silent migration.
+
+To fill unknown fields, write a new assertion retaining all confirmed facts and use
+`confirm --previous "$CONFIRMATION"`. This publishes an immutable extension; it
+cannot correct an existing fact, change an intention, or upgrade late evidence.
+Review retains the predecessor chain. Corrections/changed intentions require manual
+investigation outside v1; it never silently picks between conflicting accounts.
+
+Snapshot/what-if decisions, late retention, late confirmations and synthetic records
+are visibly excluded from prospective decision-value claims. A user-declared earlier
+action time cannot backdate actual import/publication. Local timestamps and manual
+assertions are not independently witnessed account history.
+
+Scores are **fixed-lineup diagnostics**, never official FPL totals: XI points plus
+one extra captain score minus hits; no vice-captain substitution, autosubs or chips.
+Future path transfers remain hypothetical; later prices/availability may make a
+path infeasible. GW and complete-horizon forecast errors and no-transfer/greedy
+deltas use the original candidate order. Missing settlements are pending; blank
+outcomes are null, and incomplete horizons have no total. No ranking, model,
+calibration or simulation is fitted or tuned by this workflow.
+
 ## Personal decision workflow (M5E)
 
 Bring your own exact squad/account state to one local configuration. The workflow

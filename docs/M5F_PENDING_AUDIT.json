@@ -1,0 +1,55 @@
+{
+  "action_hit_pair_and_headline_checks_pass": true,
+  "candidate_count": 5,
+  "candidate_gameweeks_checked": 25,
+  "confirmed_records_checked": 0,
+  "decision_identity": "1ee8a90b35c7a823c9050d0d6d5bbd7462ba2ef4b1e22ddacb82b0ded108c6f5",
+  "fixed_lineup_arithmetic_and_identities_pass": true,
+  "later_hit_boundary": [
+    {
+      "feasible": true,
+      "hit": 0,
+      "transfers": 0
+    },
+    {
+      "feasible": false,
+      "hit": 4,
+      "transfers": 0
+    },
+    {
+      "feasible": true,
+      "hit": 0,
+      "transfers": 1
+    },
+    {
+      "feasible": false,
+      "hit": 4,
+      "transfers": 1
+    },
+    {
+      "feasible": true,
+      "hit": 0,
+      "transfers": 2
+    },
+    {
+      "feasible": true,
+      "hit": 4,
+      "transfers": 2
+    },
+    {
+      "feasible": false,
+      "hit": 8,
+      "transfers": 2
+    }
+  ],
+  "minimum_later_free_transfers": 1,
+  "pending_targets": [
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "review_identity": "85452cf9f91258bb51dfa24288096624420a97440844a76ced0df0b323d2c50c",
+  "settled_targets": []
+}

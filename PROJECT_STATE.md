@@ -1,6 +1,65 @@
 # Project state
 
-Last updated: 2026-09-23
+Last updated: 2026-09-28
+
+## Current M5F result — prospective retention and outcome review
+
+Decision 070 corrects the later-GW FT lower bound left by Decision 069.
+All fresh verification passed; acceptance is recommended within the documented
+limited v1 scope.
+
+M5F adds `review retain|confirm|outcomes|verify|replay` over unchanged M5E and M5C
+semantic readers. Three separate immutable artifact families freeze the original
+comparison/protocol, retain explicit manager assertions, and reconstruct outcome
+reviews. Candidate order, forecasts, simulation statistics and original timestamps
+are copied without reranking. Manual facts are not verified account history.
+
+Later-GW hits must be possible for the declared transfer count under some valid
+FT state from `Rules.next_free(0, 0)` (currently one) through cap; exact later
+economics remain unknown. Every asserted transfer pair preserves its frozen position. The review headline now includes a
+sorted unique union of retention and all attached confirmation exclusions.
+The amended content-bound v1 contract rejects old M5F bundles without rewriting
+or reinterpreting them; use `data/decision_reviews/final/retentions`.
+
+A selected candidate is intention only. Nullable transfers/squad/XI/captain/hits/
+chip fields distinguish unknown, partial, divergent and fully declared matches.
+Monotone confirmation extensions retain predecessors; conflicts require explicit
+investigation. Actual import/publication time prevents a declared earlier action
+time upgrading late evidence. Snapshot, late and synthetic exclusions are visible.
+
+Each authoritative M5C target can be added independently. Reviews deduplicate
+identical evidence, reject competing identities, retain pending/blank status, and
+require complete evidence for horizon totals. Fixed-XI/captain/hit scores, forecast
+errors and no-transfer/greedy deltas are descriptive arithmetic, never official FPL
+scores or executable future-path counterfactuals. No autosubs, vice captain, chips,
+current account inference, later price verification or causal decision-value claim.
+
+**21 focused and 355 full tests pass in fresh normal and optimized runs.**
+The prior 20/354 logs predate the final FT correction.
+All 1,191 original upstream evidence files retain bytes and nanosecond mtimes.
+An additional 60 older M5F files and 77 preceding-hardening files remain unchanged.
+All ten fresh CLI steps returned expected results with networking forbidden,
+including invalid later-hit rejection and valid-neighbour acceptance. Independent
+pending/partial/complete audits are byte-identical across Python modes; replay
+reproduced all five bundle files byte-for-byte.
+See the [compact acceptance record](docs/M5F_ACCEPTANCE.json).
+
+Contract: [M5F design](docs/M5F_DESIGN.md). Operator commands and exact assertion
+schema: [README](README.md#decision-retention-and-outcome-review-m5f).
+Acceptance, independent audit, CLI demonstrations and limitations:
+[M5F verification](docs/M5F_VERIFICATION.md).
+The real-data M5E demonstration remains a synthetic squad/snapshot: GW6–10 are
+pending and no live manager action or outcome has been invented. Synthetic settled
+fixtures are isolated under ignored `local/m5f-final/lifecycle/`.
+
+Next handoff: deliberately obtain a fresh pre-deadline M5E decision, retain it,
+record actual manager assertions promptly, and append genuine M5C target evidence
+as each GW becomes authoritative. Preserve fixed models/ranking/simulation; assess
+usefulness descriptively before proposing any separately designed utility policy.
+Correction/retraction of assertions and full official FPL scoring remain later work.
+No commit, push or merge performed.
+
+## Prior M5E result
 
 Current attestation hardening: **35 focused / 334 full tests pass normally and under
 `python -O`**, with successful real CLI lifecycle and independent audit. See
@@ -13,7 +72,7 @@ external time-witness claim. All 1,123 prior files retain bytes/nanosecond mtime
 The initial acceptance counts and timings below are historical; the earlier bundle
 is preserved but does not pass the current implementation-bound semantic reader.
 
-## Current milestone
+### M5E implementation at acceptance
 
 **M5E — Personalised Decision Workflow and Explainable Reports v1** implements
 `decision init|players|validate|run|verify|replay`. A separate personal-state wrapper
@@ -52,7 +111,7 @@ quick start, exact supported values, verify/replay and deliberate refresh sequen
 No actual manager squad was supplied; the demonstration is explicitly synthetic.
 M5B's objective, M5C calibration and M5D law remain unchanged.
 
-Next substantial batch: **prospective decision retention and outcome review**—bind
+M5E handoff (implemented by M5F above): **prospective decision retention and outcome review**—bind
 manager-confirmed actions separately from hypothetical plans, accumulate genuine
 settled outcomes and predeclared comparison diagnostics without retrospective
 selection or recalibration. Do not claim realised utility from this demonstration

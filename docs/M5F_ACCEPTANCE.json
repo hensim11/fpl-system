@@ -1,0 +1,185 @@
+{
+  "acceptance_status": "recommended_for_documented_limited_v1_scope_after_final_ft_lower_bound_correction",
+  "additional_previous_hardening_files_preserved": 77,
+  "all_cli_steps_passed_expected_exit_codes_network_forbidden": true,
+  "boundary_confirmation": "local/m5f-final/lifecycle/boundary-confirmations/481f874d4ccd555792c995bed195190b75b47917af90778101628c8f49ffe8a2",
+  "candidate_gameweeks_independently_checked_per_review": 25,
+  "cli_steps": 10,
+  "cli_total_seconds": 1245.432,
+  "compatibility": {
+    "contract_sha256": "6f157a8424a7dbb4974cc4ee3a990e3c798a55b86e6fd44783b3ea9aa6f658cf",
+    "old_bundles_rejected": [
+      {
+        "path": "data/decision_reviews/hardened/retentions/dc8d02aabf1991b6e2370ea689a2faaf4aa11f6fae27a0d0a01c0835c8eb5ac7",
+        "rejection": "M5F contract mismatch"
+      },
+      {
+        "path": "local/m5f-hardening/lifecycle/synthetic-confirmations/b58e4a9b5d5587edfa660063630375fd311ccdafab85a6db6f3fdf694e1deb2c",
+        "rejection": "M5F contract mismatch"
+      },
+      {
+        "path": "local/m5f-hardening/lifecycle/synthetic-reviews/5fa048a4be78dad44d9a2f474fb3d4f93e1ddd8c9ee1b7e4e6cf3a597d859cc6",
+        "rejection": "M5F contract mismatch"
+      }
+    ]
+  },
+  "contract_defined_before_implementation": "docs/M5F_DESIGN.md final correction; Decision 070",
+  "contract_sha256": "6f157a8424a7dbb4974cc4ee3a990e3c798a55b86e6fd44783b3ea9aa6f658cf",
+  "diff_whitespace_check_passed": true,
+  "focused_tests_each_mode": 21,
+  "full_tests_each_mode": 355,
+  "fully_declared_two_gw_horizon_independently_audited_in_tests": true,
+  "independent_audits": [
+    "pending",
+    "partial",
+    "complete"
+  ],
+  "independent_audits_normal_optimized_identical": true,
+  "limitations": [
+    "manual assertions and local timestamps are not independently witnessed",
+    "fixed-lineup arithmetic is not official FPL scoring",
+    "no vice-captain, autosubs or chips",
+    "frozen future transfers have unsupported later market feasibility",
+    "confirmation extensions only fill unknown fields; revisions need investigation",
+    "no demonstrated causal decision value or model/simulation tuning"
+  ],
+  "live_manager_actions_or_results_invented": false,
+  "m5b_m5e_computation_and_workflow_modules_unchanged": true,
+  "merged_m5e_ancestor_verified": true,
+  "milestone": "M5F",
+  "minimum_later_free_transfers": 1,
+  "minimum_source": "Rules.next_free(0, 0)",
+  "no_commit_push_merge": true,
+  "older_m5f_files_preserved": 60,
+  "original_candidate_order_retained": true,
+  "partial_review": "local/m5f-final/lifecycle/synthetic-reviews/d3ce6abff519317e3e18129f00a3a92e92ca0f6a1609c1642553a1a803880671",
+  "pending_review": "local/m5f-final/lifecycle/real-pending/85452cf9f91258bb51dfa24288096624420a97440844a76ced0df0b323d2c50c",
+  "preservation": [
+    {
+      "bytes_and_nanosecond_mtimes_unchanged": true,
+      "files": 1191,
+      "inventory": "local/m5f/prior-evidence.json",
+      "sha256": "477acf3e16a715fcdc9eb05df656760d38b10774460c0105d3051da647871c80"
+    },
+    {
+      "bytes_and_nanosecond_mtimes_unchanged": true,
+      "files": 60,
+      "inventory": "local/m5f-hardening/old-m5f-inventory.json",
+      "sha256": "f0b7e98ed029d84820d48825cb1bbe54118d2fe7ffb1d4d7d0d74d70838e97d9"
+    },
+    {
+      "bytes_and_nanosecond_mtimes_unchanged": true,
+      "files": 77,
+      "inventory": "local/m5f-final/previous-hardening-inventory.json",
+      "sha256": "00f5a4200f76b4dbbe6a4d3b1164d5d7acd8c6174b3ee9c67aceb57a6b03d5fa"
+    }
+  ],
+  "previous_evidence": "local/m5f-final/pre-final-evidence; pre-fix 20/354 logs do not validate this edge",
+  "prior_bytes_and_nanosecond_mtimes_unchanged": true,
+  "prior_evidence_files_preserved": 1191,
+  "public_cli_boundary": {
+    "commands": [
+      {
+        "argv": [
+          "review",
+          "confirm",
+          "--retention",
+          "data/decision_reviews/final/retentions/b08bf724a3dc20ad9b3716f95dba95092b475b8ba54cf56f1e8b292869cccfc2",
+          "--assertion",
+          "local/m5f-final/lifecycle/later-one-transfer.json",
+          "--artifact-dir",
+          "local/m5f-final/lifecycle/boundary-confirmations",
+          "--evidence-root",
+          "data",
+          "--evidence-root",
+          "local/m5f-final/lifecycle"
+        ],
+        "exit_code": 1,
+        "log_sha256": "57936aa761d71b367a0f009609d5775fc460b32fb963933e0743eb98010bde05",
+        "name": "later-one-transfer-hit-rejected",
+        "network_forbidden": true,
+        "seconds": 124.606
+      },
+      {
+        "argv": [
+          "review",
+          "confirm",
+          "--retention",
+          "data/decision_reviews/final/retentions/b08bf724a3dc20ad9b3716f95dba95092b475b8ba54cf56f1e8b292869cccfc2",
+          "--assertion",
+          "local/m5f-final/lifecycle/later-one-transfer.json",
+          "--artifact-dir",
+          "local/m5f-final/lifecycle/boundary-confirmations",
+          "--evidence-root",
+          "data",
+          "--evidence-root",
+          "local/m5f-final/lifecycle"
+        ],
+        "exit_code": 0,
+        "log_sha256": "9f9feb49fd1b11c4d2b75707732f241b4619127d20b8fde3190b164741ba99d1",
+        "name": "later-one-transfer-zero-accepted",
+        "network_forbidden": true,
+        "seconds": 124.157
+      }
+    ],
+    "invalid_input_snapshot": {
+      "path": "local/m5f-final/lifecycle/rejected-later-one-transfer-snapshot.json",
+      "sha256": "9ee9b73a7cc5f493dce49c0c141a37f300a41c5e34221b82bf95bd506a4fb6d1"
+    },
+    "invalid_published": false,
+    "network_forbidden": true,
+    "note": "The CLI assertion path first contained the rejected fixture, then the zero-hit neighbour; rejected bytes are retained separately for reproduction.",
+    "only_difference_is_hit": true,
+    "valid_input": {
+      "path": "local/m5f-final/lifecycle/later-one-transfer.json",
+      "sha256": "b679a21f757b68b24b5f6008d57d0b552501bb6e0efbc3cf838f2b9c002a2a6d"
+    }
+  },
+  "real_pending_targets": [
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "replay_all_bytes_identical": true,
+  "replay_identical_files": 5,
+  "retention": "data/decision_reviews/final/retentions/b08bf724a3dc20ad9b3716f95dba95092b475b8ba54cf56f1e8b292869cccfc2",
+  "reuse_confirmation_and_review_identities_unchanged": true,
+  "starting_branch": "m5f-prospective-decision-review",
+  "starting_commit": "ba652d54642d686f5ddb97edddb4149ebf46b458",
+  "synthetic_confirmation": "local/m5f-final/lifecycle/synthetic-confirmations/f4657f408466025066b1f453094d681f3b0cb61c3b1fa43ca355f77ff4e9a66e",
+  "synthetic_confirmed_gw6_fixed_lineup_points": 56,
+  "synthetic_confirmed_horizon_points": null,
+  "synthetic_review": "local/m5f-final/lifecycle/synthetic-reviews/f754f05a4e48306ffb0c7d74a62f739bb535f9a1c4a37e4a4fd7ad92330d2142",
+  "tests": [
+    {
+      "command": ".venv/bin/python -m unittest tests.test_decision_review",
+      "log_sha256": "0c8e95b444e267916b5362a427fb354980d6a81b1c3e256d629cd5c8f6821665",
+      "passed": true,
+      "seconds": 75.155,
+      "tests": 21
+    },
+    {
+      "command": ".venv/bin/python -O -m unittest tests.test_decision_review",
+      "log_sha256": "c0a065b1574ac47a1168a09b9ed1160b7bdb7ab86607fbbfad69bf68363ecf96",
+      "passed": true,
+      "seconds": 92.986,
+      "tests": 21
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests",
+      "log_sha256": "456c15f91ea6c637fd7bde4ca6afa960772f5a582a1fad51aade91dfeffc7ec3",
+      "passed": true,
+      "seconds": 140.296,
+      "tests": 355
+    },
+    {
+      "command": ".venv/bin/python -O -m unittest discover -s tests",
+      "log_sha256": "469b219291d4821c5e632447f2179b3e5cefaebcb917255bcd6286298250c6b6",
+      "passed": true,
+      "seconds": 139.749,
+      "tests": 355
+    }
+  ]
+}

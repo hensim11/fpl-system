@@ -14,6 +14,9 @@ from fpl_ai.evaluation import BASELINES
 
 
 STAGE_ARTIFACTS = {
+    'decision-retention': {'contract.json', 'record.json', 'report.md', 'report.html'},
+    'manager-confirmation': {'contract.json', 'record.json', 'report.md', 'report.html'},
+    'decision-outcome-review': {'contract.json', 'record.json', 'report.md', 'report.html'},
     'personal-decision': {'contract.json', 'squad.json', 'personal.json', 'config.json', 'dependencies.json', 'summary.json', 'report.md', 'report.html'},
     'joint-simulation': {'contract.json', 'population.json', 'projections.json', 'diagnostics.json', 'scenario_hashes.json'},
     'simulation-plan-evaluation': {'evaluation.json'},
